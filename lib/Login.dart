@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    Color primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
+      backgroundColor: const Color(0xFFD9D4D0),
+
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Sa3teen Gd',
           style: TextStyle(fontSize: 30),
+
         ),
+        backgroundColor: const Color(0xFFD9D4D0),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -25,77 +32,104 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/smoke-png-image-hot-tea-smoke-115628935603vseugjqx5.png',
-                      width: 135,
-                      height: 100,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/smoke-png-image-hot-tea-smoke-115628935603vseugjqx5.png',
+                    width: 135,
+                    height: 100,
+                  ),
+                  Image.asset(
+                    'assets/teacup.png',
+                    width: 260.12,
+                    height: 280,
+                  ),
+                  const Text(
+                    "Login To Your Account",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400,
                     ),
-                    Image.asset(
-                      'assets/teacup.png',
-                      width: 260.12,
-                      height: 280,
-                    ),
-                    Text("Login To Your Account", style: TextStyle(fontSize: 20)),
-                  ],
-                ),
+                  )                  ],
               ),
 
 
 
               TextField(
                 controller: _usernameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email',
                   prefixIcon: Icon(Icons.email),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                   prefixIcon: Icon(Icons.lock),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   // Add your authentication logic here
                   String username = _usernameController.text;
                   String password = _passwordController.text;
                 },
-                child: Text('Sign In'),
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(269, 45), backgroundColor: primaryColor,
+                ),
+                child: const Text(
+                  'Sign In',
+                  style: TextStyle(color: Colors.white), // Set the text color
+                ),
               ),
+
+
+
+
+
+              const SizedBox(height: 10,),
+              const Text(" Or Sign in With"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.facebook),
+                    icon: const Icon(Icons.facebook),
                     onPressed: () {
                       // Handle Facebook login
                     },
                   ),
-                  SizedBox(width: 40),
+                  const SizedBox(width: 40),
                   IconButton(
-                    icon: Icon(Icons.table_view_rounded),
+                    icon: const Icon(Icons.table_view_rounded),
                     onPressed: () {
                       // Handle Twitter login
                     },
                   ),
-                  SizedBox(width: 40),
+                  const SizedBox(width: 40),
                   IconButton(
-                    icon: Icon(Icons.g_translate),
+                    icon: const Icon(Icons.g_translate),
                     onPressed: () {
                       // Handle Google login
                     },
                   ),
                 ],
-              )
+              ),
+              const Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Don’t have an account?"),
+                    SizedBox(width: 5),
+                    Text("Sign Up")
+                  ],
+                ),
+              ),
+
             ],
           ),
         ),
