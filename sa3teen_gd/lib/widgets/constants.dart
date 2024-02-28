@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sa3teen_gd/widgets/UserModel.dart';
 
 Color KPrimaryColour=Color.fromARGB(255, 248, 247, 242);
+Color KPrimaryColourGreen=Color(0xFF3C8243);
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
