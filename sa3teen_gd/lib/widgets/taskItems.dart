@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sa3teen_gd/widgets/chekbox.dart';
 import 'package:sa3teen_gd/widgets/constants.dart';
 
 class taskItem extends StatelessWidget {
@@ -9,6 +10,7 @@ class taskItem extends StatelessWidget {
         padding: EdgeInsets.only(left: 16),
         child: Row(
           children: [
+            checkBox(),
             const Text(
               "vedios for knn",
               style: TextStyle(fontSize: 15),
@@ -19,7 +21,8 @@ class taskItem extends StatelessWidget {
               style: TextStyle(color: Colors.grey, fontSize: 12),
             ),
             Padding(
-              padding: EdgeInsets.all(0.0), // Set padding to zero
+              padding: EdgeInsets.zero,
+              // padding: EdgeInsets.all(0.0), // Set padding to zero
               child: IconButton(
                 onPressed: () {},
                 icon: Icon(
@@ -29,7 +32,8 @@ class taskItem extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(0.0), // Set padding to zero
+              padding: EdgeInsets.zero,
+              //padding: EdgeInsets.all(0.0), // Set padding to zero
               child: IconButton(
                 onPressed: () {},
                 icon: Icon(

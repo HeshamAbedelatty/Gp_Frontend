@@ -23,7 +23,6 @@ class ListViewforTasks extends StatelessWidget {
 
 
 
-
 // ListView(
 //           // padding: EdgeInsets.symmetric(horizontal: 20),
 //           children: const [
