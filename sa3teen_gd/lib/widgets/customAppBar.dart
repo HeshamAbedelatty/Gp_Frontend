@@ -5,32 +5,37 @@ class customAppBar extends StatelessWidget {
   const customAppBar({super.key});
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(Icons.person),
-        Spacer(),
-        Text(
-          "ToDoList",
-          style: TextStyle(fontSize: 20),
-        ),
-        Spacer(),
-        Container(
-          height: 27,
-          width: 27,
-          color: KPrimaryColourGreen ,
-          child: Center(
-            child: Icon(Icons.search),
+    return Container(
+      height: 80,
+      width: 50,
+      color: KPrimaryColourGreen,
+      child: Row(
+        children: [
+          Icon(Icons.person),
+          Spacer(),
+          Text(
+            "ToDoList",
+            style: TextStyle(fontSize: 20),
           ),
-        ),
-        Container(
-          height: 27,
-          width: 27,
-          color: KPrimaryColourGreen,
-          child: Center(
-            child: Icon(Icons.menu),
+          Spacer(),
+          Container(
+            height: 27,
+            width: 27,
+            color: KPrimaryColourGreen ,
+            child: Center(
+              child: Icon(Icons.search),
+            ),
           ),
-        ),
-      ],
+          Container(
+            height: 27,
+            width: 27,
+            color: KPrimaryColourGreen,
+            child: Center(
+              child: Icon(Icons.menu),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

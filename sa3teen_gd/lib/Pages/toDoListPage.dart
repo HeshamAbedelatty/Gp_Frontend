@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sa3teen_gd/widgets/constants.dart';
 import 'package:sa3teen_gd/widgets/customAppBar.dart';
+import 'package:sa3teen_gd/widgets/taskItems.dart';
 
 class toDoListPage extends StatelessWidget {
   toDoListPage();
@@ -13,13 +14,19 @@ class toDoListPage extends StatelessWidget {
         backgroundColor: KPrimaryColour,
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          children: [
+          children: const[
             customAppBar(),
-            Container(
-              width: 300,
-              height: 300,
-              color: KPrimaryColourGreen,),
-
+            SizedBox(height: 30),
+            taskItem(),
+            taskItem(),
+            taskItem(),
+            taskItem(),
+            taskItem(),
+            // Container(
+            //   width: 300,
+            //   height: 300,
+            //   color: KPrimaryColourGreen,
+            // ),
           ],
         ),
       ),
