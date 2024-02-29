@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:sa3teen_gd/Pages/homePage.dart';
+import 'package:sa3teen_gd/Pages/fakeHomePage/homePage.dart';
 import 'package:sa3teen_gd/Pages/signUpPage/signUpPage.dart';
 import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/UserModel.dart';
 import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
