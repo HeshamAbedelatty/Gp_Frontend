@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sa3teen_gd/widgets/constants.dart';
-import 'package:sa3teen_gd/widgets/taskItems.dart';
+import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
+import 'package:sa3teen_gd/widgets/toDoListWidgets/taskItems.dart';
 
 class ListViewforTasks extends StatelessWidget {
   const ListViewforTasks({super.key});

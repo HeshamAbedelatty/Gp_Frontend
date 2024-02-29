@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sa3teen_gd/widgets/ListViewforTasks.dart';
-import 'package:sa3teen_gd/widgets/constants.dart';
-import 'package:sa3teen_gd/widgets/customAppBar.dart';
+import 'package:sa3teen_gd/widgets/toDoListWidgets/ListViewforTasks.dart';
+import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
+import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/customAppBar.dart';
 
 class ToDoListPage extends StatelessWidget {
   ToDoListPage();

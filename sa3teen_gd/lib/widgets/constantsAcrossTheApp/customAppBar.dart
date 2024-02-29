@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sa3teen_gd/widgets/constants.dart';
+import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
 
 class customAppBar extends StatelessWidget {
   const customAppBar({super.key});

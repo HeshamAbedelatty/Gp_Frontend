@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sa3teen_gd/widgets/chekbox.dart';
-import 'package:sa3teen_gd/widgets/constants.dart';
+import 'package:sa3teen_gd/widgets/toDoListWidgets/chekbox.dart';
+import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
 
 class taskItem extends StatelessWidget {
   const taskItem({super.key});
