@@ -24,7 +24,9 @@ class taskItem extends StatelessWidget {
               padding: EdgeInsets.zero,
               // padding: EdgeInsets.all(0.0), // Set padding to zero
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  
+                },
                 icon: Icon(
                   Icons.edit,
                   color: KPrimaryColourBrown,

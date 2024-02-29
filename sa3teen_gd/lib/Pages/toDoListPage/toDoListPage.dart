@@ -18,7 +18,7 @@ class ToDoListPage extends StatelessWidget {
             const Flexible(
               child: customAppBar(),
             ),
-            const Flexible(child: ListViewforTasks()),
+            const Expanded(child: ListViewforTasks()),
             
             BottomAppBar(color: KPrimaryColour,child: FloatingActionButton(
               onPressed: () {
