@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-//import 'package:sa3teen_gd/lib/Models/toDoListClass.dart';
-
-part of 'toDoListClass.dart';
+import 'package:hive/hive.dart';
+import 'package:sa3teen_gd/Models/toDoListClass.dart';
+//part of 'toDoListClass.dart'; //comment to remove the error
 
 // **************************************************************************
 // TypeAdapterGenerator

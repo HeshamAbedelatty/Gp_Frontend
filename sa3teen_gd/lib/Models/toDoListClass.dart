@@ -1,5 +1,7 @@
 import 'package:hive/hive.dart';
-part 'toDoListClass.g.dart'; 
+import 'package:hive_flutter/adapters.dart';
+
+//part 'toDoListClass.g.dart'; //comment to remove the error
 
 @HiveType(typeId: 0)
 class ToDoListClass extends HiveObject {
