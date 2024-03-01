@@ -7,8 +7,9 @@ import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/feild.dart';
 //import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
-  LoginPage();
+  LoginPage({super.key});
 
   static String id = "LoginPage";
   GlobalKey<FormState> formkey = GlobalKey();
@@ -121,8 +122,8 @@ class LoginPage extends StatelessWidget {
                                 //Navigator.pushNamed(context, homePage.id);
                                 Navigator.push(
                                     context,
-                                     MaterialPageRoute(
-                                        builder: (context) => new homePage()));
+                                    MaterialPageRoute(
+                                        builder: (context) => new HomePage()));
                                 return;
                               } else {
                                 print('wrong password try again');

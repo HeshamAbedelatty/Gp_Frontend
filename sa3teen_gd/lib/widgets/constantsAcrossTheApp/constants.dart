@@ -4,7 +4,7 @@ import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/UserModel.dart';
 Color KPrimaryColour = Color.fromARGB(255, 248, 247, 242);
 Color KPrimaryColourGreen = Color(0xFF3C8243);
 Color KPrimaryColourBrown = Color(0xFFA17740);
-
+String ktask = "task";
 TextEditingController firstNameController = TextEditingController();
 TextEditingController lastNameController = TextEditingController();
 TextEditingController emailController = TextEditingController();
