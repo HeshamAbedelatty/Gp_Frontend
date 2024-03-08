@@ -96,144 +96,143 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
               // scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: ListTile(
-                      leading: Checkbox(
-                        materialTapTargetSize: MaterialTapTargetSize.padded,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        value: tasks[index].isChecked,
-                        tristate: true,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            tasks[index].isChecked = value ?? false;
-                          });
-                        },
-                        activeColor: KPrimaryColourGreen,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListTile(
+                    leading: Checkbox(
+                      materialTapTargetSize: MaterialTapTargetSize.padded,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      title: Text(
-                        tasks[index].taskName,
-                        style: TextStyle(
-                          fontSize: 18,
-                          decoration: tasks[index].isChecked
-                              ? TextDecoration.lineThrough
-                              : TextDecoration.none,
-                          color: tasks[index].isChecked
-                              ? Colors
-                                  .grey // Set the color to gray when isChecked is true
-                              : Colors
-                                  .black, // Set the color to black when isChecked is false
-                        ),
+                      value: tasks[index].isChecked,
+                      tristate: true,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          tasks[index].isChecked = value ?? false;
+                        });
+                      },
+                      activeColor: KPrimaryColourGreen,
+                    ),
+                    title: Text(
+                      tasks[index].taskName,
+                      style: TextStyle(
+                        fontSize: 18,
+                        decoration: tasks[index].isChecked
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                        color: tasks[index].isChecked
+                            ? Colors
+                                .grey // Set the color to gray when isChecked is true
+                            : Colors
+                                .black, // Set the color to black when isChecked is false
                       ),
-                      subtitle: Text(tasks[index].deadline.toString()),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                              icon: const Icon(Icons.edit,
-                                  color: Colors.brown), // Edit icon
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: const Text('Edit Task'),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          TextField(
-                                            controller: taskNameController,
-                                            decoration: const InputDecoration(
-                                                labelText: 'Task Name'),
-                                          ),
-                                          InkWell(
-                                            onTap: () async {
-                                              final DateTime? pickedDate =
-                                                  await showDatePicker(
+                    ),
+                    subtitle: Text(tasks[index].deadline.toString()),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        priorityIcon(),
+                        IconButton(
+                            icon: const Icon(Icons.edit,
+                                color: Colors.brown), // Edit icon
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('Edit Task'),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        TextField(
+                                          controller: taskNameController,
+                                          decoration: const InputDecoration(
+                                              labelText: 'Task Name'),
+                                        ),
+                                        InkWell(
+                                          onTap: () async {
+                                            final DateTime? pickedDate =
+                                                await showDatePicker(
+                                              context: context,
+                                              initialDate: DateTime.now(),
+                                              firstDate: DateTime(2000),
+                                              lastDate: DateTime(2101),
+                                            );
+                                            if (pickedDate != null) {
+                                              final TimeOfDay? pickedTime =
+                                                  // ignore: use_build_context_synchronously
+                                                  await showTimePicker(
                                                 context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(2000),
-                                                lastDate: DateTime(2101),
+                                                initialTime: TimeOfDay.now(),
                                               );
-                                              if (pickedDate != null) {
-                                                final TimeOfDay? pickedTime =
-                                                    // ignore: use_build_context_synchronously
-                                                    await showTimePicker(
-                                                  context: context,
-                                                  initialTime: TimeOfDay.now(),
+                                              if (pickedTime != null) {
+                                                final DateTime
+                                                    selectedDateTime = DateTime(
+                                                  pickedDate.year,
+                                                  pickedDate.month,
+                                                  pickedDate.day,
+                                                  pickedTime.hour,
+                                                  pickedTime.minute,
                                                 );
-                                                if (pickedTime != null) {
-                                                  final DateTime
-                                                      selectedDateTime =
-                                                      DateTime(
-                                                    pickedDate.year,
-                                                    pickedDate.month,
-                                                    pickedDate.day,
-                                                    pickedTime.hour,
-                                                    pickedTime.minute,
-                                                  );
-                                                  setState(() {
-                                                    dateController.text =
-                                                        selectedDateTime
-                                                            .toString();
-                                                  });
-                                                }
+                                                setState(() {
+                                                  dateController.text =
+                                                      selectedDateTime
+                                                          .toString();
+                                                });
                                               }
-                                            },
-                                            child: IgnorePointer(
-                                              child: TextField(
-                                                controller: dateController,
-                                                decoration:
-                                                    const InputDecoration(
-                                                        labelText:
-                                                            'Due Date & Time'),
-                                              ),
+                                            }
+                                          },
+                                          child: IgnorePointer(
+                                            child: TextField(
+                                              controller: dateController,
+                                              decoration: const InputDecoration(
+                                                  labelText: 'Due Date & Time'),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Cancel'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            //             if (formKey.currentState!.validate()) {
-                                            //   formKey.currentState!.save();
-                                            //   addTask(taskNameController.text);
-                                            // } else {
-                                            //   autovalidateMode = AutovalidateMode.always;
-                                            //   setState(
-                                            //     () {},
-                                            //   );
-                                            // }
-                                            editTask(index);
-
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('edit'),
                                         ),
                                       ],
-                                    );
-                                  },
-                                );
-                              } // Edit task function
-                              ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.brown,
-                            ), // Delete icon
-                            onPressed: () =>
-                                deleteTask(index), // Delete task function
-                          ),
-                        ],
-                      ),
-                    ));
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          //             if (formKey.currentState!.validate()) {
+                                          //   formKey.currentState!.save();
+                                          //   addTask(taskNameController.text);
+                                          // } else {
+                                          //   autovalidateMode = AutovalidateMode.always;
+                                          //   setState(
+                                          //     () {},
+                                          //   );
+                                          // }
+                                          editTask(index);
+
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('edit'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } // Edit task function
+                            ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.brown,
+                          ), // Delete icon
+                          onPressed: () =>
+                              deleteTask(index), // Delete task function
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               },
             ),
           ),
@@ -322,12 +321,72 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   }
 }
 
+enum Priority { High, Normal, Low }
+
+class priorityIcon extends StatefulWidget {
+  @override
+  _priorityIconState createState() => _priorityIconState();
+}
+
+class _priorityIconState extends State<priorityIcon> {
+  Priority priority = Priority.Normal; // Default priority
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<Priority>(
+      focusColor: KPrimaryColour,
+      value: priority,
+      onChanged: (value) {
+        setState(() {
+          priority = value!;
+        });
+      },
+      items: const [
+        DropdownMenuItem(
+          value: Priority.High,
+          child: Row(
+            children: [
+              Icon(Icons.flag, color: Colors.red),
+              SizedBox(width: 8),
+              Text('High Priority'),
+            ],
+          ),
+        ),
+        DropdownMenuItem(
+          value: Priority.Normal,
+          child: Row(
+            children: [
+              Icon(Icons.flag, color: Colors.yellow),
+              SizedBox(width: 8),
+              Text('Normal Priority'),
+            ],
+          ),
+        ),
+        DropdownMenuItem(
+          value: Priority.Low,
+          child: Row(
+            children: [
+              Icon(Icons.flag, color: Colors.green),
+              SizedBox(width: 8),
+              Text('Low Priority'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 void main() {
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: ToDoListScreen(),
   ));
 }
+
+
+
+
 
 
 
