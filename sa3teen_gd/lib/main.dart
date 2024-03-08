@@ -4,16 +4,15 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:sa3teen_gd/Pages/loginPage/LoginPage.dart';
 import 'package:sa3teen_gd/Pages/fakeHomePage/homePage.dart';
 import 'package:sa3teen_gd/Pages/signUpPage/signUpPage.dart';
-import 'package:sa3teen_gd/Pages/toDoListPage/toDoListPage.dart';
-import 'package:sa3teen_gd/Pages/toDoListPage/OLDtoDoListPageold.dart';
 import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/UserModel.dart';
 
 void main() async {
-  await Hive.initFlutter();
-  await Hive.openBox(ktask);
+  // await Hive.initFlutter();
+  // await Hive.openBox(ktask);
   // getHttp();
 //stored data
+
   addUser('salma', 'mourad', 'salma', '01159228572', '111', '111');
   addUser('hala', 'gamal', 'hala', '0', '222', '222');
   addUser('hesham', 'ahmed', 'hesham', '1', '333', '333');
@@ -41,10 +40,8 @@ class sa3teenGd extends StatelessWidget {
         LoginPage.id: (context) => LoginPage(),
         signUpPage.id: (context) => signUpPage(),
         HomePage.id: (context) => HomePage(),
-        toDoListPageold.id: (context) => toDoListPageold(),
-        ToDoListPage.id: (context) => ToDoListPage(),
       },
-      initialRoute: ToDoListPage.id,
+      initialRoute: LoginPage.id,
 
       //initialRoute: LoginPage.id,
       debugShowCheckedModeBanner: false,

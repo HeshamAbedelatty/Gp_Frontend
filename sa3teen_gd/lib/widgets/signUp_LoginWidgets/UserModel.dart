@@ -1,3 +1,4 @@
+
 class UserModel {
   String firstName;
   String lastName;
@@ -31,6 +32,7 @@ void addUser(String firstName, String lastName, String email,
   );
   persons.add(newUser);
 }
+
 
 //check if the user exists
 bool checkIfUserExists(List<UserModel> users, String email) {

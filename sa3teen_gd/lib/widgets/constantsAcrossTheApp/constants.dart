@@ -12,6 +12,17 @@ TextEditingController phoneNumberController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 TextEditingController confirmPasswordController = TextEditingController();
 
+
+TextEditingController taskNameController = TextEditingController();
+TextEditingController idController = TextEditingController();
+TextEditingController dateController = TextEditingController();
+TextEditingController priorityController = TextEditingController();
+
+TextEditingController colorController = TextEditingController();
+TextEditingController isDoneController = TextEditingController();
+
+
+
 // List to store user data
 List<UserModel> users = [];
 
