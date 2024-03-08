@@ -67,6 +67,21 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       colorController.clear();
     });
   }
+  void searchTask(String searchTerm) {
+  List<ToDoListClass> searchResults = tasks
+      .where((task) =>
+          task.taskName.toLowerCase().contains(searchTerm.toLowerCase()))
+      .toList();
+
+  if (searchResults.isNotEmpty) {
+    print('Search Results:');
+    for (ToDoListClass task in searchResults) {
+      print('Task: ${task.taskName}, Date: ${task.deadline}');
+    }
+  } else {
+    print('No tasks found matching the search term.');
+  }
+}
 
   // Function to delete task
   void deleteTask(int index) {
@@ -79,7 +94,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     }
   }
 
-  //bool checked = false;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -89,6 +103,53 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       body: Column(
         children: [
           const customAppBar(),
+          IconButton(onPressed: (){
+            
+            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('search for Task'),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        TextField(
+                                          controller: taskNameController,
+                                          decoration: const InputDecoration(
+                                              labelText: 'Task Name'),
+                                        ),
+                                        
+                                      ],
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          //             if (formKey.currentState!.validate()) {
+                                          //   formKey.currentState!.save();
+                                          //   addTask(taskNameController.text);
+                                          // } else {
+                                          //   autovalidateMode = AutovalidateMode.always;
+                                          //   setState(
+                                          //     () {},
+                                          //   );
+                                          // }
+                                         searchTask(taskNameController.text);
+
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('search'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+            }, icon: Icon(Icons.search)),
           Expanded(
             child: ListView.builder(
               shrinkWrap: true,
