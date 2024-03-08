@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:sa3teen_gd/Pages/loginPage/LoginPage.dart';
-import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/UserModel.dart';
-import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
-import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/feild.dart';
+import 'package:gp_screen/Pages/loginPage/LoginPage.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
+import 'package:gp_screen/widgets/signUp_LoginWidgets/UserModel.dart';
+import 'package:gp_screen/widgets/signUp_LoginWidgets/feild.dart';
+// import 'package:sa3teen_gd/Pages/loginPage/LoginPage.dart';
+// import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/UserModel.dart';
+// import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
+// import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/feild.dart';
 
 class signUpPage extends StatefulWidget {
   signUpPage();

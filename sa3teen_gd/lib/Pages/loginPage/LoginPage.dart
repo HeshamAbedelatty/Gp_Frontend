@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:sa3teen_gd/Pages/fakeHomePage/homePage.dart';
-import 'package:sa3teen_gd/Pages/signUpPage/signUpPage.dart';
-import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/UserModel.dart';
-import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
-import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/feild.dart';
-//import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:gp_screen/HomePage.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
+import 'package:gp_screen/widgets/signUp_LoginWidgets/UserModel.dart';
+import 'package:gp_screen/widgets/signUp_LoginWidgets/feild.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
@@ -201,6 +199,7 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(width: 5),
                     GestureDetector(
                         onTap: () {
+                          var signUpPage;
                           Navigator.pushNamed(context, signUpPage.id);
                         },
                         child: const Text("Sign Up")),

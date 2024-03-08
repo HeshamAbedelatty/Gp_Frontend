@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
 class CustomTaskButton extends StatelessWidget {
   final VoidCallback? onPressed; // Define onPressed parameter

@@ -28,7 +28,6 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-<<<<<<< HEAD
   dio: ^5.4.1
   hive: ^2.2.3
   equatable: ^2.0.5
@@ -36,8 +35,6 @@ dependencies:
   flutter_bloc: ^8.1.4
   form_field_validator: ^1.1.0
   modal_progress_hud_nsn: ^0.5.1
-=======
->>>>>>> aace326a56d008591fd91aa27f9d2ee618d5c08b
   flutter:
     sdk: flutter
   carousel_slider: 4.2.1

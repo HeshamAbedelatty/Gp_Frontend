@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sa3teen_gd/vediointernetcodeNotUsing/home.dart';
+import 'package:gp_screen/vediointernetcodeNotUsing/home.dart';
 
 void main() {
   runApp(const MyApp());

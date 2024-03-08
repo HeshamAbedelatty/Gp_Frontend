@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:gp_screen/HomePage.dart';
+import 'package:gp_screen/Pages/fakeHomePage/homePage.dart';
+import 'package:gp_screen/Pages/loginPage/LoginPage.dart';
+import 'package:gp_screen/Pages/signUpPage/signUpPage.dart';
+import 'package:gp_screen/widgets/signUp_LoginWidgets/UserModel.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:sa3teen_gd/Pages/loginPage/LoginPage.dart';
-import 'package:sa3teen_gd/Pages/fakeHomePage/homePage.dart';
-import 'package:sa3teen_gd/Pages/signUpPage/signUpPage.dart';
-import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
-import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/UserModel.dart';
 
 void main() async {
   // await Hive.initFlutter();
@@ -39,7 +39,7 @@ class sa3teenGd extends StatelessWidget {
       routes: {
         LoginPage.id: (context) => LoginPage(),
         signUpPage.id: (context) => signUpPage(),
-        HomePage.id: (context) => HomePage(),
+        //HomePage.id:(context) => HomePage(),
       },
       initialRoute: LoginPage.id,
 

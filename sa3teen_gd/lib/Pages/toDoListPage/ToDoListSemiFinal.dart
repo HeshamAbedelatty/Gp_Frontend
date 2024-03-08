@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
-import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/customAppBar.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 
 class ToDoListClass {
   final String taskName;
