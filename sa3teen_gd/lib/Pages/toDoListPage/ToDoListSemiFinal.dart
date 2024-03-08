@@ -67,21 +67,22 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       colorController.clear();
     });
   }
-  void searchTask(String searchTerm) {
-  List<ToDoListClass> searchResults = tasks
-      .where((task) =>
-          task.taskName.toLowerCase().contains(searchTerm.toLowerCase()))
-      .toList();
 
-  if (searchResults.isNotEmpty) {
-    print('Search Results:');
-    for (ToDoListClass task in searchResults) {
-      print('Task: ${task.taskName}, Date: ${task.deadline}');
+  void searchTask(String searchTerm) {
+    List<ToDoListClass> searchResults = tasks
+        .where((task) =>
+            task.taskName.toLowerCase().contains(searchTerm.toLowerCase()))
+        .toList();
+
+    if (searchResults.isNotEmpty) {
+      print('Search Results:');
+      for (ToDoListClass task in searchResults) {
+        print('Task: ${task.taskName}, Date: ${task.deadline}');
+      }
+    } else {
+      print('No tasks found matching the search term.');
     }
-  } else {
-    print('No tasks found matching the search term.');
   }
-}
 
   // Function to delete task
   void deleteTask(int index) {
@@ -103,53 +104,70 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       body: Column(
         children: [
           const customAppBar(),
-          IconButton(onPressed: (){
-            
-            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text('search for Task'),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        TextField(
-                                          controller: taskNameController,
-                                          decoration: const InputDecoration(
-                                              labelText: 'Task Name'),
-                                        ),
-                                        
-                                      ],
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          //             if (formKey.currentState!.validate()) {
-                                          //   formKey.currentState!.save();
-                                          //   addTask(taskNameController.text);
-                                          // } else {
-                                          //   autovalidateMode = AutovalidateMode.always;
-                                          //   setState(
-                                          //     () {},
-                                          //   );
-                                          // }
-                                         searchTask(taskNameController.text);
-
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('search'),
-                                      ),
-                                    ],
-                                  );
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text('search for Task'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                TextField(
+                                  controller: taskNameController,
+                                  decoration: const InputDecoration(
+                                      labelText: 'Task Name'),
+                                ),
+                              ],
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
                                 },
-                              );
-            }, icon: Icon(Icons.search)),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  //             if (formKey.currentState!.validate()) {
+                                  //   formKey.currentState!.save();
+                                  //   addTask(taskNameController.text);
+                                  // } else {
+                                  //   autovalidateMode = AutovalidateMode.always;
+                                  //   setState(
+                                  //     () {},
+                                  //   );
+                                  // }
+                                  searchTask(taskNameController.text);
+
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('search'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    icon: Icon(Icons.search)),
+              ],
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Row(mainAxisAlignment: MainAxisAlignment.start,
+           
+              children: [
+                Text("ToDoList:",style: TextStyle(fontSize: 25),),
+              ],
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               shrinkWrap: true,
@@ -191,10 +209,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        priorityIcon(),
+                        PriorityIcon(),
                         IconButton(
                             icon: const Icon(Icons.edit,
-                                color: Colors.brown), // Edit icon
+                               ), // Edit icon
                             onPressed: () {
                               showDialog(
                                 context: context,
@@ -285,7 +303,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                         IconButton(
                           icon: const Icon(
                             Icons.delete,
-                            color: Colors.brown,
+                            
                           ), // Delete icon
                           onPressed: () =>
                               deleteTask(index), // Delete task function
@@ -381,62 +399,116 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     );
   }
 }
-
 enum Priority { High, Normal, Low }
 
-class priorityIcon extends StatefulWidget {
+class PriorityIcon extends StatefulWidget {
   @override
-  _priorityIconState createState() => _priorityIconState();
+  _PriorityIconState createState() => _PriorityIconState();
 }
 
-class _priorityIconState extends State<priorityIcon> {
+class _PriorityIconState extends State<PriorityIcon> {
   Priority priority = Priority.Normal; // Default priority
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<Priority>(
-      focusColor: KPrimaryColour,
-      value: priority,
-      onChanged: (value) {
+    return PopupMenuButton<Priority>(
+      onSelected: (Priority value) {
         setState(() {
-          priority = value!;
+          priority = value;
         });
       },
-      items: const [
-        DropdownMenuItem(
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<Priority>>[
+        PopupMenuItem(
           value: Priority.High,
-          child: Row(
-            children: [
-              Icon(Icons.flag, color: Colors.red),
-              SizedBox(width: 8),
-              Text('High Priority'),
-            ],
+          child: ListTile(
+            leading: Icon(Icons.flag, color: Colors.red),
+            title: Text('High Priority'),
           ),
         ),
-        DropdownMenuItem(
+        PopupMenuItem(
           value: Priority.Normal,
-          child: Row(
-            children: [
-              Icon(Icons.flag, color: Colors.yellow),
-              SizedBox(width: 8),
-              Text('Normal Priority'),
-            ],
+          child: ListTile(
+            leading: Icon(Icons.flag, color: Colors.yellow),
+            title: Text('Normal Priority'),
           ),
         ),
-        DropdownMenuItem(
+        PopupMenuItem(
           value: Priority.Low,
-          child: Row(
-            children: [
-              Icon(Icons.flag, color: Colors.green),
-              SizedBox(width: 8),
-              Text('Low Priority'),
-            ],
+          child: ListTile(
+            leading: Icon(Icons.flag, color: Colors.green),
+            title: Text('Low Priority'),
           ),
         ),
       ],
-    );
+      child:  Icon(
+          Icons.flag,
+          color: priority == Priority.High
+              ? Colors.red
+              : priority == Priority.Normal
+                  ? Colors.yellow
+                  : Colors.green,
+        ),
+        
+        // Icon(Icons.keyboard_arrow_down),
+      );
   }
 }
+
+// enum Priority { High, Normal, Low }
+
+// class priorityIcon extends StatefulWidget {
+//   @override
+//   _priorityIconState createState() => _priorityIconState();
+// }
+
+// class _priorityIconState extends State<priorityIcon> {
+//   Priority priority = Priority.Normal; // Default priority
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return DropdownButton<Priority>(
+//       focusColor: KPrimaryColour,
+//       value: priority,
+//       onChanged: (value) {
+//         setState(() {
+//           priority = value!;
+//         });
+//       },
+//       items: const [
+//         DropdownMenuItem(
+//           value: Priority.High,
+//           child: Row(
+//             children: [
+//               Icon(Icons.flag, color: Colors.red),
+//               SizedBox(width: 8),
+//               Text('High Priority'),
+//             ],
+//           ),
+//         ),
+//         DropdownMenuItem(
+//           value: Priority.Normal,
+//           child: Row(
+//             children: [
+//               Icon(Icons.flag, color: Colors.yellow),
+//               SizedBox(width: 8),
+//               Text('Normal Priority'),
+//             ],
+//           ),
+//         ),
+//         DropdownMenuItem(
+//           value: Priority.Low,
+//           child: Row(
+//             children: [
+//               Icon(Icons.flag, color: Colors.green),
+//               SizedBox(width: 8),
+//               Text('Low Priority'),
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 void main() {
   runApp(const MaterialApp(
