@@ -1,6 +1,8 @@
+// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gp_screen/HomePage.dart';
+import 'package:gp_screen/Pages/signUpPage/signUpPage.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/widgets/signUp_LoginWidgets/UserModel.dart';
 import 'package:gp_screen/widgets/signUp_LoginWidgets/feild.dart';
@@ -69,24 +71,22 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 25),
-                feild(
+                Feild(
                     text: 'Email',
-                    icon: Icon(Icons.email_outlined),
+                    icon: const Icon(Icons.email_outlined),
                     controller: emailController,
                     fieldValidator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
                       } else if (value != null) {
-                        print('hi');
-
                         EmailValidator(
                             errorText: 'Please correct email filled');
                       }
                     }),
                 const SizedBox(height: 15),
-                feild(
+                Feild(
                     text: 'Password',
-                    icon: Icon(Icons.lock_outline),
+                    icon: const Icon(Icons.lock_outline),
                     controller: passwordController,
                     fieldValidator: (value) {
                       if (value == null || value.isEmpty) {
@@ -121,7 +121,7 @@ class LoginPage extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => new HomePage()));
+                                        builder: (context) => HomePage()));
                                 return;
                               } else {
                                 print('wrong password try again');
@@ -139,7 +139,7 @@ class LoginPage extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           fixedSize: const Size(320, 48),
-                          primary: const Color(
+                          backgroundColor: const Color(
                               0xFF3C8243), // Hex color code for the button
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
@@ -152,13 +152,11 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 25),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      child: const Text('Or Sign In with',
-                          style: TextStyle(color: Colors.grey)),
-                    ),
+                    Text('Or Sign In with',
+                        style: TextStyle(color: Colors.grey)),
                   ],
                 ),
                 const SizedBox(
@@ -199,8 +197,8 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(width: 5),
                     GestureDetector(
                         onTap: () {
-                          var signUpPage;
-                          Navigator.pushNamed(context, signUpPage.id);
+                          //var signUpPage;
+                          Navigator.pushNamed(context, SignUpPage.id);
                         },
                         child: const Text("Sign Up")),
                   ],

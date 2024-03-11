@@ -4,21 +4,19 @@ import 'package:gp_screen/Pages/loginPage/LoginPage.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/widgets/signUp_LoginWidgets/UserModel.dart';
 import 'package:gp_screen/widgets/signUp_LoginWidgets/feild.dart';
-// import 'package:sa3teen_gd/Pages/loginPage/LoginPage.dart';
-// import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/UserModel.dart';
-// import 'package:sa3teen_gd/widgets/constantsAcrossTheApp/constants.dart';
-// import 'package:sa3teen_gd/widgets/signUp_LoginWidgets/feild.dart';
 
-class signUpPage extends StatefulWidget {
-  signUpPage();
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
+  // static String id = "SignUpPage";
   static String id = "SignUpPage";
 
   @override
-  _signUpPageState createState() => _signUpPageState();
+  // ignore: library_private_types_in_public_api
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _signUpPageState extends State<signUpPage> {
+class _SignUpPageState extends State<SignUpPage> {
   @override
   GlobalKey<FormState> formkey = GlobalKey();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -54,7 +52,7 @@ class _signUpPageState extends State<signUpPage> {
                 ],
               ),
               const SizedBox(height: 25),
-              feild(
+              Feild(
                   text: 'First Name',
                   icon: const Icon(Icons.person_2_outlined),
                   controller: firstNameController,
@@ -64,7 +62,7 @@ class _signUpPageState extends State<signUpPage> {
                     }
                   }),
               const SizedBox(height: 15),
-              feild(
+              Feild(
                   text: 'Last Name',
                   icon: const Icon(Icons.person_2_outlined),
                   controller: lastNameController,
@@ -74,7 +72,7 @@ class _signUpPageState extends State<signUpPage> {
                     }
                   }),
               const SizedBox(height: 15),
-              feild(
+              Feild(
                   text: 'Email',
                   icon: const Icon(Icons.email_outlined),
                   controller: emailController,
@@ -88,7 +86,7 @@ class _signUpPageState extends State<signUpPage> {
                     }
                   }),
               const SizedBox(height: 15),
-              feild(
+              Feild(
                   text: 'Phone Number',
                   icon: const Icon(Icons.phone),
                   controller: phoneNumberController,
@@ -98,7 +96,7 @@ class _signUpPageState extends State<signUpPage> {
                     }
                   }),
               const SizedBox(height: 15),
-              feild(
+              Feild(
                   text: 'Password',
                   icon: const Icon(Icons.lock_outline),
                   controller: passwordController,
@@ -111,7 +109,7 @@ class _signUpPageState extends State<signUpPage> {
                     }
                   }),
               const SizedBox(height: 15),
-              feild(
+              Feild(
                   text: 'Confirm Password',
                   icon: const Icon(Icons.password_outlined),
                   controller: confirmPasswordController,
@@ -167,8 +165,8 @@ class _signUpPageState extends State<signUpPage> {
                           }
                           Navigator.push(
                               context,
-                               MaterialPageRoute(
-                                  builder: (context) => new LoginPage()));
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()));
                           print('User registered successfully');
                         } else {
                           // show error message

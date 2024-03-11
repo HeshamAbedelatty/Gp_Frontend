@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+// ignore: implementation_imports
 import 'package:flutter/src/widgets/form.dart' as r;
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
-class feild extends StatelessWidget {
-  feild(
-      {required this.text,
+// ignore: must_be_immutable
+class Feild extends StatelessWidget {
+  Feild(
+      {super.key,
+      required this.text,
       required this.icon,
       this.controller,
       this.fieldValidator});
@@ -16,25 +20,22 @@ class feild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 40, right: 40),
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Color(0xFFA6A5A4), //color for the bottom border
-            width: 1.5, // Adjust the width
-          ),
-        ),
-      ),
+      margin: const EdgeInsets.only(left: 40, right: 40),
       child: Column(
         children: [
           // Image.asset('lib/assets/icons/user.png'),
-
           TextFormField(
             controller: controller,
             decoration: InputDecoration(
-              prefixIcon: icon, // User icon on the left
+              focusColor: KPrimaryColourGreen,
+              icon: icon, // User icon on the left
               labelText: text,
-              border: InputBorder.none, // Remove the default border
+              border: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFA6A5A4), width: 1.5),
+              ), // InputBorder.none, // Remove the default border
+              // focusedBorder: const UnderlineInputBorder(
+              //   borderSide: BorderSide(color: Color(0xFF3C8243), width: 1.5),
+              // ),
             ),
             validator: fieldValidator,
           ),
