@@ -1,15 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 import 'Chat Bot.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+
 abstract class ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final List<String> messages = [];
-  bool _isUserMessage = true; // Variable to track whether the message is from the user
+  bool _isUserMessage =
+      true; // Variable to track whether the message is from the user
 
   void _handleSubmitted(String text) {
-    if (text.isNotEmpty) { // Check if the text is not empty
+    if (text.isNotEmpty) {
+      // Check if the text is not empty
       _controller.clear();
       setState(() {
         messages.insert(0, text);
@@ -21,7 +25,6 @@ abstract class ChatScreenState extends State<ChatScreen> {
     }
   }
 }
-
 
 Future<void> sendData() async {
   final Map<String, dynamic> requestData = {'text': 'Hello from Flutter!'};
@@ -40,42 +43,68 @@ Future<void> sendData() async {
   }
 }
 
+class VideoPlayerWidget extends StatefulWidget {
+  const VideoPlayerWidget({Key? key, required this.videoUrl}) : super(key: key);
+  final String videoUrl;
 
+  @override
+  State<VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
+}
 
+class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
+  late VideoPlayerController _videoPlayerController;
+  late Future<void> _initializeVideoPlayerFuture;
+  bool _isPlaying = false;
 
+  @override
+  void initState() {
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
+    _initializeVideoPlayerFuture =
+        _videoPlayerController.initialize().then((_) {
+      setState(() {});
+    });
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
+  }
 
+  void _togglePlayPause() {
+    setState(() {
+      if (_videoPlayerController.value.isPlaying) {
+        _videoPlayerController.pause();
+      } else {
+        _videoPlayerController.play();
+      }
+      _isPlaying = _videoPlayerController.value.isPlaying;
+    });
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initializeVideoPlayerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return GestureDetector(
+            onTap: _togglePlayPause,
+            child: AspectRatio(
+              aspectRatio: _videoPlayerController.value.aspectRatio,
+              child: VideoPlayer(_videoPlayerController),
+            ),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+}
 
 //
 // void fetchData() async {
