@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gp_screen/Pages/loginPage/LoginPage.dart';
@@ -176,7 +178,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       style: ElevatedButton.styleFrom(
                         fixedSize: const Size(320, 48),
-                        primary: Color(0xFF3C8243),
+                        backgroundColor: kprimaryColourGreen,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100.0),
                         ),
