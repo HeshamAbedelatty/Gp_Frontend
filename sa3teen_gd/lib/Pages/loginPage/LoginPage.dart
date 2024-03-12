@@ -28,7 +28,7 @@ class LoginPage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          backgroundColor: KPrimaryColour,
+          backgroundColor: kprimaryColourWhite,
           body: Form(
             key: formkey,
             child: ListView(

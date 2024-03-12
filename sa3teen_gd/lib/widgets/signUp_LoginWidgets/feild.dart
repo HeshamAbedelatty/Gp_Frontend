@@ -27,7 +27,7 @@ class Feild extends StatelessWidget {
           TextFormField(
             controller: controller,
             decoration: InputDecoration(
-              focusColor: KPrimaryColourGreen,
+              focusColor: kprimaryColourGreen,
               icon: icon, // User icon on the left
               labelText: text,
               border: const UnderlineInputBorder(

@@ -85,7 +85,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
-      backgroundColor: KPrimaryColour,
+      backgroundColor: kprimaryColourWhite,
       body: Column(
         children: [
           const customAppBar(),
@@ -110,7 +110,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                             tasks[index].isChecked = value ?? false;
                           });
                         },
-                        activeColor: KPrimaryColourGreen,
+                        activeColor: kprimaryColourGreen,
                       ),
                       title: Text(
                         tasks[index].taskName,
@@ -238,8 +238,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
             ),
           ),
           FloatingActionButton(
-            hoverColor: KPrimaryColourGreen,
-            backgroundColor: KPrimaryColourGreen,
+            hoverColor: kprimaryColourGreen,
+            backgroundColor: kprimaryColourGreen,
             onPressed: () {
               showDialog(
                 context: context,

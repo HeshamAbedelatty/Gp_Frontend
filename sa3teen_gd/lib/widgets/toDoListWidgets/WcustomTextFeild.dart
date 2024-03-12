@@ -24,10 +24,10 @@ class CustomTextField extends StatelessWidget {
           return null;
         }
       },
-      cursorColor: KPrimaryColourGreen,
+      cursorColor: kprimaryColourGreen,
       decoration: InputDecoration(
         enabledBorder: biuldBorder(),
-        focusedBorder: biuldBorder(KPrimaryColourGreen),
+        focusedBorder: biuldBorder(kprimaryColourGreen),
         hintText: hint,
       ),
     );

@@ -154,7 +154,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KPrimaryColour,
+      backgroundColor: kprimaryColourWhite,
       body: Column(
         children: [
           const customAppBar(),
@@ -324,7 +324,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                 .isChecked = value!;
                                           });
                                         },
-                                        activeColor: KPrimaryColourGreen,
+                                        activeColor: kprimaryColourGreen,
                                       ),
                                       title: Text(
                                         toDoLists[listIndex]
@@ -489,7 +489,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                         style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all<
-                                                    Color?>(KPrimaryColour)),
+                                                    Color?>(kprimaryColourWhite)),
                                         onPressed: () {
                                           showDialog(
                                             context: context,

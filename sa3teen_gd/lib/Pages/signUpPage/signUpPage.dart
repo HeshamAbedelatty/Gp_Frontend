@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: KPrimaryColour,
+        backgroundColor: kprimaryColourWhite,
         body: Form(
           child: ListView(
             children: [

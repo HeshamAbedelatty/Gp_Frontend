@@ -6,7 +6,7 @@ class customAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration( color: KPrimaryColourGreen,borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))),
+      decoration: BoxDecoration( color: kprimaryColourGreen,borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))),
       height: 125,
       //width: 50,
       
@@ -25,7 +25,7 @@ class customAppBar extends StatelessWidget {
           Container(
             height: 27,
             width: 27,
-            color: KPrimaryColourGreen,
+            color: kprimaryColourGreen,
             child:const Center(
               child: Icon(Icons.search,color:Colors.white,),
             ),
@@ -33,7 +33,7 @@ class customAppBar extends StatelessWidget {
           Container( 
             height: 27,
             width: 27,
-            color: KPrimaryColourGreen,
+            color: kprimaryColourGreen,
             child:const Center(
               child: Icon(Icons.menu,color: Colors.white,),
             ),
