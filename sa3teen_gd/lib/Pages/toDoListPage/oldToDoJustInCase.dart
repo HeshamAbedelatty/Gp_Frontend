@@ -517,7 +517,56 @@ void main() {
   ));
 }
 
-
+// leading: IconButton(
+                                  //   icon: Icon(Icons.add),
+                                  //   onPressed: () {
+                                  //     showDialog(
+                                  //       context: context,
+                                  //       builder: (context) {
+                                  //         return AlertDialog(
+                                  //           title: const Text(
+                                  //             'Add Task',
+                                  //           ),
+                                  //           content: Column(
+                                  //             mainAxisSize: MainAxisSize.min,
+                                  //             children: <Widget>[
+                                  //               TextField(
+                                  //                 // controller: listNameController,
+                                  //                 controller: listNameControllers[
+                                  //                     listIndex], // Use the corresponding controller,
+                                  //                 onChanged: (value) {
+                                  //                   setState(() {
+                                  //                     toDoLists[listIndex]
+                                  //                         .listName = value;
+                                  //                   });
+                                  //                 },
+                                  //                 decoration:
+                                  //                     const InputDecoration(
+                                  //                         labelText:
+                                  //                             'Task Name'),
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //           actions: <Widget>[
+                                  //             TextButton(
+                                  //               onPressed: () {
+                                  //                 Navigator.pop(context);
+                                  //               },
+                                  //               child: const Text('Cancel'),
+                                  //             ),
+                                  //             TextButton(
+                                  //               onPressed: () {
+                                  //                 addNewToDoList;
+                                  //                 Navigator.pop(context);
+                                  //               },
+                                  //               child: const Text('Add'),
+                                  //             ),
+                                  //           ],
+                                  //         );
+                                  //       },
+                                  //     );
+                                  //   },
+                                  // ),
 
 
 

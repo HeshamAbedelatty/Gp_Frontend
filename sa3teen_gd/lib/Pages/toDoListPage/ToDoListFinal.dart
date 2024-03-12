@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
+import 'package:gp_screen/widgets/toDoListWidgets/Priority.dart';
 
 class ToDoListClass {
   String listName;
@@ -17,11 +18,13 @@ class Task {
   String taskName;
   DateTime deadline;
   bool isChecked;
+  Priority priority;
 
   Task({
     required this.taskName,
     required this.deadline,
     this.isChecked = false,
+    this.priority = Priority.normal, // Default priority
   });
 }
 
@@ -70,16 +73,18 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     setState(() {
       var taskNameVar = taskNameController.text;
       var deadlineVar = dateController.text;
+      var priorityVar = Priority.normal; // Default priority
 
       toDoLists[listIndex].tasks.add(Task(
             taskName: taskNameVar,
             deadline: DateTime.parse(deadlineVar),
+            priority: priorityVar,
           ));
       for (var list in toDoLists) {
         for (var task in list.tasks) {
           print(list.listName);
           print(
-            'Added Task: ${task.taskName} , Deadline: ${task.deadline} , check: ${task.isChecked}',
+            'Added Task: ${task.taskName} , Deadline: ${task.deadline} , check: ${task.isChecked} ,priority: ${task.priority}',
           );
         }
       }
@@ -97,7 +102,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       for (var task in list.tasks) {
         print(list.listName);
         print(
-          'Added Task: ${task.taskName} , Deadline: ${task.deadline}',
+          'Added Task: ${task.taskName} , Deadline: ${task.deadline},priority: ${task.priority}',
         );
       }
     }
@@ -114,12 +119,16 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       toDoLists[listIndex].tasks[taskIndex] = Task(
           taskName: taskNameController.text,
           deadline: DateTime.parse(dateController.text));
+      // priority:
+      // toDoLists[listIndex]
+      //     .tasks[taskIndex]
+      //     .priority; // Maintain existing priority
     });
     for (var list in toDoLists) {
       for (var task in list.tasks) {
         print(list.listName);
         print(
-          'Added Task: ${task.taskName} , Deadline: ${task.deadline}',
+          'Added Task: ${task.taskName} , Deadline: ${task.deadline},priority: ${task.priority}',
         );
       }
     }
@@ -130,7 +139,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     for (var list in toDoLists) {
       for (var task in list.tasks) {
         if (task.taskName.toLowerCase().contains(keyword.toLowerCase())) {
-          print('Task: ${task.taskName}, Date: ${task.deadline}');
+          print(
+              'Task: ${task.taskName}, Date: ${task.deadline},priority: ${task.priority}');
 
           return task;
         } else {
@@ -281,56 +291,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                             child: Column(
                               children: [
                                 ListTile(
-                                  // leading: IconButton(
-                                  //   icon: Icon(Icons.add),
-                                  //   onPressed: () {
-                                  //     showDialog(
-                                  //       context: context,
-                                  //       builder: (context) {
-                                  //         return AlertDialog(
-                                  //           title: const Text(
-                                  //             'Add Task',
-                                  //           ),
-                                  //           content: Column(
-                                  //             mainAxisSize: MainAxisSize.min,
-                                  //             children: <Widget>[
-                                  //               TextField(
-                                  //                 // controller: listNameController,
-                                  //                 controller: listNameControllers[
-                                  //                     listIndex], // Use the corresponding controller,
-                                  //                 onChanged: (value) {
-                                  //                   setState(() {
-                                  //                     toDoLists[listIndex]
-                                  //                         .listName = value;
-                                  //                   });
-                                  //                 },
-                                  //                 decoration:
-                                  //                     const InputDecoration(
-                                  //                         labelText:
-                                  //                             'Task Name'),
-                                  //               ),
-                                  //             ],
-                                  //           ),
-                                  //           actions: <Widget>[
-                                  //             TextButton(
-                                  //               onPressed: () {
-                                  //                 Navigator.pop(context);
-                                  //               },
-                                  //               child: const Text('Cancel'),
-                                  //             ),
-                                  //             TextButton(
-                                  //               onPressed: () {
-                                  //                 addNewToDoList;
-                                  //                 Navigator.pop(context);
-                                  //               },
-                                  //               child: const Text('Add'),
-                                  //             ),
-                                  //           ],
-                                  //         );
-                                  //       },
-                                  //     );
-                                  //   },
-                                  // ),
                                   title: Text(
                                     toDoLists[listIndex].listName,
                                   ),
@@ -390,7 +350,9 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                       trailing: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          const PriorityIcon(),
+                                          PriorityIcon(
+                                              task: toDoLists[listIndex]
+                                                  .tasks[taskIndex]),
                                           IconButton(
                                               onPressed: () {
                                                 showDialog(
@@ -641,64 +603,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-// ignore: constant_identifier_names
-enum Priority { High, Normal, Low }
-
-class PriorityIcon extends StatefulWidget {
-  const PriorityIcon({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _PriorityIconState createState() => _PriorityIconState();
-}
-
-class _PriorityIconState extends State<PriorityIcon> {
-  Priority priority = Priority.Normal; // Default priority
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<Priority>(
-      onSelected: (Priority value) {
-        setState(() {
-          priority = value;
-        });
-      },
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<Priority>>[
-        const PopupMenuItem(
-          value: Priority.High,
-          child: ListTile(
-            leading: Icon(Icons.flag, color: Colors.red),
-            title: Text('High Priority'),
-          ),
-        ),
-        const PopupMenuItem(
-          value: Priority.Normal,
-          child: ListTile(
-            leading: Icon(Icons.flag, color: Colors.yellow),
-            title: Text('Normal Priority'),
-          ),
-        ),
-        const PopupMenuItem(
-          value: Priority.Low,
-          child: ListTile(
-            leading: Icon(Icons.flag, color: Colors.green),
-            title: Text('Low Priority'),
-          ),
-        ),
-      ],
-      child: Icon(
-        Icons.flag,
-        color: priority == Priority.High
-            ? Colors.red
-            : priority == Priority.Normal
-                ? Colors.yellow
-                : Colors.green,
-      ),
-      // Icon(Icons.keyboard_arrow_down),
     );
   }
 }
