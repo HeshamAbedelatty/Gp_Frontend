@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
+import 'package:gp_screen/widgets/TaskDialogWidget_notdone.dart';
 import 'package:gp_screen/widgets/toDoListWidgets/Priority.dart';
 import 'package:intl/intl.dart';
 
@@ -75,46 +76,47 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       var taskNameVar = taskNameController.text;
       var deadlineVar = dateController.text;
       var priorityVar = Priority.normal; // Default priority
-       // Check if the deadlineVar is empty
-    if (deadlineVar.isNotEmpty) {
-      // Parse the deadlineVar string
-      DateTime deadline = DateFormat("yyyy-MM-dd HH:mm:ss").parse(deadlineVar);
+      // Check if the deadlineVar is empty
+      if (deadlineVar.isNotEmpty) {
+        // Parse the deadlineVar string
+        DateTime deadline = DateTime.parse(deadlineVar);
 
-      toDoLists[listIndex].tasks.add(Task(
-        taskName: taskNameVar,
-        deadline: deadline,
-        priority: priorityVar,
-      ));
-      
-      // Print added task details
-      for (var list in toDoLists) {
-        for (var task in list.tasks) {
-          print(list.listName);
-          print(
-            'Added Task: ${task.taskName} , Deadline: ${task.deadline} , check: ${task.isChecked} ,priority: ${task.priority}',
-          );
+        toDoLists[listIndex].tasks.add(Task(
+              taskName: taskNameVar,
+              deadline: deadline,
+              priority: priorityVar,
+            ));
+
+        // Print added task details
+        for (var list in toDoLists) {
+          for (var task in list.tasks) {
+            print(list.listName);
+            print(
+              'Added Task: ${task.taskName} , Deadline: ${task.deadline} , check: ${task.isChecked} ,priority: ${task.priority}',
+            );
+          }
         }
+      } else {
+        print(deadlineVar);
+        // Handle case where deadlineVar is empty
+        print('Error: Deadline is empty');
       }
-    } else {
-      // Handle case where deadlineVar is empty
-      print('Error: Deadline is empty');
-    }
-    // DateTime deadline = DateFormat("yyyy-MM-dd HH:mm:ss").parse(deadlineVar);
+      // DateTime deadline = DateFormat("yyyy-MM-dd HH:mm:ss").parse(deadlineVar);
 
-    //   toDoLists[listIndex].tasks.add(Task(
-    //         taskName: taskNameVar,
-    //         // deadline: DateTime.parse(deadlineVar),
-    //         deadline: deadline,
-    //         priority: priorityVar,
-    //       ));
-    //   for (var list in toDoLists) {
-    //     for (var task in list.tasks) {
-    //       print(list.listName);
-    //       print(
-    //         'Added Task: ${task.taskName} , Deadline: ${task.deadline} , check: ${task.isChecked} ,priority: ${task.priority}',
-    //       );
-    //     }
-    //   }
+      //   toDoLists[listIndex].tasks.add(Task(
+      //         taskName: taskNameVar,
+      //         // deadline: DateTime.parse(deadlineVar),
+      //         deadline: deadline,
+      //         priority: priorityVar,
+      //       ));
+      //   for (var list in toDoLists) {
+      //     for (var task in list.tasks) {
+      //       print(list.listName);
+      //       print(
+      //         'Added Task: ${task.taskName} , Deadline: ${task.deadline} , check: ${task.isChecked} ,priority: ${task.priority}',
+      //       );
+      //     }
+      //   }
 
       taskNameController.clear();
       dateController.clear();
@@ -207,7 +209,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               TextField(
-                                
                                 controller: listNameControllers.isNotEmpty
                                     ? listNameControllers[toDoLists.length - 1]
                                     : TextEditingController(),
@@ -228,14 +229,16 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const Text('Cancel',style: TextStyle(color: kprimaryColourGreen)),
+                              child: const Text('Cancel',
+                                  style: TextStyle(color: kprimaryColourGreen)),
                             ),
                             TextButton(
                               onPressed: () {
                                 addNewToDoList();
                                 Navigator.pop(context);
                               },
-                              child: const Text('Add',style: TextStyle(color: kprimaryColourGreen)),
+                              child: const Text('Add',
+                                  style: TextStyle(color: kprimaryColourGreen)),
                             ),
                           ],
                         );
@@ -248,61 +251,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
               ],
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.end,
-          //     children: [
-          //       IconButton(
-          //           onPressed: () {
-          //             showDialog(
-          //               context: context,
-          //               builder: (context) {
-          //                 return AlertDialog(
-          //                   title: const Text('search for Task'),
-          //                   content: Column(
-          //                     mainAxisSize: MainAxisSize.min,
-          //                     children: <Widget>[
-          //                       TextField(
-          //                         controller: taskNameController,
-          //                         decoration: const InputDecoration(
-          //                             labelText: 'Task Name'),
-          //                       ),
-          //                     ],
-          //                   ),
-          //                   actions: <Widget>[
-          //                     TextButton(
-          //                       onPressed: () {
-          //                         Navigator.pop(context);
-          //                       },
-          //                       child: const Text('Cancel'),
-          //                     ),
-          //                     TextButton(
-          //                       onPressed: () {
-          //                         //             if (formKey.currentState!.validate()) {
-          //                         //   formKey.currentState!.save();
-          //                         //   addTask(taskNameController.text);
-          //                         // } else {
-          //                         //   autovalidateMode = AutovalidateMode.always;
-          //                         //   setState(
-          //                         //     () {},
-          //                         //   );
-          //                         // }
-          //                         searchTask(taskNameController.text);
-
-          //                         Navigator.pop(context);
-          //                       },
-          //                       child: const Text('search'),
-          //                     ),
-          //                   ],
-          //                 );
-          //               },
-          //             );
-          //           },
-          //           icon: Icon(Icons.search)),
-          //     ],
-          //   ),
-          // ),
+    
           Expanded(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -478,7 +427,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                                 context);
                                                           },
                                                           child: const Text(
-                                                              'Cancel',style: TextStyle(color: kprimaryColourGreen)),
+                                                              'Cancel',
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      kprimaryColourGreen)),
                                                         ),
                                                         TextButton(
                                                           onPressed: () {
@@ -488,7 +440,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                                 context);
                                                           },
                                                           child: const Text(
-                                                              'edit',style: TextStyle(color: kprimaryColourGreen)),
+                                                              'edit',
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      kprimaryColourGreen)),
                                                         ),
                                                       ],
                                                     );
@@ -512,7 +467,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                               context);
                                                         },
                                                         child: const Text(
-                                                            'Cancel',style: TextStyle(color: kprimaryColourGreen)),
+                                                            'Cancel',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    kprimaryColourGreen)),
                                                       ),
                                                       TextButton(
                                                         onPressed: () {
@@ -522,7 +480,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                               context);
                                                         },
                                                         child: const Text(
-                                                            'delete',style: TextStyle(color: kprimaryColourGreen)),
+                                                            'delete',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    kprimaryColourGreen)),
                                                       ),
                                                     ],
                                                   );
@@ -549,110 +510,20 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                     kprimaryColourWhite)),
                                         onPressed: () {
                                           showDialog(
-  context: context,
-  builder: (context) => TaskDialog(
-    title: 'Add Task',
-    actionButtonText: 'Add',
-    onPressedAction: () {
-      addTask(listIndex);
-      Navigator.pop(context);
-    },
-  ),
-);
-                                          // showDialog(
-                                          //   context: context,
-                                          //   builder: (context) {
-                                          //     return AlertDialog(
-                                          //       title: const Text(
-                                          //         'Add Task',
-                                          //       ),
-                                          //       content: Column(
-                                          //         mainAxisSize:
-                                          //             MainAxisSize.min,
-                                          //         children: <Widget>[
-                                          //           TextField(
-                                          //             controller:
-                                          //                 taskNameController,
-                                          //             decoration:
-                                          //                 const InputDecoration(
-                                          //                     labelText:
-                                          //                         'Task Name'),
-                                          //           ),
-                                          //           InkWell(
-                                          //             onTap: () async {
-                                          //               final DateTime?
-                                          //                   pickedDate =
-                                          //                   await showDatePicker(
-                                          //                 context: context,
-                                          //                 initialDate:
-                                          //                     DateTime.now(),
-                                          //                 firstDate:
-                                          //                     DateTime(2000),
-                                          //                 lastDate:
-                                          //                     DateTime(2101),
-                                          //               );
-                                          //               if (pickedDate !=
-                                          //                   null) {
-                                          //                 final TimeOfDay?
-                                          //                     pickedTime =
-                                          //                     // ignore: use_build_context_synchronously
-                                          //                     await showTimePicker(
-                                          //                   context: context,
-                                          //                   initialTime:
-                                          //                       TimeOfDay.now(),
-                                          //                 );
-                                          //                 if (pickedTime !=
-                                          //                     null) {
-                                          //                   final DateTime
-                                          //                       selectedDateTime =
-                                          //                       DateTime(
-                                          //                     pickedDate.year,
-                                          //                     pickedDate.month,
-                                          //                     pickedDate.day,
-                                          //                     pickedTime.hour,
-                                          //                     pickedTime.minute,
-                                          //                   );
-                                          //                   setState(() {
-                                          //                     dateController
-                                          //                             .text =
-                                          //                         selectedDateTime
-                                          //                             .toString();
-                                          //                   });
-                                          //                 }
-                                          //               }
-                                          //             },
-                                          //             child: IgnorePointer(
-                                          //               child: TextField(
-                                          //                 controller:
-                                          //                     dateController,
-                                          //                 decoration:
-                                          //                     const InputDecoration(
-                                          //                   labelText:
-                                          //                       'Due Date & Time',
-                                          //                 ),
-                                          //               ),
-                                          //             ),
-                                          //           ),
-                                          //         ],
-                                          //       ),
-                                          //       actions: <Widget>[
-                                          //         TextButton(
-                                          //           onPressed: () {
-                                          //             Navigator.pop(context);
-                                          //           },
-                                          //           child: const Text('Cancel',style: TextStyle(color: kprimaryColourGreen)),
-                                          //         ),
-                                          //         TextButton(
-                                          //           onPressed: () {
-                                          //             addTask(listIndex);
-                                          //             Navigator.pop(context);
-                                          //           },
-                                          //           child: const Text('Add',style: TextStyle(color: kprimaryColourGreen)),
-                                          //         ),
-                                          //       ],
-                                          //     );
-                                          //   },
-                                          // );
+                                            context: context,
+                                            builder: (context) => TaskDialog(
+                                              title: 'Add Task',
+                                              actionButtonText: 'Add',
+                                              controller1: taskNameController,
+                                              controller2: dateController,
+                                              onPressedAction: () {
+                                                addTask(listIndex);
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          );
+                                          print(dateController.text);
+                                        
                                         },
                                         child: const Text(
                                           'Add Task',
@@ -675,92 +546,21 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   }
 }
 
-
-class TaskDialog extends StatefulWidget {
-  final String title;
-  final String actionButtonText;
-  final Function onPressedAction;
-
-  TaskDialog({
-    required this.title,
-    required this.actionButtonText,
-    required this.onPressedAction,
-  });
-
-  @override
-  _TaskDialogState createState() => _TaskDialogState();
+void main() {
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: ToDoListScreen(),
+  ));
 }
 
-class _TaskDialogState extends State<TaskDialog> {
-  final TextEditingController taskNameController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(widget.title),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          TextField(
-            controller: taskNameController,
-            decoration: const InputDecoration(
-              labelText: 'Task Name',
-            ),
-          ),
-          InkWell(
-            onTap: () async {
-              final DateTime? pickedDate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2101),
-              );
-              if (pickedDate != null) {
-                final TimeOfDay? pickedTime = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.now(),
-                );
-                if (pickedTime != null) {
-                  final DateTime selectedDateTime = DateTime(
-                    pickedDate.year,
-                    pickedDate.month,
-                    pickedDate.day,
-                    pickedTime.hour,
-                    pickedTime.minute,
-                  );
-                  setState(() {
-                    dateController.text = selectedDateTime.toString();
-                  });
-                }
-              }
-            },
-            child: IgnorePointer(
-              child: TextField(
-                controller: dateController,
-                decoration: const InputDecoration(
-                  labelText: 'Due Date & Time',
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Cancel', style: TextStyle(color: Colors.green)),
-        ),
-        TextButton(
-          onPressed: widget.onPressedAction as void Function()?,
-          child: Text(widget.actionButtonText, style: TextStyle(color: Colors.green)),
-        ),
-      ],
-    );
-  }
-}
+
+
+
+
+
+
+
 
 
 // // Define a method to build the AlertDialog
@@ -833,31 +633,3 @@ class _TaskDialogState extends State<TaskDialog> {
 //     },
 //   );
 // }
-// For the first showDialog
-// TaskDialog(
-//   context: context,
-//   builder: (context) => TaskDialog(
-//     title: 'Edit Task',
-//     actionButtonText: 'Edit',
-//     onPressedAction: () {
-//       editTask(listIndex, taskIndex);
-//       Navigator.pop(context);
-//     },
-//   ),
-// );
-
-// For the second showDialog
-
-
-
-
-
-
-
-
-void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: ToDoListScreen(),
-  ));
-}
