@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gp_screen/HomePage.dart';
-import 'package:gp_screen/Pages/signUpPage/signUpPage.dart';
+import 'package:gp_screen/Pages/signUpPage/ThePage/signUpPage.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
-import 'package:gp_screen/widgets/signUp_LoginWidgets/UserModel.dart';
-import 'package:gp_screen/widgets/signUp_LoginWidgets/feild.dart';
+import 'package:gp_screen/Pages/signUpPage/Widgets/UserModel.dart';
+import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends StatelessWidget {

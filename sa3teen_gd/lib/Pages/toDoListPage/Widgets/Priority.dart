@@ -1,7 +1,7 @@
 // ignore: constant_identifier_names
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/toDoListPage/ToDoListFinal.dart';
-import 'package:gp_screen/Pages/toDoListPage/todorefactored_notdone.dart';
+import 'package:gp_screen/Pages/toDoListPage/ThePage/ToDoListFinal.dart';
+import 'package:gp_screen/Pages/toDoListPage/ThePage/todorefactored_notdone.dart';
 
 enum Priority { high, normal, low }
 

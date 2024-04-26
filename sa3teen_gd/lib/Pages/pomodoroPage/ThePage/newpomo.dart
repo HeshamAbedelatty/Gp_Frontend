@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gp_screen/pomodoroPage/customAppBar.dart';
+import 'package:gp_screen/Pages/pomodoroPage/Widgets/customAppBar.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
 // void main() {

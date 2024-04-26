@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/vediointernetcodeNotUsing/colors.dart';
-import 'package:gp_screen/vediointernetcodeNotUsing/todoItem.dart';
-import 'package:gp_screen/vediointernetcodeNotUsing/todoclass.dart';
+import 'package:gp_screen/Pages/interentCode&fakeHomePage/vediointernetcodeNotUsing/colors.dart';
+import 'package:gp_screen/Pages/interentCode&fakeHomePage/vediointernetcodeNotUsing/todoItem.dart';
+import 'package:gp_screen/Pages/interentCode&fakeHomePage/vediointernetcodeNotUsing/todoclass.dart';
 
 
 

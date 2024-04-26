@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/loginPage/LoginPage.dart';
-import 'package:gp_screen/Pages/signUpPage/signUpPage.dart';
-import 'package:gp_screen/widgets/signUp_LoginWidgets/UserModel.dart';
+import 'package:gp_screen/Pages/loginPage/ThePage/LoginPage.dart';
+import 'package:gp_screen/Pages/signUpPage/ThePage/signUpPage.dart';
+import 'package:gp_screen/Pages/signUpPage/Widgets/UserModel.dart';
 //import 'package:hive_flutter/adapters.dart';
 
 void main() async {

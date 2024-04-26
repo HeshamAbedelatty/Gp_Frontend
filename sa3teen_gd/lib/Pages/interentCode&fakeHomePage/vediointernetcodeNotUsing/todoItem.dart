@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/vediointernetcodeNotUsing/colors.dart';
-import 'package:gp_screen/vediointernetcodeNotUsing/todoclass.dart';
+import 'package:gp_screen/Pages/interentCode&fakeHomePage/vediointernetcodeNotUsing/colors.dart';
+import 'package:gp_screen/Pages/interentCode&fakeHomePage/vediointernetcodeNotUsing/todoclass.dart';
 
 class ToDoItem extends StatelessWidget {
   final ToDo todo;

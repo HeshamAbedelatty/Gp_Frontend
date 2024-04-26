@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
-import 'package:gp_screen/widgets/toDoListWidgets/WbiuldBorder.dart';
+import 'package:gp_screen/Pages/toDoListPage/Widgets/WbiuldBorder.dart';
 
 
 class CustomTextField extends StatelessWidget {

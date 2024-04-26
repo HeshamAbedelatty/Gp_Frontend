@@ -2,7 +2,9 @@
 // import 'package:flutter/material.dart';
 // import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 // import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
-// import 'package:gp_screen/widgets/toDoListWidgets/Priority.dart';
+// import 'package:gp_screen/Pages/toDoListPage/Widgets/TaskDialogWidget_notdone.dart';
+// import 'package:gp_screen/Pages/toDoListPage/Widgets/Priority.dart';
+// import 'package:intl/intl.dart';
 
 // class ToDoListClass {
 //   String listName;
@@ -74,20 +76,47 @@
 //       var taskNameVar = taskNameController.text;
 //       var deadlineVar = dateController.text;
 //       var priorityVar = Priority.normal; // Default priority
+//       // Check if the deadlineVar is empty
+//       if (deadlineVar.isNotEmpty) {
+//         // Parse the deadlineVar string
+//         DateTime deadline = DateTime.parse(deadlineVar);
 
-//       toDoLists[listIndex].tasks.add(Task(
-//             taskName: taskNameVar,
-//             deadline: DateTime.parse(deadlineVar),
-//             priority: priorityVar,
-//           ));
-//       for (var list in toDoLists) {
-//         for (var task in list.tasks) {
-//           print(list.listName);
-//           print(
-//             'Added Task: ${task.taskName} , Deadline: ${task.deadline} , check: ${task.isChecked} ,priority: ${task.priority}',
-//           );
+//         toDoLists[listIndex].tasks.add(Task(
+//               taskName: taskNameVar,
+//               deadline: deadline,
+//               priority: priorityVar,
+//             ));
+
+//         // Print added task details
+//         for (var list in toDoLists) {
+//           for (var task in list.tasks) {
+//             print(list.listName);
+//             print(
+//               'Added Task: ${task.taskName} , Deadline: ${task.deadline} , check: ${task.isChecked} ,priority: ${task.priority}',
+//             );
+//           }
 //         }
+//       } else {
+//         print(deadlineVar);
+//         // Handle case where deadlineVar is empty
+//         print('Error: Deadline is empty');
 //       }
+//       // DateTime deadline = DateFormat("yyyy-MM-dd HH:mm:ss").parse(deadlineVar);
+
+//       //   toDoLists[listIndex].tasks.add(Task(
+//       //         taskName: taskNameVar,
+//       //         // deadline: DateTime.parse(deadlineVar),
+//       //         deadline: deadline,
+//       //         priority: priorityVar,
+//       //       ));
+//       //   for (var list in toDoLists) {
+//       //     for (var task in list.tasks) {
+//       //       print(list.listName);
+//       //       print(
+//       //         'Added Task: ${task.taskName} , Deadline: ${task.deadline} , check: ${task.isChecked} ,priority: ${task.priority}',
+//       //       );
+//       //     }
+//       //   }
 
 //       taskNameController.clear();
 //       dateController.clear();
@@ -180,7 +209,6 @@
 //                             mainAxisSize: MainAxisSize.min,
 //                             children: <Widget>[
 //                               TextField(
-                                
 //                                 controller: listNameControllers.isNotEmpty
 //                                     ? listNameControllers[toDoLists.length - 1]
 //                                     : TextEditingController(),
@@ -201,14 +229,16 @@
 //                               onPressed: () {
 //                                 Navigator.pop(context);
 //                               },
-//                               child: const Text('Cancel',style: TextStyle(color: kprimaryColourGreen)),
+//                               child: const Text('Cancel',
+//                                   style: TextStyle(color: kprimaryColourGreen)),
 //                             ),
 //                             TextButton(
 //                               onPressed: () {
 //                                 addNewToDoList();
 //                                 Navigator.pop(context);
 //                               },
-//                               child: const Text('Add',style: TextStyle(color: kprimaryColourGreen)),
+//                               child: const Text('Add',
+//                                   style: TextStyle(color: kprimaryColourGreen)),
 //                             ),
 //                           ],
 //                         );
@@ -221,61 +251,7 @@
 //               ],
 //             ),
 //           ),
-//           // Padding(
-//           //   padding: const EdgeInsets.all(8.0),
-//           //   child: Row(
-//           //     mainAxisAlignment: MainAxisAlignment.end,
-//           //     children: [
-//           //       IconButton(
-//           //           onPressed: () {
-//           //             showDialog(
-//           //               context: context,
-//           //               builder: (context) {
-//           //                 return AlertDialog(
-//           //                   title: const Text('search for Task'),
-//           //                   content: Column(
-//           //                     mainAxisSize: MainAxisSize.min,
-//           //                     children: <Widget>[
-//           //                       TextField(
-//           //                         controller: taskNameController,
-//           //                         decoration: const InputDecoration(
-//           //                             labelText: 'Task Name'),
-//           //                       ),
-//           //                     ],
-//           //                   ),
-//           //                   actions: <Widget>[
-//           //                     TextButton(
-//           //                       onPressed: () {
-//           //                         Navigator.pop(context);
-//           //                       },
-//           //                       child: const Text('Cancel'),
-//           //                     ),
-//           //                     TextButton(
-//           //                       onPressed: () {
-//           //                         //             if (formKey.currentState!.validate()) {
-//           //                         //   formKey.currentState!.save();
-//           //                         //   addTask(taskNameController.text);
-//           //                         // } else {
-//           //                         //   autovalidateMode = AutovalidateMode.always;
-//           //                         //   setState(
-//           //                         //     () {},
-//           //                         //   );
-//           //                         // }
-//           //                         searchTask(taskNameController.text);
-
-//           //                         Navigator.pop(context);
-//           //                       },
-//           //                       child: const Text('search'),
-//           //                     ),
-//           //                   ],
-//           //                 );
-//           //               },
-//           //             );
-//           //           },
-//           //           icon: Icon(Icons.search)),
-//           //     ],
-//           //   ),
-//           // ),
+    
 //           Expanded(
 //             child: SizedBox(
 //               width: MediaQuery.of(context).size.width,
@@ -451,7 +427,10 @@
 //                                                                 context);
 //                                                           },
 //                                                           child: const Text(
-//                                                               'Cancel',style: TextStyle(color: kprimaryColourGreen)),
+//                                                               'Cancel',
+//                                                               style: TextStyle(
+//                                                                   color:
+//                                                                       kprimaryColourGreen)),
 //                                                         ),
 //                                                         TextButton(
 //                                                           onPressed: () {
@@ -461,7 +440,10 @@
 //                                                                 context);
 //                                                           },
 //                                                           child: const Text(
-//                                                               'edit',style: TextStyle(color: kprimaryColourGreen)),
+//                                                               'edit',
+//                                                               style: TextStyle(
+//                                                                   color:
+//                                                                       kprimaryColourGreen)),
 //                                                         ),
 //                                                       ],
 //                                                     );
@@ -485,7 +467,10 @@
 //                                                               context);
 //                                                         },
 //                                                         child: const Text(
-//                                                             'Cancel',style: TextStyle(color: kprimaryColourGreen)),
+//                                                             'Cancel',
+//                                                             style: TextStyle(
+//                                                                 color:
+//                                                                     kprimaryColourGreen)),
 //                                                       ),
 //                                                       TextButton(
 //                                                         onPressed: () {
@@ -495,7 +480,10 @@
 //                                                               context);
 //                                                         },
 //                                                         child: const Text(
-//                                                             'delete',style: TextStyle(color: kprimaryColourGreen)),
+//                                                             'delete',
+//                                                             style: TextStyle(
+//                                                                 color:
+//                                                                     kprimaryColourGreen)),
 //                                                       ),
 //                                                     ],
 //                                                   );
@@ -523,98 +511,19 @@
 //                                         onPressed: () {
 //                                           showDialog(
 //                                             context: context,
-//                                             builder: (context) {
-//                                               return AlertDialog(
-//                                                 title: const Text(
-//                                                   'Add Task',
-//                                                 ),
-//                                                 content: Column(
-//                                                   mainAxisSize:
-//                                                       MainAxisSize.min,
-//                                                   children: <Widget>[
-//                                                     TextField(
-//                                                       controller:
-//                                                           taskNameController,
-//                                                       decoration:
-//                                                           const InputDecoration(
-//                                                               labelText:
-//                                                                   'Task Name'),
-//                                                     ),
-//                                                     InkWell(
-//                                                       onTap: () async {
-//                                                         final DateTime?
-//                                                             pickedDate =
-//                                                             await showDatePicker(
-//                                                           context: context,
-//                                                           initialDate:
-//                                                               DateTime.now(),
-//                                                           firstDate:
-//                                                               DateTime(2000),
-//                                                           lastDate:
-//                                                               DateTime(2101),
-//                                                         );
-//                                                         if (pickedDate !=
-//                                                             null) {
-//                                                           final TimeOfDay?
-//                                                               pickedTime =
-//                                                               // ignore: use_build_context_synchronously
-//                                                               await showTimePicker(
-//                                                             context: context,
-//                                                             initialTime:
-//                                                                 TimeOfDay.now(),
-//                                                           );
-//                                                           if (pickedTime !=
-//                                                               null) {
-//                                                             final DateTime
-//                                                                 selectedDateTime =
-//                                                                 DateTime(
-//                                                               pickedDate.year,
-//                                                               pickedDate.month,
-//                                                               pickedDate.day,
-//                                                               pickedTime.hour,
-//                                                               pickedTime.minute,
-//                                                             );
-//                                                             setState(() {
-//                                                               dateController
-//                                                                       .text =
-//                                                                   selectedDateTime
-//                                                                       .toString();
-//                                                             });
-//                                                           }
-//                                                         }
-//                                                       },
-//                                                       child: IgnorePointer(
-//                                                         child: TextField(
-//                                                           controller:
-//                                                               dateController,
-//                                                           decoration:
-//                                                               const InputDecoration(
-//                                                             labelText:
-//                                                                 'Due Date & Time',
-//                                                           ),
-//                                                         ),
-//                                                       ),
-//                                                     ),
-//                                                   ],
-//                                                 ),
-//                                                 actions: <Widget>[
-//                                                   TextButton(
-//                                                     onPressed: () {
-//                                                       Navigator.pop(context);
-//                                                     },
-//                                                     child: const Text('Cancel',style: TextStyle(color: kprimaryColourGreen)),
-//                                                   ),
-//                                                   TextButton(
-//                                                     onPressed: () {
-//                                                       addTask(listIndex);
-//                                                       Navigator.pop(context);
-//                                                     },
-//                                                     child: const Text('Add',style: TextStyle(color: kprimaryColourGreen)),
-//                                                   ),
-//                                                 ],
-//                                               );
-//                                             },
+//                                             builder: (context) => TaskDialog(
+//                                               title: 'Add Task',
+//                                               actionButtonText: 'Add',
+//                                               controller1: taskNameController,
+//                                               controller2: dateController,
+//                                               onPressedAction: () {
+//                                                 addTask(listIndex);
+//                                                 Navigator.pop(context);
+//                                               },
+//                                             ),
 //                                           );
+//                                           print(dateController.text);
+                                        
 //                                         },
 //                                         child: const Text(
 //                                           'Add Task',
@@ -643,3 +552,84 @@
 //     home: ToDoListScreen(),
 //   ));
 // }
+
+
+
+
+
+
+
+
+
+
+
+// // // Define a method to build the AlertDialog
+// // void showTaskDialog(BuildContext context, String title, String actionButtonText, Function onPressedAction) {
+// //   showDialog(
+// //     context: context,
+// //     builder: (context) {
+// //       return AlertDialog(
+// //         title: Text(title),
+// //         content: Column(
+// //           mainAxisSize: MainAxisSize.min,
+// //           children: <Widget>[
+// //             TextField(
+// //               controller: taskNameController,
+// //               decoration: const InputDecoration(
+// //                 labelText: 'Task Name',
+// //               ),
+// //             ),
+// //             InkWell(
+// //               onTap: () async {
+// //                 final DateTime? pickedDate = await showDatePicker(
+// //                   context: context,
+// //                   initialDate: DateTime.now(),
+// //                   firstDate: DateTime(2000),
+// //                   lastDate: DateTime(2101),
+// //                 );
+// //                 if (pickedDate != null) {
+// //                   final TimeOfDay? pickedTime = await showTimePicker(
+// //                     context: context,
+// //                     initialTime: TimeOfDay.now(),
+// //                   );
+// //                   if (pickedTime != null) {
+// //                     final DateTime selectedDateTime = DateTime(
+// //                       pickedDate.year,
+// //                       pickedDate.month,
+// //                       pickedDate.day,
+// //                       pickedTime.hour,
+// //                       pickedTime.minute,
+// //                     );
+// //                     setState(() {
+// //                       dateController.text = selectedDateTime.toString();
+// //                     });
+// //                   }
+// //                 }
+// //               },
+// //               child: IgnorePointer(
+// //                 child: TextField(
+// //                   controller: dateController,
+// //                   decoration: const InputDecoration(
+// //                     labelText: 'Due Date & Time',
+// //                   ),
+// //                 ),
+// //               ),
+// //             ),
+// //           ],
+// //         ),
+// //         actions: <Widget>[
+// //           TextButton(
+// //             onPressed: () {
+// //               Navigator.pop(context);
+// //             },
+// //             child: const Text('Cancel', style: TextStyle(color: kprimaryColourGreen)),
+// //           ),
+// //           TextButton(
+// //             onPressed: onPressedAction,
+// //             child: Text(actionButtonText, style: TextStyle(color: kprimaryColourGreen)),
+// //           ),
+// //         ],
+// //       );
+// //     },
+// //   );
+// // }

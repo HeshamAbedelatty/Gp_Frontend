@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
-import 'package:gp_screen/widgets/signUp_LoginWidgets/UserModel.dart';
+import 'package:gp_screen/Pages/signUpPage/Widgets/UserModel.dart';
 
 const Color kprimaryColourWhite = const Color.fromARGB(255, 248, 247, 242);
 const Color kprimaryColourGreen = const Color(0xFF3C8243);
