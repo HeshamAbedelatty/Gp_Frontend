@@ -4,7 +4,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gp_screen/HomePage.dart';
 import 'package:gp_screen/Pages/signUpPage/ThePage/signUpPage.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
-import 'package:gp_screen/Pages/signUpPage/Widgets/UserModel.dart';
+import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
 import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 
 // ignore: must_be_immutable
@@ -25,188 +25,188 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          backgroundColor: kprimaryColourWhite,
-          body: Form(
-            key: formkey,
-            child: ListView(
-              children: [
-                const SizedBox(height: 60),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Sa3teen Gd',
-                      style: TextStyle(
-                        fontSize: 30,
-                        // fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+    return Scaffold(
+        // debugShowCheckedModeBanner: false,
+        // home: Scaffold(
+        backgroundColor: kprimaryColourWhite,
+        body: Form(
+          key: formkey,
+          child: ListView(
+            children: [
+              const SizedBox(height: 60),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Sa3teen Gd',
+                    style: TextStyle(
+                      fontSize: 30,
+                      // fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'lib/assets/icons/treeCupAltered.png',
-                      width: 280,
-                      height: 280,
-                    )
-                  ],
-                ),
-                const SizedBox(height: 20),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Login to your account',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                      ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'lib/assets/icons/treeCupAltered.png',
+                    width: 280,
+                    height: 280,
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Login to your account',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 25),
-                Feild(
-                    text: 'Email',
-                    icon: const Icon(Icons.email_outlined),
-                    controller: emailController,
-                    fieldValidator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      } else if (value != null) {
-                        EmailValidator(
-                            errorText: 'Please correct email filled');
-                      }
-                    }),
-                const SizedBox(height: 15),
-                Feild(
-                    text: 'Password',
-                    icon: const Icon(Icons.lock_outline),
-                    controller: passwordController,
-                    fieldValidator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      } else {
-                        MinLengthValidator(4,
-                            errorText: 'Password must be at least 4 digit');
-                      }
-                    }),
-                const SizedBox(height: 50),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Builder(
-                      builder: (context) => ElevatedButton(
-                        onPressed: () {
-                          //sign-up logic
-                          bool passwordCorrect = checkIfPasswordRight(
-                              persons, passwordController.text);
-                          bool userExists =
-                              checkIfUserExists(persons, emailController.text);
+                  ),
+                ],
+              ),
+              const SizedBox(height: 25),
+              Feild(
+                  text: 'Email',
+                  icon: const Icon(Icons.email_outlined),
+                  controller: emailController,
+                  fieldValidator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    } else if (value != null) {
+                      EmailValidator(errorText: 'Please correct email filled');
+                    }
+                  }),
+              const SizedBox(height: 15),
+              Feild(
+                  text: 'Password',
+                  icon: const Icon(Icons.lock_outline),
+                  controller: passwordController,
+                  obscureText: true,
+                  isPassword: true,
+                  fieldValidator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    } else {
+                      MinLengthValidator(8,
+                          errorText: 'Password must be at least 4 digit');
+                    }
+                  }),
+              const SizedBox(height: 50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Builder(
+                    builder: (context) => ElevatedButton(
+                      onPressed: () {
+                        //sign-up logic
+                        bool passwordCorrect = checkIfPasswordRight(
+                            persons, passwordController.text);
+                        bool userExists =
+                            checkIfUserExists(persons, emailController.text);
 
-                          if (formkey.currentState!.validate()) {
-                            if (userExists) {
-                              if (passwordCorrect) {
-                                print('sucssesfully logged in');
-                                showSnackBar(context, 'sucssesfully logged in');
-                                // Clear text fields
-                                emailController.clear();
-                                passwordController.clear();
-                                //Navigator.pushNamed(context, homePage.id);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => HomePage()));
-                                return;
-                              } else {
-                                print('wrong password try again');
+                        if (formkey.currentState!.validate()) {
+                          if (userExists) {
+                            if (passwordCorrect) {
+                              print('sucssesfully logged in');
+                              showSnackBar(context, 'sucssesfully logged in');
+                              // Clear text fields
+                              emailController.clear();
+                              passwordController.clear();
+                              //Navigator.pushNamed(context, homePage.id);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage()));
+                              return;
+                            } else {
+                              print('wrong password try again');
 
-                                showSnackBar(context,
-                                    'Wrong password. Please try again.');
-                              }
-                              // Handle the case where the user not exists
-                            } else if (!userExists) {
-                              print('user is not existed before');
                               showSnackBar(
-                                  context, 'user is not existed before');
+                                  context, 'Wrong password. Please try again.');
                             }
+                            // Handle the case where the user not exists
+                          } else if (!userExists) {
+                            print('user is not existed before');
+                            showSnackBar(context, 'user is not existed before');
                           }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(320, 48),
-                          backgroundColor: const Color(
-                              0xFF3C8243), // Hex color code for the button
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                100.0), // Adjust the border radius as needed
-                          ),
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(320, 48),
+                        backgroundColor: const Color(
+                            0xFF3C8243), // Hex color code for the button
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              100.0), // Adjust the border radius as needed
                         ),
-                        child: const Text('Sign In'),
                       ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 25),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Or Sign In with',
-                        style: TextStyle(color: Colors.grey)),
-                  ],
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.facebook,
-                        size: 30,
-                      ),
-                      onPressed: () {},
+                      child: const Text('Sign In'),
                     ),
-                    Image.asset(
-                      'lib/assets/icons/843776_google_icon.png',
-                      width: 30,
-                      height: 30,
-                      color: Colors.black,
+                  )
+                ],
+              ),
+              const SizedBox(height: 25),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Or Sign In with', style: TextStyle(color: Colors.grey)),
+                ],
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.facebook,
+                      size: 30,
                     ),
-                    Image.asset(
-                      'lib/assets/icons/twitter.png',
-                      width: 30,
-                      height: 30,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 25),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Don't have an account?",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    const SizedBox(width: 5),
-                    GestureDetector(
-                        onTap: () {
-                          //var signUpPage;
-                          Navigator.pushNamed(context, SignUpPage.id);
-                        },
-                        child: const Text("Sign Up")),
-                  ],
-                ),
-              ],
-            ),
-          )),
-    );
+                    onPressed: () {},
+                  ),
+                  Image.asset(
+                    'lib/assets/icons/843776_google_icon.png',
+                    width: 30,
+                    height: 30,
+                    color: Colors.black,
+                  ),
+                  Image.asset(
+                    'lib/assets/icons/twitter.png',
+                    width: 30,
+                    height: 30,
+                    color: Colors.black,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Don't have an account?",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  const SizedBox(width: 5),
+                  GestureDetector(
+                      onTap: () {
+                        //var signUpPage;
+                        // Navigator.pushNamed(context, SignUpPage.id);
+                        Navigator.pushNamed(context, SignUpPage.id);
+                      },
+                      child: const Text("Sign Up")),
+                ],
+              ),
+            ],
+          ),
+        ));
+    // );
   }
 }
 

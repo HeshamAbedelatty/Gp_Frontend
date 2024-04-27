@@ -2,6 +2,7 @@
 class UserModel {
   String firstName;
   String lastName;
+  String UserName;
   String email;
   String phoneNumber;
   String password;
@@ -10,6 +11,7 @@ class UserModel {
   UserModel({
     required this.firstName,
     required this.lastName,
+    required this.UserName,
     required this.email,
     required this.phoneNumber,
     required this.password,
@@ -20,11 +22,12 @@ class UserModel {
 List<UserModel> persons = [];
 
 // Function to add a new user
-void addUser(String firstName, String lastName, String email,
+void addUser(String firstName, String lastName,String UserName , String email,
     String phoneNumber, String password, String confirmPassword) {
   UserModel newUser = UserModel(
     firstName: firstName,
     lastName: lastName,
+    UserName: UserName,
     email: email,
     phoneNumber: phoneNumber,
     password: password,

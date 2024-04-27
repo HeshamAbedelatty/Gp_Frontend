@@ -4,19 +4,28 @@ import 'package:flutter/src/widgets/form.dart' as r;
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
 // ignore: must_be_immutable
-class Feild extends StatelessWidget {
-  Feild(
-      {super.key,
-      required this.text,
-      required this.icon,
-      this.controller,
-      this.fieldValidator});
+class Feild extends StatefulWidget {
+  Feild({
+    super.key,
+    required this.text,
+    required this.icon,
+    this.controller,
+    this.fieldValidator,
+    this.isPassword = false,
+    this.obscureText = false,
+  });
 
   String text;
   Icon icon;
   TextEditingController? controller;
   r.FormFieldValidator<String>? fieldValidator;
+  final bool isPassword;
+  bool obscureText = false;
+  @override
+  State<Feild> createState() => _FeildState();
+}
 
+class _FeildState extends State<Feild> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,19 +34,34 @@ class Feild extends StatelessWidget {
         children: [
           // Image.asset('lib/assets/icons/user.png'),
           TextFormField(
-            controller: controller,
+            controller: widget.controller,
+            obscureText: widget.obscureText,
             decoration: InputDecoration(
               focusColor: kprimaryColourGreen,
-              icon: icon, // User icon on the left
-              labelText: text,
+              icon: widget.icon, // User icon on the left
+              labelText: widget.text,
               border: const UnderlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFA6A5A4), width: 1.5),
               ), // InputBorder.none, // Remove the default border
+              suffixIcon: widget.isPassword && widget.isPassword
+                  ? IconButton(
+                      icon: Icon(
+                        widget.obscureText
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          widget.obscureText = !widget.obscureText;
+                        });
+                      },
+                    )
+                  : null,
               // focusedBorder: const UnderlineInputBorder(
               //   borderSide: BorderSide(color: Color(0xFF3C8243), width: 1.5),
               // ),
             ),
-            validator: fieldValidator,
+            validator: widget.fieldValidator,
           ),
         ],
       ),

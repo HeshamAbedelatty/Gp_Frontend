@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/signUpPage/Widgets/UserModel.dart';
+import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
 
 const Color kprimaryColourWhite = const Color.fromARGB(255, 248, 247, 242);
 const Color kprimaryColourGreen = const Color(0xFF3C8243);
@@ -8,6 +8,7 @@ const Color kprimaryColourBrown = const Color(0xFFA17740);
 String ktask = "task";
 TextEditingController firstNameController = TextEditingController();
 TextEditingController lastNameController = TextEditingController();
+TextEditingController UserNameController = TextEditingController();
 TextEditingController emailController = TextEditingController();
 TextEditingController phoneNumberController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
@@ -27,6 +28,7 @@ List<UserModel> users = [];
 UserModel user = UserModel(
   firstName: firstNameController.text,
   lastName: lastNameController.text,
+  UserName: UserNameController.text,
   email: emailController.text,
   phoneNumber: phoneNumberController.text,
   password: passwordController.text,
