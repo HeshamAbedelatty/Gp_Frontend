@@ -1,4 +1,6 @@
 
+import '../../../Services/API_services.dart';
+
 class UserModel {
   String firstName;
   String lastName;
@@ -22,8 +24,8 @@ class UserModel {
 List<UserModel> persons = [];
 
 // Function to add a new user
-void addUser(String firstName, String lastName,String UserName , String email,
-    String phoneNumber, String password, String confirmPassword) {
+Future  addUser(String firstName, String lastName,String UserName , String email,
+    String phoneNumber, String password, String confirmPassword) async {
   UserModel newUser = UserModel(
     firstName: firstName,
     lastName: lastName,
@@ -33,7 +35,8 @@ void addUser(String firstName, String lastName,String UserName , String email,
     password: password,
     confirmPassword: confirmPassword,
   );
-  persons.add(newUser);
+  await Api_services.sginup(firstName, lastName, UserName, email, password, confirmPassword, phoneNumber);
+  //persons.add(newUser);
 }
 
 

@@ -94,21 +94,21 @@ class _TimerPageState extends State<TimerPage> {
                   onPressed: _isRunning ? null : _startTimer,
                   child: Text('Start'),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF3C8243),
+                    backgroundColor: Color(0xFF3C8243),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: _isRunning ? _pauseTimer : null,
                   child: Text('Pause'),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF3C8243),
+                    backgroundColor: Color(0xFF3C8243),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: _isRunning ? null : _resetTimer,
                   child: Text('Reset'),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF3C8243),
+                    backgroundColor: Color(0xFF3C8243),
                   ),
                 ),
               ],

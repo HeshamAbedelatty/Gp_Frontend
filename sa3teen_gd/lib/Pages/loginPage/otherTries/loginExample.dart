@@ -17,7 +17,7 @@ final _formkey = GlobalKey<FormState>();
 Widget build(BuildContext context) { 
 	return Scaffold( 
 	appBar: AppBar( 
-		title: Text('Login'), 
+		title: const Text('Login'),
 		centerTitle: true, 
 	), 
 	body: SingleChildScrollView( 
@@ -37,7 +37,7 @@ Widget build(BuildContext context) {
 			), 
 			), 
 			Padding( 
-			padding: EdgeInsets.symmetric(horizontal: 15), 
+			padding: const EdgeInsets.symmetric(horizontal: 15),
 			child: Padding( 
 				padding: const EdgeInsets.all(12.0), 
 				child: Form( 
@@ -55,7 +55,7 @@ Widget build(BuildContext context) {
 										errorText: 
 											'Please correct email filled'), 
 								]), 
-								decoration: InputDecoration( 
+								decoration: const InputDecoration(
 									hintText: 'Email', 
 									labelText: 'Email', 
 									prefixIcon: Icon( 
@@ -97,33 +97,29 @@ Widget build(BuildContext context) {
 							), 
 						), 
 						Container( 
-							margin: EdgeInsets.fromLTRB(180, 0, 0, 0), 
-							child: Text('Forget Password!'), 
+							margin: const EdgeInsets.fromLTRB(180, 0, 0, 0),
+							child: const Text('Forget Password!'),
 						), 
 						Padding( 
 							padding: const EdgeInsets.all(28.0), 
-							child: Container( 
-							child: ElevatedButton( 
-								child: Text( 
-								'Login', 
-								style: TextStyle( 
-									color: Colors.white, fontSize: 22), 
-								), 
-								onPressed: () { 
-								if (_formkey.currentState!.validate()) { 
-									print('form submiitted'); 
-								} 
-								}, 
-                style: ElevatedButton.styleFrom(   fixedSize: const Size(320, 48),
-                  primary:
-                      const Color(0xFF3C8243), // Hex color code for the button
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        100.0), // Adjust the border radius as needed
-                  ),),
-								 
-							), 
-						), 
+							child: ElevatedButton(
+								onPressed: () {
+								if (_formkey.currentState!.validate()) {
+									print('form submiitted');
+								}
+								},
+							                style: ElevatedButton.styleFrom(   fixedSize: const Size(320, 48), backgroundColor: const Color(0xFF3C8243), // Hex color code for the button
+							                  shape: RoundedRectangleBorder(
+							                    borderRadius: BorderRadius.circular(
+							                        100.0), // Adjust the border radius as needed
+							                  ),),
+								child: const Text(
+								'Login',
+								style: TextStyle(
+									color: Colors.white, fontSize: 22),
+								),
+
+							),
 						// Center( 
 						// 	child: Padding( 
 						// 	padding: EdgeInsets.fromLTRB(0, 30, 0, 0), 

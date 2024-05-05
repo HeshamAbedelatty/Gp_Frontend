@@ -192,7 +192,8 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'Groups',
-                        const AssetImage('assets/pngwing.com2.png'),
+                  // 'lib/assets/icons/treeCupAltered.png'
+                        const AssetImage('lib/assets/icons/pngwing.com2.png'),
                         70,
                         () {
                           Navigator.of(context).push(
@@ -207,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'ChatBot',
-                        const AssetImage('assets/kjkjpngwing.com (1).png'),
+                        const AssetImage('lib/assets/kjkjpngwing.com (1).png'),
                         70,
                         () {
                           Navigator.of(context).push(
@@ -222,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'To-DoList',
-                        const AssetImage('assets/pngwing.com (6).png'),
+                        const AssetImage('lib/assets/icons/pngwing.com (6).png'),
                         70,
                         () {
                           Navigator.of(context).push(
@@ -243,7 +244,7 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'Pomodoro',
-                        const AssetImage('assets/pngwing.com.png'),
+                        const AssetImage('lib/assets/pngwing.com.png'),
                         70,
                         () {
                           Navigator.of(context).push(
@@ -258,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'Schedules',
-                        const AssetImage('assets/pngwing.com (5).png'),
+                        const AssetImage('lib/assets/pngwing.com (5).png'),
                         70,
                         () {
                           Navigator.of(context).push(
@@ -273,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'Library',
-                        const AssetImage('assets/pngwing.com (7).png'),
+                        const AssetImage('lib/assets/pngwing.com (7).png'),
                         70,
                         () {
                           Navigator.of(context).push(
