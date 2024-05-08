@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -11,52 +12,78 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0), // Add padding outside the container
-      child: Column(
-        children: [
-          ProfilePic(),
-          SizedBox(height: 20),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[200], // Background color for the container
-              borderRadius: BorderRadius.circular(24), // Border radius of 24
+    return Container(
+      /*decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("lib/assets/back.jpg"),
+          fit: BoxFit.cover,
+        ),
+      ),*/
+      child: Padding(
+        padding:
+            const EdgeInsets.all(20.0), // Add padding outside the container
+        child: Column(
+          children: [
+            ProfilePic(),
+            SizedBox(height: 20),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      //padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(248, 247, 242, 1),
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Column(
+                          children: [
+                            ProfileMenuItem(
+                              icon: "lib/assets/edit (2).png",
+                              text: "Edit Profile",
+                              press: () {},
+                            ),
+                            ProfileMenuDivider(),
+                            ProfileMenuItem(
+                              icon: "lib/assets/notification (1).png",
+                              text: "Notifications",
+                              press: () {},
+                            ),
+                            ProfileMenuDivider(),
+                            ProfileMenuItem(
+                              icon: "lib/assets/chat.png",
+                              text: "Contact US",
+                              press: () {},
+                            ),
+                            ProfileMenuDivider(),
+                            ProfileMenuItem(
+                              icon: "lib/assets/settings (2).png",
+                              text: "Settings",
+                              press: () {},
+                            ),
+                            ProfileMenuDivider(),
+                            ProfileMenuItem(
+                              icon: "lib/assets/about.png",
+                              text: "About Us",
+                              press: () {},
+                            ),
+                            ProfileMenuDivider(),
+                            ProfileMenuItem(
+                              icon: "lib/assets/logout.png",
+                              text: "Log Out",
+                              press: () {},
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            child: Column(
-              children: [
-                ProfileMenuItem(
-                  icon: "lib/assets/icons/edit (2).png",
-                  text: "Edit Profile",
-                  press: () {},
-                ),
-                ProfileMenuDivider(),
-                ProfileMenuItem(
-                  icon: "lib/assets/icons/chat.png",
-                  text: "Contact US",
-                  press: () {},
-                ),
-                ProfileMenuDivider(),
-                ProfileMenuItem(
-                  icon: "lib/assets/icons/settings (2).png",
-                  text: "Settings",
-                  press: () {},
-                ),
-                ProfileMenuDivider(),
-                ProfileMenuItem(
-                  icon: "lib/assets/icons/about.png",
-                  text: "About Us",
-                  press: () {},
-                ),
-                ProfileMenuDivider(),
-                ProfileMenuItem(
-                  icon: "lib/assets/icons/logout.png",
-                  text: "Log Out",
-                  press: () {},
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -93,7 +120,7 @@ class ProfileMenuItem extends StatelessWidget {
               child: Image.asset(
                 icon,
                 fit: BoxFit.cover,
-                color: Colors.brown, // Example color
+                color: Color.fromRGBO(161, 119, 64, 1), // Example color
               ),
             ),
             SizedBox(width: 20),
@@ -104,7 +131,7 @@ class ProfileMenuItem extends StatelessWidget {
               ),
             ),
             Icon(Icons.arrow_forward_ios,
-                color: Colors.brown), // Corrected color
+                color: Color.fromRGBO(161, 119, 64, 1)), // Corrected color
           ],
         ),
       ),
@@ -121,7 +148,8 @@ class ProfileMenuDivider extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 20), // Adjust margin as needed
       child: Divider(
         height: 2,
-        color: Colors.brown, // Brown color for the divider
+        color: const Color.fromRGBO(
+            161, 119, 64, 1), // Brown color for the divider
         thickness: 0.5, // Smaller thickness of the divider
       ),
     );
