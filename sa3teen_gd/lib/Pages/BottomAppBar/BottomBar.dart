@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Pages/More_page/profile_screen.dart';
 
 import '../../Chat Bot.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +103,15 @@ class BottomNavBar extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                          return ProfileScreen();
+                        },
+                      ),
+                    );
+                  },
                   icon: Image.asset(
                     'lib/assets/icons/application.png', // Replace with your chat icon asset
                     width: 30,
@@ -121,4 +130,10 @@ class BottomNavBar extends StatelessWidget {
   }
 }
 
-/* ; */
+/* Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                          return const ProfileScreen();
+                        },
+                      ),
+                    ); icons/**/ */

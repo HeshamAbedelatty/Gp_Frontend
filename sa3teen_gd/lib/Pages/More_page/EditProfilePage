@@ -1,0 +1,150 @@
+import 'dart:async';
+import 'dart:io';
+import 'package:final_profile/bottomBar.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'ProfilePic.dart';
+
+class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({Key? key}) : super(key: key);
+
+  @override
+  _EditProfilePageState createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  File? _image;
+  final picker = ImagePicker();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Edit Profile',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white, // Set text color to white
+            fontSize: 25.0,
+          ),
+        ),
+        backgroundColor: Color(0xFF3C8243), // Set app bar color
+      ),
+      backgroundColor: Color.fromRGBO(248, 247, 242, 1), // Set background color
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ProfilePic(),
+                const SizedBox(height: 20.0),
+                buildTextFormField(
+                  controller: _firstNameController,
+                  labelText: 'First Name',
+                  prefixIcon: Icons.person,
+                ),
+                const SizedBox(height: 20.0),
+                buildTextFormField(
+                  controller: _lastNameController,
+                  labelText: 'Last Name',
+                  prefixIcon: Icons.person,
+                ),
+                const SizedBox(height: 20.0),
+                buildTextFormField(
+                  controller: _usernameController,
+                  labelText: 'Username',
+                  prefixIcon: Icons.person,
+                ),
+                const SizedBox(height: 20.0),
+                buildTextFormField(
+                  controller: _emailController,
+                  labelText: 'Email',
+                  prefixIcon: Icons.email,
+                ),
+                const SizedBox(height: 20.0),
+                buildTextFormField(
+                  controller: _phoneController,
+                  labelText: 'Phone',
+                  prefixIcon: Icons.phone,
+                ),
+                const SizedBox(height: 20.0),
+                buildTextFormField(
+                  controller: _passwordController,
+                  labelText: 'Password',
+                  prefixIcon: Icons.lock,
+                  obscureText: true,
+                ),
+                const SizedBox(height: 20.0),
+                ElevatedButton(
+                  onPressed: _handleProfileSave,
+                  child: const Text(
+                    'Save Edit',
+                    style: TextStyle(
+                        color: Colors.white), // Set text color to white
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(320, 48),
+                    backgroundColor: Color(0xFF3C8243),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100.0),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomNavBar(),
+    );
+  }
+
+  Widget buildTextFormField({
+    required TextEditingController controller,
+    required String labelText,
+    required IconData prefixIcon,
+    bool obscureText = false,
+  }) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: Color.fromRGBO(161, 119, 64, 1),
+          ),
+        ),
+        filled: true,
+        fillColor: Color.fromRGBO(255, 255, 255, 1),
+        prefixIcon: Icon(prefixIcon),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter your $labelText';
+        }
+        return null;
+      },
+      obscureText: obscureText,
+    );
+  }
+
+  void _handleProfileSave() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      // Your save profile logic here
+    }
+  }
+}

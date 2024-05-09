@@ -202,10 +202,10 @@ class _SignUpPageState extends State<SignUpPage> {
                           //       'User with email ${emailController.text} already exists');
                           //   return;
                           // } else
-                           // if (!userExists) {
+                          // if (!userExists) {
                           await EasyLoading.show(status: 'loading...');
-                          if(true){
-                           await addUser(
+                          if (true) {
+                            await addUser(
                                 firstNameController.text,
                                 lastNameController.text,
                                 UserNameController.text,
@@ -224,10 +224,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           }
                           await EasyLoading.dismiss();
                           Navigator.push(
-
                               context,
                               MaterialPageRoute(
-
                                   builder: (context) => LoginPage()));
 
                           // Api_services.sginup(firstNameController.text,lastNameController.text,UserNameController.text,emailController.text,passwordController.text,confirmPasswordController.text);

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gp_screen/Pages/More_page/EditProfilePage';
+
 import 'ProfilePic.dart';
 
 class Body extends StatelessWidget {
@@ -40,37 +42,45 @@ class Body extends StatelessWidget {
                         child: Column(
                           children: [
                             ProfileMenuItem(
-                              icon: "lib/assets/edit (2).png",
+                              icon: "lib/assets/icons/edit (2).png",
                               text: "Edit Profile",
-                              press: () {},
+                              press: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute<void>(
+                                    builder: (BuildContext context) {
+                                      return const EditProfilePage();
+                                    },
+                                  ),
+                                );
+                              },
                             ),
                             ProfileMenuDivider(),
                             ProfileMenuItem(
-                              icon: "lib/assets/notification (1).png",
+                              icon: "lib/assets/icons/notification (1).png",
                               text: "Notifications",
                               press: () {},
                             ),
                             ProfileMenuDivider(),
                             ProfileMenuItem(
-                              icon: "lib/assets/chat.png",
+                              icon: "lib/assets/icons/chat.png",
                               text: "Contact US",
                               press: () {},
                             ),
                             ProfileMenuDivider(),
                             ProfileMenuItem(
-                              icon: "lib/assets/settings (2).png",
+                              icon: "lib/assets/icons/settings (2).png",
                               text: "Settings",
                               press: () {},
                             ),
                             ProfileMenuDivider(),
                             ProfileMenuItem(
-                              icon: "lib/assets/about.png",
+                              icon: "lib/assets/icons/about.png",
                               text: "About Us",
                               press: () {},
                             ),
                             ProfileMenuDivider(),
                             ProfileMenuItem(
-                              icon: "lib/assets/logout.png",
+                              icon: "lib/assets/icons/logout.png",
                               text: "Log Out",
                               press: () {},
                             ),
