@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gp_screen/Chat%20Bot.dart';
 import 'package:gp_screen/Logic.dart';
+import 'package:gp_screen/Pages/BottomAppBar/BottomBar.dart';
+
 // el video w el appbar
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -85,351 +87,314 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Expanded(
-                    child: CarouselSlider(
-                      options: CarouselOptions(
-                        height: 200,
-                        autoPlay: false,
-                        enlargeCenterPage: true,
-                        aspectRatio: 16 / 9,
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enableInfiniteScroll: true,
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 800),
-                        viewportFraction: 0.8,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _current = index;
-                          });
-                        },
-                      ),
-                      items: imagePaths.map((imagePath) {
-                        return Container(
-                          margin: const EdgeInsets.all(5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            image: DecorationImage(
-                              image: AssetImage(imagePath),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                const Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Services',
-                        style: TextStyle(
-                            fontSize: 18, // Increase font size to 16
-                            fontFamily: 'Roboto',
-                            fontWeight:
-                                FontWeight.bold // Change font type to Roboto
-                            // You can also apply other TextStyle properties as needed
-                            ),
-                      ),
-                      SizedBox(width: 80),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(width: 80),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) {
-                                return const ChatScreen(); // Replace ViewAllPage with the destination page you want to navigate to
-                              },
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          'View All',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration
-                                .underline, // Add underline decoration
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Center(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      buildCustomContainerGroups(
-                        context,
-                        'Groups',
-                        const AssetImage('assets/pngwing.com2.png'),
-                        70,
-                        () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) {
-                                return const ChatScreen(); // Return the ChatScreen widget here
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                      buildCustomContainerGroups(
-                        context,
-                        'ChatBot',
-                        const AssetImage('assets/kjkjpngwing.com (1).png'),
-                        70,
-                        () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) {
-                                return const ChatScreen(); // Return the ChatScreen widget here
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                      buildCustomContainerGroups(
-                        context,
-                        'To-DoList',
-                        const AssetImage('assets/pngwing.com (6).png'),
-                        70,
-                        () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) {
-                                return const ChatScreen(); // Return the ChatScreen widget here
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      buildCustomContainerGroups(
-                        context,
-                        'Pomodoro',
-                        const AssetImage('assets/pngwing.com.png'),
-                        70,
-                        () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) {
-                                return const ChatScreen(); // Return the ChatScreen widget here
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                      buildCustomContainerGroups(
-                        context,
-                        'Schedules',
-                        const AssetImage('assets/pngwing.com (5).png'),
-                        70,
-                        () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) {
-                                return const ChatScreen(); // Return the ChatScreen widget here
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                      buildCustomContainerGroups(
-                        context,
-                        'Library',
-                        const AssetImage('assets/pngwing.com (7).png'),
-                        70,
-                        () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) {
-                                return const ChatScreen(); // Return the ChatScreen widget here
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-            Row(
-              children: [
-                const Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Motivation Videos',
-                        style: TextStyle(
-                            fontSize: 18, // Increase font size to 16
-                            fontFamily: 'Roboto',
-                            fontWeight:
-                                FontWeight.bold // Change font type to Roboto
-                            // You can also apply other TextStyle properties as needed
-                            ),
-                      ),
-                      SizedBox(width: 40),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(width: 80),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) {
-                                return const ChatScreen(); // Replace NextPage with the destination page you want to navigate to
-                              },
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          'See More',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration
-                                .underline, // Add underline decoration
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Center(
-              child: Center(
-                child: Column(
+        appBar: AppBar(),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const SizedBox(height: 10),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: videoPaths.map((videoPath) {
+                    Expanded(
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          height: 200,
+                          autoPlay: false,
+                          enlargeCenterPage: true,
+                          aspectRatio: 16 / 9,
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enableInfiniteScroll: true,
+                          autoPlayAnimationDuration:
+                              const Duration(milliseconds: 800),
+                          viewportFraction: 0.8,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _current = index;
+                            });
+                          },
+                        ),
+                        items: imagePaths.map((imagePath) {
                           return Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                            width: 0.65 * MediaQuery.of(context).size.width,
-                            height: 0.187 * MediaQuery.of(context).size.height,
+                            margin: const EdgeInsets.all(5.0),
                             decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(
-                                  18.0), // Border radius for the circular container
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(18.0),
-                              child: AspectRatio(
-                                aspectRatio:
-                                    2.0, // Ensures the video fits the circular container
-                                child: VideoPlayerWidget(videoUrl: videoPath),
+                              borderRadius: BorderRadius.circular(8.0),
+                              image: DecorationImage(
+                                image: AssetImage(imagePath),
+                                fit: BoxFit.cover,
                               ),
                             ),
                           );
                         }).toList(),
                       ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  const Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Services',
+                          style: TextStyle(
+                              fontSize: 18, // Increase font size to 16
+                              fontFamily: 'Roboto',
+                              fontWeight:
+                                  FontWeight.bold // Change font type to Roboto
+                              // You can also apply other TextStyle properties as needed
+                              ),
+                        ),
+                        SizedBox(width: 80),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SizedBox(width: 80),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return const ChatScreen(); // Replace ViewAllPage with the destination page you want to navigate to
+                                },
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'View All',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration
+                                  .underline, // Add underline decoration
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              Center(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        buildCustomContainerGroups(
+                          context,
+                          'Groups',
+                          // 'lib/assets/icons/treeCupAltered.png'
+                          const AssetImage('lib/assets/icons/pngwing.com2.png'),
+                          70,
+                          () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        buildCustomContainerGroups(
+                          context,
+                          'ChatBot',
+                          const AssetImage(
+                              'lib/assets/kjkjpngwing.com (1).png'),
+                          70,
+                          () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        buildCustomContainerGroups(
+                          context,
+                          'To-DoList',
+                          const AssetImage(
+                              'lib/assets/icons/pngwing.com (6).png'),
+                          70,
+                          () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        buildCustomContainerGroups(
+                          context,
+                          'Pomodoro',
+                          const AssetImage('lib/assets/pngwing.com.png'),
+                          70,
+                          () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        buildCustomContainerGroups(
+                          context,
+                          'Schedules',
+                          const AssetImage('lib/assets/pngwing.com (5).png'),
+                          70,
+                          () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        buildCustomContainerGroups(
+                          context,
+                          'Library',
+                          const AssetImage('lib/assets/pngwing.com (7).png'),
+                          70,
+                          () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          IconButton(
-            icon: const Icon(Icons.home),
-            onPressed: () {
-              // Handle home icon press
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons
-                .android), // Assuming 'android' is the robot icon in your icon set
-            onPressed: () {
-              // Navigator..of(context).pushNamed("ChatScreen");
-              Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) {
-                    return const ChatScreen();
-                  },
+              const SizedBox(height: 30),
+              Row(
+                children: [
+                  const Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Motivation Videos',
+                          style: TextStyle(
+                              fontSize: 18, // Increase font size to 16
+                              fontFamily: 'Roboto',
+                              fontWeight:
+                                  FontWeight.bold // Change font type to Roboto
+                              // You can also apply other TextStyle properties as needed
+                              ),
+                        ),
+                        SizedBox(width: 40),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SizedBox(width: 80),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) {
+                                  return const ChatScreen(); // Replace NextPage with the destination page you want to navigate to
+                                },
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'See More',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration
+                                  .underline, // Add underline decoration
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: Center(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: videoPaths.map((videoPath) {
+                            return Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              width: 0.65 * MediaQuery.of(context).size.width,
+                              height:
+                                  0.187 * MediaQuery.of(context).size.height,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 2,
+                                    blurRadius: 4,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(
+                                    18.0), // Border radius for the circular container
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(18.0),
+                                child: AspectRatio(
+                                  aspectRatio:
+                                      2.0, // Ensures the video fits the circular container
+                                  child: VideoPlayerWidget(videoUrl: videoPath),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              );
-            },
+              ),
+              const SizedBox(height: 20),
+            ],
           ),
-          IconButton(
-            icon: const Icon(Icons.people),
-            onPressed: () {
-              // Handle people icon press
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {
-              // Handle notification icon press
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              // Handle settings icon press
-            },
-          ),
-        ]),
-      ),
-    );
+        ),
+        bottomNavigationBar: BottomNavBar());
   }
 }

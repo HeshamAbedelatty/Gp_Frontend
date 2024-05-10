@@ -1,13 +1,16 @@
 // ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gp_screen/HomePage.dart';
 import 'package:gp_screen/Pages/signUpPage/ThePage/signUpPage.dart';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
 import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 
 // ignore: must_be_immutable
+
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
@@ -78,7 +81,7 @@ class LoginPage extends StatelessWidget {
                   fieldValidator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
-                    } else if (value != null) {
+                    } else {
                       EmailValidator(errorText: 'Please correct email filled');
                     }
                   }),
@@ -103,7 +106,7 @@ class LoginPage extends StatelessWidget {
                 children: [
                   Builder(
                     builder: (context) => ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         //sign-up logic
                         bool passwordCorrect = checkIfPasswordRight(
                             persons, passwordController.text);
@@ -111,30 +114,42 @@ class LoginPage extends StatelessWidget {
                             checkIfUserExists(persons, emailController.text);
 
                         if (formkey.currentState!.validate()) {
-                          if (userExists) {
-                            if (passwordCorrect) {
-                              print('sucssesfully logged in');
-                              showSnackBar(context, 'sucssesfully logged in');
-                              // Clear text fields
-                              emailController.clear();
-                              passwordController.clear();
-                              //Navigator.pushNamed(context, homePage.id);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage()));
-                              return;
-                            } else {
-                              print('wrong password try again');
+                          await EasyLoading.show(
+                            status: 'loading...',
+                            maskType: EasyLoadingMaskType.black,
+                          );
+                          var response = await Api_services.login(
+                              emailController.text, passwordController.text);
+                          await EasyLoading.dismiss();
 
-                              showSnackBar(
-                                  context, 'Wrong password. Please try again.');
-                            }
-                            // Handle the case where the user not exists
-                          } else if (!userExists) {
-                            print('user is not existed before');
-                            showSnackBar(context, 'user is not existed before');
-                          }
+
+                          // t3del 3la el Api
+                          //
+                          // if (userExists) {
+                          //   if (passwordCorrect) {
+                          //     print('sucssesfully logged in');
+                          //     showSnackBar(context, 'sucssesfully logged in');
+                          //     // Clear text fields
+                          //     emailController.clear();
+                          //     emailController.clear();
+                          //     //Navigator.pushNamed(context, homePage.id);
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) => const HomePage()));
+                          //     return;
+                          //   }
+                          //   else {
+                          //     print('wrong password try again');
+                          //
+                          //     showSnackBar(
+                          //         context, 'Wrong password. Please try again.');
+                          //   }
+                          //   // Handle the case where the user not exists
+                          // } else if (!userExists) {
+                          //   print('user is not existed before');
+                          //   showSnackBar(context, 'user is not existed before');
+                          // }
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -210,23 +225,23 @@ class LoginPage extends StatelessWidget {
   }
 }
 
- // // Method to handle retrieving UserModel and using it
-  // void handleUserModel(BuildContext context) {
-  //   // Retrieve UserModel object passed from SignUpPage
-  //   final UserModel? user =
-  //       ModalRoute.of(context)?.settings.arguments as UserModel?;
-  // }
-  // String newEmail = emailController.text;
+// // Method to handle retrieving UserModel and using it
+// void handleUserModel(BuildContext context) {
+//   // Retrieve UserModel object passed from SignUpPage
+//   final UserModel? user =
+//       ModalRoute.of(context)?.settings.arguments as UserModel?;
+// }
+// String newEmail = emailController.text;
 
 // ScaffoldMessenger.of(context).showSnackBar(
 //         const SnackBar(content: Text('Processing Data')),
 //       );
 
 //kano fo2
-  // void showSnackBar(String message) {
-  //   scaffoldKey.currentState.showSnackBar(SnackBar(
-  //     content: Text(message),
-  //   ));
+// void showSnackBar(String message) {
+//   scaffoldKey.currentState.showSnackBar(SnackBar(
+//     content: Text(message),
+//   ));
 
 // void showSnackBar(String message) {
 //     if (scaffoldKey.currentState != null) {
@@ -238,11 +253,10 @@ class LoginPage extends StatelessWidget {
 //   }
 
 //         onSaved: (value) {
-                      //   emailController = value;
-                      // };
+//   emailController = value;
+// };
 
-
-                      // final a = 'wrong password try again';
-                              // final SnackBarr = SnackBar(content: Text(a));
-                              // ScaffoldMessenger.of(context).showSnackBar(SnackBarr);
-                              //showSnackBar('Wrong password. Please try again.');
+// final a = 'wrong password try again';
+// final SnackBarr = SnackBar(content: Text(a));
+// ScaffoldMessenger.of(context).showSnackBar(SnackBarr);
+//showSnackBar('Wrong password. Please try again.');

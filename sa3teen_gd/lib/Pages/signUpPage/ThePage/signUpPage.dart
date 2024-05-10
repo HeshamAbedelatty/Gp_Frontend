@@ -1,11 +1,13 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:gp_screen/Pages/loginPage/ThePage/LoginPage.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
 import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
+
+import '../../../Services/API_services.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({super.key});
@@ -182,8 +184,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     onPressed: () async {
                       String newEmail = emailController.text;
 
-                      bool userExists =
-                          checkIfUserExists(persons, emailController.text);
+                      // bool userExists =
+                      //     checkIfUserExists(persons, emailController.text);
 
                       //formkey.currentState != null &&
                       if (formkey.currentState?.validate() ?? false) {
@@ -192,15 +194,18 @@ class _SignUpPageState extends State<SignUpPage> {
                         if (passwordController.text ==
                             confirmPasswordController.text) {
                           // Check if the user already exists
-                          if (userExists) {
-                            // Handle the case where the user already exists
-                            print(
-                                'User with email ${emailController.text} already exists');
-                            showSnackBar(context,
-                                'User with email ${emailController.text} already exists');
-                            return;
-                          } else if (!userExists) {
-                            addUser(
+                          // if (userExists) {
+                          //   // Handle the case where the user already exists
+                          //   print(
+                          //       'User with email ${emailController.text} already exists');
+                          //   showSnackBar(context,
+                          //       'User with email ${emailController.text} already exists');
+                          //   return;
+                          // } else
+                          // if (!userExists) {
+                          await EasyLoading.show(status: 'loading...');
+                          if (true) {
+                            await addUser(
                                 firstNameController.text,
                                 lastNameController.text,
                                 UserNameController.text,
@@ -208,10 +213,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                 phoneNumberController.text,
                                 passwordController.text,
                                 confirmPasswordController.text);
-                            for (UserModel user in persons) {
-                              print(
-                                  'User: ${user.firstName} ${user.lastName} ${user.UserName} (${user.email}) (${user.phoneNumber}) (${user.password})');
-                            }
                             // Clear text fields
                             firstNameController.clear();
                             lastNameController.clear();
@@ -221,11 +222,13 @@ class _SignUpPageState extends State<SignUpPage> {
                             passwordController.clear();
                             confirmPasswordController.clear();
                           }
+                          await EasyLoading.dismiss();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => LoginPage()));
-                          print('User registered successfully');
+
+                          // Api_services.sginup(firstNameController.text,lastNameController.text,UserNameController.text,emailController.text,passwordController.text,confirmPasswordController.text);
                         } else {
                           // show error message
                           print('Passwords do not match');
