@@ -48,11 +48,11 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   TextEditingController editTaskNameController = TextEditingController();
   TextEditingController editDateController = TextEditingController();
   @override
-  void initState() {
-    super.initState();
-    // Add an initial empty to-do list
-    addNewToDoList();
-  }
+  // void initState() {
+  //   super.initState();
+  //   // Add an initial empty to-do list
+  //   addNewToDoList();
+  // }
 
   void addNewToDoList() {
     setState(() {
@@ -60,14 +60,33 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
           .add(ToDoListClass(listName: listNameController.text, tasks: []));
       listNameControllers.add(
           TextEditingController()); // Add a new controller for the new list
+          print("Number of controllers: ${listNameControllers.length}");
+    for (var i = 0; i < listNameControllers.length; i++) {
+      print("Controller at index $i: ${listNameControllers[i].text}");}
       for (var list in toDoLists) {
         print(list.listName);
       }
       print("addNewToDoList");
+
       listNameController.clear();
+      print(
+          "List name controller text after clearing: ${listNameController.text}");
+
       // toDoLists.add(ToDoListClass(listName: "", tasks: []));
     });
   }
+//   void addNewToDoList() {
+//   setState(() {
+//     toDoLists.add(ToDoListClass(listName: listNameController.text, tasks: []));
+//     listNameControllers.add(TextEditingController()); // Add a new controller
+//     print("Number of controllers: ${listNameControllers.length}");
+//     for (var i = 0; i < listNameControllers.length; i++) {
+//       print("Controller at index $i: ${listNameControllers[i].text}");
+//     }
+//     listNameController.clear();
+//   });
+// }
+
 
   void addTask(int listIndex) {
     setState(() {
@@ -161,64 +180,92 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
           const SizedBox(
             height: 8,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF3C8243),
-                  ),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('Add List'),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              TextField(
-                                
-                                controller: listNameControllers.isNotEmpty
-                                    ? listNameControllers[toDoLists.length - 1]
-                                    : TextEditingController(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    toDoLists[toDoLists.length - 1].listName =
-                                        value;
-                                  });
-                                },
-                                decoration: const InputDecoration(
-                                  labelText: 'List Name',
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF3C8243),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text('Add List'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                // controller: listNameControllers.isNotEmpty
+                                //     ? listNameControllers[
+                                //         toDoLists.length - 1]
+                                //     : TextEditingController(),
+
+                                // onChanged: (value) {
+                                //   setState(() {
+                                //     toDoLists[toDoLists.length - 1].listName =
+                                //         value;
+                                //   });
+                                // },
+
+                                TextField(
+                                  controller: listNameControllers.isNotEmpty &&
+                                          toDoLists.isNotEmpty
+                                      ? listNameControllers[
+                                          toDoLists.length - 1]
+                                      : TextEditingController(),
+                                  onChanged: (value) {
+                                    if (toDoLists.isNotEmpty) {
+                                      setState(() {
+                                        toDoLists[toDoLists.length - 1]
+                                            .listName = value;
+                                        print(
+                                            "List name at index ${toDoLists.length - 1}: $value");
+                                      });
+                                    }
+                                  },
+                                  decoration: const InputDecoration(
+                                    labelText: 'List Name',
+                                  ),
                                 ),
+                              ],
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Cancel',
+                                    style:
+                                        TextStyle(color: kprimaryColourGreen)),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  ///////////
+                                  print("TextButton add:");
+                                  print(
+                                      "List name controller text: ${listNameController.text}");
+
+                                  addNewToDoList();
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Add',
+                                    style:
+                                        TextStyle(color: kprimaryColourGreen)),
                               ),
                             ],
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Cancel',style: TextStyle(color: kprimaryColourGreen)),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                addNewToDoList();
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Add',style: TextStyle(color: kprimaryColourGreen)),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  icon: const Icon(Icons.add),
-                  label: const Text('Add List'),
-                ),
-              ],
+                          );
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.add),
+                    label: const Text('Add List'),
+                  ),
+                ],
+              ),
             ),
           ),
           // Padding(
@@ -276,12 +323,13 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
           //     ],
           //   ),
           // ),
+          //////////////////////////////////////////////////////////////////////////////////////
           Expanded(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ListView.builder(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                //physics: const NeverScrollableScrollPhysics(),
                 itemCount: toDoLists.length,
                 itemBuilder: (context, listIndex) {
                   return Column(
@@ -304,7 +352,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                 ),
                                 ListView.builder(
                                   shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
+                                  //physics: const NeverScrollableScrollPhysics(),
                                   itemCount: toDoLists[listIndex].tasks.length,
                                   itemBuilder: (context, taskIndex) {
                                     return ListTile(
@@ -451,7 +499,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                                 context);
                                                           },
                                                           child: const Text(
-                                                              'Cancel',style: TextStyle(color: kprimaryColourGreen)),
+                                                              'Cancel',
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      kprimaryColourGreen)),
                                                         ),
                                                         TextButton(
                                                           onPressed: () {
@@ -461,7 +512,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                                 context);
                                                           },
                                                           child: const Text(
-                                                              'edit',style: TextStyle(color: kprimaryColourGreen)),
+                                                              'edit',
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      kprimaryColourGreen)),
                                                         ),
                                                       ],
                                                     );
@@ -485,7 +539,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                               context);
                                                         },
                                                         child: const Text(
-                                                            'Cancel',style: TextStyle(color: kprimaryColourGreen)),
+                                                            'Cancel',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    kprimaryColourGreen)),
                                                       ),
                                                       TextButton(
                                                         onPressed: () {
@@ -495,7 +552,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                               context);
                                                         },
                                                         child: const Text(
-                                                            'delete',style: TextStyle(color: kprimaryColourGreen)),
+                                                            'delete',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    kprimaryColourGreen)),
                                                       ),
                                                     ],
                                                   );
@@ -602,14 +662,20 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                     onPressed: () {
                                                       Navigator.pop(context);
                                                     },
-                                                    child: const Text('Cancel',style: TextStyle(color: kprimaryColourGreen)),
+                                                    child: const Text('Cancel',
+                                                        style: TextStyle(
+                                                            color:
+                                                                kprimaryColourGreen)),
                                                   ),
                                                   TextButton(
                                                     onPressed: () {
                                                       addTask(listIndex);
                                                       Navigator.pop(context);
                                                     },
-                                                    child: const Text('Add',style: TextStyle(color: kprimaryColourGreen)),
+                                                    child: const Text('Add',
+                                                        style: TextStyle(
+                                                            color:
+                                                                kprimaryColourGreen)),
                                                   ),
                                                 ],
                                               );
@@ -643,3 +709,33 @@ void main() {
     home: ToDoListScreen(),
   ));
 }
+
+// showDialog(
+//                                                 context: context,
+//                                                 builder: (context) {
+//                                                   return AlertDialog(
+//                                                     title: const Text(
+//                                                         'you want to delete this item ?'),
+//                                                     actions: <Widget>[
+//                                                       TextButton(
+//                                                         onPressed: () {
+//                                                           Navigator.pop(
+//                                                               context);
+//                                                         },
+//                                                         child: const Text(
+//                                                             'Cancel',style: TextStyle(color: kprimaryColourGreen)),
+//                                                       ),
+//                                                       TextButton(
+//                                                         onPressed: () {
+//                                                           deleteTask(listIndex,
+//                                                               taskIndex);
+//                                                           Navigator.pop(
+//                                                               context);
+//                                                         },
+//                                                         child: const Text(
+//                                                             'delete',style: TextStyle(color: kprimaryColourGreen)),
+//                                                       ),
+//                                                     ],
+//                                                   );
+//                                                 },
+//                                               );
