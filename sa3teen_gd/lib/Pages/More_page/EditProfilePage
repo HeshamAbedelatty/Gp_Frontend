@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:final_profile/bottomBar.dart';
+import 'package:final_profile/birthdayfield.dart';
+import 'package:final_profile/dropDownLevelField.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'ProfilePic.dart';
+import 'DropDownFacultyField.dart'; // Import the DropDownFormField widget
+import 'bottomBar.dart'; // Importing your bottom navigation bar
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -19,10 +22,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _facultyController = TextEditingController();
+  final TextEditingController _facultyLevelController = TextEditingController();
+  final TextEditingController _birthdayController = TextEditingController();
 
   File? _image;
   final picker = ImagePicker();
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _usernameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _facultyController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +48,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
           'Edit Profile',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white, // Set text color to white
+            color: Colors.white,
             fontSize: 25.0,
           ),
         ),
-        backgroundColor: Color(0xFF3C8243), // Set app bar color
+        backgroundColor: Color(0xFF3C8243),
       ),
-      backgroundColor: Color.fromRGBO(248, 247, 242, 1), // Set background color
+      backgroundColor: Color.fromRGBO(248, 247, 242, 1),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -48,53 +64,63 @@ class _EditProfilePageState extends State<EditProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ProfilePic(),
-                const SizedBox(height: 20.0),
+                SizedBox(height: 20.0),
                 buildTextFormField(
                   controller: _firstNameController,
                   labelText: 'First Name',
                   prefixIcon: Icons.person,
                 ),
-                const SizedBox(height: 20.0),
+                SizedBox(height: 20.0),
                 buildTextFormField(
                   controller: _lastNameController,
                   labelText: 'Last Name',
                   prefixIcon: Icons.person,
                 ),
-                const SizedBox(height: 20.0),
+                SizedBox(height: 20.0),
                 buildTextFormField(
                   controller: _usernameController,
                   labelText: 'Username',
                   prefixIcon: Icons.person,
                 ),
-                const SizedBox(height: 20.0),
+                SizedBox(height: 20.0),
                 buildTextFormField(
                   controller: _emailController,
                   labelText: 'Email',
                   prefixIcon: Icons.email,
                 ),
-                const SizedBox(height: 20.0),
+                SizedBox(height: 20.0),
+                BirthdayFormField(
+                  controller: _birthdayController,
+                  labelText: 'BirthDay Date',
+                  prefixIcon: Icons.date_range_rounded,
+                ),
+                SizedBox(height: 20.0),
+                AwesomeDropdownExample(
+                  controller: _facultyController,
+                  labelText: 'Faculty',
+                  prefixIcon: Icons.school,
+                ),
+                SizedBox(height: 20.0),
+                FacultyLevelDropdown(
+                  controller: _facultyLevelController,
+                  labelText: 'Level',
+                  prefixIcon: Icons.school,
+                ), // Call DropDownFormField widget here
+                SizedBox(height: 20.0),
                 buildTextFormField(
                   controller: _phoneController,
                   labelText: 'Phone',
                   prefixIcon: Icons.phone,
                 ),
-                const SizedBox(height: 20.0),
-                buildTextFormField(
-                  controller: _passwordController,
-                  labelText: 'Password',
-                  prefixIcon: Icons.lock,
-                  obscureText: true,
-                ),
-                const SizedBox(height: 20.0),
+                SizedBox(height: 20.0),
                 ElevatedButton(
                   onPressed: _handleProfileSave,
-                  child: const Text(
+                  child: Text(
                     'Save Edit',
-                    style: TextStyle(
-                        color: Colors.white), // Set text color to white
+                    style: TextStyle(color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(320, 48),
+                    fixedSize: Size(320, 48),
                     backgroundColor: Color(0xFF3C8243),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100.0),
