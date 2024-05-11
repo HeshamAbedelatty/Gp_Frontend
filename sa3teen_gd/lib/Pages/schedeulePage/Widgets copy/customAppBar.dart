@@ -18,7 +18,7 @@ class customAppBar extends StatelessWidget {
           const Icon(Icons.person,color: Colors.white,),
           Spacer(),
           const Text(
-            "Schedule",
+            "Your Schedule",
             style: TextStyle(fontSize: 20,color: Colors.white),
           ),
           Spacer(),

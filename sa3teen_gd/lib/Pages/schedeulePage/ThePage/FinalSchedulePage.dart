@@ -44,9 +44,6 @@ class _SchedulePageState extends State<SchedulePage> {
         _currentDate.subtract(Duration(days: _currentDate.weekday - 6));
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Schedule'),
-      // ),
       body: Stack(
         children: [
           Column(
@@ -56,38 +53,13 @@ class _SchedulePageState extends State<SchedulePage> {
               const SizedBox(
                 height: 9,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {
-                      setState(() {
-                        _currentDate = _currentDate.subtract(Duration(days: 7));
-                      });
-                    },
-                  ),
-                  Text(
-                    DateFormat('MMM d, yyyy').format(startingDate),
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.arrow_forward),
-                    onPressed: () {
-                      setState(() {
-                        _currentDate = _currentDate.add(Duration(days: 7));
-                      });
-                    },
-                  ),
-                ],
-              ),
+           
               SizedBox(
                 height: 70, // Adjusted height for the row of day cards
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: List.generate(
-                    7, // Assuming you want to display 7 days (a week)
+                    7,
                     (index) =>
                         _buildDayCard(startingDate.add(Duration(days: index))),
                   ),
@@ -116,7 +88,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 onPressed: () {
                   _showAddTaskScreen(context);
                 },
-                child: const Text('Add Work'),
+                child: const Text('Add lecture time'),
               ),
             ),
           ),
@@ -126,141 +98,131 @@ class _SchedulePageState extends State<SchedulePage> {
   }
 
   Widget _buildDayCard(DateTime day) {
-    // Logic to determine the day's label
     String dayLabel = DateFormat('E').format(day);
-
     return GestureDetector(
       onTap: () {
         setState(() {
-          _selectedDate = day; // Update the selected date
+          _selectedDate = day;
         });
-        // You can add navigation or any other functionality here
       },
       child: Container(
-        width: 100, // Adjust the width according to your preference
-        height: 35, // Adjusted height
+        width: 70,
+        height: 35,
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: _selectedDate != null &&
-                  _selectedDate.year == day.year &&
-                  _selectedDate.month == day.month &&
-                  _selectedDate.day == day.day
-              ? const Color(0xFF3C8243) // Change color if selected
-              : const Color.fromARGB(255, 162, 112, 94),
+          color: _selectedDate == day
+              ? const Color(0xFF3C8243)
+              : Color.fromARGB(255, 235, 232, 231),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              dayLabel,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: _selectedDate != null &&
-                        _selectedDate.year == day.year &&
-                        _selectedDate.month == day.month &&
-                        _selectedDate.day == day.day
-                    ? Colors.white // Change text color if selected
-                    : Colors.black,
-              ),
+        child: Center(
+          child: Text(
+            dayLabel,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: _selectedDate == day ? Colors.white : Colors.black,
             ),
-            Text(
-              DateFormat('d').format(day),
-              style: TextStyle(
-                fontSize: 14,
-                color: _selectedDate != null &&
-                        _selectedDate.year == day.year &&
-                        _selectedDate.month == day.month &&
-                        _selectedDate.day == day.day
-                    ? Colors.white // Change text color if selected
-                    : Colors.black,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  // Widget _buildTaskCard(Task task) {
-  //   return Padding(
-  //     padding: const EdgeInsets.only(left: 8,right: 10),
-  //     child: Card(
-  //       shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(25.0),
-  //       side: BorderSide(color: Colors.grey, width: 0.1),),
-  //       color: task.color,
-  //       child: ListTile(
-  //         title: Text(task.title),
-  //         subtitle: Text('${DateFormat('MMM d, yyyy').format(task.date)} | ${_formatTime(task.startTime)} - ${_formatTime(task.endTime)}'),
-  //         trailing: Row(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             IconButton(
-  //               icon: Icon(Icons.edit, color: Colors.white),
-  //               onPressed: () {
-  //                 // Handle edit action
-  //               },
-  //             ),
-  //             IconButton(
-  //               icon: Icon(Icons.delete, color: Colors.white),
-  //               onPressed: () {
-  //                 // Handle delete action
-  //                 setState(() {
-  //                   _tasks.remove(task);
-  //                 });
-  //               },
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget _buildTaskCard(Task task) {
-    // Check if the task date matches the selected date
-    if (task.date.year == _selectedDate.year &&
-        task.date.month == _selectedDate.month &&
-        task.date.day == _selectedDate.day) {
+    // Check if the task's date matches the day name of the selected date
+    if (DateFormat('EEEE').format(task.date) ==
+        DateFormat('EEEE').format(_selectedDate)) {
       return Padding(
         padding: const EdgeInsets.only(left: 8, right: 10),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            side: const BorderSide(color: Colors.grey, width: 0.1),
-          ),
-          color: task.color,
-          child: ListTile(
-            title: Text(task.title),
-            subtitle: Text(
-                '${DateFormat('MMM d, yyyy').format(task.date)} | ${_formatTime(task.startTime)} - ${_formatTime(task.endTime)}'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
               children: [
-                IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.white),
-                  onPressed: () {
-                    // Handle edit action
-                  },
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    side: const BorderSide(color: Colors.grey, width: 0.1),
+                  ),
+                  color: task.color,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 5, left: 8, right: 8, top: 5),
+                    child: Text(
+                      '${_formatTime(task.startTime)}',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.white),
-                  onPressed: () {
-                    // Handle delete action
-                    setState(() {
-                      _tasks.remove(task);
-                    });
-                  },
+                // const SizedBox(height: 5),
+                // End Time Card
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    side: const BorderSide(color: Colors.grey, width: 0.1),
+                  ),
+                  color: task.color,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 5, left: 8, right: 8, top: 5),
+                    child: Text(
+                      '${_formatTime(task.endTime)}',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ],
             ),
-          ),
+
+            // Task Title Card
+            Expanded(
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  side: const BorderSide(color: Colors.grey, width: 0.1),
+                ),
+                color: task.color,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 23.0),
+                          child: Text(
+                            task.title,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.edit, color: Colors.white),
+                        onPressed: () {
+                          // Handle edit action
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.white),
+                        onPressed: () {
+                          // Handle delete action
+                          setState(() {
+                            _tasks.remove(task);
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            // const SizedBox(height: 8),
+            // Start Time Card
+          ],
         ),
       );
     } else {
-      // Return an empty container if the task does not match the selected date
+      // Return an empty container if the task's date does not match the selected day name
       return Container();
     }
   }
@@ -304,6 +266,481 @@ void main() {
     home: SchedulePage(),
   ));
 }
+
+
+
+   // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     IconButton(
+              //       icon: const Icon(Icons.arrow_back),
+              //       onPressed: () {
+              //         setState(() {
+              //           _currentDate = _currentDate.subtract(Duration(days: 7));
+              //         });
+              //       },
+              //     ),
+              //     Text(
+              //       DateFormat('MMM d, yyyy').format(startingDate),
+              //       style: const TextStyle(
+              //           fontSize: 18, fontWeight: FontWeight.bold),
+              //     ),
+              //     IconButton(
+              //       icon: const Icon(Icons.arrow_forward),
+              //       onPressed: () {
+              //         setState(() {
+              //           _currentDate = _currentDate.add(Duration(days: 7));
+              //         });
+              //       },
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: 70, // Adjusted height for the row of day cards
+              //   child: ListView(
+              //     scrollDirection: Axis.horizontal,
+              //     children: List.generate(
+              //       7, // Assuming you want to display 7 days (a week)
+              //       (index) =>
+              //           _buildDayCard(startingDate.add(Duration(days: index))),
+              //     ),
+              //   ),
+              // ),
+
+
+
+      // ListView(
+                //   scrollDirection: Axis.horizontal,
+                //   children: [
+                //      _buildDayCard('Saturday'),
+                //     _buildDayCard('Sunday'),
+                //     _buildDayCard('Monday'),
+                //     _buildDayCard('Tuesday'),
+                //     _buildDayCard('Wednesday'),
+                //     _buildDayCard('Thursday'),
+                //     _buildDayCard('Friday'),
+
+                //   ],
+                // ),
+
+
+
+// Widget _buildTaskCard(Task task) {
+//   // Check if the task's date matches the day name of the selected date
+//   if (DateFormat('E').format(task.date) == DateFormat('E').format(_selectedDate)) {
+//     return Padding(
+//       padding: const EdgeInsets.only(left: 8, right: 10),
+//       child: GestureDetector(
+//         onTap: () {
+//           // Handle tapping on a task (if needed)
+//         },
+//         child: Row(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Column(
+//               children: [
+//                 Card(
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(20.0),
+//                     side: const BorderSide(color: Colors.grey, width: 0.1),
+//                   ),
+//                   color: task.color,
+//                   child: Padding(
+//                     padding: const EdgeInsets.only(
+//                         bottom: 5, left: 8, right: 8, top: 5),
+//                     child: Text(
+//                       '${_formatTime(task.startTime)}',
+//                       style: const TextStyle(color: Colors.white),
+//                     ),
+//                   ),
+//                 ),
+//                 // const SizedBox(height: 5),
+//                 // End Time Card
+//                 Card(
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(20.0),
+//                     side: const BorderSide(color: Colors.grey, width: 0.1),
+//                   ),
+//                   color: task.color,
+//                   child: Padding(
+//                     padding: const EdgeInsets.only(
+//                         bottom: 5, left: 8, right: 8, top: 5),
+//                     child: Text(
+//                       '${_formatTime(task.endTime)}',
+//                       style: const TextStyle(color: Colors.white),
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+
+//             // Task Title Card
+//             Expanded(
+//               child: Card(
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(20.0),
+//                   side: const BorderSide(color: Colors.grey, width: 0.1),
+//                 ),
+//                 color: task.color,
+//                 child: Padding(
+//                   padding: const EdgeInsets.all(8.0),
+//                   child: Row(
+//                     children: [
+//                       Expanded(
+//                         child: Padding(
+//                           padding: const EdgeInsets.only(left: 23.0),
+//                           child: Text(
+//                             task.title,
+//                             style: const TextStyle(color: Colors.white),
+//                           ),
+//                         ),
+//                       ),
+//                       IconButton(
+//                         icon: const Icon(Icons.edit, color: Colors.white),
+//                         onPressed: () {
+//                           // Handle edit action
+//                         },
+//                       ),
+//                       IconButton(
+//                         icon: const Icon(Icons.delete, color: Colors.white),
+//                         onPressed: () {
+//                           // Handle delete action
+//                           setState(() {
+//                             _tasks.remove(task);
+//                           });
+//                         },
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ),
+//             // const SizedBox(height: 8),
+//             // Start Time Card
+//           ],
+//         ),
+//       ),
+//     );
+//   } else {
+//     // Return an empty container if the task's date does not match the selected day name
+//     return Container();
+//   }
+// }
+
+
+  // Widget _buildDayCard(DateTime day) {
+  //   // Logic to determine the day's label
+  //   String dayLabel = DateFormat('E').format(day);
+
+  //   return GestureDetector(
+  //     onTap: () {
+  //       setState(() {
+  //         _selectedDate = day; // Update the selected date
+  //       });
+  //       // You can add navigation or any other functionality here
+  //     },
+  //     child: Container(
+  //       width: 100, // Adjust the width according to your preference
+  //       height: 35, // Adjusted height
+  //       margin: const EdgeInsets.all(8),
+  //       decoration: BoxDecoration(
+  //         color: _selectedDate != null &&
+  //                 _selectedDate.year == day.year &&
+  //                 _selectedDate.month == day.month &&
+  //                 _selectedDate.day == day.day
+  //             ? const Color(0xFF3C8243) // Change color if selected
+  //             : Color.fromARGB(255, 235, 232, 231),
+  //         borderRadius: BorderRadius.circular(8),
+  //       ),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           Text(
+  //             dayLabel,
+  //             style: TextStyle(
+  //               fontWeight: FontWeight.bold,
+  //               fontSize: 16,
+  //               color: _selectedDate != null &&
+  //                       _selectedDate.year == day.year &&
+  //                       _selectedDate.month == day.month &&
+  //                       _selectedDate.day == day.day
+  //                   ? Colors.white // Change text color if selected
+  //                   : Colors.black,
+  //             ),
+  //           ),
+  //           Text(
+  //             DateFormat('d').format(day),
+  //             style: TextStyle(
+  //               fontSize: 14,
+  //               color: _selectedDate != null &&
+  //                       _selectedDate.year == day.year &&
+  //                       _selectedDate.month == day.month &&
+  //                       _selectedDate.day == day.day
+  //                   ? Colors.white // Change text color if selected
+  //                   : Colors.black,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+// Widget _buildDayCard(String dayName) {
+//   return GestureDetector(
+//     onTap: () {
+//       setState(() {
+//         _selectedDay = dayName;
+//       });
+//     },
+//     child: Container(
+//       width: 100, // Adjust the width according to your preference
+//       height: 35, // Adjusted height
+//       margin: const EdgeInsets.all(8),
+//       decoration: BoxDecoration(
+//         color: _selectedDay == dayName
+//             ? const Color(0xFF3C8243) // Change color if selected
+//             : const Color.fromARGB(255, 235, 232, 231),
+//         borderRadius: BorderRadius.circular(8),
+//       ),
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           Text(
+//             dayName,
+//             style: TextStyle(
+//               fontWeight: FontWeight.bold,
+//               fontSize: 16,
+//               color: _selectedDay == dayName
+//                   ? Colors.white // Change text color if selected
+//                   : Colors.black,
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+//   );
+// }
+
+
+
+
+
+
+
+  // Widget _buildTaskCard(Task task) {
+  //   // Check if the task date matches the selected date
+  //   if (task.date.year == _selectedDate.year &&
+  //       task.date.month == _selectedDate.month &&
+  //       task.date.day == _selectedDate.day) {
+  //     return Padding(
+  //       padding: const EdgeInsets.only(left: 8, right: 10),
+  //       child: Card(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(25.0),
+  //           side: const BorderSide(color: Colors.grey, width: 0.1),
+  //         ),
+  //         color: task.color,
+  //         child: ListTile(
+  //           title: Text(task.title),
+  //           subtitle: Text(
+  //               '${DateFormat('MMM d, yyyy').format(task.date)} | ${_formatTime(task.startTime)} - ${_formatTime(task.endTime)}'),
+  //           trailing: Row(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               IconButton(
+  //                 icon: const Icon(Icons.edit, color: Colors.white),
+  //                 onPressed: () {
+  //                   // Handle edit action
+  //                 },
+  //               ),
+  //               IconButton(
+  //                 icon: const Icon(Icons.delete, color: Colors.white),
+  //                 onPressed: () {
+  //                   // Handle delete action
+  //                   setState(() {
+  //                     _tasks.remove(task);
+  //                   });
+  //                 },
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     );
+  //   } else {
+  //     // Return an empty container if the task does not match the selected date
+  //     return Container();
+  //   }
+  // }
+//   Widget _buildTaskCard(Task task) {
+//   // Check if the task date matches the selected date
+//   if (task.date.year == _selectedDate.year &&
+//       task.date.month == _selectedDate.month &&
+//       task.date.day == _selectedDate.day) {
+//     return Padding(
+//       padding: const EdgeInsets.only(left: 8, right: 10),
+//       child: Card(
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(25.0),
+//           side: const BorderSide(color: Colors.grey, width: 0.1),
+//         ),
+//         color: task.color,
+//         child: ListTile(
+//           title: Text(task.title),
+//           subtitle: Text(
+//               '${DateFormat('MMM d, yyyy').format(task.date)} | ${_formatTime(task.startTime)} - ${_formatTime(task.endTime)}'),
+//           trailing: Row(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               IconButton(
+//                 icon: const Icon(Icons.edit, color: Colors.white),
+//                 onPressed: () {
+//                   // Handle edit action
+//                 },
+//               ),
+//               IconButton(
+//                 icon: const Icon(Icons.delete, color: Colors.white),
+//                 onPressed: () {
+//                   // Handle delete action
+//                   setState(() {
+//                     _tasks.remove(task);
+//                   });
+//                 },
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   } else {
+//     // Return an empty container if the task does not match the selected date
+//     return Container();
+//   }
+// }
+// Widget _buildTaskCard(Task task) {
+//   // Check if the task's date matches the day name of the selected date
+//   if (DateFormat('EEEE').format(task.date) == DateFormat('EEEE').format(_selectedDate)) {
+//     return Padding(
+//       padding: const EdgeInsets.only(left: 8, right: 10),
+//       child: Card(
+//         shape: RoundedRectangleBorder(
+//           borderRadius: BorderRadius.circular(25.0),
+//           side: const BorderSide(color: Colors.grey, width: 0.1),
+//         ),
+//         color: task.color,
+//         child: ListTile(
+//           title: Text(task.title),
+//           subtitle: Text(
+//               '${DateFormat('MMM d, yyyy').format(task.date)} | ${_formatTime(task.startTime)} - ${_formatTime(task.endTime)}'),
+//           trailing: Row(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               IconButton(
+//                 icon: const Icon(Icons.edit, color: Colors.white),
+//                 onPressed: () {
+//                   // Handle edit action
+//                 },
+//               ),
+//               IconButton(
+//                 icon: const Icon(Icons.delete, color: Colors.white),
+//                 onPressed: () {
+//                   // Handle delete action
+//                   setState(() {
+//                     _tasks.remove(task);
+//                   });
+//                 },
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   } else {
+//     // Return an empty container if the task's date does not match the selected day name
+//     return Container();
+//   }
+// }
+  // Widget _buildTaskCard(Task task) {
+  //   // Check if the task's date matches the day name of the selected date
+  //   if (DateFormat('EEEE').format(task.date) ==
+  //       DateFormat('EEEE').format(_selectedDate)) {
+  //     return Padding(
+  //       padding: const EdgeInsets.only(left: 8, right: 10),
+  //       child: Card(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(25.0),
+  //           side: const BorderSide(color: Colors.grey, width: 0.1),
+  //         ),
+  //         // color: task.color,
+  //         child: Row(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             Column(
+  //               children: [
+  //                 Card(
+  //                   shape: RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.circular(25.0),
+  //                     side: const BorderSide(color: Colors.grey, width: 0.1),
+  //                   ),
+  //                   color: task.color,
+  //                   child: Padding(
+  //                     padding: const EdgeInsets.only(
+  //                         bottom: 5, left: 8, right: 8, top: 5),
+  //                     child: Text(
+  //                       '${_formatTime(task.startTime)}',
+  //                       style: const TextStyle(color: Colors.white),
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 // const SizedBox(height: 5),
+  //                 // End Time Card
+  //                 Card(
+  //                   shape: RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.circular(25.0),
+  //                     side: const BorderSide(color: Colors.grey, width: 0.1),
+  //                   ),
+  //                   color: task.color,
+  //                   child: Padding(
+  //                     padding: const EdgeInsets.only(
+  //                         bottom: 5, left: 8, right: 8, top: 5),
+  //                     child: Text(
+  //                       '${_formatTime(task.endTime)}',
+  //                       style: const TextStyle(color: Colors.white),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+
+  //             // Task Title Card
+  //             Card(
+  //               shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(25.0),
+  //                 side: const BorderSide(color: Colors.grey, width: 0.1),
+  //               ),
+  //               color: task.color,
+  //               child: Padding(
+  //                 padding: const EdgeInsets.all(8.0),
+  //                 child: Text(
+  //                   task.title,
+  //                   style: const TextStyle(color: Colors.white),
+  //                 ),
+  //               ),
+  //             ),
+  //             // const SizedBox(height: 8),
+  //             // Start Time Card
+  //           ],
+  //         ),
+  //       ),
+  //     );
+  //   } else {
+  //     // Return an empty container if the task's date does not match the selected day name
+  //     return Container();
+  //   }
+  // }
+
+
+
 
 // import 'package:flutter/material.dart';
 // import 'package:intl/intl.dart';
