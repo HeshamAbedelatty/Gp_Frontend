@@ -1,98 +1,95 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
+//import 'package:final_profile/ProfilePic.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gp_screen/Pages/More_page/EditProfilePage';
-
-import 'ProfilePic.dart';
+import 'package:gp_screen/Pages/More_page/EditPage/EditProfilePage';
 
 class Body extends StatelessWidget {
-  const Body({Key? key});
+  const Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      /*decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("lib/assets/back.jpg"),
-          fit: BoxFit.cover,
-        ),
-      ),*/
-      child: Padding(
-        padding:
-            const EdgeInsets.all(20.0), // Add padding outside the container
-        child: Column(
-          children: [
-            ProfilePic(),
-            SizedBox(height: 20),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      //padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(248, 247, 242, 1),
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Column(
-                          children: [
-                            ProfileMenuItem(
-                              icon: "lib/assets/icons/edit (2).png",
-                              text: "Edit Profile",
-                              press: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) {
-                                      return const EditProfilePage();
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                            ProfileMenuDivider(),
-                            ProfileMenuItem(
-                              icon: "lib/assets/icons/notification (1).png",
-                              text: "Notifications",
-                              press: () {},
-                            ),
-                            ProfileMenuDivider(),
-                            ProfileMenuItem(
-                              icon: "lib/assets/icons/chat.png",
-                              text: "Contact US",
-                              press: () {},
-                            ),
-                            ProfileMenuDivider(),
-                            ProfileMenuItem(
-                              icon: "lib/assets/icons/settings (2).png",
-                              text: "Settings",
-                              press: () {},
-                            ),
-                            ProfileMenuDivider(),
-                            ProfileMenuItem(
-                              icon: "lib/assets/icons/about.png",
-                              text: "About Us",
-                              press: () {},
-                            ),
-                            ProfileMenuDivider(),
-                            ProfileMenuItem(
-                              icon: "lib/assets/icons/logout.png",
-                              text: "Log Out",
-                              press: () {},
-                            ),
-                          ],
+    return ClipRRect(
+      // Wrap with ClipRRect to add border radius
+      borderRadius: BorderRadius.circular(50), // Set desired border radius
+      child: Container(
+        /*decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("lib/assets/back.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),*/
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              // ProfilePic(),
+              SizedBox(height: 20),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        //padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(248, 247, 242, 1),
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Column(
+                            children: [
+                              ProfileMenuItem(
+                                icon: "lib/assets/edit (2).png",
+                                text: "Edit Profile",
+                                press: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) {
+                                        return const EditProfilePage();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                              ProfileMenuDivider(),
+                              ProfileMenuItem(
+                                icon: "lib/assets/notification (1).png",
+                                text: "Notifications",
+                                press: () {},
+                              ),
+                              ProfileMenuDivider(),
+                              ProfileMenuItem(
+                                icon: "lib/assets/chat.png",
+                                text: "Contact US",
+                                press: () {},
+                              ),
+                              ProfileMenuDivider(),
+                              ProfileMenuItem(
+                                icon: "lib/assets/settings (2).png",
+                                text: "Settings",
+                                press: () {},
+                              ),
+                              ProfileMenuDivider(),
+                              ProfileMenuItem(
+                                icon: "lib/assets/about.png",
+                                text: "About Us",
+                                press: () {},
+                              ),
+                              ProfileMenuDivider(),
+                              ProfileMenuItem(
+                                icon: "lib/assets/logout.png",
+                                text: "Log Out",
+                                press: () {},
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -137,7 +134,10 @@ class ProfileMenuItem extends StatelessWidget {
             Expanded(
               child: Text(
                 text,
-                style: Theme.of(context).textTheme.bodyText1!,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontSize: 16),
               ),
             ),
             Icon(Icons.arrow_forward_ios,

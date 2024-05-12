@@ -30,7 +30,7 @@ class _ProfilePicState extends State<ProfilePic> {
                 backgroundColor: Colors.transparent,
                 backgroundImage: _image != null
                     ? FileImage(_image!)
-                    : AssetImage("lib/assets/icons/profile.jpg")
+                    : AssetImage("lib/assets/profile.jpg")
                         as ImageProvider<Object>?,
               ),
               Positioned(
@@ -58,14 +58,6 @@ class _ProfilePicState extends State<ProfilePic> {
               ),
             ],
           ),
-        ),
-        Text(
-          widget
-              ._usernameController.text, // Use widget._usernameController.text
-          style: Theme.of(context)
-              .textTheme
-              .bodyText1!
-              .copyWith(fontSize: 16), // Adjust font size as needed
         ),
       ],
     );
