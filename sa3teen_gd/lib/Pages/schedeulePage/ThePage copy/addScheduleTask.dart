@@ -64,7 +64,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 },
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Container(
               // decoration: BoxDecoration(
               //   borderRadius: BorderRadius.circular(10),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 class AddTaskScreen extends StatefulWidget {
-  final Function(String, DateTime, TimeOfDay, TimeOfDay, int, Color) onAddTask;
+  final Function(String, String,DateTime, TimeOfDay, TimeOfDay, int, Color) onAddTask;
 
   const AddTaskScreen({Key? key, required this.onAddTask}) : super(key: key);
 
@@ -11,6 +12,7 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   late String _taskTitle;
+  late String _description;
   late String _selectedDay;
   TimeOfDay _startTime = TimeOfDay(hour: 9, minute: 0);
   TimeOfDay _endTime = TimeOfDay(hour: 10, minute: 0);
@@ -18,13 +20,16 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   Color _taskColor = Color.fromARGB(218, 255, 219, 88);
 
   late TextEditingController _titleController;
+    late TextEditingController _descriptionController;
   late TextEditingController _startTimeController;
   late TextEditingController _endTimeController;
 
   List<Color> _colors = [
     Color.fromARGB(218, 255, 219, 88),
     const Color.fromARGB(255, 232, 109, 101),
-    const Color.fromARGB(255, 130, 174, 250)
+    const Color.fromARGB(255, 130, 174, 250),
+    Color.fromARGB(255, 148, 244, 150),
+    Color.fromARGB(255, 202, 130, 250)
   ];
   int _selectedColorIndex = 0;
 
@@ -32,6 +37,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   void initState() {
     super.initState();
     _titleController = TextEditingController();
+    _descriptionController = TextEditingController();
     _startTimeController = TextEditingController();
     _endTimeController = TextEditingController();
     _selectedDay = DateFormat('EEEE').format(DateTime.now());
@@ -62,29 +68,23 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            DropdownButtonFormField<String>(
-              value: _selectedDay,
-              items: [
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday',
-                'Sunday',
-              ].map((day) {
-                return DropdownMenuItem<String>(
-                  value: day,
-                  child: Text(day),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedDay = value!;
-                });
-              },
-              decoration: InputDecoration(labelText: 'Day'),
+            Container(
+              child: TextFormField(
+                controller: _descriptionController,
+                decoration: InputDecoration(
+                  labelText: 'description',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _description = value;
+                  });
+                },
+              ),
             ),
+         
             const SizedBox(height: 10),
             TextFormField(
               controller: _startTimeController,
@@ -108,6 +108,30 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                 suffixIcon: const Icon(Icons.access_time),
               ),
+            ),
+               const SizedBox(height: 10),
+            DropdownButtonFormField<String>(
+              value: _selectedDay,
+              items: [
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+                'Sunday',
+              ].map((day) {
+                return DropdownMenuItem<String>(
+                  value: day,
+                  child: Text(day),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedDay = value!;
+                });
+              },
+              decoration: InputDecoration(labelText: 'Day'),
             ),
             const SizedBox(height: 10),
             DropdownButtonFormField<int>(
@@ -181,6 +205,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             if (selectedDate != null && _taskTitle != null) {
               widget.onAddTask(
                 _taskTitle,
+                _description,
                 selectedDate,
                 _startTime,
                 _endTime,
