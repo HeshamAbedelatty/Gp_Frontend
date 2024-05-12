@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/BottomAppBar/BottomBar.dart';
+import 'package:gp_screen/Pages/tabbars/MorePageTabBar.dart';
 
 import 'body.dart';
 
@@ -9,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: Appbar(),
       body: Body(),
       bottomNavigationBar: BottomNavBar(),
     );
