@@ -90,7 +90,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 onPressed: () {
                   _showAddTaskScreen(context);
                 },
-                child: const Text('Add lecture time'),
+                child: const Text('Add lecture time',style: TextStyle(color: Colors.white),),
               ),
             ),
           ),

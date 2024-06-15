@@ -216,7 +216,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
               // print('Please select a day and enter a title');
             // }
           },
-          child: Text('Save'),
+          child: Text('Save',style: TextStyle(color: Colors.white),),
         ),
       ],
     );

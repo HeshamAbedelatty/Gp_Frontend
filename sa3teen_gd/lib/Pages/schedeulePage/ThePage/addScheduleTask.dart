@@ -217,7 +217,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               print('Please select a day and enter a title');
             }
           },
-          child: Text('Add'),
+          child: Text('Add',style: TextStyle(color: Colors.white),),
         ),
       ],
     );
