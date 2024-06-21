@@ -1,3 +1,5 @@
+// last workingggggggggggg before attemptting groups 
+
 import 'package:flutter/material.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import '../Models/PostAndCommentModel.dart';
@@ -181,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Text('The Group')),
+      // appBar: AppBar(title: const Text('The Group')),
       body: Column(
         children: [
           Expanded(
@@ -557,94 +559,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         },
                                                       ),
                                                     ),
-                                                    // IconButton(
-                                                    //   icon: Icon(
-                                                    //     Icons.send,
-                                                    //     color: Colors.brown.shade200,
-                                                    //   ),
-                                                    //   onPressed: () {
-                                                    //     if (_replyControllers[comment.id]?.text.isNotEmpty ?? false) {
-                                                    //       _addReply(post.id, comment.id, _replyControllers[comment.id]!.text);
-                                                    //       _replyControllers[comment.id]?.clear();
-                                                    //     }
-                                                    //   },
-                                                    // ),
-                                                    // IconButton(
-                                                    //   icon: Icon(
-                                                    //     Icons.send,
-                                                    //     color: Colors
-                                                    //         .brown.shade200,
-                                                    //   ),
-                                                    //   onPressed: () {
-                                                    //     if (_replyControllers[
-                                                    //                 comment.id]
-                                                    //             ?.text
-                                                    //             .isNotEmpty ??
-                                                    //         false) {
-                                                    //       _addReply(
-                                                    //           post.id,
-                                                    //           comment.id,
-                                                    //           _replyControllers[
-                                                    //                   comment
-                                                    //                       .id]!
-                                                    //               .text);
-                                                    //       _replyControllers[
-                                                    //               comment.id]
-                                                    //           ?.clear();
-                                                    //       // Add focus removal logic if needed
-                                                    //     }
-                                                    //   },
-                                                    // ),
-                                                    // IconButton(
-                                                    // IconButton(
-                                                    //   icon: Icon(
-                                                    //     Icons.send,
-                                                    //     color: Colors
-                                                    //         .brown.shade200,
-                                                    //   ),
-                                                    //   onPressed: () {
-                                                    //     // Check if _replyControllers[comment.id] exists and its text is not empty
-                                                    //     if (_replyControllers
-                                                    //             .containsKey(
-                                                    //                 comment
-                                                    //                     .id) &&
-                                                    //         _replyControllers[
-                                                    //                     comment
-                                                    //                         .id]
-                                                    //                 ?.text
-                                                    //                 ?.isNotEmpty ==
-                                                    //             true) {
-                                                    //       String replyText =
-                                                    //           _replyControllers[
-                                                    //                   comment
-                                                    //                       .id]!
-                                                    //               .text;
-                                                    //       _addReply(
-                                                    //           post.id,
-                                                    //           comment.id,
-                                                    //           replyText);
-                                                    //       _replyControllers[
-                                                    //               comment.id]
-                                                    //           ?.clear();
-                                                    //       // Add focus removal logic if needed
-                                                    //     } else {
-                                                    //       print(
-                                                    //           "Reply text is empty or _replyControllers[comment.id] is null.");
-                                                    //     }
-                                                    //   },
-                                                    // ),
-            //                                         ElevatedButton(
-            //   onPressed: () {
-            //     if (_replyControllers[comment.id]!.text.isNotEmpty) {
-            //        _addReply(
-            //                                                   post.id,
-            //                                                   comment.id,
-            //                                                  _replyControllers[comment.id]!.text );
-            //     }
-            //     Navigator.of(context).pop(); // Close the dialog
-            //   },
-            //   child: const Text('Post'),
-            // ),
+                                          
                                                     IconButton(
                                                       icon: Icon(
                                                         Icons.send,
@@ -659,15 +574,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     ?.text
                                                                     .isNotEmpty ??
                                                                 false
-                                                            // _replyControllers
-                                                            //       .containsKey(
-                                                            //           comment
-                                                            //               .id) &&
-
-                                                            // ?
-
-                                                            //      ==
-                                                            // true
+                                                           
                                                             ) {
                                                           String replyText =
                                                               _replyControllers[

@@ -81,6 +81,7 @@ flutter:
   assets:
     #- assets/
     - lib/assets/icons/
+    # - lib/assets/icons/3.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
