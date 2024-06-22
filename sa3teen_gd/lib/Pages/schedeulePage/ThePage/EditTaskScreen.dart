@@ -52,7 +52,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Edit Task'),
+      title: Text('Edit Slot'),
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
