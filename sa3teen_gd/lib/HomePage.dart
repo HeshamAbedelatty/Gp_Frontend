@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gp_screen/Chat%20Bot.dart';
 import 'package:gp_screen/Logic.dart';
-import 'package:gp_screen/Pages/BottomAppBar/BottomBar.dart';
+// import 'package:gp_screen/Pages/BottomAppBar/BottomBar.dart';
 
 // el video w el appbar
 class HomePage extends StatefulWidget {
@@ -394,7 +394,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20),
             ],
           ),
-        ),
-        bottomNavigationBar: BottomNavBar());
+        ));
+        // bottomNavigationBar: BottomNavBar());
   }
 }
