@@ -55,6 +55,9 @@ dependencies:
   flutter_svg: ^2.0.9
   image_picker: ^1.0.8
   searchfield: ^1.0.1
+  file_picker: ^8.0.5
+  pdf: ^3.11.0
+  share: ^2.0.4
 
 dev_dependencies:
   flutter_test:
