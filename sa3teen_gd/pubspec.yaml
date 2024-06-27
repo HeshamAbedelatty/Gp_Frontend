@@ -61,6 +61,8 @@ dependencies:
   searchfield: ^1.0.1
   pdf: ^3.11.0
   share: ^2.0.4
+  flutter_tts: ^4.0.2
+  syncfusion_flutter_pdf: ^21.2.4
 
 dev_dependencies:
   flutter_test:
