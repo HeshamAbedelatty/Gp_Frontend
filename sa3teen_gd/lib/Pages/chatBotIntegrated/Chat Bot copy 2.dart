@@ -108,7 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
           borderRadius: BorderRadius.circular(30.0),
         ),
         child: ListTile(
-          title: Text(
+          title: SelectableText(
             message['text'],
             style: textStyle,
           ),

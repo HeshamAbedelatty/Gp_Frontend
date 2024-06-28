@@ -1,6 +1,7 @@
 // ignore_for_file:depend_on_referenced_packages, use_key_in_widget_constructors, library_private_types_in_public_api, use_build_context_synchronously
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import this for Clipboard
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -34,6 +35,7 @@ class _HandwrittenToTextWidgetState extends State<HandwrittenToTextWidget> {
   File? _imageFile;
   final picker = ImagePicker();
   String? _responseText;
+
   Future<void> _pickImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -88,10 +90,6 @@ class _HandwrittenToTextWidgetState extends State<HandwrittenToTextWidget> {
             .replaceAll('\n', '\n ')
             .replaceAll(RegExp(r"[^a-zA-Z0-9\s.,':]"), ''); // Keep ., and '
 
-        // String cleanedResponse = jsonResponse['response']
-        //     .replaceAll('\n', ' ')
-        //     .replaceAll(RegExp(r'[^\w\s]+'), '');
-
         setState(() {
           _responseText = cleanedResponse;
         });
@@ -145,6 +143,13 @@ class _HandwrittenToTextWidgetState extends State<HandwrittenToTextWidget> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _copyToClipboard(String text) async {
+    await Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Text copied to clipboard')),
     );
   }
 
@@ -258,14 +263,12 @@ class _HandwrittenToTextWidgetState extends State<HandwrittenToTextWidget> {
                                 ),
                               ],
                             ),
-                            child: Text(
+                            child: SelectableText(
                               _responseText!,
                               textAlign: TextAlign.start,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 10),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               fixedSize: const Size(200, 40),
@@ -273,7 +276,6 @@ class _HandwrittenToTextWidgetState extends State<HandwrittenToTextWidget> {
                             ),
                             onPressed: () {
                               if (_responseText != null) {
-                                // _generateAndDownloadPDF(_responseText!);
                                 _downloadAsPdf();
                               } else {
                                 print('No text to generate PDF.');
@@ -281,6 +283,25 @@ class _HandwrittenToTextWidgetState extends State<HandwrittenToTextWidget> {
                             },
                             child: const Text(
                               'Download as PDF',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                         
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: const Size(200, 40),
+                              backgroundColor: Colors.green,
+                            ),
+                            onPressed: () {
+                              if (_responseText != null) {
+                                _copyToClipboard(_responseText!);
+                              } else {
+                                print('No text to copy.');
+                              }
+                            },
+                            child: const Text(
+                              'Copy All',
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
