@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 
+import '../../pomodoroPage/Widgets/customAppBar.dart';
+import '../../schedeulePage/Widgets copy/customAppBar.dart';
+
 class ToDoListClass {
   final String taskName;
   final DateTime deadline;
@@ -88,7 +91,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       backgroundColor: kprimaryColourWhite,
       body: Column(
         children: [
-          const customAppBar(),
+          const customAppBar(title: 'ToDoList',),
           Expanded(
             child: ListView.builder(
               shrinkWrap: true,

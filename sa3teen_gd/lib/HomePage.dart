@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gp_screen/Chat%20Bot.dart';
 import 'package:gp_screen/Logic.dart';
-// import 'package:gp_screen/Pages/BottomAppBar/BottomBar.dart';
+import 'Pages/GroupPostAndCommentPage/Pages/FinalGroupPostsPage.dart';
+import 'Pages/pomodoroPage/ThePage/newpomo.dart';
+
+import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
+import 'Pages/schedeulePage/ThePage/FinalSchedulePage.dart';
+import 'Pages/toDoListPage/ThePage/ToDoListFinal.dart';
+
 
 // el video w el appbar
 class HomePage extends StatefulWidget {
@@ -13,9 +19,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   Widget buildCustomContainerGroups(BuildContext context, String text,
       AssetImage imageProvider, double iconSize, VoidCallback onPressed) {
     return GestureDetector(
+
       onTap: onPressed,
       child: Container(
         decoration: BoxDecoration(
@@ -87,11 +95,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        // appBar: customAppBar(
+        //   // title: 'Home',
+        //
+        // ),
+
         body: SingleChildScrollView(
           child: Column(
+
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const CustomAppBar(title: 'Home'),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Row(
@@ -201,7 +215,12 @@ class _HomePageState extends State<HomePage> {
                             Navigator.of(context).push(
                               MaterialPageRoute<void>(
                                 builder: (BuildContext context) {
-                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                  return  GroupPage(
+                                    id: 1,
+                                    groupName: 'Example Group',
+                                    groupImageUrl: 'url_to_image',
+                                    members: ['Member 1', 'Member 2'],
+                                    groupState: 'Active',); // Return the ChatScreen widget here
                                 },
                               ),
                             );
@@ -233,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.of(context).push(
                               MaterialPageRoute<void>(
                                 builder: (BuildContext context) {
-                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                  return const ToDoListScreen(); // Return the ChatScreen widget here
                                 },
                               ),
                             );
@@ -254,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.of(context).push(
                               MaterialPageRoute<void>(
                                 builder: (BuildContext context) {
-                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                  return  PomodoroTimer(); // Return the ChatScreen widget here
                                 },
                               ),
                             );
@@ -269,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.of(context).push(
                               MaterialPageRoute<void>(
                                 builder: (BuildContext context) {
-                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                  return  SchedulePage(); // Return the ChatScreen widget here
                                 },
                               ),
                             );

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 
 // el appbar
 class ChatScreen extends StatefulWidget {
@@ -87,11 +88,12 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat with ChatGPT'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Chat with ChatGPT'),
+      // ),
       body: Column(
         children: [
+          const CustomAppBar(title: 'Chat with ChatBot'),
           Expanded(
             child: _buildMessageList(),
           ),

@@ -32,7 +32,7 @@ class Sa3teenGd extends StatelessWidget {
       initialRoute: LoginPage.id,*/
       onGenerateRoute: (settings) {
         if (settings.name == '/') {
-          return MaterialPageRoute(builder: (_) => const HomePage());
+          return MaterialPageRoute(builder: (_) =>  LoginPage());
         }
       },
       debugShowCheckedModeBanner: false,

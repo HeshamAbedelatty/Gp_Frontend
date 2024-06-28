@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
 class customAppBar extends StatelessWidget {
-  const customAppBar({super.key});
+  const customAppBar({super.key, required String title});
   @override
   Widget build(BuildContext context) {
     return Container(

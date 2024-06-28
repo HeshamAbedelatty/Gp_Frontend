@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 
 void main() {
   runApp(PomodoroTimer());
@@ -33,15 +34,16 @@ class _TimerPageState extends State<TimerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Pomodoro Timer'),
-        backgroundColor: Color(0xFF3C8243),
-      ),
+      // appBar: AppBar(
+      //   title: Text('Pomodoro Timer'),
+      //   backgroundColor: Color(0xFF3C8243),
+      // ),
       body: Container(
         padding: EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const CustomAppBar(title: 'Pomodoro'),
             Container(
               width: 200.0,
               height: 200.0,

@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gp_screen/Pages/pomodoroPage/Widgets/customAppBar.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
+
+
 
 // void main() {
 //   runApp(const MaterialApp(
@@ -239,7 +241,7 @@ Widget _buildResetButton() {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const customAppBar(),
+                const CustomAppBar(title: 'Pomodoro'),
                 SizedBox(height: 30,),
                 Stack(
                   alignment: Alignment.center,

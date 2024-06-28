@@ -17,7 +17,7 @@ class Task {
     required this.startTime,
     required this.endTime,
     required this.remindInterval,
-    required this.color,
+    required this.color, required String id, required taskName, DateTime? deadline,
   });
 }
 
@@ -52,7 +52,7 @@ class _SchedulePageState extends State<SchedulePage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const customAppBar(),
+              const customAppBar(title: 'Schedule',),
               const SizedBox(
                 height: 9,
               ),
@@ -285,7 +285,7 @@ class _SchedulePageState extends State<SchedulePage> {
         startTime: startTime,
         endTime: endTime,
         remindInterval: remindInterval,
-        color: color,
+        color: color, id: '', taskName: null,
       ));
     });
 

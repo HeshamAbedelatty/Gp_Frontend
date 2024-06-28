@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:gp_screen/Pages/schedeulePage/ThePage/EditTaskScreen.dart';
 import 'package:gp_screen/Pages/schedeulePage/ThePage/addScheduleTask.dart';
-import 'package:gp_screen/Pages/schedeulePage/Widgets%20copy/customAppBar.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 
 class Task {
   final String title;
@@ -52,7 +52,7 @@ class _SchedulePageState extends State<SchedulePage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const customAppBar(),
+              const CustomAppBar(title: 'Schedule',),
               const SizedBox(
                 height: 9,
               ),

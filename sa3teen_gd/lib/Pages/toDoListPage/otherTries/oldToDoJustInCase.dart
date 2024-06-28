@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 
+import '../../pomodoroPage/Widgets/customAppBar.dart';
+import '../../schedeulePage/Widgets copy/customAppBar.dart';
+
 class ToDoListClass {
   String listName;
   List<Task> tasks;
@@ -109,8 +112,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       backgroundColor: kprimaryColourWhite,
       body: Column(
         children: [
-          const customAppBar(),
-          // Padding(
+          const customAppBar(title: 'ToDoList',),          // Padding(
           //   padding: const EdgeInsets.all(8.0),
           //   child: Row(
           //     mainAxisAlignment: MainAxisAlignment.end,
