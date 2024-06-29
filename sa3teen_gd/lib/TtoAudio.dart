@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:syncfusion_flutter_pdf/pdf.dart';
+import "package:syncfusion_flutter_pdf/pdf.dart";
 
 class TextToSpeechApp extends StatefulWidget {
   @override
@@ -30,27 +29,27 @@ class _TextToSpeechAppState extends State<TextToSpeechApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Text to Speech'),
+        title: const Text('Text to Speech'),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               ElevatedButton(
                 onPressed: _pickPDF,
-                child: Text('Pick PDF'),
+                child: const Text('Pick PDF'),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextField(
                 controller: textEditingController,
                 maxLines: 10,
                 decoration: InputDecoration(
                   labelText: 'Enter text',
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       setState(() {
                         textEditingController.clear();
@@ -65,17 +64,17 @@ class _TextToSpeechAppState extends State<TextToSpeechApp> {
                   });
                 },
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
                   _speak();
                 },
-                child: Text('Convert to Speech'),
+                child: const Text('Convert to Speech'),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               Row(
                 children: [
-                  Text('Speed:'),
+                  const Text('Speed:'),
                   Slider(
                     value: speechRate,
                     min: 0.5,
@@ -91,28 +90,28 @@ class _TextToSpeechAppState extends State<TextToSpeechApp> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
                   _showFileNameDialog();
                 },
-                child: Text('Download as MP3'),
+                child: const Text('Download as MP3'),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Text(
                 audioName.isNotEmpty ? 'Audio: $audioName' : '',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Text(
                 audioDuration != Duration.zero
                     ? 'Duration: ${audioDuration.inSeconds} seconds'
                     : '',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               audioDownloaded
-                  ? Icon(Icons.check, color: Colors.green)
+                  ? const Icon(Icons.check, color: Colors.green)
                   : Container(),
             ],
           ),
@@ -135,22 +134,22 @@ class _TextToSpeechAppState extends State<TextToSpeechApp> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Enter audio file name'),
+          title: const Text('Enter audio file name'),
           content: TextField(
             onChanged: (value) {
               fileName = value;
             },
-            decoration: InputDecoration(hintText: "Enter file name"),
+            decoration: const InputDecoration(hintText: "Enter file name"),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Save'),
+              child: const Text('Save'),
               onPressed: () {
                 Navigator.of(context).pop();
                 _downloadSpeech(fileName);
@@ -165,7 +164,7 @@ class _TextToSpeechAppState extends State<TextToSpeechApp> {
   Future<void> _downloadSpeech(String fileName) async {
     if (fileName.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('File name cannot be empty'),
         ),
       );
@@ -197,7 +196,7 @@ class _TextToSpeechAppState extends State<TextToSpeechApp> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Speech downloaded to Downloads folder'),
         ),
       );
@@ -253,7 +252,7 @@ class _TextToSpeechAppState extends State<TextToSpeechApp> {
 
   Future<void> _getAudioInfo() async {
     try {
-      await Future.delayed(Duration(seconds: 1)); // Simulate processing time
+      await Future.delayed(const Duration(seconds: 1)); // Simulate processing time
       // For simplicity, setting a default name and duration
       setState(() {
         audioName = 'Speech.mp3';

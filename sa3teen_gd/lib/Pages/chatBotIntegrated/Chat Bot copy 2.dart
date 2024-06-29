@@ -5,23 +5,6 @@ import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Django Integration Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: ChatScreen(),
-    );
-  }
-}
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -58,7 +41,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<dynamic?> _sendMessageToBackend(String message) async {
     http.Response response = await http.post(
-      Uri.parse('http://10.0.2.2:8000/tg/'),
+      Uri.parse('http://127.0.0.1:9090/tg/'),
       body: {
         'user_text': message,
       },
@@ -78,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
         // Clean up the response text
         String cleanedResponse = jsonResponse['response']
             .replaceAll('\n', '\n ')
-            .replaceAll(RegExp(r"[^a-zA-Z0-9\s.,']"), ''); // Keep ., and '
+            .replaceAll(RegExp(r"[^a-zA-Z0-9\s.,'+\-*/=]"), '');
 
         return cleanedResponse;
       } else {
