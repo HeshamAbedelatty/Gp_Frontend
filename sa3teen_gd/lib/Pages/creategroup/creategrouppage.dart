@@ -1,6 +1,24 @@
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
+
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: CreateGroupPage(),
+    );
+  }
+}
 
 class CreateGroupPage extends StatefulWidget {
   @override
@@ -23,12 +41,57 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
     }
   }
 
+Future<dynamic?> _sendMessageToBackend(String title, String description,
+    String privacy, File? image, String password, String subject, String accessToken) async {
+  var uri = Uri.parse('http://10.0.2.2:8000/groups/');
+  
+  var request = http.MultipartRequest('POST', uri)
+    ..fields['title'] = title
+    ..fields['description'] = description
+    ..fields['type'] = privacy
+    ..fields['password'] = password
+    ..fields['subject'] = subject;
+
+  // If you need to send an image file
+  if (image != null) {
+    request.files.add(await http.MultipartFile.fromPath('image', image.path));
+  }
+
+  // Add the access token to the headers
+  request.headers['Authorization'] = 'Bearer $accessToken';
+
+  try {
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+
+    print('Response status: ${response.statusCode}'); // Log status code
+    print('Response body: ${response.body}'); // Log response body
+
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      print('Request success with status: ${response.statusCode}');
+    } else {
+      print('Request failed with status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+    }
+  } catch (e) {
+    print('Error sending message: $e');
+  }
+  return null;
+}
+
   void _createGroup() {
-    // Handle group creation logic here
+    String accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjE1ODc5LCJpYXQiOjE3MTkzMTk4NzksImp0aSI6IjBlYTlhMWQ1NTVjNDQzNmZiZDYzN2ExZWY5NDU0ZDQ5IiwidXNlcl9pZCI6NX0.j06_cCptq8jr7D9cbiUoVLJWB_OLzD-4ZASLMDJmtdwn';
+
     final groupName = _groupNameController.text;
     final description = _descriptionController.text;
     final groupImage = _groupImage;
     final privacy = _privacy;
+    File? image =groupImage;
+    // Handle group creation logic here
+    _sendMessageToBackend( groupName, description,
+       privacy,  image, '2000', groupName,accessToken) ;
+    
 
     // For demonstration purposes, we'll just print the values
     print('Group Name: $groupName');
@@ -48,19 +111,19 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Group'),
+        title:const Text('Create Group'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding:const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+             const Text(
                 'Create a New Group',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 16),
+             const SizedBox(height: 16),
               GestureDetector(
                 onTap: _pickImage,
                 child: _groupImage == null
@@ -81,25 +144,25 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                         fit: BoxFit.cover,
                       ),
               ),
-              SizedBox(height: 16),
+             const SizedBox(height: 16),
               TextField(
                 controller: _groupNameController,
-                decoration: InputDecoration(
+                decoration:const InputDecoration(
                   labelText: 'Group Name',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+           const   SizedBox(height: 16),
               TextField(
                 controller: _descriptionController,
-                decoration: InputDecoration(
+                decoration:const InputDecoration(
                   labelText: 'Description',
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 3,
               ),
-              SizedBox(height: 16),
-              Text(
+             const SizedBox(height: 16),
+             const Text(
                 'Privacy',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -123,11 +186,11 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                   });
                 },
               ),
-              SizedBox(height: 16),
+             const SizedBox(height: 16),
               Center(
                 child: ElevatedButton(
                   onPressed: _createGroup,
-                  child: Text('Create Group'),
+                  child:const Text('Create Group'),
                 ),
               ),
             ],
@@ -137,3 +200,95 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
     );
   }
 }
+
+
+
+
+
+  // Future<dynamic?> _sendMessageToBackend(String title, String description,
+  //     String private, File image, String password, String subject) async {
+  //   http.Response response = await http.post(
+  //     Uri.parse('http://10.0.2.2:8000/groups/'),
+  //     body: {
+  //       // 'user_text': message
+
+  //       // "id": id,
+  //       "title": title,
+  //       "description": description,
+  //       "type": "private",
+  //       "image": null,
+  //       "password": "hesham2002",
+  //       "subject": "Computer Science",
+  //       // "members": 1
+  //     },
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data',
+  //     },
+  //   );
+  //   try {
+  //     // print('Sending message to backend: $message'); // Log message
+
+  //     print('Response status: ${response.statusCode}'); // Log status code
+  //     print('Response body: ${response.body}'); // Log response body
+  //     if (response.statusCode == 200) {
+  //       var jsonResponse = jsonDecode(response.body);
+  //       print('Request success with status: ${response.statusCode}');
+
+  //       // Clean up the response text
+  //       String cleanedResponse = jsonResponse['response']
+  //           .replaceAll('\n', '\n ')
+  //           .replaceAll(RegExp(r"[^a-zA-Z0-9\s.,']"), ''); // Keep ., and '
+
+  //       return cleanedResponse;
+  //     } else {
+  //       print('Request failed with status: ${response.statusCode}');
+  //       print('Response body: ${response.body}');
+  //     }
+  //   } catch (e) {
+  //     print('Error sending message: $e');
+  //   }
+  //   return null;
+  // }
+
+// Future<dynamic?> _sendMessageToBackend(String title, String description,
+//     String privacy, File? image, String password, String subject) async {
+//   var uri = Uri.parse('http://10.0.2.2:8000/groups/');
+  
+//   var request = http.MultipartRequest('POST', uri)
+//     ..fields['title'] = title
+//     ..fields['description'] = description
+//     ..fields['type'] = privacy
+//     ..fields['password'] = password
+//     ..fields['subject'] = subject;
+
+//   // If you need to send an image file
+//   if (image != null) {
+//     request.files.add(await http.MultipartFile.fromPath('image', image.path));
+//   }
+
+//   try {
+//     var streamedResponse = await request.send();
+//     var response = await http.Response.fromStream(streamedResponse);
+
+//     print('Response status: ${response.statusCode}'); // Log status code
+//     print('Response body: ${response.body}'); // Log response body
+
+//     if (response.statusCode == 200) {
+//       var jsonResponse = jsonDecode(response.body);
+//       print('Request success with status: ${response.statusCode}');
+
+//       // Clean up the response text
+//       // String cleanedResponse = jsonResponse['response']
+//       //     .replaceAll('\n', '\n ')
+//       //     .replaceAll(RegExp(r"[^a-zA-Z0-9\s.,']"), ''); // Keep ., and '
+
+//       // return cleanedResponse;
+//     } else {
+//       print('Request failed with status: ${response.statusCode}');
+//       print('Response body: ${response.body}');
+//     }
+//   } catch (e) {
+//     print('Error sending message: $e');
+//   }
+//   return null;
+// }

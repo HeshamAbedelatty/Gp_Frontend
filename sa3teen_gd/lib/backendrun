@@ -1,0 +1,7 @@
+git clone https://github.com/HeshamAbedelatty/GP_Backend.git
+python -m venv env
+env\Scripts\activate
+cd GP_Backend
+python manage.py makemigrations
+python manage.py migrate
+pip install django djangorestframework djangorestframework-simplejwt pillow

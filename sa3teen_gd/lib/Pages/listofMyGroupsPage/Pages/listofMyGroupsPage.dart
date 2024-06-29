@@ -3,10 +3,15 @@ import 'package:gp_screen/Pages/FavouriteGroupsList/provider/FavoriteGroupsProvi
 import 'package:gp_screen/Pages/FavouriteGroupsList/page/FavouriteGroupsList.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Pages/FinalGroupPostsPage.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/Pages/GroupDetailPage.dart';
+import 'package:gp_screen/Pages/listofMyGroupsPage/Pages/h.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/RecommendeCard/RecommendedGroupCard.dart';
+import 'package:gp_screen/Pages/listofMyGroupsPage/model.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 import '../../GroupPostAndCommentPage/Widgets/tabBar.dart';
+
+import 'package:http/http.dart'as http;
+// import 'package:store/helper/api.dart';
 
 List<GroupPage> sampleGroups = [
   GroupPage(
@@ -83,6 +88,57 @@ List<GroupPage> recommendedGroups = [
     members: const ['Member N', 'Member O'],
   ),
 ];
+
+
+class getAllGroups {
+  
+
+}
+// Future<List<listGroupsModel>> getAllProducts() async {
+//     List<dynamic> data =
+//         await Api().get(url: 'http://10.0.2.2:8000/groups/');
+
+//     List<listGroupsModel> productsList = [];
+//     for (int i = 0; i < data.length; i++) {
+//       productsList.add(
+//         listGroupsModel.fromJson(data[i]),
+//       );
+//     }
+//     print(productsList);
+//     return productsList;
+//   }
+
+Future<List<listGroupsModel>> getAllProducts(String accessToken) async {
+  Map<String, String> headers = {
+    'Authorization': 'Bearer $accessToken',
+  };
+
+  List<dynamic> data = await Api().get(
+    url: 'http://10.0.2.2:8000/groups/',
+    headers: headers,
+  );
+
+  List<listGroupsModel> productsList = [];
+  for (int i = 0; i < data.length; i++) {
+    productsList.add(
+      listGroupsModel.fromJson(data[i]),
+    );
+  }
+  print(productsList);
+  return productsList;
+}
+
+
+// void _createGroup() {
+//     String accessToken = 'your_access_token_here';
+
+// getAllProducts(accessToken).then((productsList) {
+//   // Handle the products list
+// }).catchError((error) {
+//   // Handle any errors
+//   print('Error: $error');
+// });}
+
 
 class GroupListPage extends StatelessWidget {
   final List<GroupPage> groups = sampleGroups;
@@ -187,6 +243,7 @@ class GroupListPage extends StatelessWidget {
               },
             ),
           ),
+          ElevatedButton(onPressed: (){getAllProducts('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjE1ODc5LCJpYXQiOjE3MTkzMTk4NzksImp0aSI6IjBlYTlhMWQ1NTVjNDQzNmZiZDYzN2ExZWY5NDU0ZDQ5IiwidXNlcl9pZCI6NX0.j06_cCptq8jr7D9cbiUoVLJWB_OLzD-4ZASLMDJmtdw');}, child: const Text('child'))
         ],
       ),
     );
