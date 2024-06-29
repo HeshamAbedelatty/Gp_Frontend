@@ -13,7 +13,7 @@ import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 //     required this.tasks,
 //   });
 // }
-// flags  , check box saved in the backend, edit task , delete task int w string 
+// flags
 class Task {
   String taskName;
   DateTime deadline;
@@ -324,7 +324,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                 itemCount: listNameControllers.length,
                 itemBuilder: (context, listIndex) {
                   var listItem = listNameControllers[listIndex];
-                  var tasks = listItem['tasks'] as List<dynamic>; // Ensure this is a list
+                  var tasks = listItem['tasks']
+                      as List<dynamic>; // Ensure this is a list
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,7 +339,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () {
-                                  api_services.deleteToDoList(listItem['id'], accessToken);
+                                  api_services.deleteToDoList(
+                                      listItem['id'], accessToken);
                                 },
                               ),
                             ),
@@ -346,28 +348,43 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                               shrinkWrap: true,
                               itemCount: tasks.length,
                               itemBuilder: (context, taskIndex) {
-                                var taskItem = tasks[taskIndex] as Map<String, dynamic>;
+                                var taskItem =
+                                    tasks[taskIndex] as Map<String, dynamic>;
 
                                 return ListTile(
                                   leading: Checkbox(
-                                    materialTapTargetSize: MaterialTapTargetSize.padded,
+                                    materialTapTargetSize:
+                                        MaterialTapTargetSize.padded,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5),
                                     ),
                                     value: taskItem['status'] ?? false,
                                     onChanged: (value) {
                                       setState(() {
-                                        print('4444444444444444444444444444444444444444444444444444444');
-                                        print('Task status: ${taskItem['status']}');
-                                        print('4444444444444444444444444444444444444444444444444444444');
+                                        print(
+                                            '4444444444444444444444444444444444444444444444444444444');
+                                        print(
+                                            'Task status: ${taskItem['status']}');
+                                        print(
+                                            '4444444444444444444444444444444444444444444444444444444');
 
-                                        taskItem['status'] = taskItem['status'] == true ? false : true;
-                                        print('4444444444444444444444444444444444444444444444444444444');
+                                        taskItem['status'] =
+                                            taskItem['status'] == true
+                                                ? false
+                                                : true;
+                                        print(
+                                            '4444444444444444444444444444444444444444444444444444444');
 
-                                        print('Task status: ${taskItem['status']}');
-                                        print('4444444444444444444444444444444444444444444444444444444');
+                                        print(
+                                            'Task status: ${taskItem['status']}');
+                                        print(
+                                            '4444444444444444444444444444444444444444444444444444444');
+                                        Api_services.updateTaskStatus(
+                                            listItem['id'],
+                                            taskItem['id'],
+                                            taskItem['status'],
 
-
+                                            accessToken);
                                       });
                                     },
                                     activeColor: kprimaryColourGreen,
@@ -377,7 +394,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                     style: TextStyle(
                                       decoration: taskItem['status'] == true
                                           ? TextDecoration.lineThrough
-
                                           : TextDecoration.none,
                                       color: taskItem['status'] == true
                                           ? Colors.grey
@@ -388,7 +404,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      // PriorityIcon(task: taskItem),
+                                       PriorityIcon(priorityValue:taskItem['priority']),
                                       IconButton(
                                         onPressed: () {
                                           showDialog(
@@ -397,29 +413,44 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                               return AlertDialog(
                                                 title: const Text('Add Task'),
                                                 content: Column(
-                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   children: <Widget>[
                                                     TextField(
-                                                      controller: taskNameController,
-                                                      decoration: const InputDecoration(
-                                                          labelText: 'Task Name'
-                                                      ),
+                                                      controller:
+                                                          taskNameController,
+                                                      decoration:
+                                                          const InputDecoration(
+                                                              labelText:
+                                                                  'Task Name'),
                                                     ),
                                                     InkWell(
                                                       onTap: () async {
-                                                        final DateTime? pickedDate = await showDatePicker(
+                                                        final DateTime?
+                                                            pickedDate =
+                                                            await showDatePicker(
                                                           context: context,
-                                                          initialDate: DateTime.now(),
-                                                          firstDate: DateTime(2000),
-                                                          lastDate: DateTime(2101),
+                                                          initialDate:
+                                                              DateTime.now(),
+                                                          firstDate:
+                                                              DateTime(2000),
+                                                          lastDate:
+                                                              DateTime(2101),
                                                         );
-                                                        if (pickedDate != null) {
-                                                          final TimeOfDay? pickedTime = await showTimePicker(
+                                                        if (pickedDate !=
+                                                            null) {
+                                                          final TimeOfDay?
+                                                              pickedTime =
+                                                              await showTimePicker(
                                                             context: context,
-                                                            initialTime: TimeOfDay.now(),
+                                                            initialTime:
+                                                                TimeOfDay.now(),
                                                           );
-                                                          if (pickedTime != null) {
-                                                            final DateTime selectedDateTime = DateTime(
+                                                          if (pickedTime !=
+                                                              null) {
+                                                            final DateTime
+                                                                selectedDateTime =
+                                                                DateTime(
                                                               pickedDate.year,
                                                               pickedDate.month,
                                                               pickedDate.day,
@@ -427,16 +458,22 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                               pickedTime.minute,
                                                             );
                                                             setState(() {
-                                                              dateController.text = selectedDateTime.toString();
+                                                              dateController
+                                                                      .text =
+                                                                  selectedDateTime
+                                                                      .toString();
                                                             });
                                                           }
                                                         }
                                                       },
                                                       child: IgnorePointer(
                                                         child: TextField(
-                                                          controller: dateController,
-                                                          decoration: const InputDecoration(
-                                                            labelText: 'Due Date & Time',
+                                                          controller:
+                                                              dateController,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            labelText:
+                                                                'Due Date & Time',
                                                           ),
                                                         ),
                                                       ),
@@ -448,14 +485,37 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                     onPressed: () {
                                                       Navigator.pop(context);
                                                     },
-                                                    child: const Text('Cancel', style: TextStyle(color: kprimaryColourGreen)),
+                                                    child: const Text('Cancel',
+                                                        style: TextStyle(
+                                                            color:
+                                                                kprimaryColourGreen)),
                                                   ),
                                                   TextButton(
                                                     onPressed: () {
-                                                      editTask(listIndex, taskIndex);
+                                                      // print('5555555555555555555555555555555555555555555555555555555555555555555555555');
+                                                      // print(listItem['id']);
+                                                      // print('5555555555555555555555555555555555555555555555555555555555555555555555555');
+                                                      // print(taskItem['id']);
+                                                      // print('5555555555555555555555555555555555555555555555555555555555555555555555555');
+                                                      Api_services.updateTask(
+                                                          listItem['id'],
+                                                          taskItem['id'],
+                                                          taskNameController.text.isEmpty
+                                                              ? listNameControllers[listIndex]['tasks'][taskIndex]['title']
+                                                              : taskNameController.text,
+                                                          dateController.text.isEmpty
+                                                              ? listNameControllers[listIndex]['tasks'][taskIndex]['due_date']
+                                                              : dateController.text,
+                                                          accessToken
+                                                      );
+
+
                                                       Navigator.pop(context);
                                                     },
-                                                    child: const Text('edit', style: TextStyle(color: kprimaryColourGreen)),
+                                                    child: const Text('edit',
+                                                        style: TextStyle(
+                                                            color:
+                                                                kprimaryColourGreen)),
                                                   ),
                                                 ],
                                               );
@@ -471,20 +531,36 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                             context: context,
                                             builder: (context) {
                                               return AlertDialog(
-                                                title: const Text('Do you want to delete this item?'),
+                                                title: const Text(
+                                                    'Do you want to delete this item?'),
                                                 actions: <Widget>[
                                                   TextButton(
                                                     onPressed: () {
                                                       Navigator.pop(context);
                                                     },
-                                                    child: const Text('Cancel', style: TextStyle(color: kprimaryColourGreen)),
+                                                    child: const Text('Cancel',
+                                                        style: TextStyle(
+                                                            color:
+                                                                kprimaryColourGreen)),
                                                   ),
                                                   TextButton(
                                                     onPressed: () {
-                                                       api_services.deleteTask(listItem['id'], taskItem['id'], accessToken);
+                                                      print ('99999999999999999999999999999999999999999999999999999999999999999999');
+                                                      print ( listItem['id']);
+                                                      print ('99999999999999999999999999999999999999999999999999999999999999999999');
+                                                      print ( taskItem['id']);
+                                                      print ('99999999999999999999999999999999999999999999999999999999999999999999');
+                                                      api_services.deleteTask(
+                                                          listItem['id'].toString(),
+                                                          taskItem['id'].toString(),
+                                                          accessToken
+                                                      );
                                                       Navigator.pop(context);
                                                     },
-                                                    child: const Text('delete', style: TextStyle(color: kprimaryColourGreen)),
+                                                    child: const Text('delete',
+                                                        style: TextStyle(
+                                                            color:
+                                                                kprimaryColourGreen)),
                                                   ),
                                                 ],
                                               );
@@ -498,14 +574,16 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                               },
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   ElevatedButton(
                                     style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all<Color?>(kprimaryColourWhite)
-                                    ),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color?>(
+                                                kprimaryColourWhite)),
                                     onPressed: () {
                                       showDialog(
                                         context: context,
@@ -516,24 +594,35 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                               mainAxisSize: MainAxisSize.min,
                                               children: <Widget>[
                                                 TextField(
-                                                  controller: taskNameController,
-                                                  decoration: const InputDecoration(labelText: 'Task Name'),
+                                                  controller:
+                                                      taskNameController,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                          labelText:
+                                                              'Task Name'),
                                                 ),
                                                 InkWell(
                                                   onTap: () async {
-                                                    final DateTime? pickedDate = await showDatePicker(
+                                                    final DateTime? pickedDate =
+                                                        await showDatePicker(
                                                       context: context,
-                                                      initialDate: DateTime.now(),
+                                                      initialDate:
+                                                          DateTime.now(),
                                                       firstDate: DateTime(2000),
                                                       lastDate: DateTime(2101),
                                                     );
                                                     if (pickedDate != null) {
-                                                      final TimeOfDay? pickedTime = await showTimePicker(
+                                                      final TimeOfDay?
+                                                          pickedTime =
+                                                          await showTimePicker(
                                                         context: context,
-                                                        initialTime: TimeOfDay.now(),
+                                                        initialTime:
+                                                            TimeOfDay.now(),
                                                       );
                                                       if (pickedTime != null) {
-                                                        final DateTime selectedDateTime = DateTime(
+                                                        final DateTime
+                                                            selectedDateTime =
+                                                            DateTime(
                                                           pickedDate.year,
                                                           pickedDate.month,
                                                           pickedDate.day,
@@ -541,16 +630,21 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                           pickedTime.minute,
                                                         );
                                                         setState(() {
-                                                          dateController.text = selectedDateTime.toString();
+                                                          dateController.text =
+                                                              selectedDateTime
+                                                                  .toString();
                                                         });
                                                       }
                                                     }
                                                   },
                                                   child: IgnorePointer(
                                                     child: TextField(
-                                                      controller: dateController,
-                                                      decoration: const InputDecoration(
-                                                        labelText: 'Due Date & Time',
+                                                      controller:
+                                                          dateController,
+                                                      decoration:
+                                                          const InputDecoration(
+                                                        labelText:
+                                                            'Due Date & Time',
                                                       ),
                                                     ),
                                                   ),
@@ -562,28 +656,35 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
-                                                child: const Text('Cancel', style: TextStyle(color: kprimaryColourGreen)),
+                                                child: const Text('Cancel',
+                                                    style: TextStyle(
+                                                        color:
+                                                            kprimaryColourGreen)),
                                               ),
                                               TextButton(
                                                 onPressed: () {
                                                   Api_services.createTask(
                                                     listItem['id'],
                                                     taskNameController.text,
-                                                    'Low',
+                                                    'normal',
                                                     false,
                                                     dateController.text,
                                                     accessToken,
                                                   );
                                                   Navigator.pop(context);
                                                 },
-                                                child: const Text('add', style: TextStyle(color: kprimaryColourGreen)),
+                                                child: const Text('add',
+                                                    style: TextStyle(
+                                                        color:
+                                                            kprimaryColourGreen)),
                                               ),
                                             ],
                                           );
                                         },
                                       );
                                     },
-                                    child: const Text('Add Task', style: TextStyle(color: Colors.black)),
+                                    child: const Text('Add Task',
+                                        style: TextStyle(color: Colors.black)),
                                   ),
                                 ],
                               ),
@@ -597,7 +698,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
               ),
             ),
           ),
-
         ],
       ),
     );

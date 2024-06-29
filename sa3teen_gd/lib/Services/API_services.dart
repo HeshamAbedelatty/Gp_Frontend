@@ -92,6 +92,41 @@ class Api_services extends ChangeNotifier {
     }
   }
 
+  static Future<http.Response?> putRequest(String apiUrl,
+      Map<String, String> headers, Map<dynamic, dynamic> body) async {
+    try {
+      final response = await http.put(
+        Uri.parse(baseUrl + apiUrl),
+        headers: headers,
+        body: jsonEncode(body),
+      );
+      print(response.statusCode);
+      print(response.body);
+      return response;
+    } catch (error) {
+      print('Error in HTTP PUT request: $error');
+      return null;
+    }
+  }
+
+  static Future<http.Response?> patchRequest(String apiUrl,
+      Map<String, String> headers, Map<dynamic, dynamic> body) async {
+    try {
+      final response = await http.patch(
+        Uri.parse(baseUrl + apiUrl),
+        headers: headers,
+        body: jsonEncode(body),
+      );
+      print(response.statusCode);
+      print(response.body);
+      return response;
+    } catch (error) {
+      print('Error in HTTP PATCH request: $error');
+      return null;
+    }
+  }
+
+
   static Future<bool> login(String username, String password) async {
     try {
       final response = await postRequest('login/', headers, {
@@ -333,23 +368,47 @@ class Api_services extends ChangeNotifier {
     }
   }
 
-  // static Future<http.Response?> deleteRequest(
-  //     String apiUrl, Map<String, String> headers) async {
-  //   try {
-  //     final response = await http.delete(
-  //       Uri.parse(baseUrl + apiUrl),
-  //       headers: headers,
-  //     );
-  //     print(response.statusCode);
-  //     print(response.body);
-  //     return response;
-  //   } catch (error) {
-  //     print('Error in HTTP DELETE request: $error');
-  //     return null;
-  //   }
-  // }
+  static Future<bool> updateTask(
+      int todoListid,
+      int taskId,
+      String title,
+      String? dueDate,
+      String accessToken) async {
+    try {
+      // Define your headers including the access token
+      Map<String, String> headers = {
+        'Authorization': 'Bearer $accessToken',
+        'Content-Type': 'application/json',
+      };
 
-  // http://127.0.0.1:8000/todolist/1/tasks/
+      // Prepare your request body
+      Map<String, dynamic> body = {
+        'id': taskId,
+        'title': title,
+        'due_date': dueDate,
+      };
+
+      // Make the PUT request
+      String api = 'todolist/$todoListid/tasks/$taskId/';
+      var response = await putRequest(api, headers, body);
+
+      // Check the response status code
+      if (response != null &&
+          (response.statusCode == 200 || response.statusCode == 201)) {
+        // Task update successful
+        print('Update Task successful');
+        return true;
+      } else {
+        // Task update failed
+        print('Update Task failed with status code: ${response!.statusCode}');
+        return false;
+      }
+    } catch (error) {
+      // Exception occurred during HTTP request
+      print('Error during Update Task: $error');
+      return false;
+    }
+  }
 
 
 
@@ -392,6 +451,75 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
+
+  static Future<bool> updateTaskStatus(int todoListid, int taskId, bool status, String accessToken) async {
+    try {
+      // Define your headers including the access token
+      Map<String, String> headers = {
+        'Authorization': 'Bearer $accessToken',
+        'Content-Type': 'application/json',
+      };
+
+      // Prepare your request body
+      Map<String, dynamic> body = {
+        'status': status,
+      };
+
+      // Make the PATCH request
+      String api = 'todolist/$todoListid/tasks/$taskId/';
+      var response = await patchRequest(api, headers, body);
+
+      // Check the response status code
+      if (response != null && (response.statusCode == 200 || response.statusCode == 204)) {
+        // Status update successful
+        print('Update Task Status successful');
+        return true;
+      } else {
+        // Status update failed
+        print('Update Task Status failed with status code: ${response!.statusCode}');
+        return false;
+      }
+    } catch (error) {
+      // Exception occurred during HTTP request
+      print('Error during Update Task Status: $error');
+      return false;
+    }
+  }
+  static Future<bool> updateTaskPriority(int todoListid, int taskId, String priority, String accessToken) async {
+    try {
+      // Define your headers including the access token
+      Map<String, String> headers = {
+        'Authorization': 'Bearer $accessToken',
+        'Content-Type': 'application/json',
+      };
+
+      // Prepare your request body
+      Map<String, dynamic> body = {
+        'priority': priority,
+      };
+
+      // Make the PATCH request
+      String api = 'todolist/$todoListid/tasks/$taskId/';
+      var response = await patchRequest(api, headers, body);
+
+      // Check the response status code
+      if (response != null && (response.statusCode == 200 || response.statusCode == 204)) {
+        // Status update successful
+        print('Update Task Status successful');
+        return true;
+      } else {
+        // Status update failed
+        print('Update Task Status failed with status code: ${response!.statusCode}');
+        return false;
+      }
+    } catch (error) {
+      // Exception occurred during HTTP request
+      print('Error during Update Task Status: $error');
+      return false;
+    }
+  }
+
+
 
 
 }

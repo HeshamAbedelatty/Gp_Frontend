@@ -1,30 +1,150 @@
+// import 'package:flutter/material.dart';
+// // [
+// // ('Low', 'Low'),
+// // ('Medium', 'Medium'),
+// // ('High', 'High'),
+// // ]
+// class PriorityIcon extends StatefulWidget {
+//   final String priorityValue;
+//   const PriorityIcon({super.key, required this.priorityValue});
+//
+//   @override
+//   // ignore: library_private_types_in_public_api
+//   _PriorityIconState createState() => _PriorityIconState();
+// }
+//
+// class _PriorityIconState extends State<PriorityIcon> {
+//   late Priority priority;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _setPriority(widget.priorityValue);
+//   }
+//
+//   void _setPriority(String priorityValue) {
+//     switch (priorityValue) {
+//       case 'High':
+//         priority = Priority.high;
+//         break;
+//       case 'Medium':
+//         priority = Priority.normal;
+//         break;
+//       case 'Low':
+//         priority = Priority.low;
+//         break;
+//       default:
+//         priority = Priority.normal;
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return PopupMenuButton<Priority>(
+//       onSelected: (Priority value) {
+//         setState(() {
+//           priority = value;
+//         });
+//       },
+//       itemBuilder: (BuildContext context) => <PopupMenuEntry<Priority>>[
+//         const PopupMenuItem(
+//           value: Priority.high,
+//           child: ListTile(
+//             leading: Icon(Icons.flag, color: Colors.red),
+//             title: Text('High Priority'),
+//           ),
+//         ),
+//         const PopupMenuItem(
+//           value: Priority.normal,
+//           child: ListTile(
+//             leading: Icon(Icons.flag, color: Colors.yellow),
+//             title: Text('Medium Priority'),
+//
+//           ),
+//         ),
+//         const PopupMenuItem(
+//           value: Priority.low,
+//           child: ListTile(
+//             leading: Icon(Icons.flag, color: Colors.green),
+//             title: Text('Low Priority'),
+//
+//           ),
+//         ),
+//       ],
+//       child: IconButton(
+//         onPressed: null, // Set to null because PopupMenuButton handles tap itself
+//         icon: Icon(
+//           Icons.flag,
+//           color: priority == Priority.high
+//               ? Colors.red
+//               : priority == Priority.normal
+//               ? Colors.yellow
+//               : Colors.green,
+//         ),
+//       ),
+//     );
+//
+//   }
+// }
+//
+// enum Priority { high, normal, low }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/toDoListPage/ThePage/tryingToChange(didnotWork)/ToDoListFinal%20copy.dart';
-import 'package:gp_screen/Pages/toDoListPage/ThePage/ToDoListFinal.dart';
-import 'package:gp_screen/Pages/toDoListPage/ThePage/todorefactored_notdone.dart';
-
-import '../otherTries/chatgptToDoListTryWorking.dart';
-
-enum Priority { high, normal, low }
+import 'package:gp_screen/Services/API_services.dart'; // Adjust the import path as needed
 
 class PriorityIcon extends StatefulWidget {
-  final Task task; // Pass Task object to PriorityIcon
-
-  const PriorityIcon({super.key, required this.task});
+  final String priorityValue;
+  const PriorityIcon({super.key, required this.priorityValue});
 
   @override
-  // ignore: library_private_types_in_public_api
   _PriorityIconState createState() => _PriorityIconState();
 }
 
 class _PriorityIconState extends State<PriorityIcon> {
-  List<ToDoListClass> toDoLists = [];
-  Priority priority = Priority.normal; // Default priority
+  late Priority priority;
+  late Api_services apiServices; // Declare apiServices instance
+
   @override
   void initState() {
     super.initState();
-    priority = widget.task.priority; // Initialize priority from Task object
+    _setPriority(widget.priorityValue);
+    apiServices = Api_services(); // Initialize Api_services instance
+  }
+
+  void _setPriority(String priorityValue) {
+    switch (priorityValue) {
+      case 'High':
+        priority = Priority.high;
+        break;
+      case 'Medium':
+        priority = Priority.normal;
+        break;
+      case 'Low':
+        priority = Priority.low;
+        break;
+      default:
+        priority = Priority.normal;
+    }
+  }
+
+  // Method to determine priority based on color (to be implemented)
+  Priority _determinePriorityByColor() {
+    // Implement logic to determine Priority based on color here
+    return Priority.high; // Example implementation
   }
 
   @override
@@ -33,11 +153,15 @@ class _PriorityIconState extends State<PriorityIcon> {
       onSelected: (Priority value) {
         setState(() {
           priority = value;
-          widget.task.priority = value;
-          // toDoLists[listIndex].tasks[taskIndex].priority = value!;
+          // Call API service to update task priority here
+          // api_Services.updateTaskPriority(
+          //   listItem['id'],
+          //   taskItem['id'],
+          //   _convertPriorityToString(value), // Convert Priority to string if needed
+          //   accessToken,
+          // );
         });
       },
-
       itemBuilder: (BuildContext context) => <PopupMenuEntry<Priority>>[
         const PopupMenuItem(
           value: Priority.high,
@@ -50,7 +174,7 @@ class _PriorityIconState extends State<PriorityIcon> {
           value: Priority.normal,
           child: ListTile(
             leading: Icon(Icons.flag, color: Colors.yellow),
-            title: Text('Normal Priority'),
+            title: Text('Medium Priority'),
           ),
         ),
         const PopupMenuItem(
@@ -61,18 +185,42 @@ class _PriorityIconState extends State<PriorityIcon> {
           ),
         ),
       ],
-      child: Icon(
-        Icons.flag,
-        color: priority == Priority.high
-            ? Colors.red
-            : priority == Priority.normal
-                ? Colors.yellow
-                : Colors.green,
+      child: IconButton(
+        onPressed: null, // Set to null because PopupMenuButton handles tap itself
+        icon: Icon(
+          Icons.flag,
+          color: priority == Priority.high
+              ? Colors.red
+              : priority == Priority.normal
+              ? Colors.yellow
+              : Colors.green,
+        ),
       ),
-      // Icon(Icons.keyboard_arrow_down),
     );
   }
 }
+
+// Define your Priority enum
+enum Priority { high, normal, low }
+
+// Convert Priority enum to String if needed
+String _convertPriorityToString(Priority priority) {
+  switch (priority) {
+    case Priority.high:
+      return 'High';
+    case Priority.normal:
+      return 'Medium';
+    case Priority.low:
+      return 'Low';
+    default:
+      return 'Medium';
+  }
+}
+
+
+
+
+
 // import 'package:flutter/material.dart';
 // import 'package:gp_screen/Pages/toDoListPage/ThePage/tryingToChange(didnotWork)/ToDoListFinal%20copy.dart';
 // import 'package:gp_screen/Pages/toDoListPage/ThePage/ToDoListFinal.dart';
@@ -144,9 +292,9 @@ class _PriorityIconState extends State<PriorityIcon> {
 //   }
 // }
 
-
+//
 // flag
-
+//
 // print(
 // '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111');
 //
@@ -163,10 +311,10 @@ class _PriorityIconState extends State<PriorityIcon> {
 // ['tasks']
 //     .length,
 // itemBuilder: (context, taskIndex) {
-
-
-
-
+//
+//
+//
+//
 // return Column(
 //     crossAxisAlignment: CrossAxisAlignment.start,
 //     children: [
