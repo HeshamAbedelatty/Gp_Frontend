@@ -374,7 +374,7 @@ class LoginPage extends StatelessWidget {
                           errorText: 'Password must be at least 4 digit');
                     }
                   }),
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -436,46 +436,46 @@ class LoginPage extends StatelessWidget {
                               100.0), // Adjust the border radius as needed
                         ),
                       ),
-                      child: const Text('Sign In'),
+                      child: const Text('Sign In',style: TextStyle(color: Colors.white),),
                     ),
                   )
                 ],
               ),
-              const SizedBox(height: 25),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Or Sign In with', style: TextStyle(color: Colors.grey)),
-                ],
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.facebook,
-                      size: 30,
-                    ),
-                    onPressed: () {},
-                  ),
-                  Image.asset(
-                    'lib/assets/icons/843776_google_icon.png',
-                    width: 30,
-                    height: 30,
-                    color: Colors.black,
-                  ),
-                  Image.asset(
-                    'lib/assets/icons/twitter.png',
-                    width: 30,
-                    height: 30,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 10),
+              // const Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Text('Or Sign In with', style: TextStyle(color: Colors.grey)),
+              //   ],
+              // ),
+              // const SizedBox(
+              //   height: 25,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     IconButton(
+              //       icon: const Icon(
+              //         Icons.facebook,
+              //         size: 30,
+              //       ),
+              //       onPressed: () {},
+              //     ),
+              //     Image.asset(
+              //       'lib/assets/icons/843776_google_icon.png',
+              //       width: 30,
+              //       height: 30,
+              //       color: Colors.black,
+              //     ),
+              //     Image.asset(
+              //       'lib/assets/icons/twitter.png',
+              //       width: 30,
+              //       height: 30,
+              //       color: Colors.black,
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -491,8 +491,9 @@ class LoginPage extends StatelessWidget {
                         Navigator.pushNamed(context, SignUpPage.id);
                       },
                       child: const Text("Sign Up")),
-                ],
+                 const SizedBox(width: 30),],
               ),
+             
             ],
           ),
         ));
