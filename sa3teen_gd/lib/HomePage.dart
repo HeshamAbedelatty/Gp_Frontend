@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:gp_screen/Chat%20Bot.dart';
+// import 'package:gp_screen/Chat%20Bot.dart';
 import 'package:gp_screen/Logic.dart';
 import 'Pages/GroupPostAndCommentPage/Pages/FinalGroupPostsPage.dart';
 import 'Pages/pomodoroPage/ThePage/newpomo.dart';
-
+import'package:gp_screen/pages/chatBotIntegrated/Chat Bot copy 2.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 import 'Pages/schedeulePage/ThePage/FinalSchedulePage.dart';
 import 'Pages/toDoListPage/ThePage/ToDoListFinal.dart';
-
+// import 'package:gp_screen/pages/textToSpeechPage/ThePage/textToSpeech.dart';
+import 'package:gp_screen/TtoAudio.dart';
 
 // el video w el appbar
 class HomePage extends StatefulWidget {
@@ -81,10 +82,13 @@ class _HomePageState extends State<HomePage> {
   int _current = 0;
 
   List<String> get imagePaths => [
-        'assets/360092821_837901977782666_5270737507025446062_n.jpg',
-        'assets/EW_RXpjXYAAum_5.jpg',
-        'assets/website-template-preview-389597.jpg',
-        'assets/error-404-background-digital-art-uhdpaper.com-hd-8.2818.jpg',
+        'lib/assets/icons/240_F_83825573_00UVBhk7onQSx3DDwqoPUJGxZdjjmBtc.jpg',
+        'lib/assets/icons/240_F_101141069_zspoNC0uVmKh8CJzNtbUQpxTjfi71mHq.jpg',
+        'lib/assets/icons/240_F_101204019_9IvXJUEznXaAAIPs8ohsX8QxsHBAwtqw.jpg',
+        'lib/assets/icons/240_F_136949956_Lj7iLID6C24JwkxoWyyDz1OmskHIKrRW.jpg',
+        'https://t3.ftcdn.net/jpg/01/01/14/10/240_F_101141069_zspoNC0uVmKh8CJzNtbUQpxTjfi71mHq.jpg',
+        'lib/assets/icons/240_F_311418783_3FT8u5yeLsbEaSZovOWidCtzFAGWr0hl.jpg',
+        'https://t4.ftcdn.net/jpg/03/11/41/87/240_F_311418783_3FT8u5yeLsbEaSZovOWidCtzFAGWr0hl.jpg',
       ];
 
   List<String> videoPaths = [
@@ -230,7 +234,7 @@ class _HomePageState extends State<HomePage> {
                           context,
                           'ChatBot',
                           const AssetImage(
-                              'lib/assets/kjkjpngwing.com (1).png'),
+                              'lib/assets/icons/chat-bot.png'),
                           70,
                           () {
                             Navigator.of(context).push(
@@ -267,7 +271,7 @@ class _HomePageState extends State<HomePage> {
                         buildCustomContainerGroups(
                           context,
                           'Pomodoro',
-                          const AssetImage('lib/assets/pngwing.com.png'),
+                          const AssetImage('lib/assets/icons/iStock-1302208532.jpg'),
                           70,
                           () {
                             Navigator.of(context).push(
@@ -282,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                         buildCustomContainerGroups(
                           context,
                           'Schedules',
-                          const AssetImage('lib/assets/pngwing.com (5).png'),
+                          const AssetImage('lib/assets/icons/study-4k-with-coffee-no6c7yawny43am8k.jpg'),
                           70,
                           () {
                             Navigator.of(context).push(
@@ -297,13 +301,13 @@ class _HomePageState extends State<HomePage> {
                         buildCustomContainerGroups(
                           context,
                           'Library',
-                          const AssetImage('lib/assets/pngwing.com (7).png'),
+                          const AssetImage('lib/assets/icons/table-work-computer-study-reading.jpg'),
                           70,
                           () {
                             Navigator.of(context).push(
                               MaterialPageRoute<void>(
                                 builder: (BuildContext context) {
-                                  return const ChatScreen(); // Return the ChatScreen widget here
+                                  return  TextToSpeechApp(); // Return the ChatScreen widget here
                                 },
                               ),
                             );

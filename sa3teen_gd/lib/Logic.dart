@@ -4,7 +4,7 @@ import 'package:video_player/video_player.dart';
 import 'Chat Bot.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
+import'package:gp_screen/pages/chatBotIntegrated/Chat Bot copy 2.dart';
 abstract class ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final List<String> messages = [];
