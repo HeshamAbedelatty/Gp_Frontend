@@ -277,6 +277,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gp_screen/HomePage.dart';
+import 'package:gp_screen/Pages/EncouragePhrases/EncouragePhrases.dart';
 import 'package:gp_screen/Pages/signUpPage/ThePage/signUpPage.dart';
 import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
@@ -410,7 +411,7 @@ class LoginPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomePage()));
+                                    builder: (context) =>  EncouragingPhrasesSplashScreen()));
                             return;
                           }
                           else {

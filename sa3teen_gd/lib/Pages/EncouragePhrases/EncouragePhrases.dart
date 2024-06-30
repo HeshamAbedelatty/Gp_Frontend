@@ -3,12 +3,12 @@ import 'dart:math';
 
 import 'package:gp_screen/HomePage.dart';
 
-class SplashScreen extends StatefulWidget {
+class EncouragingPhrasesSplashScreen extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _EncouragingPhrasesSplashScreenState createState() => _EncouragingPhrasesSplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _EncouragingPhrasesSplashScreenState extends State<EncouragingPhrasesSplashScreen> {
   final List<String> motivationalSentences = [
     'Believe in yourself and all that you are.',
     'The harder you work for something, the greater you’ll feel when you achieve it.',
