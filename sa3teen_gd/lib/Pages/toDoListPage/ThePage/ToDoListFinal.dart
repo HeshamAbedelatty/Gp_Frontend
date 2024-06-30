@@ -67,137 +67,11 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   TextEditingController editTaskNameController = TextEditingController();
   TextEditingController editDateController = TextEditingController();
   @override
-  // void initState() {
-  //   super.initState();
-  //   // Add an initial empty to-do list
-  //   addNewToDoList();
-  // }
 
-//   void addNewToDoList() {
-//     setState(() {
-//       // Api_services.createToDoList(listNameController.text,accessToken);
-//       // print(listNameController.text);
-//       // print(accessToken);
-//       // toDoLists
-//       //     .add(ToDoListClass(listName: listNameController.text, tasks: []));
-//       listNameControllers.add(
-//           TextEditingController()); // Add a new controller for the new list
-//       print("Number of controllers: ${listNameControllers.length}");
-//       for (var i = 0; i < listNameControllers.length; i++) {
-//         print("Controller at index $i: ${listNameControllers[i].text}");
-//       }
-//       for (var list in toDoLists) {
-//         print(list.listName);
-//       }
-//       print("addNewToDoList");
-//
-//       listNameController.clear();
-//       print(
-//           "List name controller text after clearing: ${listNameController.text}");
-//
-//       // toDoLists.add(ToDoListClass(listName: "", tasks: []));
-//     });
-//   }
-// //   void addNewToDoList() {
-//   setState(() {
-//     toDoLists.add(ToDoListClass(listName: listNameController.text, tasks: []));
-//     listNameControllers.add(TextEditingController()); // Add a new controller
-//     print("Number of controllers: ${listNameControllers.length}");
-//     for (var i = 0; i < listNameControllers.length; i++) {
-//       print("Controller at index $i: ${listNameControllers[i].text}");
-//     }
-//     listNameController.clear();
-//   });
-// }
 
-  // void addTask(int listIndex) {
-  //   setState(() {
-  //     var taskNameVar = taskNameController.text;
-  //     var deadlineVar = dateController.text;
-  //     var priorityVar = Priority.normal; // Default priority
-  //
-  //     api_services.todoListDetails[listIndex]['tasks'].add(Task(
-  //       taskName: taskNameVar,
-  //       deadline: DateTime.parse(deadlineVar),
-  //       priority: priorityVar,
-  //     ));
-  //     for (var list in api_services.todoListDetails) {
-  //       for (var task in list['tasks']) {
-  //         // print(list.listName);
-  //         print(
-  //           'Added Task: ${task.taskName} , Deadline: ${task.deadline} , check: ${task.isChecked} ,priority: ${task.priority}',
-  //         );
-  //       }
-  //     }
-  //
-  //     // taskNameController.clear();
-  //     // dateController.clear();
-  //   });
-  // }
 
-// must be list of lists
-// 1 [1.2.3.5]
-// 2 [1.2.3.5]
-// 3 [1.2.3.5]
-// 4 [1.2.3.5]
-//   void deleteTask(int listIndex, int taskIndex) {
-//     setState(() {
-//       //   may be issue here
-//       api_services.deletetask(listIndex, taskIndex, accessToken);
-//       // api_services.removeAt(taskIndex);
-//     });
-//     // for (var list in toDoLists) {
-//     //   for (var task in list.tasks) {
-//     //     print(list.listName);
-//     //     print(
-//     //       'Added Task: ${task.taskName} , Deadline: ${task.deadline},priority: ${task.priority}',
-//     //     );
-//     //   }
-//     // }
-//   }
 
-  void deleteToDoList(int index, String accessToken) {
-    setState(() {
-      api_services.deleteToDoList(index, accessToken);
-    });
-  }
 
-  void editTask(int listIndex, int taskIndex) {
-    setState(() {
-      api_services.todoListDetails[listIndex]['tasks'] = Task(
-          taskName: taskNameController.text,
-          deadline: DateTime.parse(dateController.text));
-      // priority:
-      // toDoLists[listIndex]
-      //     .tasks[taskIndex]
-      //     .priority; // Maintain existing priority
-    });
-    for (var list in api_services.todoListDetails) {
-      for (var task in list['tasks']) {
-        // print(list.listName);
-        print(
-          'Added Task: ${task.taskName} , Deadline: ${task.deadline},priority: ${task.priority}',
-        );
-      }
-    }
-  }
-  //
-  // Task? searchTask(String keyword) {
-  //   print('Search Results:');
-  //   for (var list in api_services.todoListDetails) {
-  //     for (var task in list['tasks']) {
-  //       if (task.taskName.toLowerCase().contains(keyword.toLowerCase())) {
-  //         print(
-  //             'Task: ${task.taskName}, Date: ${task.deadline},priority: ${task.priority}');
-  //
-  //         return task;
-  //       } else {
-  //         print('No tasks found matching the search term.');
-  //       }
-  //     }
-  //   }
-  //   return null;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -280,19 +154,13 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                               TextButton(
                                 onPressed: () async {
                                   // Call the createToDoList method from api_services
-                                  bool success =
-                                      await Api_services.createToDoList(
-                                          listNameController.text, accessToken);
-                                  // print(listNameController.text);
-                                  // print(accessToken);
-                                  // Check if the operation was successful
+                                  bool success = await Api_services.createToDoList(
+                                      listNameController.text, accessToken);
 
+                                  // Check if the operation was successful
                                   if (success) {
-                                    print('ToDo list creation successful');
-                                    // print(listName);
                                     // Perform any additional actions if needed upon success
                                   } else {
-                                    print('ToDo list creation failed');
                                     // Handle failure scenario if needed
                                   }
 
@@ -301,9 +169,14 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                 },
                                 child: const Text(
                                   'add to do',
-                                  style: TextStyle(color: Colors.green),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20.0, // Increase the font size
+                                    fontWeight: FontWeight.bold, // Make the text bold
+                                  ),
                                 ),
                               )
+
                             ],
                           );
                         },
@@ -324,8 +197,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                 itemCount: listNameControllers.length,
                 itemBuilder: (context, listIndex) {
                   var listItem = listNameControllers[listIndex];
-                  var tasks = listItem['tasks']
-                      as List<dynamic>; // Ensure this is a list
+                  var tasks = listItem['tasks'] as List<dynamic>; // Ensure this is a list
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -361,24 +233,12 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                     value: taskItem['status'] ?? false,
                                     onChanged: (value) {
                                       setState(() {
-                                        print(
-                                            '4444444444444444444444444444444444444444444444444444444');
-                                        print(
-                                            'Task status: ${taskItem['status']}');
-                                        print(
-                                            '4444444444444444444444444444444444444444444444444444444');
 
                                         taskItem['status'] =
                                             taskItem['status'] == true
                                                 ? false
                                                 : true;
-                                        print(
-                                            '4444444444444444444444444444444444444444444444444444444');
 
-                                        print(
-                                            'Task status: ${taskItem['status']}');
-                                        print(
-                                            '4444444444444444444444444444444444444444444444444444444');
                                         Api_services.updateTaskStatus(
                                             listItem['id'],
                                             taskItem['id'],
@@ -545,11 +405,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                   ),
                                                   TextButton(
                                                     onPressed: () {
-                                                      print ('99999999999999999999999999999999999999999999999999999999999999999999');
-                                                      print ( listItem['id']);
-                                                      print ('99999999999999999999999999999999999999999999999999999999999999999999');
-                                                      print ( taskItem['id']);
-                                                      print ('99999999999999999999999999999999999999999999999999999999999999999999');
                                                       api_services.deleteTask(
                                                           listItem['id'].toString(),
                                                           taskItem['id'].toString(),
@@ -582,7 +437,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                   ElevatedButton(
                                     style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all<Color?>(
+                                            WidgetStateProperty.all<Color?>(
                                                 kprimaryColourWhite)),
                                     onPressed: () {
                                       showDialog(

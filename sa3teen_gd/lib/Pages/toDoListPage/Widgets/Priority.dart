@@ -116,13 +116,12 @@ class PriorityIcon extends StatefulWidget {
 
 class _PriorityIconState extends State<PriorityIcon> {
   late Priority priority;
-  late Api_services apiServices; // Declare apiServices instance
+  Api_services api_services = Api_services();
 
   @override
   void initState() {
     super.initState();
     _setPriority(widget.priorityValue);
-    apiServices = Api_services(); // Initialize Api_services instance
   }
 
   void _setPriority(String priorityValue) {
@@ -154,7 +153,8 @@ class _PriorityIconState extends State<PriorityIcon> {
         setState(() {
           priority = value;
           // Call API service to update task priority here
-          // api_Services.updateTaskPriority(
+          // ely na2s eny ageep el list w el task mn el parent widget
+          // Api_services.updateTaskPriority(
           //   listItem['id'],
           //   taskItem['id'],
           //   _convertPriorityToString(value), // Convert Priority to string if needed
@@ -216,7 +216,6 @@ String _convertPriorityToString(Priority priority) {
       return 'Medium';
   }
 }
-
 
 
 

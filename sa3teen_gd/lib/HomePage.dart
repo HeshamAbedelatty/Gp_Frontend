@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:gp_screen/Chat%20Bot.dart';
 import 'package:gp_screen/Logic.dart';
 import 'Pages/GroupPostAndCommentPage/Pages/FinalGroupPostsPage.dart';
+import 'Pages/HandwrittingToText/HandwittingToText.dart';
 import 'Pages/pomodoroPage/ThePage/newpomo.dart';
 import'package:gp_screen/pages/chatBotIntegrated/Chat Bot copy 2.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
@@ -119,13 +120,12 @@ class _HomePageState extends State<HomePage> {
                       child: CarouselSlider(
                         options: CarouselOptions(
                           height: 200,
-                          autoPlay: false,
+                          autoPlay: true,
                           enlargeCenterPage: true,
                           aspectRatio: 16 / 9,
                           autoPlayCurve: Curves.fastOutSlowIn,
                           enableInfiniteScroll: true,
-                          autoPlayAnimationDuration:
-                              const Duration(milliseconds: 800),
+                          autoPlayAnimationDuration: const Duration(milliseconds: 800),
                           viewportFraction: 0.8,
                           onPageChanged: (index, reason) {
                             setState(() {
@@ -139,7 +139,9 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
                               image: DecorationImage(
-                                image: AssetImage(imagePath),
+                                image: imagePath.startsWith('http')
+                                    ? NetworkImage(imagePath)
+                                    : AssetImage(imagePath) as ImageProvider,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -181,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.of(context).push(
                               MaterialPageRoute<void>(
                                 builder: (BuildContext context) {
-                                  return const ChatScreen(); // Replace ViewAllPage with the destination page you want to navigate to
+                                  return  HandwrittenToTextWidget(); // Replace ViewAllPage with the destination page you want to navigate to
                                 },
                               ),
                             );

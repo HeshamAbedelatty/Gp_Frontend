@@ -265,7 +265,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:gp_screen/Pages/EncouragePhrases/EncouragePhrases.dart';
 import 'package:gp_screen/Pages/signUpPage/ThePage/signUpPage.dart';
 import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 import 'package:gp_screen/Services/API_services.dart';
@@ -362,7 +361,7 @@ class LoginPage extends StatelessWidget {
                           errorText: 'Password must be at least 4 digit');
                     }
                   }),
-              const SizedBox(height: 40),
+              const SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -431,41 +430,41 @@ class LoginPage extends StatelessWidget {
                   )
                 ],
               ),
-              const SizedBox(height: 10),
-              // const Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Text('Or Sign In with', style: TextStyle(color: Colors.grey)),
-              //   ],
-              // ),
-              // const SizedBox(
-              //   height: 25,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     IconButton(
-              //       icon: const Icon(
-              //         Icons.facebook,
-              //         size: 30,
-              //       ),
-              //       onPressed: () {},
-              //     ),
-              //     Image.asset(
-              //       'lib/assets/icons/843776_google_icon.png',
-              //       width: 30,
-              //       height: 30,
-              //       color: Colors.black,
-              //     ),
-              //     Image.asset(
-              //       'lib/assets/icons/twitter.png',
-              //       width: 30,
-              //       height: 30,
-              //       color: Colors.black,
-              //     ),
-              //   ],
-              // ),
-              // const SizedBox(height: 25),
+              const SizedBox(height: 25),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Or Sign In with', style: TextStyle(color: Colors.grey)),
+                ],
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.facebook,
+                      size: 30,
+                    ),
+                    onPressed: () {},
+                  ),
+                  Image.asset(
+                    'lib/assets/icons/843776_google_icon.png',
+                    width: 30,
+                    height: 30,
+                    color: Colors.black,
+                  ),
+                  Image.asset(
+                    'lib/assets/icons/twitter.png',
+                    width: 30,
+                    height: 30,
+                    color: Colors.black,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
