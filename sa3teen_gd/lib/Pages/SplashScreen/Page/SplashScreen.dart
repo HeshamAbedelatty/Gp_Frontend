@@ -11,7 +11,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, '/login');
     });
   }
@@ -28,8 +28,8 @@ class _SplashScreenState extends State<SplashScreen> {
               'lib/assets/icons/treeCupAltered.png',  // Ensure you have the logo image in your assets
               height: 150.0,
             ),
-            SizedBox(height: 20.0),
-            Text(
+            const SizedBox(height: 20.0),
+            const Text(
               'Sa3teen Gd',  // Replace with your app name
               style: TextStyle(
                 fontSize: 30.0,
@@ -37,16 +37,16 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.black,  // Green color for the app name
               ),
             ),
-            SizedBox(height: 10.0),
-            Text(
+            const SizedBox(height: 10.0),
+            const Text(
               'Now Studying can be Easier...',
               style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.black,  // Green color for the slogan
               ),
             ),
-            SizedBox(height: 50.0),
-            SpinKitCircle(
+            const SizedBox(height: 50.0),
+            const SpinKitCircle(
               color: Colors.green,  // Green color for the loading spinner
               size: 50.0,
             ),

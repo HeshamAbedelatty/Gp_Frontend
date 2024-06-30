@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/More_page/profile_screen.dart';
 import'package:gp_screen/pages/chatBotIntegrated/Chat Bot copy 2.dart';
 
-import '../../Chat Bot.dart';
-import 'package:flutter/material.dart';
+
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({Key? key});

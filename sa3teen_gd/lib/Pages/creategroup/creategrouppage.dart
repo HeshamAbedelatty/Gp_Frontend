@@ -3,8 +3,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
-import 'package:gp_screen/Pages/interentCode&fakeHomePage/vediointernetcodeNotUsing/colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -29,7 +27,6 @@ class CreateGroupPage extends StatefulWidget {
 
 class _CreateGroupPageState extends State<CreateGroupPage> {
   final _groupNameController = TextEditingController();
-  final _SubjectController = TextEditingController();
   final _descriptionController = TextEditingController();
   File? _groupImage;
   final ImagePicker _picker = ImagePicker();
@@ -84,18 +81,16 @@ Future<dynamic?> _sendMessageToBackend(String title, String description,
 }
 
   void _createGroup() {
-    String accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU';
-    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjE1ODc5LCJpYXQiOjE3MTkzMTk4NzksImp0aSI6IjBlYTlhMWQ1NTVjNDQzNmZiZDYzN2ExZWY5NDU0ZDQ5IiwidXNlcl9pZCI6NX0.j06_cCptq8jr7D9cbiUoVLJWB_OLzD-4ZASLMDJmtdwn';
+    String accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjE1ODc5LCJpYXQiOjE3MTkzMTk4NzksImp0aSI6IjBlYTlhMWQ1NTVjNDQzNmZiZDYzN2ExZWY5NDU0ZDQ5IiwidXNlcl9pZCI6NX0.j06_cCptq8jr7D9cbiUoVLJWB_OLzD-4ZASLMDJmtdwn';
 
     final groupName = _groupNameController.text;
     final description = _descriptionController.text;
     final groupImage = _groupImage;
     final privacy = _privacy;
     File? image =groupImage;
-    final Subject =_SubjectController.text;
     // Handle group creation logic here
     _sendMessageToBackend( groupName, description,
-       privacy,  image, '2000', Subject,accessToken) ;
+       privacy,  image, '2000', groupName,accessToken) ;
     
 
     // For demonstration purposes, we'll just print the values
@@ -115,7 +110,9 @@ Future<dynamic?> _sendMessageToBackend(String title, String description,
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: tabbar(),
+      appBar: AppBar(
+        title:const Text('Create Group'),
+      ),
       body: Padding(
         padding:const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -155,16 +152,6 @@ Future<dynamic?> _sendMessageToBackend(String title, String description,
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _SubjectController,
-                decoration: const InputDecoration(
-                  labelText: 'Subject',
-                  border: OutlineInputBorder(
-                    // borderRadius: BorderRadius.circular(30.0)
-                    )),
-                
-              ),
            const   SizedBox(height: 16),
               TextField(
                 controller: _descriptionController,
@@ -172,7 +159,7 @@ Future<dynamic?> _sendMessageToBackend(String title, String description,
                   labelText: 'Description',
                   border: OutlineInputBorder(),
                 ),
-                maxLines: 2,
+                maxLines: 3,
               ),
              const SizedBox(height: 16),
              const Text(
@@ -202,12 +189,8 @@ Future<dynamic?> _sendMessageToBackend(String title, String description,
              const SizedBox(height: 16),
               Center(
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    // fixedSize: const Size(200, 40),
-                  ),
                   onPressed: _createGroup,
-                  child:const Text('Create Group',style: TextStyle(color: Colors.white),),
+                  child:const Text('Create Group'),
                 ),
               ),
             ],
