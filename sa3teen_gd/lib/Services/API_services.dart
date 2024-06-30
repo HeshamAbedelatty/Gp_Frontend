@@ -30,7 +30,7 @@ class Api_services extends ChangeNotifier {
   };
 
   static final String baseUrl = 'http://' + serverIP + '/';
-  static const localIp = 'localhost:8000';
+  static const localIp = '127.0.0.1:8000';
 
   //ToDo Change the IP before going LIVE
   static const serverIP = localIp;

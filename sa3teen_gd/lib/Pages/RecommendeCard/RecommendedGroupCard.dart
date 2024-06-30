@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/FavouriteGroupsList/provider/FavoriteGroupsProvider.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Pages/FinalGroupPostsPage.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/Pages/GroupDetailPage.dart';
+import 'package:gp_screen/Pages/listofMyGroupsPage/old/2ndOld/Pages/GroupDetailPage.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -20,12 +20,12 @@ class RecommendedGroupCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => GroupDetailPage(group: group),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => GroupDetailPage(group: group),
+        //   ),
+        // );
       },
       child: Container(
         width: 200,
