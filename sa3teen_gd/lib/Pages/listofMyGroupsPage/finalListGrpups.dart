@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
+// import 'package:gp_screen/Pages/listofMyGroupsPage/groups/FinalGroupPostsPageCopyyy.dart';
+import 'package:gp_screen/Pages/groups/finalgroupinside.dart';
+// import 'package:gp_screen/Pages/listofMyGroupsPage/groups/groupinside.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/listGroupsModel.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/old/2ndOld/Pages/GroupDetailPage.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
@@ -17,6 +20,8 @@ class GroupsScreen extends StatefulWidget {
 
 class _GroupsScreenState extends State<GroupsScreen> {
   late Future<List<listGroupsModel>> futureGroups;
+  final TextEditingController _passwordController = TextEditingController();
+  bool _obscureText = true;
 
   @override
   void initState() {
@@ -42,39 +47,39 @@ class _GroupsScreenState extends State<GroupsScreen> {
             List<listGroupsModel> groups = snapshot.data!;
             return Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8),
+                const Padding(
+                  padding: EdgeInsets.only(left: 8.0, right: 8),
                   child: Row(
                     children: [
-                      const Text(
+                      Text(
                         'Groups',
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),
-                      const Spacer(
+                      Spacer(
                         flex: 1,
                       ),
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CreateGroupPage()),
-                                );
-                              },
-                              child: const Text(
-                                'Create Group',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          )),
+                      // Padding(
+                      //     padding: const EdgeInsets.all(8.0),
+                      //     child: Align(
+                      //       alignment: Alignment.centerRight,
+                      //       child: ElevatedButton(
+                      //         style: ElevatedButton.styleFrom(
+                      //           backgroundColor: Colors.green,
+                      //         ),
+                      //         onPressed: () {
+                      //           Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //                 builder: (context) => CreateGroupPage()),
+                      //           );
+                      //         },
+                      //         child: const Text(
+                      //           'Create Group',
+                      //           style: TextStyle(color: Colors.white),
+                      //         ),
+                      //       ),
+                      //     )),
                     ],
                   ),
                 ),
@@ -85,6 +90,15 @@ class _GroupsScreenState extends State<GroupsScreen> {
                       listGroupsModel group = groups[index];
                       return GestureDetector(
                         onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GroupDetailPage(
+                                  groupId: group.id,
+                                  accessToken:
+                                      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+                            ),
+                          );
                           // Navigator.push
                         },
                         child: Card(
@@ -133,14 +147,121 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                     ],
                                   ),
                                 ),
-                                ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: kprimaryColourcream),
-                                    child: const Text(
-                                      'join',
-                                      style: TextStyle(color: Colors.white),
-                                    ))
+                                // ElevatedButton(
+                                //     onPressed: () {
+                                      
+                                //     var  type =group.type;
+                                //     print(group.type);
+                                //       if(type=="private"){ 
+                                //         AlertDialog(
+                                //         title: const Text('Enter Password'),
+                                //         content: TextField(
+                                //           controller: _passwordController,
+                                //           decoration: const InputDecoration(
+                                //               hintText: 'Password'),
+                                //           obscureText: true,
+                                //         ),
+                                //         actions: [
+                                //           TextButton(
+                                //             onPressed: () {
+                                //               Navigator.of(context).pop();
+                                //             },
+                                //             child: const Text('Cancel'),
+                                //           ),
+                                //           ElevatedButton(
+                                //             onPressed: () {
+                                //               Navigator.of(context).pop();
+                                //               joinGroup(group.id, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                //                   _passwordController.text);
+
+                                //               // _joinGroup(context, password: _passwordController.text);
+                                //             },
+                                //             child: const Text('Join'),
+                                //           ),
+                                //         ],
+                                //       );}
+                                     
+                                //    else{joinGroup(group.id, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'
+                                //                 , null );}; },
+                                //     style: ElevatedButton.styleFrom(
+                                //         backgroundColor: kprimaryColourcream),
+                                //     child: const Text(
+                                //       'join',
+                                //       style: TextStyle(color: Colors.white),
+                                //     ))
+                             ElevatedButton(
+  onPressed: () {
+    var type = group.type;
+    print(group.type);
+    if (type == "private") {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // var _obscureText=true;
+          return AlertDialog(
+            title: const Text('Enter Password'),
+            content: TextField(
+              // obscureText: _obscureText,
+              controller: _passwordController,
+              decoration: const InputDecoration(hintText: 'Password',   
+              // suffixIcon: IconButton(
+              //         icon: Icon(
+              //           _obscureText?Icons.visibility : Icons.visibility_off,
+              //         ),
+              //         onPressed: () {
+              //           setState(() {
+              //             _obscureText = !_obscureText;
+              //           });
+              //         },
+              //       ),
+                  ),
+                  
+                ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                 style: ElevatedButton.styleFrom(
+                        // fixedSize: const Size(320, 48),
+                        backgroundColor: kprimaryColourGreen, // Hex color code for the button
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(
+                        //       100.0), // Adjust the border radius as needed
+                        // ),
+                      ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  joinGroup(
+                    group.id,
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                    _passwordController.text,
+                  );
+                },
+                child: const Text('Join',style: TextStyle(color: Colors.white),),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      joinGroup(
+        group.id,
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+        null,
+      );
+    }
+  },
+  style: ElevatedButton.styleFrom(backgroundColor: kprimaryColourcream),
+  child: const Text(
+    'join',
+    style: TextStyle(color: Colors.white),
+  ),
+)
+ 
                               ],
                             ),
                           ),
@@ -153,6 +274,16 @@ class _GroupsScreenState extends State<GroupsScreen> {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateGroupPage()),
+          );
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

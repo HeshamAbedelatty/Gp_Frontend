@@ -12,7 +12,43 @@ class Api {
       throw Exception('Failed to load data');
     }
   }
+ Future<dynamic> anotherget({required String url, Map<String, String>? headers}) async {
+    final response = await http.get(Uri.parse(url), headers: headers);
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
 }
+  Future<void> joinGroup(int groupId,String accessToken,String? password) async {
+    final url = Uri.parse('http://10.0.2.2:8000/groups/$groupId/join/');
+    
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken',
+    };
+    
+    Map<String, dynamic> body = {};
+    if (password != null && password.isNotEmpty) {
+      body['password'] = password;
+    }
+    
+    final response = await http.post(
+      url,
+      headers: headers,
+      body: json.encode(body),
+    );
+    
+    if (response.statusCode == 200) {
+      print('Successfully joined the group');
+    } else {
+      print('Failed to join the group: ${response.statusCode}');
+      print('Response body: ${response.body}');
+    }
+  }
 
 
 // import 'dart:convert';
