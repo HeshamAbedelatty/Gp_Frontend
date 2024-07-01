@@ -183,6 +183,7 @@ dependencies:
   flutter_tts: ^4.0.2
   syncfusion_flutter_pdf: ^21.2.4
   smooth_page_indicator: ^1.1.0
+  open_file: ^3.3.2
 
 
 dev_dependencies:
