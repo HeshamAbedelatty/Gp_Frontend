@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
 // import 'package:gp_screen/Pages/listofMyGroupsPage/groups/FinalGroupPostsPageCopyyy.dart';
-import 'package:gp_screen/Pages/groups/finalgroupinside.dart';
+import 'package:gp_screen/Pages/groups/page/finalgroupinside.dart';
 // import 'package:gp_screen/Pages/listofMyGroupsPage/groups/groupinside.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/listGroupsModel.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/old/2ndOld/Pages/GroupDetailPage.dart';
+import 'package:gp_screen/Pages/listofMyGroupsPage/others/old/2ndOld/Pages/GroupDetailPage.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
