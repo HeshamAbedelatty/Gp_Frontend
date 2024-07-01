@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/RoundedButtonForGroups.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
@@ -6,6 +8,8 @@ import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
 import 'package:gp_screen/Pages/groups/GroupsAPI.dart';
 import 'package:gp_screen/Pages/groups/postsComments.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
+import 'package:http/http.dart'as http;
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:like_button/like_button.dart';
 class GroupDetailPage extends StatefulWidget {
@@ -160,6 +164,46 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
       },
     );
   }
+
+  // Future<dynamic?> _sendMessageToBackend(int id,String accessToken,{String? password} ) async {
+  //   http.Response response = await http.post(
+  //     Uri.parse('http://10.0.2.2:8000/groups/${id}/join/'),
+  //     if (password!=null)
+  
+  // {
+
+  // }
+  //     body: {
+  //       'user_text': password,
+  //     },
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //   );
+  //   try {
+  //     print('Sending message to backend: $password'); // Log message
+
+  //     print('Response status: ${response.statusCode}'); // Log status code
+  //     print('Response body: ${response.body}'); // Log response body
+  //     if (response.statusCode == 200) {
+  //       var jsonResponse = jsonDecode(response.body);
+  //       print('Request success with status: ${response.statusCode}');
+
+  //       // Clean up the response text
+  //       String cleanedResponse = jsonResponse['response']
+  //           .replaceAll('\n', '\n ')
+  //           .replaceAll(RegExp(r"[^a-zA-Z0-9\s.,'+\-*/=]"), '');
+
+  //       return cleanedResponse;
+  //     } else {
+  //       print('Request failed with status: ${response.statusCode}');
+  //       print('Response body: ${response.body}');
+  //     }
+  //   } catch (e) {
+  //     print('Error sending message: $e');
+  //   }
+  //   return null;
+  // }
 
   @override
   void dispose() {
