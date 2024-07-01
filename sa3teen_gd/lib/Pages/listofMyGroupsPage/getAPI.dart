@@ -51,6 +51,27 @@ class Api {
   }
 
 
+Future<void> unjoinGroup(int groupId, String token) async {
+  final url = Uri.parse('http://10.0.2.2:8000/groups/$groupId/unjoin/');
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    // Successfully unjoined the group
+    print('Successfully unjoined the group');
+  } else {
+    // Failed to unjoin the group
+    print('Failed to unjoin the group: ${response.statusCode}');
+  }
+}
+
+
 // import 'dart:convert';
 
 // import 'package:flutter/foundation.dart';
