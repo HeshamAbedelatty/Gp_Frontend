@@ -262,27 +262,14 @@
 // //showSnackBar('Wrong password. Please try again.');
 // ignore_for_file: avoid_print
 
-
-
-
-
-
-
-
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:gp_screen/HomePage.dart';
 import 'package:gp_screen/Pages/EncouragePhrases/EncouragePhrases.dart';
 import 'package:gp_screen/Pages/signUpPage/ThePage/signUpPage.dart';
+import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
-import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
-import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 
 // ignore: must_be_immutable
 
@@ -304,8 +291,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // debugShowCheckedModeBanner: false,
-      // home: Scaffold(
+        // debugShowCheckedModeBanner: false,
+        // home: Scaffold(
         backgroundColor: kprimaryColourWhite,
         body: Form(
           key: formkey,
@@ -397,7 +384,6 @@ class LoginPage extends StatelessWidget {
                               emailController.text, passwordController.text);
                           await EasyLoading.dismiss();
 
-
                           // t3del 3la el Api
                           //
                           // if (userExists) {
@@ -411,14 +397,13 @@ class LoginPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  EncouragingPhrasesSplashScreen()));
+                                    builder: (context) => SplashScreen()));
                             return;
-                          }
-                          else {
+                          } else {
                             print('Invalid Credentials please try again');
 
-                            showSnackBar(
-                                context, 'Invalid Credentials please try again.');
+                            showSnackBar(context,
+                                'Invalid Credentials please try again.');
                           }
                           // Handle the case where the user not exists
                         }
@@ -437,7 +422,10 @@ class LoginPage extends StatelessWidget {
                               100.0), // Adjust the border radius as needed
                         ),
                       ),
-                      child: const Text('Sign In',style: TextStyle(color: Colors.white),),
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   )
                 ],
@@ -489,12 +477,15 @@ class LoginPage extends StatelessWidget {
                       onTap: () {
                         //var signUpPage;
                         // Navigator.pushNamed(context, SignUpPage.id);
-                        Navigator.pushNamed(context, SignUpPage.id);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignUpPage()));
                       },
                       child: const Text("Sign Up")),
-                 const SizedBox(width: 30),],
+                  const SizedBox(width: 30),
+                ],
               ),
-             
             ],
           ),
         ));
