@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
+// import 'package:gp_screen/Pages/listofMyGroupsPage/groups/FinalGroupPostsPageCopyyy.dart';
+import 'package:gp_screen/Pages/groups/finalgroupinside.dart';
+// import 'package:gp_screen/Pages/listofMyGroupsPage/groups/groupinside.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/listGroupsModel.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/old/2ndOld/Pages/GroupDetailPage.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
@@ -54,27 +57,27 @@ class _GroupsScreenState extends State<GroupsScreen> {
                       const Spacer(
                         flex: 1,
                       ),
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CreateGroupPage()),
-                                );
-                              },
-                              child: const Text(
-                                'Create Group',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          )),
+                      // Padding(
+                      //     padding: const EdgeInsets.all(8.0),
+                      //     child: Align(
+                      //       alignment: Alignment.centerRight,
+                      //       child: ElevatedButton(
+                      //         style: ElevatedButton.styleFrom(
+                      //           backgroundColor: Colors.green,
+                      //         ),
+                      //         onPressed: () {
+                      //           Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //                 builder: (context) => CreateGroupPage()),
+                      //           );
+                      //         },
+                      //         child: const Text(
+                      //           'Create Group',
+                      //           style: TextStyle(color: Colors.white),
+                      //         ),
+                      //       ),
+                      //     )),
                     ],
                   ),
                 ),
@@ -134,7 +137,16 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                   ),
                                 ),
                                 ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      // Example of how to navigate to the GroupDetailPage
+Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => GroupDetailPage(groupId: group.id, accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+  ),
+);
+
+                                    },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: kprimaryColourcream),
                                     child: const Text(
@@ -153,6 +165,15 @@ class _GroupsScreenState extends State<GroupsScreen> {
             );
           }
         },
+      ),
+        floatingActionButton: FloatingActionButton(
+        onPressed: (){  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CreateGroupPage()),
+                                );},
+        backgroundColor: Colors.green,
+        child:const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
