@@ -23,7 +23,6 @@ class _GroupsScreenState extends State<GroupsScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _obscureText = true;
 
-
   @override
   void initState() {
     super.initState();
@@ -144,7 +143,19 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                       const SizedBox(height: 5.0),
                                       Text(group.subject),
                                       const SizedBox(height: 5.0),
-                                      Text('${group.members} Members'),
+                                      Row(
+                                        children: [
+                                          Text(group.type),
+                                          const SizedBox(height: 5.0),
+                                          Text(
+                                            ' ${group.members} Members',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey.shade500),
+                                          ),
+                                        ],
+                                      )
+
                                       // Text('${group.has_joined} Members'),
                                     ],
                                   ),
@@ -259,120 +270,141 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                 //   ),
                                 // )
                                 Column(
-  children: [
-    if (!group.has_joined)
-      ElevatedButton(
-        onPressed: () {
-          var type = group.type;
-          print(group.type);
-          if (type == "private") {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('Enter Password'),
-                  content: TextField(
-                    controller: _passwordController,
-                    decoration: const InputDecoration(
-                      hintText: 'Password',
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Cancel'),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: kprimaryColourGreen,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        joinGroup(
-                          group.id,
-'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',                          _passwordController.text,
-                        );
-                      },
-                      child: const Text(
-                        'Join',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            );
-          } else {
-            joinGroup(
-              group.id,
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
-              null,
-            );
-          }
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: kprimaryColourcream,
-        ),
-        child: const Text(
-          'Join',
-          style: TextStyle(color: Colors.white),
-        ),
-      )
-    else
-      ElevatedButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('unjoin the group '),
-                  content: Text('Are You Sure ?',style: TextStyle(fontSize: 20),),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Cancel'),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                       unjoinGroup(
-            group.id,
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
-          );
-                      },
-                      child: const Text(
-                        'UnJoin',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            );
-          // Call your unjoin function here
-        //  unjoinGroup(
-        //     group.id,
-        //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
-        //   );
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.grey,
-        ),
-        child: const Text(
-          'Unjoin',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-  ],
-)
-
+                                  children: [
+                                    if (!group.has_joined)
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          var type = group.type;
+                                          print(group.type);
+                                          if (type == "private") {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      'Enter Password'),
+                                                  content: TextField(
+                                                    controller:
+                                                        _passwordController,
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      hintText: 'Password',
+                                                    ),
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child:
+                                                          const Text('Cancel'),
+                                                    ),
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            kprimaryColourGreen,
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                        joinGroup(
+                                                          group.id,
+                                                          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                                          _passwordController
+                                                              .text,
+                                                        );
+                                                      },
+                                                      child: const Text(
+                                                        'Join',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          } else {
+                                            joinGroup(
+                                              group.id,
+                                              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                              null,
+                                            );
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: kprimaryColourcream,
+                                        ),
+                                        child: const Text(
+                                          'Join',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      )
+                                    else
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                    'unjoin the group '),
+                                                content: Text(
+                                                  'Are You Sure ?',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          Colors.grey,
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      unjoinGroup(
+                                                        group.id,
+                                                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                                      );
+                                                    },
+                                                    child: const Text(
+                                                      'UnJoin',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                          // Call your unjoin function here
+                                          //  unjoinGroup(
+                                          //     group.id,
+                                          //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                          //   );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.grey,
+                                        ),
+                                        child: const Text(
+                                          'Unjoin',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                  ],
+                                )
                               ],
                             ),
                           ),
@@ -405,7 +437,7 @@ void main() {
     debugShowCheckedModeBanner: false,
     home: GroupsScreen(
         accessToken:
-'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'            ),
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'),
   ));
 }
 
