@@ -1,13 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
+import 'package:http/http.dart' as http;
+
+void main() {
+  runApp(ForgotPasswordScreen());
+}
 
 class ForgotPasswordScreen extends StatelessWidget {
   ForgotPasswordScreen({super.key});
 
   static String id = "ForgotPasswordScreen";
   GlobalKey<FormState> formkey = GlobalKey();
+  final TextEditingController emailController = TextEditingController();
+  final Api api = Api();
 
   void showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -15,6 +24,28 @@ class ForgotPasswordScreen extends StatelessWidget {
         content: Text(message),
       ),
     );
+  }
+
+  Future<void> resetPassword(BuildContext context) async {
+    if (formkey.currentState!.validate()) {
+      try {
+        var response = await api.post(
+          url: 'http://127.0.0.1:8000/reset/password-reset/',
+          body: {'email': emailController.text},
+        );
+
+        if (response['status'] == 'success') {
+          showSnackBar(context, 'Password reset email sent. Check your inbox.');
+          emailController.clear();
+          Navigator.pop(context);
+        } else {
+          showSnackBar(
+              context, 'Error sending password reset email. Please try again.');
+        }
+      } catch (e) {
+        showSnackBar(context, 'Error: $e');
+      }
+    }
   }
 
   @override
@@ -66,13 +97,8 @@ class ForgotPasswordScreen extends StatelessWidget {
               text: 'Email',
               icon: const Icon(Icons.email_outlined),
               controller: emailController,
-              fieldValidator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                } else {
-                  EmailValidator(errorText: 'Please enter a valid email');
-                }
-              },
+              fieldValidator:
+                  EmailValidator(errorText: 'Please enter a valid email'),
             ),
             const SizedBox(height: 40),
             Row(
@@ -80,29 +106,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               children: [
                 Builder(
                   builder: (context) => ElevatedButton(
-                    onPressed: () async {
-                      /* if (formkey.currentState!.validate()) {
-                        await EasyLoading.show(
-                          status: 'loading...',
-                          maskType: EasyLoadingMaskType.black,
-                        );
-                        var response = await Api_services.resetPassword(
-                            emailController.text);
-                        await EasyLoading.dismiss();
-
-                        if (response) {
-                          print('Password reset email sent');
-                          showSnackBar(context,
-                              'Password reset email sent. Check your inbox.');
-                          emailController.clear();
-                          Navigator.pop(context);
-                        } else {
-                          print('Error sending password reset email');
-                          showSnackBar(context,
-                              'Error sending password reset email. Please try again.');
-                        }
-                      }*/
-                    },
+                    onPressed: () => resetPassword(context),
                     style: ElevatedButton.styleFrom(
                       fixedSize: const Size(320, 48),
                       backgroundColor: const Color(
@@ -142,5 +146,32 @@ class ForgotPasswordScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+//get function from tharwat samy
+class Api {
+  Future<Map<String, dynamic>> post({
+    required String url,
+    required Map<String, dynamic> body,
+    Map<String, String>? headers,
+  }) async {
+    headers ??= {};
+    headers.addAll({'Content-Type': 'application/json'});
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: json.encode(body),
+    );
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return jsonDecode(response.body) as Map<String, dynamic>;
+    } else {
+      throw Exception('Failed to post data: ${response.statusCode}');
+    }
   }
 }

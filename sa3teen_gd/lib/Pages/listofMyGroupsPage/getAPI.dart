@@ -55,6 +55,29 @@ Future<void> joinGroup(
   }
 }
 
+Future<Map<String, dynamic>> post({
+  required String url,
+  required Map<String, dynamic> body,
+  Map<String, String>? headers,
+}) async {
+  headers ??= {};
+  headers.addAll({'Content-Type': 'application/json'});
+
+  final response = await http.post(
+    Uri.parse(url),
+    headers: headers,
+    body: json.encode(body),
+  );
+
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
+
+  if (response.statusCode == 200 || response.statusCode == 201) {
+    return jsonDecode(response.body) as Map<String, dynamic>;
+  } else {
+    throw Exception('Failed to post data: ${response.statusCode}');
+  }
+}
 
 Future<void> unjoinGroup(int groupId, String token) async {
   final url = Uri.parse('http://10.0.2.2:8000/groups/$groupId/unjoin/');
