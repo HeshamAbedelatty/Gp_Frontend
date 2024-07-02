@@ -663,7 +663,7 @@ class Api_services extends ChangeNotifier {
       String startTime,
       String endTime,
       String? description,
-      String? reminderTime,
+      int? reminderTime,
       String color,
       String accessToken,
       ) async {

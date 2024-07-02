@@ -43,13 +43,37 @@ class listGroupsModel {
 }
 
 class getAllGroups {
-  Future<List<listGroupsModel>> getAllProducts(String accessToken) async {
+  Future<List<listGroupsModel>> getAllGroupsList(String accessToken) async {
     Map<String, String> headers = {
       'Authorization': 'Bearer $accessToken',
     };
 
     List<dynamic> data = await Api().get(
       url: 'http://10.0.2.2:8000/groups/list_groups/',
+      headers: headers,
+    );
+
+    List<listGroupsModel> productsList = [];
+    for (int i = 0; i < data.length; i++) {
+      productsList.add(
+        listGroupsModel.fromJson(data[i]),
+      );
+    }
+    
+    // Print each object using the overridden toString method
+    for (var product in productsList) {
+      print(product);
+    }
+
+    return productsList;
+  }
+  Future<List<listGroupsModel>> searchGroupsByTitle(String title,String accessToken) async {
+    Map<String, String> headers = {
+      'Authorization': 'Bearer $accessToken',
+    };
+
+    List<dynamic> data = await Api().get(
+      url: 'http://10.0.2.2:8000/groups/search/${title}/',
       headers: headers,
     );
 

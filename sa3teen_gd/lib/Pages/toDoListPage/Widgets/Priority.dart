@@ -108,20 +108,25 @@ import 'package:gp_screen/Services/API_services.dart'; // Adjust the import path
 
 class PriorityIcon extends StatefulWidget {
   final String priorityValue;
-  const PriorityIcon({super.key, required this.priorityValue});
+ final int listIndex ;
+ final int taskIndex ;
+  const PriorityIcon({Key? key, required this.priorityValue, required this.listIndex, required this.taskIndex}) : super(key: key);
 
   @override
   _PriorityIconState createState() => _PriorityIconState();
+
 }
 
 class _PriorityIconState extends State<PriorityIcon> {
   late Priority priority;
   Api_services api_services = Api_services();
 
+
   @override
   void initState() {
     super.initState();
     _setPriority(widget.priorityValue);
+
   }
 
   void _setPriority(String priorityValue) {
@@ -154,12 +159,12 @@ class _PriorityIconState extends State<PriorityIcon> {
           priority = value;
           // Call API service to update task priority here
           // ely na2s eny ageep el list w el task mn el parent widget
-          // Api_services.updateTaskPriority(
-          //   listItem['id'],
-          //   taskItem['id'],
-          //   _convertPriorityToString(value), // Convert Priority to string if needed
-          //   accessToken,
-          // );
+          Api_services.updateTaskPriority(
+            widget.listIndex,
+            widget.taskIndex,
+            _convertPriorityToString(value), // Convert Priority to string if needed
+            accessToken,
+          );
         });
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<Priority>>[

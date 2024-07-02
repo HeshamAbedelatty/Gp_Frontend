@@ -197,7 +197,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                 itemCount: listNameControllers.length,
                 itemBuilder: (context, listIndex) {
                   var listItem = listNameControllers[listIndex];
-                  var tasks = listItem['tasks'] as List<dynamic>; // Ensure this is a list
+                  var tasks = listItem['tasks'] as List<dynamic>;
+                  int todolistindex= listItem['id'];
+
+                  // Ensure this is a list
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,6 +225,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                               itemBuilder: (context, taskIndex) {
                                 var taskItem =
                                     tasks[taskIndex] as Map<String, dynamic>;
+                                int todotaskindex= taskItem['id'];
 
                                 return ListTile(
                                   leading: Checkbox(
@@ -264,8 +268,9 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                       PriorityIcon(priorityValue:taskItem['priority']),
+                                       PriorityIcon(priorityValue:taskItem['priority'],listIndex: todolistindex,taskIndex: todotaskindex  ),
                                       IconButton(
+
                                         onPressed: () {
                                           showDialog(
                                             context: context,
