@@ -266,6 +266,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gp_screen/Pages/EncouragePhrases/EncouragePhrases.dart';
+import 'package:gp_screen/Pages/loginPage/ThePage/Forgetpasswordscreen.dart';
 import 'package:gp_screen/Pages/signUpPage/ThePage/signUpPage.dart';
 import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 import 'package:gp_screen/Services/API_services.dart';
@@ -362,6 +363,25 @@ class LoginPage extends StatelessWidget {
                           errorText: 'Password must be at least 4 digit');
                     }
                   }),
+              const SizedBox(height: 10),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ForgotPasswordScreen()),
+                  );
+                },
+                child: Text(
+                  'Forgot Password?',
+                  style: TextStyle(
+                    color: const Color(0xFF3C8243),
+                    fontSize: 16,
+                    decoration: TextDecoration.underline,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
               const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

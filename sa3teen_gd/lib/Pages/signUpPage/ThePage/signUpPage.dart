@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:gp_screen/Pages/loginPage/ThePage/LoginPage.dart';
-import 'package:gp_screen/Pages/profile/profile.dart';
 import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
 import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
@@ -219,14 +218,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             dateOfBirth: userFromDB['date_of_birth'],
                             image: userFromDB['image'],
                             rate: userFromDB['rate'],
-                          );
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ProfileScreen(user: newUser),
-                            ),
                           );
                         } else {
                           showSnackBar(context, 'Passwords do not match');
