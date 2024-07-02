@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+
 // env\Scripts\activate
 // cd GP_Backend
 // python manage.py runserver
@@ -126,6 +127,7 @@ class Api_services extends ChangeNotifier {
     }
   }
 
+
   static Future<bool> login(String username, String password) async {
     try {
       final response = await postRequest('login/', headers, {
@@ -201,6 +203,7 @@ class Api_services extends ChangeNotifier {
       };
 
       // Convert the body map to a JSON string
+
 
       // Make the POST request
       // final response = await http.post(
@@ -304,9 +307,7 @@ class Api_services extends ChangeNotifier {
       var response = await deleteRequest(api, headers);
 
       if (response != null &&
-          (response.statusCode == 200 ||
-              response.statusCode == 201 ||
-              response.statusCode == 204)) {
+          (response.statusCode == 200 || response.statusCode == 201||response.statusCode == 204)) {
         // Successfully deleted, parse JSON response if needed
         List<dynamic> jsonData = jsonDecode(response.body);
         // Handle response as needed
@@ -324,6 +325,8 @@ class Api_services extends ChangeNotifier {
     }
   }
 
+
+
   Future<List<Map<String, dynamic>>> deleteTask(
       String listId, String taskId, String accessToken) async {
     try {
@@ -335,9 +338,7 @@ class Api_services extends ChangeNotifier {
       var response = await deleteRequest(api, headers);
 
       if (response != null &&
-          (response.statusCode == 200 ||
-              response.statusCode == 201 ||
-              response.statusCode == 204)) {
+          (response.statusCode == 200 || response.statusCode == 201||response.statusCode == 204)) {
         // Print the response body to understand its structure
         print('Response body: ${response.body}');
 
@@ -368,8 +369,12 @@ class Api_services extends ChangeNotifier {
     }
   }
 
-  static Future<bool> updateTask(int todoListid, int taskId, String title,
-      String? dueDate, String accessToken) async {
+  static Future<bool> updateTask(
+      int todoListid,
+      int taskId,
+      String title,
+      String? dueDate,
+      String accessToken) async {
     try {
       // Define your headers including the access token
       Map<String, String> headers = {
@@ -405,6 +410,8 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
+
+
 
   static Future<bool> createTask(int todoListid, String title, String? priority,
       bool? status, String? dueDate, String accessToken) async {
@@ -446,8 +453,7 @@ class Api_services extends ChangeNotifier {
     }
   }
 
-  static Future<bool> updateTaskStatus(
-      int todoListid, int taskId, bool status, String accessToken) async {
+  static Future<bool> updateTaskStatus(int todoListid, int taskId, bool status, String accessToken) async {
     try {
       // Define your headers including the access token
       Map<String, String> headers = {
@@ -465,15 +471,13 @@ class Api_services extends ChangeNotifier {
       var response = await patchRequest(api, headers, body);
 
       // Check the response status code
-      if (response != null &&
-          (response.statusCode == 200 || response.statusCode == 204)) {
+      if (response != null && (response.statusCode == 200 || response.statusCode == 204)) {
         // Status update successful
         print('Update Task Status successful');
         return true;
       } else {
         // Status update failed
-        print(
-            'Update Task Status failed with status code: ${response!.statusCode}');
+        print('Update Task Status failed with status code: ${response!.statusCode}');
         return false;
       }
     } catch (error) {
@@ -482,9 +486,7 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
-
-  static Future<bool> updateTaskPriority(
-      int todoListid, int taskId, String priority, String accessToken) async {
+  static Future<bool> updateTaskPriority(int todoListid, int taskId, String priority, String accessToken) async {
     try {
       // Define your headers including the access token
       Map<String, String> headers = {
@@ -502,15 +504,13 @@ class Api_services extends ChangeNotifier {
       var response = await patchRequest(api, headers, body);
 
       // Check the response status code
-      if (response != null &&
-          (response.statusCode == 200 || response.statusCode == 204)) {
+      if (response != null && (response.statusCode == 200 || response.statusCode == 204)) {
         // Status update successful
         print('Update Task Status successful');
         return true;
       } else {
         // Status update failed
-        print(
-            'Update Task Status failed with status code: ${response!.statusCode}');
+        print('Update Task Status failed with status code: ${response!.statusCode}');
         return false;
       }
     } catch (error) {
@@ -519,7 +519,6 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
-
   static Future<bool> addSchedule(
       String title,
       String day,
@@ -547,8 +546,8 @@ class Api_services extends ChangeNotifier {
       Map<String, dynamic> body = {
         'title': title,
         'day': day,
-        'start_time': startTimeStr, // Use converted string here
-        'end_time': endTimeStr, // Use converted string here
+        'start_time': startTimeStr,  // Use converted string here
+        'end_time': endTimeStr,      // Use converted string here
         'description': description,
         'reminder_time': reminderTime,
         'color': color,
@@ -559,15 +558,13 @@ class Api_services extends ChangeNotifier {
       var response = await postRequest(api, headers, body);
 
       // Check the response status code
-      if (response != null &&
-          (response.statusCode == 200 || response.statusCode == 201)) {
+      if (response != null && (response.statusCode == 200 || response.statusCode == 201)) {
         // Status update successful
         print('Add To Schedule successful');
         return true;
       } else {
         // Status update failed
-        print(
-            'Add To Schedule failed with status code: ${response!.statusCode}');
+        print('Add To Schedule failed with status code: ${response!.statusCode}');
         return false;
       }
     } catch (error) {
@@ -576,7 +573,6 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
-
   Future<List<Map<String, dynamic>>> listSchedule(String accessToken) async {
     try {
       Map<String, String> headers = {
@@ -587,8 +583,7 @@ class Api_services extends ChangeNotifier {
       var response = await getRequest(api, headers);
       print('Request sent to $api');
 
-      if (response != null &&
-          (response.statusCode == 200 || response.statusCode == 201)) {
+      if (response != null && (response.statusCode == 200 || response.statusCode == 201)) {
         List<dynamic> jsonData = jsonDecode(response.body);
 
         for (dynamic map in jsonData) {
@@ -617,8 +612,9 @@ class Api_services extends ChangeNotifier {
     }
   }
 
+
   Future<List<Map<String, dynamic>>> DeleteSlot(
-      int slotid, String accessToken) async {
+       int slotid, String accessToken) async {
     try {
       Map<String, String> headers = {
         'Authorization': 'Bearer $accessToken',
@@ -628,9 +624,7 @@ class Api_services extends ChangeNotifier {
       var response = await deleteRequest(api, headers);
 
       if (response != null &&
-          (response.statusCode == 200 ||
-              response.statusCode == 201 ||
-              response.statusCode == 204)) {
+          (response.statusCode == 200 || response.statusCode == 201||response.statusCode == 204)) {
         // Print the response body to understand its structure
         print('Response body: ${response.body}');
 
@@ -661,17 +655,18 @@ class Api_services extends ChangeNotifier {
     }
   }
 
-  Future<bool> UpdateSlot(
-    int slotid,
-    String title,
-    String day,
-    String startTime,
-    String endTime,
-    String? description,
-    int? reminderTime,
-    String color,
-    String accessToken,
-  ) async {
+
+  static Future<bool> UpdateSlot(
+      int slotid,
+      String title,
+      String day,
+      String startTime,
+      String endTime,
+      String? description,
+      int? reminderTime,
+      String color,
+      String accessToken,
+      ) async {
     try {
       // Define your headers including the access token
       Map<String, String> headers = {
@@ -711,4 +706,10 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
-}
+  }
+
+
+
+
+
+

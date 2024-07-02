@@ -262,28 +262,15 @@
 // //showSnackBar('Wrong password. Please try again.');
 // ignore_for_file: avoid_print
 
-
-
-
-
-
-
-
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:gp_screen/HomePage.dart';
+import 'package:gp_screen/Pages/EncouragePhrases/EncouragePhrases.dart';
+import 'package:gp_screen/Pages/loginPage/ThePage/Forgetpasswordscreen.dart';
 import 'package:gp_screen/Pages/signUpPage/ThePage/signUpPage.dart';
+import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
-import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
-import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
-
-import '../../EncouragePhrases/EncouragePhrases.dart';
 
 // ignore: must_be_immutable
 
@@ -305,8 +292,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // debugShowCheckedModeBanner: false,
-      // home: Scaffold(
+        // debugShowCheckedModeBanner: false,
+        // home: Scaffold(
         backgroundColor: kprimaryColourWhite,
         body: Form(
           key: formkey,
@@ -376,7 +363,26 @@ class LoginPage extends StatelessWidget {
                           errorText: 'Password must be at least 4 digit');
                     }
                   }),
-              const SizedBox(height: 50),
+              const SizedBox(height: 10),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ForgotPasswordScreen()),
+                  );
+                },
+                child: Text(
+                  'Forgot Password?',
+                  style: TextStyle(
+                    color: const Color(0xFF3C8243),
+                    fontSize: 16,
+                    decoration: TextDecoration.underline,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -398,7 +404,6 @@ class LoginPage extends StatelessWidget {
                               emailController.text, passwordController.text);
                           await EasyLoading.dismiss();
 
-
                           // t3del 3la el Api
                           //
                           // if (userExists) {
@@ -412,14 +417,13 @@ class LoginPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  SplashScreen()));
+                                    builder: (context) => SplashScreen()));
                             return;
-                          }
-                          else {
+                          } else {
                             print('Invalid Credentials please try again');
 
-                            showSnackBar(
-                                context, 'Invalid Credentials please try again.');
+                            showSnackBar(context,
+                                'Invalid Credentials please try again.');
                           }
                           // Handle the case where the user not exists
                         }
@@ -438,46 +442,49 @@ class LoginPage extends StatelessWidget {
                               100.0), // Adjust the border radius as needed
                         ),
                       ),
-                      child: const Text('Sign In'),
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   )
                 ],
               ),
-              const SizedBox(height: 25),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Or Sign In with', style: TextStyle(color: Colors.grey)),
-                ],
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.facebook,
-                      size: 30,
-                    ),
-                    onPressed: () {},
-                  ),
-                  Image.asset(
-                    'lib/assets/icons/843776_google_icon.png',
-                    width: 30,
-                    height: 30,
-                    color: Colors.black,
-                  ),
-                  Image.asset(
-                    'lib/assets/icons/twitter.png',
-                    width: 30,
-                    height: 30,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 10),
+              // const Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Text('Or Sign In with', style: TextStyle(color: Colors.grey)),
+              //   ],
+              // ),
+              // const SizedBox(
+              //   height: 25,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     IconButton(
+              //       icon: const Icon(
+              //         Icons.facebook,
+              //         size: 30,
+              //       ),
+              //       onPressed: () {},
+              //     ),
+              //     Image.asset(
+              //       'lib/assets/icons/843776_google_icon.png',
+              //       width: 30,
+              //       height: 30,
+              //       color: Colors.black,
+              //     ),
+              //     Image.asset(
+              //       'lib/assets/icons/twitter.png',
+              //       width: 30,
+              //       height: 30,
+              //       color: Colors.black,
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -490,9 +497,13 @@ class LoginPage extends StatelessWidget {
                       onTap: () {
                         //var signUpPage;
                         // Navigator.pushNamed(context, SignUpPage.id);
-                        Navigator.pushNamed(context, SignUpPage.id);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignUpPage()));
                       },
                       child: const Text("Sign Up")),
+                  const SizedBox(width: 30),
                 ],
               ),
             ],

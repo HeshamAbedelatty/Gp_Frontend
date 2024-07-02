@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:gp_screen/Pages/loginPage/ThePage/LoginPage.dart';
-import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
 import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
-import '../../../Services/API_services.dart';
+import '../../profile/User.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({super.key});
@@ -182,56 +182,44 @@ class _SignUpPageState extends State<SignUpPage> {
                 Builder(builder: (context) {
                   return ElevatedButton(
                     onPressed: () async {
-                      String newEmail = emailController.text;
-
-                      // bool userExists =
-                      //     checkIfUserExists(persons, emailController.text);
-
-                      //formkey.currentState != null &&
                       if (formkey.currentState?.validate() ?? false) {
-                        // if (formkey.currentState!.validate())
-                        // Validate passwords match
                         if (passwordController.text ==
                             confirmPasswordController.text) {
-                          // Check if the user already exists
-                          // if (userExists) {
-                          //   // Handle the case where the user already exists
-                          //   print(
-                          //       'User with email ${emailController.text} already exists');
-                          //   showSnackBar(context,
-                          //       'User with email ${emailController.text} already exists');
-                          //   return;
-                          // } else
-                          // if (!userExists) {
                           await EasyLoading.show(status: 'loading...');
-                          if (true) {
-                            await addUser(
-                                firstNameController.text,
-                                lastNameController.text,
-                                UserNameController.text,
-                                emailController.text,
-                                phoneNumberController.text,
-                                passwordController.text,
-                                confirmPasswordController.text);
-                            // Clear text fields
-                            firstNameController.clear();
-                            lastNameController.clear();
-                            UserNameController.clear();
-                            emailController.clear();
-                            phoneNumberController.clear();
-                            passwordController.clear();
-                            confirmPasswordController.clear();
-                          }
-                          await EasyLoading.dismiss();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
 
-                          // Api_services.sginup(firstNameController.text,lastNameController.text,UserNameController.text,emailController.text,passwordController.text,confirmPasswordController.text);
+                          // Assuming addUser returns the created user data from the backend
+                          Map<String, dynamic> userFromDB = await addUser(
+                              firstNameController.text,
+                              lastNameController.text,
+                              UserNameController.text,
+                              emailController.text,
+                              phoneNumberController.text,
+                              passwordController.text,
+                              confirmPasswordController.text);
+
+                          firstNameController.clear();
+                          lastNameController.clear();
+                          UserNameController.clear();
+                          emailController.clear();
+                          phoneNumberController.clear();
+                          passwordController.clear();
+                          confirmPasswordController.clear();
+
+                          await EasyLoading.dismiss();
+
+                          User newUser = User(
+                            id: userFromDB['id'],
+                            firstName: userFromDB['first_name'],
+                            lastName: userFromDB['last_name'],
+                            email: userFromDB['email'],
+                            username: userFromDB['username'],
+                            phoneNumber: userFromDB['phone_number'],
+                            faculty: userFromDB['faculty'],
+                            dateOfBirth: userFromDB['date_of_birth'],
+                            image: userFromDB['image'],
+                            rate: userFromDB['rate'],
+                          );
                         } else {
-                          // show error message
-                          print('Passwords do not match');
                           showSnackBar(context, 'Passwords do not match');
                         }
                       }

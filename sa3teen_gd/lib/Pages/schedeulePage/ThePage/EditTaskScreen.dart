@@ -254,7 +254,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
               print(listSchedule[0]['id'] as int);
               print(
                   'mooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-              await api_services.UpdateSlot(
+              await Api_services.UpdateSlot(
                 widget.task.id as int  , // Assuming Task has an id field
                 _titleController.text,
                 _selectedDay,
