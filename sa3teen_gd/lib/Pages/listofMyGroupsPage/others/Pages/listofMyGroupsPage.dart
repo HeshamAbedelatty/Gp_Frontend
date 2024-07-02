@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/FavouriteGroupsList/provider/FavoriteGroupsProvider.dart';
 import 'package:gp_screen/Pages/FavouriteGroupsList/page/FavouriteGroupsList.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Pages/FinalGroupPostsPage.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/Pages/GroupDetailPage.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/Pages/h.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/RecommendeCard/RecommendedGroupCard.dart';
+import 'package:gp_screen/Pages/listofMyGroupsPage/others/Pages/GroupDetailPage.dart';
+import 'package:gp_screen/Pages/listofMyGroupsPage/others/Pages/h.dart';
+import 'package:gp_screen/Pages/listofMyGroupsPage/others/RecommendeCard/RecommendedGroupCard.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/model.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
-import '../../GroupPostAndCommentPage/Widgets/tabBar.dart';
+import '../../../GroupPostAndCommentPage/Widgets/tabBar.dart';
 
 import 'package:http/http.dart'as http;
 // import 'package:store/helper/api.dart';

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
 // import 'package:gp_screen/Pages/listofMyGroupsPage/groups/FinalGroupPostsPageCopyyy.dart';
-import 'package:gp_screen/Pages/groups/finalgroupinside.dart';
+import 'package:gp_screen/Pages/groups/page/finalgroupinside.dart';
 // import 'package:gp_screen/Pages/listofMyGroupsPage/groups/groupinside.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/listGroupsModel.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/old/2ndOld/Pages/GroupDetailPage.dart';
+import 'package:gp_screen/Pages/listofMyGroupsPage/others/old/2ndOld/Pages/GroupDetailPage.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
@@ -143,16 +143,29 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                       const SizedBox(height: 5.0),
                                       Text(group.subject),
                                       const SizedBox(height: 5.0),
-                                      Text('${group.members} Members'),
+                                      Row(
+                                        children: [
+                                          Text(group.type),
+                                          const SizedBox(height: 5.0),
+                                          Text(
+                                            ' ${group.members} Members',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey.shade500),
+                                          ),
+                                        ],
+                                      )
+
+                                      // Text('${group.has_joined} Members'),
                                     ],
                                   ),
                                 ),
                                 // ElevatedButton(
                                 //     onPressed: () {
-                                      
+
                                 //     var  type =group.type;
                                 //     print(group.type);
-                                //       if(type=="private"){ 
+                                //       if(type=="private"){
                                 //         AlertDialog(
                                 //         title: const Text('Enter Password'),
                                 //         content: TextField(
@@ -180,7 +193,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                 //           ),
                                 //         ],
                                 //       );}
-                                     
+
                                 //    else{joinGroup(group.id, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'
                                 //                 , null );}; },
                                 //     style: ElevatedButton.styleFrom(
@@ -189,79 +202,209 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                 //       'join',
                                 //       style: TextStyle(color: Colors.white),
                                 //     ))
-                             ElevatedButton(
-  onPressed: () {
-    var type = group.type;
-    print(group.type);
-    if (type == "private") {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          // var _obscureText=true;
-          return AlertDialog(
-            title: const Text('Enter Password'),
-            content: TextField(
-              // obscureText: _obscureText,
-              controller: _passwordController,
-              decoration: const InputDecoration(hintText: 'Password',   
-              // suffixIcon: IconButton(
-              //         icon: Icon(
-              //           _obscureText?Icons.visibility : Icons.visibility_off,
-              //         ),
-              //         onPressed: () {
-              //           setState(() {
-              //             _obscureText = !_obscureText;
-              //           });
-              //         },
-              //       ),
-                  ),
-                  
-                ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancel'),
-              ),
-              ElevatedButton(
-                 style: ElevatedButton.styleFrom(
-                        // fixedSize: const Size(320, 48),
-                        backgroundColor: kprimaryColourGreen, // Hex color code for the button
-                        // shape: RoundedRectangleBorder(
-                        //   borderRadius: BorderRadius.circular(
-                        //       100.0), // Adjust the border radius as needed
-                        // ),
-                      ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  joinGroup(
-                    group.id,
-                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
-                    _passwordController.text,
-                  );
-                },
-                child: const Text('Join',style: TextStyle(color: Colors.white),),
-              ),
-            ],
-          );
-        },
-      );
-    } else {
-      joinGroup(
-        group.id,
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
-        null,
-      );
-    }
-  },
-  style: ElevatedButton.styleFrom(backgroundColor: kprimaryColourcream),
-  child: const Text(
-    'join',
-    style: TextStyle(color: Colors.white),
-  ),
-)
- 
+                                // ElevatedButton(
+                                //   onPressed: () {
+                                //     var type = group.type;
+                                //     print(group.type);
+                                //     if (type == "private") {
+                                //       showDialog(
+                                //         context: context,
+                                //         builder: (BuildContext context) {
+                                //           // var _obscureText=true;
+                                //           return AlertDialog(
+                                //             title: const Text('Enter Password'),
+                                //             content: TextField(
+                                //               controller: _passwordController,
+                                //               decoration: const InputDecoration(
+                                //                 hintText: 'Password',
+                                //               ),
+                                //             ),
+                                //             actions: [
+                                //               TextButton(
+                                //                 onPressed: () {
+                                //                   Navigator.of(context).pop();
+                                //                 },
+                                //                 child: const Text('Cancel'),
+                                //               ),
+                                //               ElevatedButton(
+                                //                 style: ElevatedButton.styleFrom(
+                                //                   // fixedSize: const Size(320, 48),
+                                //                   backgroundColor:
+                                //                       kprimaryColourGreen, // Hex color code for the button
+                                //                   // shape: RoundedRectangleBorder(
+                                //                   //   borderRadius: BorderRadius.circular(
+                                //                   //       100.0), // Adjust the border radius as needed
+                                //                   // ),
+                                //                 ),
+                                //                 onPressed: () {
+                                //                   Navigator.of(context).pop();
+                                //                   joinGroup(
+                                //                     group.id,
+                                //                     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                //                     _passwordController.text,
+                                //                   );
+                                //                 },
+                                //                 child: const Text(
+                                //                   'Join',
+                                //                   style: TextStyle(
+                                //                       color: Colors.white),
+                                //                 ),
+                                //               ),
+                                //             ],
+                                //           );
+                                //         },
+                                //       );
+                                //     } else {
+                                //       joinGroup(
+                                //         group.id,
+                                //         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                //         null,
+                                //       );
+                                //     }
+                                //   },
+                                //   style: ElevatedButton.styleFrom(
+                                //       backgroundColor: kprimaryColourcream),
+                                //   child: const Text(
+                                //     'join',
+                                //     style: TextStyle(color: Colors.white),
+                                //   ),
+                                // )
+                                Column(
+                                  children: [
+                                    if (!group.has_joined)
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          var type = group.type;
+                                          print(group.type);
+                                          if (type == "private") {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      'Enter Password'),
+                                                  content: TextField(
+                                                    controller:
+                                                        _passwordController,
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      hintText: 'Password',
+                                                    ),
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child:
+                                                          const Text('Cancel'),
+                                                    ),
+                                                    ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            kprimaryColourGreen,
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                        joinGroup(
+                                                          group.id,
+                                                          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                                          _passwordController
+                                                              .text,
+                                                        );
+                                                      },
+                                                      child: const Text(
+                                                        'Join',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          } else {
+                                            joinGroup(
+                                              group.id,
+                                              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                              null,
+                                            );
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: kprimaryColourcream,
+                                        ),
+                                        child: const Text(
+                                          'Join',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      )
+                                    else
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                    'unjoin the group '),
+                                                content: Text(
+                                                  'Are You Sure ?',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: const Text('Cancel'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          Colors.grey,
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      unjoinGroup(
+                                                        group.id,
+                                                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                                      );
+                                                    },
+                                                    child: const Text(
+                                                      'UnJoin',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                          // Call your unjoin function here
+                                          //  unjoinGroup(
+                                          //     group.id,
+                                          //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+                                          //   );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.grey,
+                                        ),
+                                        child: const Text(
+                                          'Unjoin',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                  ],
+                                )
                               ],
                             ),
                           ),
@@ -294,14 +437,9 @@ void main() {
     debugShowCheckedModeBanner: false,
     home: GroupsScreen(
         accessToken:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'),
   ));
 }
-
-
-
-
-
 
 // The model class
 // class listGroupsModel {
@@ -371,13 +509,12 @@ void main() {
 //   }
 // }
 
-
 // SizedBox(height: 5),  Text(
-                                      //       group.description,
-                                      //       style: TextStyle(
-                                      //         fontSize: 14,
-                                      //       ),
-                                      //     ),
+//       group.description,
+//       style: TextStyle(
+//         fontSize: 14,
+//       ),
+//     ),
 
 // import 'package:flutter/material.dart';
 // import 'package:gp_screen/Pages/listofMyGroupsPage/Pages/h.dart';

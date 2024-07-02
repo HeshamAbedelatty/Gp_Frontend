@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/RoundedButtonForGroups.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/oldVersions/lastSucssesBeforeGroups/Models/PostAndCommentModel.dart';
+import 'package:gp_screen/Pages/groups/users/membersCircle.dart';
+import 'package:gp_screen/Pages/groups/users/usersInGroupsPage.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
-import 'package:gp_screen/Pages/groups/GroupsAPI.dart';
-import 'package:gp_screen/Pages/groups/postsComments.dart';
+import 'package:gp_screen/Pages/groups/apis/GroupsAPI.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/postsComments.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:like_button/like_button.dart';
+
 class GroupDetailPage extends StatefulWidget {
   final int groupId;
   final String accessToken;
@@ -32,7 +35,8 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
   @override
   void initState() {
     super.initState();
-    futureGroup = GroupService().getGroupById(widget.accessToken, widget.groupId);
+    futureGroup =
+        GroupService().getGroupById(widget.accessToken, widget.groupId);
   }
 
   void _addPost(String content) {
@@ -56,12 +60,13 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
     if (postIndex != -1) {
       setState(() {
         _posts[postIndex].comments.add(Comment(
-          id: DateTime.now().toString(),
-          content: content,
-          creatorName: 'Commenter Name',
-          creatorImageUrl: 'https://example.com/commenter_profile_picture.jpg',
-          createdAt: DateTime.now(),
-        ));
+              id: DateTime.now().toString(),
+              content: content,
+              creatorName: 'Commenter Name',
+              creatorImageUrl:
+                  'https://example.com/commenter_profile_picture.jpg',
+              createdAt: DateTime.now(),
+            ));
       });
       _commentControllers[postId]?.clear();
     }
@@ -76,12 +81,13 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
       if (commentIndex != -1) {
         setState(() {
           _posts[postIndex].comments[commentIndex].replies.add(Reply(
-            id: DateTime.now().toString(),
-            content: content,
-            creatorName: 'Replier Name',
-            creatorImageUrl: 'https://example.com/replier_profile_picture.jpg',
-            createdAt: DateTime.now(),
-          ));
+                id: DateTime.now().toString(),
+                content: content,
+                creatorName: 'Replier Name',
+                creatorImageUrl:
+                    'https://example.com/replier_profile_picture.jpg',
+                createdAt: DateTime.now(),
+              ));
         });
       }
       _replyControllers[commentId]?.clear();
@@ -141,7 +147,8 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
           title: const Text('Create Post'),
           content: TextField(
             controller: _postController,
-            decoration: const InputDecoration(hintText: 'What\'s on your mind?'),
+            decoration:
+                const InputDecoration(hintText: 'What\'s on your mind?'),
           ),
           actions: [
             TextButton(
@@ -169,7 +176,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
   //   http.Response response = await http.post(
   //     Uri.parse('http://10.0.2.2:8000/groups/${id}/join/'),
   //     if (password!=null)
-  
+
   // {
 
   // }
@@ -239,8 +246,8 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                         height: 150,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.only(bottomLeft: Radius.circular(20)),
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(20)),
                           image: DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(group.image!),
@@ -251,7 +258,8 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                         height: 150,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20)),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20)),
                             color: kprimaryColourcream),
                         child: Icon(
                           Icons.group,
@@ -260,7 +268,8 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                         ),
                       ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 8),
+                  padding:
+                      const EdgeInsets.only(left: 12.0, right: 12.0, top: 8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -274,6 +283,10 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey.shade700)),
+                       Container(
+                        height: 40,
+                        child:                           GroupUsersOverviewPage(id : group.id,token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+),
                       const SizedBox(height: 5),
                       Row(
                         children: [
@@ -282,15 +295,27 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                             color: Colors.grey,
                             size: 18,
                           ),
+
                           Text(' ${group.type} group ',
                               style: TextStyle(
                                   fontSize: 18, color: Colors.grey.shade700)),
-                          Text('(${group.members} members)',
-                              style: TextStyle(
-                                  fontSize: 14, color: Colors.grey.shade600)),
+                          GestureDetector(onTap: (){ Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => GroupUsersPage(
+                                            id: group.id,
+                                            token:
+                                                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'),
+                                      ),
+                                    );},
+                            child: Text('(${group.members} members)',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.grey.shade600)),
+                          ),
                           Spacer(flex: 1),
                         ],
                       ),
+                     
                       const SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -338,7 +363,8 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                           title: const Text('Description'),
                                           content: Text(
                                             group.description,
-                                            style: const TextStyle(fontSize: 18),
+                                            style:
+                                                const TextStyle(fontSize: 18),
                                           ),
                                           actions: [
                                             TextButton(
@@ -360,6 +386,17 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                   colory: kprimaryColourcream,
                                   buttonText: 'You',
                                   onPressed: () {
+                                    // onPressed: () {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => GroupUsersPage(
+                                    //         id: group.id,
+                                    //         token:
+                                    //             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'),
+                                    //   ),
+                                    // );
+                                    // },
                                     print('Event button clicked!');
                                   },
                                 ),
@@ -388,36 +425,35 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                           ],
                         ),
                       ),
-                      
-                     
                     ],
                   ),
                 ),
-             Expanded(
-                   child: Container(
+                Expanded(
+                  child: Container(
                     height: 500,
-                     child: PostListWidget(
-                                posts: _posts,
-                                deletePost: _deletePost,
-                                toggleComments: _toggleComments,
-                                addComment: _addComment,
-                                toggleCommentLike: _toggleCommentLike,
-                                deleteComment: _deleteComment,
-                                addReply: _addReply,
-                                commentControllers: _commentControllers,
-                                replyControllers: _replyControllers,
-                                showReplyFields: _showReplyFields,
-                              ),
-                   ),
-                 ),  ],
+                    child: PostListWidget(
+                      posts: _posts,
+                      deletePost: _deletePost,
+                      toggleComments: _toggleComments,
+                      addComment: _addComment,
+                      toggleCommentLike: _toggleCommentLike,
+                      deleteComment: _deleteComment,
+                      addReply: _addReply,
+                      commentControllers: _commentControllers,
+                      replyControllers: _replyControllers,
+                      showReplyFields: _showReplyFields,
+                    ),
+                  ),
+                ),
+              ],
             );
           }
         },
       ),
-                       floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: _showPostDialog,
         backgroundColor: Colors.green,
-        child:const Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

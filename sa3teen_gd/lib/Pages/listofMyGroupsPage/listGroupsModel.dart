@@ -8,6 +8,7 @@ class listGroupsModel {
   final String? password;
   final String subject;
   final int members;
+  final bool has_joined;
 
   listGroupsModel(
       {required this.id,
@@ -17,7 +18,9 @@ class listGroupsModel {
       required this.image,
       required this.type,
       required this.password,
-      required this.members,});
+      required this.members,
+      required this.has_joined,
+      });
 
   factory listGroupsModel.fromJson(jsonData) {
     return listGroupsModel(
@@ -29,12 +32,13 @@ class listGroupsModel {
       image: jsonData['image'],
       password: jsonData['password'],
       members: jsonData['members'],
+      has_joined:jsonData['has_joined'],
     );
   }
 
   @override
   String toString() {
-    return "id='$id', title='$title', subject='$subject', description='$description', image='$image', type='$type', password='$password', members='$members'";
+    return "id='$id', title='$title', subject='$subject', description='$description', image='$image', type='$type', password='$password', members='$members',has_joined='$has_joined'";
   }
 }
 
@@ -45,7 +49,7 @@ class getAllGroups {
     };
 
     List<dynamic> data = await Api().get(
-      url: 'http://10.0.2.2:8000/groups/',
+      url: 'http://10.0.2.2:8000/groups/list_groups/',
       headers: headers,
     );
 
