@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/RoundedButtonForGroups.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/oldVersions/lastSucssesBeforeGroups/Models/PostAndCommentModel.dart';
+import 'package:gp_screen/Pages/groups/Materials/Materials.dart';
 import 'package:gp_screen/Pages/groups/users/membersCircle.dart';
 import 'package:gp_screen/Pages/groups/users/usersInGroupsPage.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
@@ -417,6 +418,14 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                   colory: kprimaryColourcream,
                                   buttonText: 'Materials',
                                   onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MaterialsPage(
+                                            id: group.id,
+                                      ),
+                                    ));
+                                    
                                     print('Files button clicked!');
                                   },
                                 ),

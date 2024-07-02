@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
+import 'package:gp_screen/Pages/groups/Materials/Materials.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -100,7 +101,9 @@ class HomePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => GroupUsersPage(id: id, token: token),
+                builder: (context) => 
+                GroupUsersPage(id: id,token: token,)
+                // GetMaterials(id:id, token: token),
               ),
             );
           },
@@ -199,19 +202,3 @@ class GroupUsersPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
- // return ListTile(
-                        //   leading: users[index].image != null
-                        //       ? Image.network(users[index].image!)
-                        //       : null,
-                        //   title: Text(users[index].username),
-                        //   subtitle: Text(
-                        //     'Owner: ${users[index].isOwner}, Admin: ${users[index].isAdmin}',
-                        //   ),
-                        // );
