@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/FavouriteGroupsList/provider/FavoriteGroupsProvider.dart';
 import 'package:provider/provider.dart';
 import '../../GroupPostAndCommentPage/Widgets/tabBar.dart';
-import '../../listofMyGroupsPage/others/Pages/listofMyGroupsPage.dart';
+import '../../listofMyGroupsPage/Pages/listofMyGroupsPage.dart';
 
 class FavoriteGroupsPage extends StatelessWidget {
   @override

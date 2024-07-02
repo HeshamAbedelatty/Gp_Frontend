@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:gp_screen/HomePage.dart';
 import 'package:gp_screen/Pages/loginPage/ThePage/LoginPage.dart';
+import 'package:gp_screen/Pages/signUpPage/ThePage/signUpPage.dart';
+import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
 
 void main() async {
   // Initialize any necessary setup here
@@ -29,7 +32,7 @@ class Sa3teenGd extends StatelessWidget {
       initialRoute: LoginPage.id,*/
       onGenerateRoute: (settings) {
         if (settings.name == '/') {
-          return MaterialPageRoute(builder: (_) => LoginPage());
+          return MaterialPageRoute(builder: (_) =>  LoginPage());
         }
       },
       debugShowCheckedModeBanner: false,
