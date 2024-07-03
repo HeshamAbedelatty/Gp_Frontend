@@ -4,6 +4,7 @@ import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/RoundedButtonFor
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/oldVersions/lastSucssesBeforeGroups/Models/PostAndCommentModel.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/Materials.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/uiiiGroupDetailsPage.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/membersCircle.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/usersInGroupsPage.dart';
 import 'package:gp_screen/Pages/groups/apis/GroupsAPI.dart';
@@ -385,21 +386,23 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                     ],
                   ),
                 ),
+                // Expanded(child: PostList(groupId: group.id)),
                 Expanded(
                   child: Container(
-                    height: 500,
-                    child: PostListWidget(
-                      posts: _posts,
-                      deletePost: _deletePost,
-                      toggleComments: _toggleComments,
-                      addComment: _addComment,
-                      toggleCommentLike: _toggleCommentLike,
-                      deleteComment: _deleteComment,
-                      addReply: _addReply,
-                      commentControllers: _commentControllers,
-                      replyControllers: _replyControllers,
-                      showReplyFields: _showReplyFields,
-                    ),
+                    height: 600,
+                    child: PostList(groupId: group.id)
+                    // PostListWidget(
+                    //   posts: _posts,
+                    //   deletePost: _deletePost,
+                    //   toggleComments: _toggleComments,
+                    //   addComment: _addComment,
+                    //   toggleCommentLike: _toggleCommentLike,
+                    //   deleteComment: _deleteComment,
+                    //   addReply: _addReply,
+                    //   commentControllers: _commentControllers,
+                    //   replyControllers: _replyControllers,
+                    //   showReplyFields: _showReplyFields,
+                    // ),
                   ),
                 ),
               ],

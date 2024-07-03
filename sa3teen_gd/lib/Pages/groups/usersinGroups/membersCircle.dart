@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/usersInGroupsPage.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
 class GroupUsersOverviewPage extends StatelessWidget {
   final String token;
@@ -33,6 +34,7 @@ class GroupUsersOverviewPage extends StatelessWidget {
                 children: [
                   ...users.take(4).map((user) {
                     return CircleAvatar(
+                      backgroundColor: kprimaryColourcream,
                       backgroundImage:
                           user.image != null ? NetworkImage(user.image!) : null,
                       child: user.image == null ? Text(user.username[0]) : null,
@@ -54,6 +56,7 @@ class GroupUsersOverviewPage extends StatelessWidget {
                           );
                         },
                         child: const CircleAvatar(
+                          backgroundColor: kprimaryColourcream,
                           child: Icon(Icons.add),
                         ),
                       ),
