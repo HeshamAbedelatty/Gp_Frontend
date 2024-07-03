@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:gp_screen/Pages/groups/Materials/Materials%20copy.dart';
-import 'package:gp_screen/Pages/groups/Materials/Materials.dart';
+import 'package:gp_screen/Pages/groups/Materialsscreen/Materials%20copy.dart';
+import 'package:gp_screen/Pages/groups/Materialsscreen/Materials.dart';
 import 'package:http/http.dart' as http;
 // import 'models.dart';
 
