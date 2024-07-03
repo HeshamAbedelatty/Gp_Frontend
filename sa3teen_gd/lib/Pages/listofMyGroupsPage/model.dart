@@ -8,14 +8,16 @@ class listGroupsModel {
   final String subject;
   final int members;
 
-  listGroupsModel(
-      {required this.id,
-      required this.title,
-      required this.subject,
-      required this.description,
-      required this.image,
-      required this.type
-      ,required this.password,required this.members,});
+  listGroupsModel({
+    required this.id,
+    required this.title,
+    required this.subject,
+    required this.description,
+    required this.image,
+    required this.type,
+    required this.password,
+    required this.members,
+  });
 
   factory listGroupsModel.fromJson(jsonData) {
     return listGroupsModel(
@@ -30,15 +32,6 @@ class listGroupsModel {
     );
   }
 }
-
-//       // "id": id,
-//       "title": title,
-//       "description": description,
-//       "type": "private",
-//       "image": null,
-//       "password": "hesham2002",
-//       "subject": "Computer Science",
-//       // "members": 1
 
 class RatingModel {
   final dynamic rate;

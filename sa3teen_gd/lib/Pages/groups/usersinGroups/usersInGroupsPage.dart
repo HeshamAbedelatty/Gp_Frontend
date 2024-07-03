@@ -1,7 +1,7 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
-import 'package:gp_screen/Pages/groups/Materials/Materials.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,35 +38,12 @@ Future<List<GroupUsers>> fetchGroupUsers(int id, String token) async {
 
   if (response.statusCode == 200) {
     List<dynamic> data = json.decode(response.body);
-    
+
     return data.map((json) => GroupUsers.fromJson(json)).toList();
   } else {
     throw Exception('Failed to load users');
   }
 }
-// Future<List<GroupUsers>> fetchGroupUsers(int id,String token) async {
-//   final response = await http.get(
-//     Uri.parse('http://10.0.2.2:8000/groups/${id}/users/'),
-//     headers: {
-//       'Authorization': 'Bearer $token',
-//     },
-//   );
-
-//   if (response.statusCode == 200) {
-//     dynamic jsonData = json.decode(response.body);
-//     if (jsonData is List) {
-//       List<dynamic> data = jsonData;
-//       return data.map((json) => GroupUsers.fromJson(json)).toList();
-//     } else if (jsonData is Map && jsonData.containsKey('user')) {
-//       // Handle single user response
-//       return [GroupUsers.fromJson(jsonData as Map<String, dynamic>)];
-//     } else {
-//       throw Exception('Invalid response format');
-//     }
-//   } else {
-//     throw Exception('Failed to load users');
-//   }
-// }
 
 void main() {
   runApp(MyApp());
@@ -93,7 +70,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: const Text('Home Page'),
       ),
       body: Center(
         child: ElevatedButton(
@@ -101,13 +78,15 @@ class HomePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => 
-                GroupUsersPage(id: id,token: token,)
-                // GetMaterials(id:id, token: token),
-              ),
+                  builder: (context) => GroupUsersPage(
+                        id: id,
+                        token: token,
+                      )
+                  // GetMaterials(id:id, token: token),
+                  ),
             );
           },
-          child: Text('Go to Group Users Page'),
+          child: const Text('Go to Group Users Page'),
         ),
       ),
     );
@@ -128,11 +107,11 @@ class GroupUsersPage extends StatelessWidget {
         future: fetchGroupUsers(id, token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No users found.'));
+            return const Center(child: Text('No users found.'));
           } else {
             List<GroupUsers> users = snapshot.data!;
             return ListView.builder(
@@ -160,7 +139,6 @@ class GroupUsersPage extends StatelessWidget {
                                 backgroundColor: kprimaryColourcream,
                                 child: Text(users[index].username[0]),
                               ),
-
                         const SizedBox(width: 10.0),
                         Expanded(
                           child: Column(
@@ -175,18 +153,18 @@ class GroupUsersPage extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Spacer(flex: 1,),
+                                  const Spacer(
+                                    flex: 1,
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                                                    '  ${users[index].isAdmin ? 'Admin' : ''}${users[index].isOwner ? ' , Owner' : ''}',
-                                                                  ),
+                                      '  ${users[index].isAdmin ? 'Admin' : ''}${users[index].isOwner ? ' , Owner' : ''}',
+                                    ),
                                   ),
                                 ],
                               ),
                               // if (users[index].isAdmin){Text('');},
-
-                              
                             ],
                           ),
                         ),
