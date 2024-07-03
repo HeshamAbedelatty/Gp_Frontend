@@ -4,6 +4,7 @@ import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/RoundedButtonFor
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/oldVersions/lastSucssesBeforeGroups/Models/PostAndCommentModel.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/Materials.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/CreatePostScreen.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/uiiiGroupDetailsPage.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/membersCircle.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/usersInGroupsPage.dart';
@@ -27,7 +28,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
   Map<String, TextEditingController> _commentControllers = {};
   Map<String, TextEditingController> _replyControllers = {};
   Map<String, bool> _showReplyFields = {};
-
+  int? groupIDd;
   @override
   void initState() {
     super.initState();
@@ -194,6 +195,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
             return Center(child: Text('No data found'));
           } else {
             final group = snapshot.data!;
+            groupIDd = group.id;
             return ListView(
               children: [
                 const SizedBox(height: 8),
@@ -388,22 +390,21 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                 ),
                 // Expanded(child: PostList(groupId: group.id)),
                 Expanded(
-                  child: Container(
-                    height: 600,
-                    child: PostList(groupId: group.id)
-                    // PostListWidget(
-                    //   posts: _posts,
-                    //   deletePost: _deletePost,
-                    //   toggleComments: _toggleComments,
-                    //   addComment: _addComment,
-                    //   toggleCommentLike: _toggleCommentLike,
-                    //   deleteComment: _deleteComment,
-                    //   addReply: _addReply,
-                    //   commentControllers: _commentControllers,
-                    //   replyControllers: _replyControllers,
-                    //   showReplyFields: _showReplyFields,
-                    // ),
-                  ),
+                  child:
+                      Container(height: 600, child: PostList(groupId: group.id)
+                          // PostListWidget(
+                          //   posts: _posts,
+                          //   deletePost: _deletePost,
+                          //   toggleComments: _toggleComments,
+                          //   addComment: _addComment,
+                          //   toggleCommentLike: _toggleCommentLike,
+                          //   deleteComment: _deleteComment,
+                          //   addReply: _addReply,
+                          //   commentControllers: _commentControllers,
+                          //   replyControllers: _replyControllers,
+                          //   showReplyFields: _showReplyFields,
+                          // ),
+                          ),
                 ),
               ],
             );
@@ -411,7 +412,19 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showPostDialog,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CreatePostScreen(
+                groupId: groupIDd!, // Replace with your actual group ID
+                accessToken:
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw', // Replace with your actual access token
+              ),
+            ),
+          );
+        },
+        //  _showPostDialog,
         backgroundColor: Colors.green,
         child: const Icon(Icons.add, color: Colors.white),
       ),
