@@ -37,6 +37,20 @@ class ProfileModel {
       rate: json['rate'].toDouble(),
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': email,
+      'username': username,
+      'phone_number': phoneNumber,
+      'faculty': faculty,
+      'date_of_birth': dateOfBirth,
+      'image': image,
+      'rate': rate,
+    };
+  }
 
   @override
   String toString() {
