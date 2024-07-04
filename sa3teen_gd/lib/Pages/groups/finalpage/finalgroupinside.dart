@@ -423,6 +423,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
               ),
             ),
           );
+          
         },
         //  _showPostDialog,
         backgroundColor: Colors.green,

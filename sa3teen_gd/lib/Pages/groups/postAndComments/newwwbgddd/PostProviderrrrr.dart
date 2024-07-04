@@ -79,6 +79,65 @@ class PostProvider with ChangeNotifier {
       _showErrorDialog(context, '${response.body}');
     }
   }
+
+//   Future<void> editPost(BuildContext context, int groupId, int postId, String description) async {
+//     final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postId/';
+//     final accessToken=
+//             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'
+// ;
+//     final response = await http.patch(
+//       Uri.parse(url),
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': 'Bearer $accessToken',
+//       },
+//       body: json.encode({
+//         'description': description,
+//       }),
+//     );
+
+//     if (response.statusCode == 200) {
+//       final updatedPost = Post.fromJson(json.decode(response.body));
+//       final postIndex = _posts.indexWhere((post) => post.id == postId);
+//       if (postIndex != -1) {
+//         _posts[postIndex] = updatedPost;
+//         notifyListeners();
+//       }
+//     } else {
+//       _showErrorDialog(context, 'Failed to edit post');
+//     }
+//   }
+
+  Future<void> editPost(
+      BuildContext context, int groupId, int postId, String description) async {
+    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postId/';
+    final accessToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
+    final response = await http.patch(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+      },
+      body: json.encode({
+        'description': description,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final updatedPost = Post.fromJson(json.decode(response.body));
+      final postIndex = _posts.indexWhere((post) => post.id == postId);
+      if (postIndex != -1) {
+        _posts[postIndex] = updatedPost;
+        await ApiService().getPosts(groupId,
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
+        notifyListeners();
+        // notifyListeners();
+      }
+    } else {
+      _showErrorDialog(context, 'Failed to edit post');
+    }
+  }
 }
 
 void _showErrorDialog(BuildContext context, String message) {

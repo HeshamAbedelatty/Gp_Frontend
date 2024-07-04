@@ -190,6 +190,12 @@ class _PostListState extends State<PostList> {
                                           context, widget.groupId, post.id);
                                 },
                               ),
+                              IconButton(
+                                icon: Icon(Icons.edit),
+                                onPressed: () {
+                                  _showEditDialog(context, post);
+                                },
+                              ),
                             ],
                           ),
                           const SizedBox(height: 12),
@@ -283,6 +289,97 @@ class _PostListState extends State<PostList> {
           ],
         );
       },
+    );
+  }
+
+  void _showEditDialog(BuildContext context, Post post) {
+    final TextEditingController descriptionController =
+        TextEditingController(text: post.description);
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Edit Post'),
+        content: TextField(
+          controller: descriptionController,
+          decoration: InputDecoration(labelText: 'Description'),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+          TextButton(
+            child: Text('Save'),
+            onPressed: () async {
+              final newDescription = descriptionController.text;
+              if (newDescription.isNotEmpty) {
+                await Provider.of<PostProvider>(context, listen: false)
+                    .editPost(ctx, widget.groupId, post.id, newDescription);
+                Navigator.of(ctx).pop();
+                // Provider.of<PostProvider>(context, listen: false)
+                //       .fetchPosts(widget.groupId)
+                //                 .then((_) {
+                //               Navigator.of(context).pop();
+                //             });
+              }
+            },
+          ),
+          //  TextButton(
+          //   child: Text('Save'),
+          //   onPressed: () async {
+          //     final newDescription = descriptionController.text;
+          //     if (newDescription.isNotEmpty) {
+          //     await   Provider.of<PostProvider>(context, listen: false)
+          //           .editPost(ctx, widget.groupId, post.id, newDescription);
+          //             //   await    Provider.of<PostProvider>(context, listen: false)
+          //             // .fetchPosts(widget.groupId)
+          //             //           .then((_) {
+          //             //         Navigator.of(context).pop();
+          //             //       });
+          //       Navigator.of(ctx).pop();
+          //     }
+          //   },
+          // ),
+        ],
+      ),
+    );
+  }
+
+  void s_showEditDialog(BuildContext context, Post post) {
+    final TextEditingController descriptionController =
+        TextEditingController(text: post.description);
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Edit Post'),
+        content: TextField(
+          controller: descriptionController,
+          decoration: InputDecoration(labelText: 'Description'),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+          TextButton(
+            child: Text('Save'),
+            onPressed: () async {
+              final newDescription = descriptionController.text;
+              if (newDescription.isNotEmpty) {
+                await Provider.of<PostProvider>(context, listen: false)
+                    .editPost(ctx, widget.groupId, post.id, newDescription);
+                Navigator.of(ctx).pop();
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }
