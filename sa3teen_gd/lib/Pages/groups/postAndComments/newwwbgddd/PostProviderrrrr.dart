@@ -160,6 +160,7 @@ class PostProvider with ChangeNotifier {
       if (response.statusCode == 201) {
         final newPost = Post.fromJson(jsonDecode(response.body));
         _posts.add(newPost);
+        await ApiService().getPosts(groupId, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
         notifyListeners();
       } else {
         print('Failed to create post');

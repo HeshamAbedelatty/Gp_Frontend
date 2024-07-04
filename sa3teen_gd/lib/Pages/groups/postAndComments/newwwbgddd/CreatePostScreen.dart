@@ -98,11 +98,14 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               widget.accessToken,
                               _description,
                               _image,
-                            )
+                            );  Provider.of<PostProvider>(context, listen: false)
+                      .fetchPosts(widget.groupId)
                                 .then((_) {
                               Navigator.of(context).pop();
                             });
                           }
+
+                          
                         },
                         child: const Text('Create Post'),
                       ),
