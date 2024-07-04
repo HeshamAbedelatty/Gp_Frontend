@@ -14,7 +14,7 @@ class ProfileService {
 
     try {
       final response = await http.get(
-        Uri.parse('http://127.0.0.1:8000/user/'),
+        Uri.parse('http://10.0.2.2:8000/user/'),
         headers: headers,
       );
 
@@ -39,12 +39,14 @@ class ProfileService {
 
     try {
       final response = await http.put(
-        Uri.parse('http://127.0.0.1:8000/user/${profile.id}/'),
+        Uri.parse('http://10.0.2.2:8000/user/${profile.id}/'),
         headers: headers,
         body: jsonEncode(profile.toJson()), // Use toJson method of ProfileModel
       );
 
       if (response.statusCode != 200) {
+         print(response.statusCode);
+        print(response.body);
         throw Exception('Failed to update profile');
       }
     } catch (e) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/profile/editprofile.dart';
 import 'package:gp_screen/Pages/profile/profile.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
 import 'profilemodel.dart';
 // Ensure the path is correct
@@ -59,6 +60,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Column(
       children: <Widget>[
         SizedBox(height: 20),
+
+        profile.image != null
+            ? CircleAvatar(
+                radius: 40,
+                backgroundImage: NetworkImage(profile.image!),
+              )
+            : CircleAvatar(
+                backgroundColor: kprimaryColourcream,
+                child: Text(profile.username[0]),
+              ),
+        // CircleAvatar(radius: 100,
+        //   child: Image.network(profile.image),),
+        Text(
+          'Name: ${profile.id} ${profile.id}',
+          style: TextStyle(fontSize: 20),
+        ),
         Text(
           'Name: ${profile.firstName} ${profile.lastName}',
           style: TextStyle(fontSize: 20),
