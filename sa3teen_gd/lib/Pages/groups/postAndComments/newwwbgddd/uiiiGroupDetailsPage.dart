@@ -5,25 +5,6 @@ import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/PostProviderrr
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-// void main() {
-//   runApp(
-//     MultiProvider(
-//       providers: [
-//         ChangeNotifierProvider(create: (_) => PostProvider()),
-//       ],
-//       child: MyApp(),
-//     ),
-//   );
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: GroupDetailsPage(groupId: 7),
-//     );
-//   }
-// }
 
 class postDetailsPage extends StatelessWidget {
   final int groupId;
@@ -33,13 +14,9 @@ class postDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Group Details'),
-      // ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          // Other group details widgets
           const SizedBox(height: 20),
           const Text(
             'Posts:',
@@ -66,11 +43,6 @@ class PostList extends StatefulWidget {
 
 class _PostListState extends State<PostList> {
   @override
-  // void initState() {
-  //   super.initState();
-  //   Future.microtask(() => Provider.of<PostProvider>(context, listen: false)
-  //       .fetchPosts(widget.groupId));
-  // }
   void initState() {
     super.initState();
     Future.microtask(() => Provider.of<PostProvider>(context, listen: false)
@@ -102,9 +74,6 @@ class _PostListState extends State<PostList> {
         print('Failed to like post');
       }
     } catch (e) {
-      //  print(response.statusCode);
-      // print(response.body);
-
       print('Error liking post: $e');
     }
   }
@@ -189,11 +158,6 @@ class _PostListState extends State<PostList> {
                                       backgroundColor: kprimaryColourcream,
                                       child: Text(post.user.username[0]),
                                     ),
-
-                              // : CircleAvatar(
-                              //     backgroundColor: kprimaryColourcream,
-                              //     child: Text(post.user.username[0]),
-                              //   ),
                               const SizedBox(width: 12),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,6 +178,18 @@ class _PostListState extends State<PostList> {
                                   ),
                                 ],
                               ),
+                              const Spacer(
+                                flex: 1,
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () async {
+                                  await Provider.of<PostProvider>(context,
+                                          listen: false)
+                                      .deletePost(
+                                          context, widget.groupId, post.id);
+                                },
+                              ),
                             ],
                           ),
                           const SizedBox(height: 12),
@@ -222,11 +198,6 @@ class _PostListState extends State<PostList> {
                             style: const TextStyle(fontSize: 18),
                           ),
                           const SizedBox(height: 12),
-                          //  post.image != null
-                          //       ?
-                          //       CircleAvatar(
-                          //           backgroundImage: NetworkImage(post.image!),
-                          //         ):
                           post.image != null
                               ? Center(
                                   child: Container(
@@ -251,8 +222,6 @@ class _PostListState extends State<PostList> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              // Spacer(flex: 1,),
-                              // post.userHasLiked=true;
                               const SizedBox(
                                 width: 5,
                               ),
@@ -277,23 +246,13 @@ class _PostListState extends State<PostList> {
                                     likePost(post.id, widget.groupId);
                                   },
                                 ),
-
                               Text('${post.likes} likes'),
                               const Spacer(
                                 flex: 1,
                               ),
-                              // IconButton(
-                              //   color: kprimaryColourcream,
-                              //   icon: const Icon(Icons.thumb_down_off_alt_rounded),
-                              //   onPressed: () {
-                              //     // Implement dislike functionality
-                              //   },
-                              // ),
-                              // const Text(' dislikes'),
                               const Spacer(
                                 flex: 3,
                               ),
-
                               IconButton(
                                 color: kprimaryColourcream,
                                 icon: const Icon(Icons.comment_outlined),
@@ -306,12 +265,9 @@ class _PostListState extends State<PostList> {
                                           postId: post.id),
                                     ),
                                   );
-                                  //  CommentsScreen(groupId: widget.groupId, postId: post.id);
-                                  // Implement comment functionality
                                 },
                               ),
                               const Text(' comments'),
-
                               const Spacer(
                                 flex: 1,
                               ),

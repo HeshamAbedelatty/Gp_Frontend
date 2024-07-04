@@ -1,16 +1,15 @@
+// ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
 import 'package:gp_screen/Pages/groups/MaterialsSearch/ProviderMaterial.dart';
-// import 'package:gp_screen/Pages/listofMyGroupsPage/groups/FinalGroupPostsPageCopyyy.dart';
 import 'package:gp_screen/Pages/groups/finalpage/finalgroupinside.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/CommentsProvider.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/PostProviderrrrr.dart';
 import 'package:gp_screen/Pages/groups/search/searchUiGroups.dart';
 import 'package:gp_screen/Pages/groups/search/searchGroupProvider.dart';
-// import 'package:gp_screen/Pages/listofMyGroupsPage/groups/groupinside.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/listGroupsModel.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/others/old/2ndOld/Pages/GroupDetailPage.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
@@ -323,7 +322,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-      create: (context) => CommentsProvider('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+      create: (context) => CommentsProvider(
+        // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'
+        //rightup khalil
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
+        ),
       
         ),
         ChangeNotifierProvider(create: (_) => PostProvider()),
