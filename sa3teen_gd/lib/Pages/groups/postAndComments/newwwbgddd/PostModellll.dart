@@ -33,6 +33,22 @@ class Post {
   }
 }
 
+class Posts {
+  int id;
+  String description;
+  // Other fields
+
+  Posts({required this.id, required this.description});
+
+  factory Posts.fromJson(Map<String, dynamic> json) {
+    return Posts(
+      id: json['id'],
+      description: json['description'],
+      // Initialize other fields
+    );
+  }
+}
+
 class User {
   final String username;
   final String? image;
@@ -40,6 +56,14 @@ class User {
   User({required this.username, this.image});
 
   factory User.fromJson(Map<String, dynamic> json) {
+    ////
+    String? imageUrl;
+    if (json['image'] != null && !json['image'].startsWith('http')) {
+      imageUrl = 'http://10.0.2.2:8000${json['image']}';
+    } else {
+      imageUrl = json['image'];
+    }
+    ////
     return User(
       username: json['username'],
       image: json['image'],
