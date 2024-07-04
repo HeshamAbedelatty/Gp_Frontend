@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/uicomments.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/PostModellll.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/PostProviderrrrr.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
@@ -297,6 +298,15 @@ class _PostListState extends State<PostList> {
                                 color: kprimaryColourcream,
                                 icon: const Icon(Icons.comment_outlined),
                                 onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CommentsScreen(
+                                          groupId: widget.groupId,
+                                          postId: post.id),
+                                    ),
+                                  );
+                                  //  CommentsScreen(groupId: widget.groupId, postId: post.id);
                                   // Implement comment functionality
                                 },
                               ),

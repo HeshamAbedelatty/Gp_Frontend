@@ -4,6 +4,7 @@ import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
 import 'package:gp_screen/Pages/groups/MaterialsSearch/ProviderMaterial.dart';
 // import 'package:gp_screen/Pages/listofMyGroupsPage/groups/FinalGroupPostsPageCopyyy.dart';
 import 'package:gp_screen/Pages/groups/finalpage/finalgroupinside.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/CommentsProvider.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/PostProviderrrrr.dart';
 import 'package:gp_screen/Pages/groups/search/searchUiGroups.dart';
 import 'package:gp_screen/Pages/groups/search/searchGroupProvider.dart';
@@ -321,6 +322,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+      create: (context) => CommentsProvider('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+      
+        ),
         ChangeNotifierProvider(create: (_) => PostProvider()),
         ChangeNotifierProvider(create: (_) => GroupProvider()),
         ChangeNotifierProvider(create: (_) => MaterialProvider()),
