@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
-import 'package:gp_screen/Pages/groups/finalpage/finalgroupinside.dart';
+import 'package:gp_screen/Pages/groups/OLD/beforeProvider/finalpage/finalgroupinside.dart';
+import 'package:gp_screen/Pages/groups/Groupsnewwfinal/bgddfinalgroupinside.dart';
 import 'package:gp_screen/Pages/groups/search/searchGroupProvider.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
 import 'package:gp_screen/Pages/listofMyGroupsPage/listGroupsModel.dart';

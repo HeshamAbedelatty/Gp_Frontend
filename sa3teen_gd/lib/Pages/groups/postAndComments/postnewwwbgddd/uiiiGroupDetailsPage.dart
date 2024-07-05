@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/uicomments.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/PostModellll.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/PostProviderrrrr.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/PostModellll.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/PostProviderrrrr.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -182,7 +182,7 @@ class _PostListState extends State<PostList> {
                                 flex: 1,
                               ),
                               IconButton(
-                                icon: const Icon(Icons.delete),
+                                icon: const Icon(Icons.delete,color: kprimaryColourcream,),
                                 onPressed: () async {
                                   await Provider.of<PostProvider>(context,
                                           listen: false)
@@ -191,7 +191,7 @@ class _PostListState extends State<PostList> {
                                 },
                               ),
                               IconButton(
-                                icon: const Icon(Icons.edit),
+                                icon: const Icon(Icons.edit,color: kprimaryColourcream,),
                                 onPressed: () {
                                   _showEditDialog(context, post);
                                 },
@@ -237,7 +237,7 @@ class _PostListState extends State<PostList> {
                                   color:
                                       kprimaryColourcream, // Use your preferred color
                                   icon: const Icon(
-                                      Icons.thumb_up_off_alt_outlined),
+                                      Icons.thumb_up_off_alt_outlined,color: kprimaryColourcream,),
                                   onPressed: () {
                                     likePost(post.id, widget.groupId);
                                   },

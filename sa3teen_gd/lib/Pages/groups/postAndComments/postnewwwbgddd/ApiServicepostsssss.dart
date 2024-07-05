@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/PostModellll.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/PostModellll.dart';
 import 'package:http/http.dart' as http;
 // import 'models/post.dart';
 
