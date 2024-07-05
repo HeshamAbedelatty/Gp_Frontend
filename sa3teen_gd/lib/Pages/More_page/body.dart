@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gp_screen/Pages/More_page/EditPage/EditProfilePage';
+import 'package:gp_screen/Pages/More_page/profile_screen.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class Body extends StatelessWidget {
                                   Navigator.of(context).push(
                                     MaterialPageRoute<void>(
                                       builder: (BuildContext context) {
-                                        return const EditProfilePage();
+                                        return  ProfileScreen();
                                       },
                                     ),
                                   );

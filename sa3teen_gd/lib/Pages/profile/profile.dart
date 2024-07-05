@@ -37,7 +37,7 @@ class ProfileService {
       'Accept': '*/*',
     };
 
-    try {
+    // try {
       final response = await http.put(
         Uri.parse('http://10.0.2.2:8000/user/${profile.id}/'),
         headers: headers,
@@ -47,11 +47,13 @@ class ProfileService {
       if (response.statusCode != 200) {
          print(response.statusCode);
         print(response.body);
-        throw Exception('Failed to update profile');
+        // throw Exception('Failed to update profile');
       }
-    } catch (e) {
-      print('Error updating profile: $e');
-      throw e;
-    }
+      else{print(response.statusCode);
+        print(response.body);}
+    // } catch (e) {
+    //   print('Error updating profile: $e');
+    //   throw e;
+    // }
   }
 }
