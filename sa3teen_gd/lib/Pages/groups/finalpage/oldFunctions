@@ -1,0 +1,132 @@
+  void _addPost(String content) {
+    setState(() {
+      final newPost = Post(
+        id: DateTime.now().toString(),
+        content: content,
+        creatorName: 'New User',
+        creatorImageUrl: 'https://example.com/new_user.jpg',
+        likes: 0,
+        dislikes: 0,
+        createdAt: DateTime.now(),
+      );
+      _posts.add(newPost);
+      _commentControllers[newPost.id] = TextEditingController();
+    });
+  }
+
+  void _addComment(String postId, String content) {
+    final postIndex = _posts.indexWhere((post) => post.id == postId);
+    if (postIndex != -1) {
+      setState(() {
+        _posts[postIndex].comments.add(Comment(
+              id: DateTime.now().toString(),
+              content: content,
+              creatorName: 'Commenter Name',
+              creatorImageUrl:
+                  'https://example.com/commenter_profile_picture.jpg',
+              createdAt: DateTime.now(),
+            ));
+      });
+      _commentControllers[postId]?.clear();
+    }
+  }
+
+  void _addReply(String postId, String commentId, String content) {
+    final postIndex = _posts.indexWhere((post) => post.id == postId);
+    if (postIndex != -1) {
+      final commentIndex = _posts[postIndex]
+          .comments
+          .indexWhere((comment) => comment.id == commentId);
+      if (commentIndex != -1) {
+        setState(() {
+          _posts[postIndex].comments[commentIndex].replies.add(Reply(
+                id: DateTime.now().toString(),
+                content: content,
+                creatorName: 'Replier Name',
+                creatorImageUrl:
+                    'https://example.com/replier_profile_picture.jpg',
+                createdAt: DateTime.now(),
+              ));
+        });
+      }
+      _replyControllers[commentId]?.clear();
+    }
+  }
+
+  void _toggleComments(String postId) {
+    setState(() {
+      final postIndex = _posts.indexWhere((post) => post.id == postId);
+      if (postIndex != -1) {
+        _posts[postIndex].showComments = !_posts[postIndex].showComments;
+      }
+    });
+  }
+
+  void _toggleCommentLike(String postId, String commentId, bool isLike) {
+    setState(() {
+      final postIndex = _posts.indexWhere((post) => post.id == postId);
+      if (postIndex != -1) {
+        final commentIndex = _posts[postIndex]
+            .comments
+            .indexWhere((comment) => comment.id == commentId);
+        if (commentIndex != -1) {
+          if (isLike) {
+            _posts[postIndex].comments[commentIndex].likes++;
+          } else {
+            _posts[postIndex].comments[commentIndex].dislikes++;
+          }
+        }
+      }
+    });
+  }
+
+  void _deleteComment(String postId, String commentId) {
+    setState(() {
+      final postIndex = _posts.indexWhere((post) => post.id == postId);
+      if (postIndex != -1) {
+        _posts[postIndex]
+            .comments
+            .removeWhere((comment) => comment.id == commentId);
+      }
+    });
+  }
+
+  void _deletePost(String postId) {
+    setState(() {
+      _posts.removeWhere((post) => post.id == postId);
+    });
+  }
+
+  void _showPostDialog() {
+    final TextEditingController _postController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Create Post'),
+          content: TextField(
+            controller: _postController,
+            decoration:
+                const InputDecoration(hintText: 'What\'s on your mind?'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_postController.text.isNotEmpty) {
+                  _addPost(_postController.text);
+                }
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Post'),
+            ),
+          ],
+        );
+      },
+    );
+  }
