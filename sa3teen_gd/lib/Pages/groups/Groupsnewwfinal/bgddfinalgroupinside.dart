@@ -17,7 +17,6 @@ import 'package:gp_screen/Pages/groups/Groupsnewwfinal/GroupsAPIfinal.dart';
 class GroupDetailPage extends StatefulWidget {
   final int groupId;
   final String accessToken;
- 
 
   GroupDetailPage({required this.groupId, required this.accessToken});
 
@@ -27,7 +26,7 @@ class GroupDetailPage extends StatefulWidget {
 
 class _GroupDetailPageState extends State<GroupDetailPage> {
   late Future<void> _futureGroup;
- late int groupIDd;
+  late int groupIDd;
   @override
   void initState() {
     super.initState();
@@ -87,8 +86,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                           ),
                         ),
                   Padding(
-                    padding:
-                        EdgeInsets.only(left: 12.0, right: 12.0, top: 8),
+                    padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
@@ -98,18 +96,23 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                             Text(group.title,
                                 style: TextStyle(
                                     fontSize: 26, fontWeight: FontWeight.bold)),
-                          Spacer(flex: 1,),
-                                   IconButton(
-            icon: Icon(Icons.edit,color: kprimaryColourcream,),
-            onPressed: () {
-               
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditGroupScreen(group: group),
-                  ),
-                );}
-              ),
+                            Spacer(
+                              flex: 1,
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: kprimaryColourcream,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditGroupScreen(group: group),
+                                    ),
+                                  );
+                                }),
                           ],
                         ),
                         // SizedBox(height: 3),
@@ -118,12 +121,13 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey.shade700)),
-                       SizedBox(height: 2,),
+                        SizedBox(
+                          height: 2,
+                        ),
                         Container(
                           height: 40,
                           child: GroupUsersOverviewPage(
-                              id: group.id,
-                              token: widget.accessToken),
+                              id: group.id, token: widget.accessToken),
                         ),
                         SizedBox(height: 5),
                         Row(
@@ -155,31 +159,31 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                             Spacer(),
                           ],
                         ),
-                        SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            RoundedButton(
-                              height: 40,
-                              width: 175,
-                              colory: kprimaryColourGreen,
-                              buttonText: 'Group Setting',
-                              onPressed: () {
-                                print('Group Setting button clicked!');
-                              },
-                            ),
-                            SizedBox(width: 16),
-                            RoundedButton(
-                              height: 40,
-                              width: 175,
-                              colory: kprimaryColourcream,
-                              buttonText: 'Share',
-                              onPressed: () {
-                                print('Share button clicked!');
-                              },
-                            ),
-                          ],
-                        ),
+                        // SizedBox(height: 8),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     // RoundedButton(
+                        //     //   height: 40,
+                        //     //   width: 175,
+                        //     //   colory: kprimaryColourGreen,
+                        //     //   buttonText: 'Group Setting',
+                        //     //   onPressed: () {
+                        //     //     print('Group Setting button clicked!');
+                        //     //   },
+                        //     // ),
+                        //     SizedBox(width: 16),
+                        //     // RoundedButton(
+                        //     //   height: 40,
+                        //     //   width: 175,
+                        //     //   colory: kprimaryColourcream,
+                        //     //   buttonText: 'Share',
+                        //     //   onPressed: () {
+                        //     //     print('Share button clicked!');
+                        //     //   },
+                        //     // ),
+                        //   ],
+                        // ),
                         SizedBox(height: 12),
                         Container(
                           height: 50,
@@ -192,7 +196,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                   RoundedButton(
                                     height: 40,
                                     width: 110,
-                                    colory: kprimaryColourcream,
+                                    colory: kprimaryColourGreen,
                                     buttonText: 'Description',
                                     onPressed: () {
                                       showDialog(
@@ -224,12 +228,15 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                     colory: kprimaryColourcream,
                                     buttonText: 'Materials',
                                     onPressed: () {
-                                       Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MaterialsScreen(groupId: group.id, token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
-              ),
-            );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MaterialsScreen(
+                                              groupId: group.id,
+                                              token:
+                                                  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+                                        ),
+                                      );
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(
@@ -242,16 +249,54 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                       print('Files button clicked!');
                                     },
                                   ),
-                         
-            
-          
+
                                   SizedBox(width: 16),
+                                  //                       IconButton(
+                                  //         icon: Icon(Icons.delete, color: kprimaryColourcream),
+                                  //         onPressed: () async {
+                                  //           // await Provider.of<GroupsProvider>(context, listen: false)
+                                  //           //     .deleteGroup(context,group.id,
+                                  //           //    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
+                                  //           //     // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
+                                  //           //     );
+                                  //                bool isDeleted = await Provider.of<GroupsProvider>(context, listen: false)
+                                  //     .deleteGroup(context,group.id,
+                                  //                              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
+
+                                  //     );
+                                  // if (isDeleted) {
+                                  //   Navigator.pop(context);
+                                  // } else {
+                                  //   // Handle failure
+                                  //   ScaffoldMessenger.of(context).showSnackBar(
+                                  //     SnackBar(content: Text('Failed to delete group')),
+                                  //   );
+                                  // }
+                                  //         },
+                                  //       ),
                                   RoundedButton(
                                     height: 40,
-                                    width: 60,
-                                    colory: kprimaryColourcream,
-                                    buttonText: 'You',
-                                    onPressed: () {
+                                    width: 75,
+                                    colory: kprimaryColourGreen,
+                                    buttonText: 'delete',
+                                    onPressed: () async {
+                                      bool isDeleted = await Provider.of<
+                                                  GroupsProvider>(context,
+                                              listen: false)
+                                          .deleteGroup(context, group.id,
+                                              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU');
+                                      if (isDeleted) {
+                                        Navigator.pop(context);
+                                      } else {
+                                        // Handle failure
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              content: Text(
+                                                  'Failed to delete group')),
+                                        );
+                                      }
+
                                       print('Event button clicked!');
                                     },
                                   ),
@@ -275,29 +320,25 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                   ),
                                 ],
                               ),
-                              
                             ],
                           ),
                         ),
                         SizedBox(height: 12),
-                       
                       ],
                     ),
-                  ), Expanded(
-                  child:
-                      Container(height: 600, child: PostList(groupId: group.id)
-                 
-                          ),
-                ),
+                  ),
+                  Expanded(
+                    child: Container(
+                        height: 600, child: PostList(groupId: group.id)),
+                  ),
                 ],
               );
             }
           }
         },
       ),
-    
-  
-        floatingActionButton: FloatingActionButton(
+
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
@@ -309,7 +350,6 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
               ),
             ),
           );
-          
         },
         //  _showPostDialog,
         backgroundColor: Colors.green,
