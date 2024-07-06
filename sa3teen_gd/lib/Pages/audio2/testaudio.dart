@@ -1,5 +1,4 @@
-import 'package:final_profile/audio2/audioplayerscreen.dart';
-import 'package:final_profile/audio2/audioplayerstate.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -185,6 +185,7 @@ dependencies:
   syncfusion_flutter_pdf: ^21.2.4
   smooth_page_indicator: ^1.1.0
   open_file: ^3.3.2
+  just_audio: ^0.9.38
 
 
 dev_dependencies:
