@@ -1,20 +1,19 @@
-// ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-
+// ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, avoid_print
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
+import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
 import 'package:gp_screen/Pages/groups/MaterialsSearch/ProviderMaterial.dart';
-import 'package:gp_screen/Pages/groups/Groupsnewwfinal/GroupsAPIfinal.dart';
+import 'package:gp_screen/Pages/apis/GroupsAPIfinal.dart';
 import 'package:gp_screen/Pages/groups/Groupsnewwfinal/bgddfinalgroupinside.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/apiOfMaterials.dart';
 import 'package:gp_screen/Pages/groups/myGroups/GroupListProvider.dart';
 import 'package:gp_screen/Pages/groups/myGroups/UserGroupsScreen.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/CommentsProvider.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/PostProviderrrrr.dart';
+import 'package:gp_screen/Pages/apis/posts/PostProviderrrrr.dart';
 import 'package:gp_screen/Pages/groups/search/searchUiGroups.dart';
-import 'package:gp_screen/Pages/groups/search/searchGroupProvider.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/listGroupsModel.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
+import 'package:gp_screen/Pages/apis/searchGroupProvider.dart';
+import 'package:gp_screen/Pages/apis/ModellistGroups.dart';
+import 'package:gp_screen/Pages/apis/listGroup/getAPIListGroups.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +29,6 @@ class GroupsScreen extends StatefulWidget {
 class _GroupsScreenState extends State<GroupsScreen> {
   late Future<List<listGroupsModel>> futureGroups;
   final TextEditingController _passwordController = TextEditingController();
-  // bool _obscureText = true;
 
   @override
   void initState() {
@@ -67,7 +65,8 @@ class _GroupsScreenState extends State<GroupsScreen> {
                       ),
                       const Spacer(
                         flex: 1,
-                      ),IconButton(
+                      ),
+                      IconButton(
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -78,7 +77,10 @@ class _GroupsScreenState extends State<GroupsScreen> {
                               ),
                             );
                           },
-                          icon: const Icon(Icons.search,color: kprimaryColourcream,)),
+                          icon: const Icon(
+                            Icons.search,
+                            color: kprimaryColourcream,
+                          )),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: kprimaryColourcream,
@@ -88,9 +90,6 @@ class _GroupsScreenState extends State<GroupsScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => UserGroupsScreen(),
-                                // SearchScreen(
-                                // accessToken:
-                                // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
                               ),
                             );
                           },
@@ -106,7 +105,6 @@ class _GroupsScreenState extends State<GroupsScreen> {
                               ),
                             ],
                           )),
-                      
                     ],
                   ),
                 ),
@@ -126,7 +124,6 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
                             ),
                           );
-                          // Navigator.push
                         },
                         child: Card(
                           color: kprimaryColourWhite,
@@ -368,9 +365,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => MaterialProvider()),
         ChangeNotifierProvider(create: (_) => MyGroupProvider()),
         ChangeNotifierProvider(
-      create: (context) => MaterialsProvider(),
-      // child: MyApp(),
-    ),
+          create: (context) => MaterialsProvider(),
+          // child: MyApp(),
+        ),
       ],
       child: MaterialApp(
         home: GroupsScreen(
@@ -381,25 +378,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ChangeNotifierProvider(
-//       create: (_) => GroupProvider(),
-//       child: MaterialApp(
-//         home: GroupsScreen(
-//         accessToken:
-//             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'),
- 
-//       ),
-//     );
-//   }
-// }
-// void main() {
-//   runApp(MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     home: GroupsScreen(
-//         accessToken:
-//             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'),
-//   ));
-// }

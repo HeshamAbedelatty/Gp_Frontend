@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/listGroupsModel.dart';
+import 'package:gp_screen/Pages/apis/ModellistGroups.dart';
 
 class GroupProvider with ChangeNotifier {
   List<listGroupsModel> _groups = [];

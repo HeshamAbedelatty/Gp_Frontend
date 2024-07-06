@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:gp_screen/Chat%20Bot.dart';
 import 'package:gp_screen/Logic.dart';
-import 'Pages/GroupPostAndCommentPage/Pages/FinalGroupPostsPage.dart';
+// import 'Pages/GroupPostAndCommentPage/Pages/FinalGroupPostsPage.dart';
 import 'Pages/HandwrittingToText/HandwittingToText.dart';
 import 'Pages/pomodoroPage/ThePage/newpomo.dart';
 import'package:gp_screen/pages/chatBotIntegrated/Chat Bot copy 2.dart';
@@ -218,18 +218,18 @@ class _HomePageState extends State<HomePage> {
                           const AssetImage('lib/assets/icons/pngwing.com2.png'),
                           70,
                           () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) {
-                                  return  GroupPage(
-                                    id: 1,
-                                    groupName: 'Example Group',
-                                    groupImageUrl: 'url_to_image',
-                                    members: ['Member 1', 'Member 2'],
-                                    groupState: 'Active',); // Return the ChatScreen widget here
-                                },
-                              ),
-                            );
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute<void>(
+                            //     builder: (BuildContext context) {
+                            //       return  GroupPage(
+                            //         id: 1,
+                            //         groupName: 'Example Group',
+                            //         groupImageUrl: 'url_to_image',
+                            //         members: ['Member 1', 'Member 2'],
+                            //         groupState: 'Active',); // Return the ChatScreen widget here
+                            //     },
+                            //   ),
+                            // );
                           },
                         ),
                         buildCustomContainerGroups(

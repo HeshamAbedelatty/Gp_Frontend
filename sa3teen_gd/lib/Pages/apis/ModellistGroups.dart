@@ -1,4 +1,4 @@
-import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
+import 'package:gp_screen/Pages/apis/listGroup/getAPIListGroups.dart';
 class listGroupsModel {
   final dynamic id;
   final String title;

@@ -1,9 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
+import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:provider/provider.dart';
-import 'package:gp_screen/Pages/groups/Groupsnewwfinal/GroupsAPIfinal.dart';
+import 'package:gp_screen/Pages/apis/GroupsAPIfinal.dart';
 
 class EditGroupScreen extends StatefulWidget {
   final ListGroupsModel group;

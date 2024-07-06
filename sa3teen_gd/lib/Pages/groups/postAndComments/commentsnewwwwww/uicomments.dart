@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
+import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/CommentsProvider.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/cmodel.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';

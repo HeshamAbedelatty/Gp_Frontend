@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/ApiServicepostsssss.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/PostModellll.dart';
+import 'package:gp_screen/Pages/apis/posts/ApiServicepostsssss.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/PostModel.dart';
 
 class PostProvider with ChangeNotifier {
   List<Post> _posts = [];

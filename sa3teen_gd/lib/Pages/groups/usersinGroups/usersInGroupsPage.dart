@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
+import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;
 

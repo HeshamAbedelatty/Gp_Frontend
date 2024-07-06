@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/groups/Groupsnewwfinal/GroupsAPIfinal.dart';
+import 'package:gp_screen/Pages/apis/GroupsAPIfinal.dart';
 import 'package:gp_screen/Pages/groups/MaterialsSearch/ProviderMaterial.dart';
 import 'package:gp_screen/Pages/groups/myGroups/GroupListProvider.dart';
 import 'package:gp_screen/Pages/groups/myGroups/UserGroupsScreen.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/CommentsProvider.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/PostProviderrrrr.dart';
-import 'package:gp_screen/Pages/groups/search/searchGroupProvider.dart';
+import 'package:gp_screen/Pages/apis/posts/PostProviderrrrr.dart';
+import 'package:gp_screen/Pages/apis/searchGroupProvider.dart';
 import 'package:provider/provider.dart';
 // import 'group_provider.dart';
 

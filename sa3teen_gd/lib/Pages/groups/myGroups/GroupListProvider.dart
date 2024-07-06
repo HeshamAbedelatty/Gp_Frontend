@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/groups/Groupsnewwfinal/GroupsAPIfinal.dart';
+import 'package:gp_screen/Pages/apis/GroupsAPIfinal.dart';
 // import 'package:gp_screen/Pages/groups/myGroups/model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

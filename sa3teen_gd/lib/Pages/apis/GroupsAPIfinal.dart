@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
+import 'package:gp_screen/Pages/apis/listGroup/getAPIListGroups.dart';
 
 class ListGroupsModel {
   final int id;
@@ -153,26 +153,6 @@ class GroupsProvider with ChangeNotifier {
     return false;
   }
 }
-
-  //  Future<void> ddeleteGroup(context,int groupId, String token) async {
-  //   final response = await http.delete(
-  //     Uri.parse('http://10.0.2.2:8000/groups/delete_patch/$groupId/'),
-  //     headers: {
-  //       'Authorization': 'Bearer $token',
-  //     },
-  //   );
-
-  //   if (response.statusCode == 204) {
-  //     _groups.removeWhere((group) => group.id == groupId);
-  //     // getGroupById(groupId);
-  //     notifyListeners();
-  //           // _showErrorDialog(context, response.statusCode, response.body);
-
-  //   } else {
-  //      _showErrorDialog(context, response.statusCode, response.body);
-  //     // throw Exception('Failed to delete group');
-  //   }
-  // }
 }
 
 void _showErrorDialog(

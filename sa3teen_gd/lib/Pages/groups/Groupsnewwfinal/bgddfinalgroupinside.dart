@@ -1,18 +1,19 @@
+// ignore_for_file: sized_box_for_whitespace, avoid_print, use_build_context_synchronously, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/RoundedButtonForGroups.dart';
-import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
+import 'package:gp_screen/Pages/groups/Widgets/RoundedButtonForGroups.dart';
+import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
+// import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/RoundedButtonForGroups.dart';
+// import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/groups/Groupsnewwfinal/EditGroupScreenfinal.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/uiiiGroupDetailsPage.dart';
-import 'package:gp_screen/Pages/groups/usersinGroups/membersCircle.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/postDetailsPageuiFinal.dart';
+import 'package:gp_screen/Pages/groups/usersinGroups/membersCirclesui.dart';
 import 'package:provider/provider.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/CreatePostScreen.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/usersInGroupsPage.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/Materials.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/postsComments.dart';
-import 'package:gp_screen/Pages/groups/OLD/beforeProvider/apis/GroupsAPI.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/cmodel.dart';
-import 'package:gp_screen/Pages/groups/Groupsnewwfinal/GroupsAPIfinal.dart';
+import 'package:gp_screen/Pages/apis/GroupsAPIfinal.dart';
 
 class GroupDetailPage extends StatefulWidget {
   final int groupId;
@@ -40,31 +41,28 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
 
     return Scaffold(
       appBar: tabbar(),
-      // AppBar(
-      //   title: Text('Group Details'),
-      // ),
       body: FutureBuilder<void>(
         future: _futureGroup,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
             final group = groupProvider.selectedGroup;
             if (group == null) {
-              return Center(child: Text('No data found'));
+              return const Center(child: Text('No data found'));
             } else {
               groupIDd = group.id;
               return ListView(
                 children: [
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   group.image != null
                       ? Container(
                           height: 150,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(20)),
                             image: DecorationImage(
                               fit: BoxFit.cover,
@@ -75,7 +73,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                       : Container(
                           height: 150,
                           width: double.infinity,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(20)),
                               color: kprimaryColourcream),
@@ -86,7 +84,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                           ),
                         ),
                   Padding(
-                    padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 8),
+                    padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
@@ -94,13 +92,13 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                         Row(
                           children: [
                             Text(group.title,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 26, fontWeight: FontWeight.bold)),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.edit,
                                   color: kprimaryColourcream,
                                 ),
@@ -115,13 +113,12 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                 }),
                           ],
                         ),
-                        // SizedBox(height: 3),
                         Text(group.subject,
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey.shade700)),
-                        SizedBox(
+                        const SizedBox(
                           height: 2,
                         ),
                         Container(
@@ -129,10 +126,10 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                           child: GroupUsersOverviewPage(
                               id: group.id, token: widget.accessToken),
                         ),
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.lock,
                               color: Colors.grey,
                               size: 18,
@@ -156,35 +153,11 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                       fontSize: 14,
                                       color: Colors.grey.shade600)),
                             ),
-                            Spacer(),
+                            const Spacer(),
                           ],
                         ),
-                        // SizedBox(height: 8),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     // RoundedButton(
-                        //     //   height: 40,
-                        //     //   width: 175,
-                        //     //   colory: kprimaryColourGreen,
-                        //     //   buttonText: 'Group Setting',
-                        //     //   onPressed: () {
-                        //     //     print('Group Setting button clicked!');
-                        //     //   },
-                        //     // ),
-                        //     SizedBox(width: 16),
-                        //     // RoundedButton(
-                        //     //   height: 40,
-                        //     //   width: 175,
-                        //     //   colory: kprimaryColourcream,
-                        //     //   buttonText: 'Share',
-                        //     //   onPressed: () {
-                        //     //     print('Share button clicked!');
-                        //     //   },
-                        //     // ),
-                        //   ],
-                        // ),
-                        SizedBox(height: 12),
+                       
+                        const SizedBox(height: 12),
                         Container(
                           height: 50,
                           child: ListView(
@@ -203,17 +176,17 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                         context: context,
                                         builder: (BuildContext context) {
                                           return AlertDialog(
-                                            title: Text('Description'),
+                                            title: const Text('Description'),
                                             content: Text(
                                               group.description,
-                                              style: TextStyle(fontSize: 18),
+                                              style: const TextStyle(fontSize: 18),
                                             ),
                                             actions: [
                                               TextButton(
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },
-                                                child: Text('Close'),
+                                                child: const Text('Close'),
                                               ),
                                             ],
                                           );
@@ -221,7 +194,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                       );
                                     },
                                   ),
-                                  SizedBox(width: 16),
+                                  const SizedBox(width: 16),
                                   RoundedButton(
                                     height: 40,
                                     width: 110,
@@ -237,43 +210,14 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                                   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
                                         ),
                                       );
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //       builder: (context) => MaterialsPage(
-                                      //         groupID: group.id,
-                                      //         id: group.id,
-                                      //       ),
-                                      //     ));
+                              
 
                                       print('Files button clicked!');
                                     },
                                   ),
 
-                                  SizedBox(width: 16),
-                                  //                       IconButton(
-                                  //         icon: Icon(Icons.delete, color: kprimaryColourcream),
-                                  //         onPressed: () async {
-                                  //           // await Provider.of<GroupsProvider>(context, listen: false)
-                                  //           //     .deleteGroup(context,group.id,
-                                  //           //    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
-                                  //           //     // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
-                                  //           //     );
-                                  //                bool isDeleted = await Provider.of<GroupsProvider>(context, listen: false)
-                                  //     .deleteGroup(context,group.id,
-                                  //                              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
-
-                                  //     );
-                                  // if (isDeleted) {
-                                  //   Navigator.pop(context);
-                                  // } else {
-                                  //   // Handle failure
-                                  //   ScaffoldMessenger.of(context).showSnackBar(
-                                  //     SnackBar(content: Text('Failed to delete group')),
-                                  //   );
-                                  // }
-                                  //         },
-                                  //       ),
+                                  const SizedBox(width: 16),
+                              
                                   RoundedButton(
                                     height: 40,
                                     width: 75,
@@ -291,7 +235,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                         // Handle failure
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                          SnackBar(
+                                          const SnackBar(
                                               content: Text(
                                                   'Failed to delete group')),
                                         );
@@ -300,7 +244,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                       print('Event button clicked!');
                                     },
                                   ),
-                                  SizedBox(width: 16),
+                                  const SizedBox(width: 16),
                                   RoundedButton(
                                     height: 40,
                                     width: 110,
@@ -311,8 +255,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => PostList(
-                                              // id: group.id,
-                                              // token: widget.accessToken,
+                                             
                                               groupId: widget.groupId,
                                             ),
                                           ));
@@ -323,7 +266,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                       ],
                     ),
                   ),
@@ -344,20 +287,16 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
             context,
             MaterialPageRoute(
               builder: (context) => CreatePostScreen(
-                groupId: groupIDd!, // Replace with your actual group ID
+                groupId: groupIDd, // Replace with your actual group ID !
                 accessToken:
                     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw', // Replace with your actual access token
               ),
             ),
           );
         },
-        //  _showPostDialog,
         backgroundColor: Colors.green,
         child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
 }
-// }
-
-// }
