@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/Materials.dart';
 import 'package:http/http.dart' as http;
@@ -6,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class User {
   final String username;
-  final String image;
+  final String ?image;
 
   User({required this.username, required this.image});
 
@@ -74,6 +75,46 @@ class MaterialsProvider with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
+
+
+
+Future<dynamic?> uploadMat(String title,
+     File? image,int groupid,  String accessToken) async {
+  var uri = Uri.parse('http://10.0.2.2:8000/groups/$groupid/materials/upload/');
+  
+  var request = http.MultipartRequest('POST', uri)
+    ..fields['title'] = title;
+
+  // If you need to send an image file
+  if (image != null) {
+    request.files.add(await http.MultipartFile.fromPath('media_path', image.path));
+  }
+
+  // Add the access token to the headers
+  request.headers['Authorization'] = 'Bearer $accessToken';
+
+  try {
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+
+    print('Response status: ${response.statusCode}'); // Log status code
+    print('Response body: ${response.body}'); // Log response body
+
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      fetchMaterials(groupid,  accessToken);
+      notifyListeners();
+      print('Request success with status: ${response.statusCode}');
+    } else {
+      print('Request failed with status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+    }
+  } catch (e) {
+    print('Error sending message: $e');
+  }
+  return null;
+}
+
 }
 
 // import 'dart:convert';
