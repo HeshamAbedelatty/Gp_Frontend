@@ -86,7 +86,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
       Navigator.pop(context); // Close the dialog after upload
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please enter a title and pick a file')),
+        const SnackBar(content: Text('Please enter a title and pick a file')),
       );
     }
   }
@@ -96,7 +96,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Upload Material'),
+          title: const Text('Upload Material'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +106,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   controller: _titleController,
-                  decoration: InputDecoration(labelText: 'Title'),
+                  decoration: const InputDecoration(labelText: 'Title'),
                 ),
               ),
               // ElevatedButton(
@@ -120,7 +120,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                         children: [
                           Text(
                             'Selected File: ${_pickedFile!.path.split('/').last}',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Container(
                             height: 200,
@@ -154,14 +154,14 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                                           backgroundColor: kprimaryColourcream,
                                         ),
                     onPressed: _pickFile,
-                    child: Text('Pick File',style: TextStyle(color: Colors.white),),
+                    child: const Text('Pick File',style: TextStyle(color: Colors.white),),
                   ),
-                  SizedBox(width: 8,),
+                  const SizedBox(width: 8,),
                   ElevatedButton(style: ElevatedButton.styleFrom(
                                           backgroundColor: kprimaryColourcream,
                                         ),
                     onPressed: _uploadMaterial,
-                    child: Text('Upload Material',style: TextStyle(color: Colors.white),),
+                    child: const Text('Upload Material',style: TextStyle(color: Colors.white),),
                   ),
                 ],
               ),
@@ -177,7 +177,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Upload Material'),
+          title: const Text('Upload Material'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -185,16 +185,16 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   controller: _titleController,
-                  decoration: InputDecoration(labelText: 'Title'),
+                  decoration: const InputDecoration(labelText: 'Title'),
                 ),
               ),
               ElevatedButton(
                 onPressed: _pickFile,
-                child: Text('Pick File'),
+                child: const Text('Pick File'),
               ),
               ElevatedButton(
                 onPressed: _uploadMaterial,
-                child: Text('Upload Material'),
+                child: const Text('Upload Material'),
               ),
             ],
           ),
@@ -261,9 +261,9 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
         
           Expanded(
             child: materialsProvider.isLoading
-                ? Center(child: CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : materialsProvider.materials.isEmpty
-                    ? Center(child: Text('No materials found'))
+                    ? const Center(child: Text('No materials found'))
                     : Column(
                         children: [
                           Row(
@@ -323,11 +323,23 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             const SizedBox(height: 5),
-                                            Text(
-                                              material.title,
-                                              style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  material.title,
+                                                  style: const TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                                const Spacer(flex: 1,),
+                                                 IconButton(
+                                            icon: const Icon(Icons.delete, color: kprimaryColourcream),
+                                            onPressed: () async {
+                                              await Provider.of<MaterialsProvider>(context, listen: false)
+                                                  .deleteMaterial(context,widget.groupId, material.id, widget.token);
+                                            },
+                                          ),
+                                              ],
                                             ),
                                             const SizedBox(height: 5),
                                             Row(

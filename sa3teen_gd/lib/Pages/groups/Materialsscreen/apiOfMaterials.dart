@@ -114,7 +114,42 @@ Future<dynamic?> uploadMat(String title,
   }
   return null;
 }
+ Future<void> deleteMaterial(context,int groupId, int materialId, String token) async {
+    final response = await http.delete(
+      Uri.parse('http://10.0.2.2:8000/groups/$groupId/materials/delete/$materialId/'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
 
+    if (response.statusCode == 204) {
+      _materials.removeWhere((material) => material.id == materialId);
+      notifyListeners();
+    } else {
+      print(response.statusCode);
+      print(response.body);
+            _showErrorDialog(context, '${response.body}');
+
+      // throw Exception('Failed to delete material');
+    }
+  }
+   void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Error'),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Okay'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+        ],
+      ),
+    );
+}
 }
 
 // import 'dart:convert';
