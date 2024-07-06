@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Pages/audio2/audioplayerscreen.dart';
+import 'package:gp_screen/Pages/audio2/audioplayerstate.dart';
 import 'package:provider/provider.dart';
 
 void main() {

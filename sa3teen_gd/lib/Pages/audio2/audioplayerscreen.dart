@@ -1,6 +1,9 @@
 import 'package:file_picker/file_picker.dart';
 
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Pages/audio2/audiomodel.dart';
+import 'package:gp_screen/Pages/audio2/audioplayerstate.dart';
+import 'package:gp_screen/Pages/audio2/favoritelistscreen.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
@@ -69,7 +72,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                    'lib/assets/back1.jpeg'), // Replace with your background image
+                    'lib/assets/icons/back1.jpeg'), // Replace with your background image
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.circular(10.0),
