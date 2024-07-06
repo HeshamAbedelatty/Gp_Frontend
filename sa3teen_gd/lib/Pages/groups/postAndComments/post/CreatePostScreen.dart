@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/apis/posts/PostProviderrrrr.dart';
+import 'package:gp_screen/Pages/APIsSalma/posts/PostProviderrrrr.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';

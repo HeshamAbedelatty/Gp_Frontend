@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, camel_case_types
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/uicomments.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/PostModel.dart';
-import 'package:gp_screen/Pages/apis/posts/PostProviderrrrr.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/comments/uicomments.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/post/PostModel.dart';
+import 'package:gp_screen/Pages/APIsSalma/posts/PostProviderrrrr.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 

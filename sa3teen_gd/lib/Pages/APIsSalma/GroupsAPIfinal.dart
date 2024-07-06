@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:gp_screen/Pages/apis/listGroup/getAPIListGroups.dart';
+import 'package:gp_screen/Pages/APIsSalma/listGroup/getAPIListGroups.dart';
 
 class ListGroupsModel {
   final int id;

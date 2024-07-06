@@ -1,4 +1,4 @@
-import 'package:gp_screen/Pages/apis/GroupsAPIfinal.dart';
+import 'package:gp_screen/Pages/APIsSalma/GroupsAPIfinal.dart';
 
 class Group {
   final int id;

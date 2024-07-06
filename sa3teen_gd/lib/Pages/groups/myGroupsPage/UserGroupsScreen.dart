@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/apis/MyGroups/GroupListProvider.dart';
+import 'package:gp_screen/Pages/APIsSalma/MyGroups/GroupListProvider.dart';
 import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/bgddfinalgroupinside.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';

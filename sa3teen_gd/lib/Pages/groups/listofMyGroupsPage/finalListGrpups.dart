@@ -1,19 +1,19 @@
 // ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, avoid_print
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/apis/CommentsProvider.dart';
-import 'package:gp_screen/Pages/apis/MyGroups/GroupListProvider.dart';
+import 'package:gp_screen/Pages/APIsSalma/CommentsProvider.dart';
+import 'package:gp_screen/Pages/APIsSalma/MyGroups/GroupListProvider.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
-import 'package:gp_screen/Pages/apis/ProviderMaterial.dart';
-import 'package:gp_screen/Pages/apis/GroupsAPIfinal.dart';
+import 'package:gp_screen/Pages/APIsSalma/ProviderMaterial.dart';
+import 'package:gp_screen/Pages/APIsSalma/GroupsAPIfinal.dart';
 import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/bgddfinalgroupinside.dart';
-import 'package:gp_screen/Pages/apis/apiOfMaterials.dart';
-import 'package:gp_screen/Pages/groups/myGroups/UserGroupsScreen.dart';
-import 'package:gp_screen/Pages/apis/posts/PostProviderrrrr.dart';
+import 'package:gp_screen/Pages/APIsSalma/apiOfMaterials.dart';
+import 'package:gp_screen/Pages/groups/myGroupsPage/UserGroupsScreen.dart';
+import 'package:gp_screen/Pages/APIsSalma/posts/PostProviderrrrr.dart';
 import 'package:gp_screen/Pages/groups/search/searchUiGroups.dart';
-import 'package:gp_screen/Pages/apis/searchGroupProvider.dart';
-import 'package:gp_screen/Pages/apis/ModellistGroups.dart';
-import 'package:gp_screen/Pages/apis/listGroup/getAPIListGroups.dart';
+import 'package:gp_screen/Pages/APIsSalma/searchGroupProvider.dart';
+import 'package:gp_screen/Pages/APIsSalma/ModellistGroups.dart';
+import 'package:gp_screen/Pages/APIsSalma/listGroup/getAPIListGroups.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 

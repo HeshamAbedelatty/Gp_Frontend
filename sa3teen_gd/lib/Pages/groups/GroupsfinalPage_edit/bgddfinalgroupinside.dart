@@ -6,14 +6,14 @@ import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 // import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/RoundedButtonForGroups.dart';
 // import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/EditGroupScreenfinal.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/postDetailsPageuiFinal.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/post/postDetailsPageuiFinal.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/membersCirclesui.dart';
 import 'package:provider/provider.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/CreatePostScreen.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/post/CreatePostScreen.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/usersInGroupsPage.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/ui/Materials.dart';
-import 'package:gp_screen/Pages/apis/GroupsAPIfinal.dart';
+import 'package:gp_screen/Pages/APIsSalma/GroupsAPIfinal.dart';
 
 class GroupDetailPage extends StatefulWidget {
   final int groupId;
