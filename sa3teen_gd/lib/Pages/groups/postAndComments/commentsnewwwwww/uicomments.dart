@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/CommentsProvider.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/cmodel.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
@@ -29,7 +30,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Comments')),
+      appBar: tabbar(),
       body: Column(
         children: [
           Expanded(
@@ -38,16 +39,40 @@ class _CommentsScreenState extends State<CommentsScreen> {
                 if (commentsProvider.comments.isEmpty) {
                   return const Center(child: Text('No comments yet.'));
                 }
-                return ListView.builder(
-                  itemCount: commentsProvider.comments.length,
-                  itemBuilder: (context, index) {
-                    final comment = commentsProvider.comments[index];
-                    return CommentItem(
-                      groupId: widget.groupId,
-                      postId: widget.postId,
-                      comment: comment,
-                    );
-                  },
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+
+                    const Padding(
+                      padding: EdgeInsets.only(left: 12.0, top: 10, bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Comments',
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // SizedBox(height: 10,),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: commentsProvider.comments.length,
+                        itemBuilder: (context, index) {
+                          final comment = commentsProvider.comments[index];
+                          return CommentItem(
+                            groupId: widget.groupId,
+                            postId: widget.postId,
+                            comment: comment,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
@@ -166,6 +191,15 @@ class _CommentItemState extends State<CommentItem> {
                                         widget.postId, widget.comment.id);
                               },
                             ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.edit,
+                                color: kprimaryColourcream,
+                              ),
+                              onPressed: () {
+                                _showEditDialog(context, widget.comment);
+                              },
+                            ),
                           ],
                         ),
                       ],
@@ -234,6 +268,16 @@ class _CommentItemState extends State<CommentItem> {
                                                 reply.id);
                                       },
                                     ),
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        color: kprimaryColourcream,
+                                      ),
+                                      onPressed: () {
+                                        _showEditReplyDialog(
+                                            context, widget.comment, reply);
+                                      },
+                                    ),
                                   ],
                                 ),
                               ],
@@ -279,6 +323,80 @@ class _CommentItemState extends State<CommentItem> {
           ),
         ],
       ],
+    );
+  }
+
+  void _showEditDialog(BuildContext context, Comment comment) {
+    final TextEditingController descriptionController =
+        TextEditingController(text: comment.description);
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Edit Comment'),
+        content: TextField(
+          controller: descriptionController,
+          decoration: const InputDecoration(labelText: 'Description'),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+          TextButton(
+            child: const Text('Save'),
+            onPressed: () async {
+              final newDescription = descriptionController.text;
+              if (newDescription.isNotEmpty) {
+                await Provider.of<CommentsProvider>(context, listen: false)
+                    .editComment(ctx, widget.groupId, widget.postId, comment.id,
+                        newDescription);
+                Navigator.of(ctx).pop();
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showEditReplyDialog(
+      BuildContext context, Comment comment, Reply reply) {
+    final TextEditingController descriptionController =
+        TextEditingController(text: reply.description);
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Edit Reply'),
+        content: TextField(
+          controller: descriptionController,
+          decoration: const InputDecoration(labelText: 'Description'),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+          TextButton(
+            child: const Text('Save'),
+            onPressed: () async {
+              final newDescription = descriptionController.text;
+              if (newDescription.isNotEmpty) {
+                print('hi');
+                await Provider.of<CommentsProvider>(context, listen: false)
+                    .editReply(ctx, widget.groupId, widget.postId, comment.id,
+                        reply.id, newDescription);
+                Navigator.of(ctx).pop();
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }

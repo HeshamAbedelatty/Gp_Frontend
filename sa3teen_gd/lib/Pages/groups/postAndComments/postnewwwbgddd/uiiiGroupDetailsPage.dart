@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/uicomments.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/PostModellll.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/PostProviderrrrr.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/PostModellll.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/postnewwwbgddd/PostProviderrrrr.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -182,7 +182,7 @@ class _PostListState extends State<PostList> {
                                 flex: 1,
                               ),
                               IconButton(
-                                icon: const Icon(Icons.delete),
+                                icon: const Icon(Icons.delete,color: kprimaryColourcream,),
                                 onPressed: () async {
                                   await Provider.of<PostProvider>(context,
                                           listen: false)
@@ -191,7 +191,7 @@ class _PostListState extends State<PostList> {
                                 },
                               ),
                               IconButton(
-                                icon: Icon(Icons.edit),
+                                icon: const Icon(Icons.edit,color: kprimaryColourcream,),
                                 onPressed: () {
                                   _showEditDialog(context, post);
                                 },
@@ -237,7 +237,7 @@ class _PostListState extends State<PostList> {
                                   color:
                                       kprimaryColourcream, // Use your preferred color
                                   icon: const Icon(
-                                      Icons.thumb_up_off_alt_outlined),
+                                      Icons.thumb_up_off_alt_outlined,color: kprimaryColourcream,),
                                   onPressed: () {
                                     likePost(post.id, widget.groupId);
                                   },
@@ -299,20 +299,20 @@ class _PostListState extends State<PostList> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Edit Post'),
+        title: const Text('Edit Post'),
         content: TextField(
           controller: descriptionController,
-          decoration: InputDecoration(labelText: 'Description'),
+          decoration: const InputDecoration(labelText: 'Description'),
         ),
         actions: <Widget>[
           TextButton(
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
           ),
           TextButton(
-            child: Text('Save'),
+            child: const Text('Save'),
             onPressed: () async {
               final newDescription = descriptionController.text;
               if (newDescription.isNotEmpty) {
@@ -348,38 +348,38 @@ class _PostListState extends State<PostList> {
     );
   }
 
-  void s_showEditDialog(BuildContext context, Post post) {
-    final TextEditingController descriptionController =
-        TextEditingController(text: post.description);
+  // void s_showEditDialog(BuildContext context, Post post) {
+  //   final TextEditingController descriptionController =
+  //       TextEditingController(text: post.description);
 
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('Edit Post'),
-        content: TextField(
-          controller: descriptionController,
-          decoration: InputDecoration(labelText: 'Description'),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: Text('Cancel'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          ),
-          TextButton(
-            child: Text('Save'),
-            onPressed: () async {
-              final newDescription = descriptionController.text;
-              if (newDescription.isNotEmpty) {
-                await Provider.of<PostProvider>(context, listen: false)
-                    .editPost(ctx, widget.groupId, post.id, newDescription);
-                Navigator.of(ctx).pop();
-              }
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  //   showDialog(
+  //     context: context,
+  //     builder: (ctx) => AlertDialog(
+  //       title: const Text('Edit Post'),
+  //       content: TextField(
+  //         controller: descriptionController,
+  //         decoration: const InputDecoration(labelText: 'Description'),
+  //       ),
+  //       actions: <Widget>[
+  //         TextButton(
+  //           child: const Text('Cancel'),
+  //           onPressed: () {
+  //             Navigator.of(ctx).pop();
+  //           },
+  //         ),
+  //         TextButton(
+  //           child: const Text('Save'),
+  //           onPressed: () async {
+  //             final newDescription = descriptionController.text;
+  //             if (newDescription.isNotEmpty) {
+  //               await Provider.of<PostProvider>(context, listen: false)
+  //                   .editPost(ctx, widget.groupId, post.id, newDescription);
+  //               Navigator.of(ctx).pop();
+  //             }
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

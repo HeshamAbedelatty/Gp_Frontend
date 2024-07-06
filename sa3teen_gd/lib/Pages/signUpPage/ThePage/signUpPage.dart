@@ -7,7 +7,7 @@ import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
 import 'package:gp_screen/Pages/signUpPage/Widgets/feild.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
-import '../../profile/User.dart';
+// import '../../profile/User.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({super.key});
@@ -207,18 +207,18 @@ class _SignUpPageState extends State<SignUpPage> {
 
                           await EasyLoading.dismiss();
 
-                          User newUser = User(
-                            id: userFromDB['id'],
-                            firstName: userFromDB['first_name'],
-                            lastName: userFromDB['last_name'],
-                            email: userFromDB['email'],
-                            username: userFromDB['username'],
-                            phoneNumber: userFromDB['phone_number'],
-                            faculty: userFromDB['faculty'],
-                            dateOfBirth: userFromDB['date_of_birth'],
-                            image: userFromDB['image'],
-                            rate: userFromDB['rate'],
-                          );
+                          // User newUser = User(
+                          //   id: userFromDB['id'],
+                          //   firstName: userFromDB['first_name'],
+                          //   lastName: userFromDB['last_name'],
+                          //   email: userFromDB['email'],
+                          //   username: userFromDB['username'],
+                          //   phoneNumber: userFromDB['phone_number'],
+                          //   faculty: userFromDB['faculty'],
+                          //   dateOfBirth: userFromDB['date_of_birth'],
+                          //   image: userFromDB['image'],
+                          //   rate: userFromDB['rate'],
+                          // );
                         } else {
                           showSnackBar(context, 'Passwords do not match');
                         }

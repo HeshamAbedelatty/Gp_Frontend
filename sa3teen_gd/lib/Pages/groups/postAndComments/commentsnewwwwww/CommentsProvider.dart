@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/cmodel.dart';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 
 class CommentsProvider with ChangeNotifier {
@@ -166,6 +167,108 @@ class CommentsProvider with ChangeNotifier {
       notifyListeners();
     } else {
       _showErrorDialog(context, '${response.body}');
+    }
+  }
+
+  Future<void> editComment(BuildContext context, int groupId, int postId,
+      int commentId, String description) async {
+    final url =
+        'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments/$commentId/';
+    final response = await http.patch(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: json.encode({
+        'description': description,
+      }),
+    );
+    print(response.statusCode);
+    print(response.body);
+    if (response.statusCode == 200) {
+      final updatedComment = Comment.fromJson(json.decode(response.body));
+      final commentIndex =
+          _comments.indexWhere((comment) => comment.id == commentId);
+      if (commentIndex != -1) {
+        print(response.statusCode);
+        print(response.body);
+        _comments[commentIndex] = updatedComment;
+        await fetchComments(groupId, postId);
+        notifyListeners();
+      }
+    } else {
+      print(response.statusCode);
+      print(response.body);
+      _showErrorDialog(context, 'Failed to edit comment');
+    }
+  }
+  // Future<void> editReply(BuildContext context, int groupId, int postId, int commentId, int replyId, String description) async {
+  //   final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments/$commentId/replies/$replyId';
+  //   final response = await http.patch(
+  //     Uri.parse(url),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer $accessToken',
+  //     },
+  //     body: json.encode({
+  //       'description': description,
+  //       'image': null,
+  //     }),
+  //   );
+
+  //   if (response.statusCode == 200) {
+  //     final updatedReply = Reply.fromJson(json.decode(response.body));
+  //     final commentIndex = _comments.indexWhere((comment) => comment.id == commentId);
+  //     if (commentIndex != -1) {
+  //       final replyIndex = _comments[commentIndex].replies.indexWhere((reply) => reply.id == replyId);
+  //       if (replyIndex != -1) {
+  //         _comments[commentIndex].replies[replyIndex] = updatedReply;
+  //         notifyListeners();
+  //       }
+  //     }
+  //   } else {
+  //     _showErrorDialog(context, 'Failed to edit reply');
+  //   }
+  // }
+  Future<void> editReply(BuildContext context, int groupId, int postId,
+      int commentId, int replyId, String description) async {
+    final url =
+        'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments/$commentId/replies/$replyId/';
+    final response = await http.patch(
+      Uri.parse(url),
+      // headers: {
+      //   'Content-Type': 'application/json',
+      //   'Authorization': 'Bearer $accessToken',
+      // },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: json.encode({
+        'description': description,
+        'image': null,
+      }),
+    );
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      final updatedReply = Reply.fromJson(json.decode(response.body));
+      final commentIndex =
+          _comments.indexWhere((comment) => comment.id == commentId);
+      if (commentIndex != -1) {
+        final replyIndex = _comments[commentIndex]
+            .replies
+            .indexWhere((reply) => reply.id == replyId);
+        if (replyIndex != -1) {
+          _comments[commentIndex].replies[replyIndex] = updatedReply;
+          notifyListeners();
+        }
+      }
+    } else {
+      _showErrorDialog(context, 'Failed to edit reply');
     }
   }
 

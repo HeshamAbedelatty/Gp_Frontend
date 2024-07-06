@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/signUpPage/UserModel/UserModel.dart';
 
 const Color kprimaryColourWhite = const Color.fromARGB(255, 248, 247, 242);
-const Color kprimaryColourGreen = const Color(0xFF3C8243);
+const Color kprimaryColourGreen = const Color(0xff1DAA61);
+// const Color kprimaryColourGreen = const Color(0xFF3C8243);
 const Color kprimaryColourBrown = const Color(0xFFA17740);
 const Color kprimaryColourcream = Color.fromARGB(255, 207, 185, 157);
 
