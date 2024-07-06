@@ -1,3 +1,5 @@
+import 'package:gp_screen/Pages/groups/Groupsnewwfinal/GroupsAPIfinal.dart';
+
 class Group {
   final int id;
   final String title;

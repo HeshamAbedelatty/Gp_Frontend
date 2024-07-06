@@ -43,6 +43,27 @@ class ListGroupsModel {
   }
 }
 
+class UserGroup {
+  final ListGroupsModel group;
+  final bool isOwner;
+  final bool isAdmin;
+
+  UserGroup({
+    required this.group,
+    required this.isOwner,
+    required this.isAdmin,
+  });
+
+  factory UserGroup.fromJson(Map<String, dynamic> json) {
+    return UserGroup(
+      group: ListGroupsModel.fromJson(json['group']),
+      isOwner: json['is_owner'],
+      isAdmin: json['is_admin'],
+    );
+  }
+}
+
+
 class GroupsProvider with ChangeNotifier {
   final String token;
   List<ListGroupsModel> _groups = [];

@@ -25,7 +25,7 @@ class UserGroupsScreen extends StatelessWidget {
                   itemBuilder: (ctx, index) {
                     final userGroup = groupProvider.userGroups[index];
                     return ListTile(
-                      leading: Image.network(userGroup.group.image),
+                      leading: Image.network(userGroup.group.image!),
                       title: Text(userGroup.group.title),
                       subtitle: Text(userGroup.group.description),
                     );
