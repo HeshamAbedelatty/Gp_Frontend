@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/groups/Groupsnewwfinal/bgddfinalgroupinside.dart';
+import 'package:gp_screen/Pages/apis/MyGroups/GroupListProvider.dart';
+import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/bgddfinalgroupinside.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
-import 'package:gp_screen/Pages/groups/myGroups/GroupListProvider.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 // import 'group_provider.dart';

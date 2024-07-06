@@ -1,14 +1,14 @@
 // ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, avoid_print
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Pages/apis/CommentsProvider.dart';
+import 'package:gp_screen/Pages/apis/MyGroups/GroupListProvider.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
-import 'package:gp_screen/Pages/groups/MaterialsSearch/ProviderMaterial.dart';
+import 'package:gp_screen/Pages/apis/ProviderMaterial.dart';
 import 'package:gp_screen/Pages/apis/GroupsAPIfinal.dart';
-import 'package:gp_screen/Pages/groups/Groupsnewwfinal/bgddfinalgroupinside.dart';
-import 'package:gp_screen/Pages/groups/Materialsscreen/apiOfMaterials.dart';
-import 'package:gp_screen/Pages/groups/myGroups/GroupListProvider.dart';
+import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/bgddfinalgroupinside.dart';
+import 'package:gp_screen/Pages/apis/apiOfMaterials.dart';
 import 'package:gp_screen/Pages/groups/myGroups/UserGroupsScreen.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/CommentsProvider.dart';
 import 'package:gp_screen/Pages/apis/posts/PostProviderrrrr.dart';
 import 'package:gp_screen/Pages/groups/search/searchUiGroups.dart';
 import 'package:gp_screen/Pages/apis/searchGroupProvider.dart';

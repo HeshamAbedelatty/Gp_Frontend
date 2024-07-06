@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/groups/Materialsscreen/Materials.dart';
+import 'package:gp_screen/Pages/groups/Materialsscreen/ui/Materials.dart';
 import 'package:http/http.dart' as http;
 
 

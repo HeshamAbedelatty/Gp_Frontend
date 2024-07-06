@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_constructors_in_immutables, unused_field, prefer_final_fields, avoid_print
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
-import 'package:gp_screen/Pages/groups/Groupsnewwfinal/bgddfinalgroupinside.dart';
+import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/bgddfinalgroupinside.dart';
 import 'package:gp_screen/Pages/apis/searchGroupProvider.dart';
 import 'package:gp_screen/Pages/apis/listGroup/getAPIListGroups.dart';
 import 'package:gp_screen/Pages/apis/ModellistGroups.dart';

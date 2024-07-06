@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/cmodel.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/Commentmodel.dart';
 import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 

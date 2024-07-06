@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/groups/MaterialsSearch/ModelMaterial.dart';
+import 'package:gp_screen/Pages/groups/Materialsscreen/Model/ModelMaterial.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
