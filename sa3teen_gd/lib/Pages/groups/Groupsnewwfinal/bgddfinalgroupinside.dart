@@ -224,14 +224,20 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                     colory: kprimaryColourcream,
                                     buttonText: 'Materials',
                                     onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => MaterialsPage(
-                                              groupID: group.id,
-                                              id: group.id,
-                                            ),
-                                          ));
+                                       Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MaterialsScreen(groupId: group.id, token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+              ),
+            );
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (context) => MaterialsPage(
+                                      //         groupID: group.id,
+                                      //         id: group.id,
+                                      //       ),
+                                      //     ));
 
                                       print('Files button clicked!');
                                     },

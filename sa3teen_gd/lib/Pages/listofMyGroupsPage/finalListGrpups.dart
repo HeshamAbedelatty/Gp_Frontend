@@ -6,6 +6,7 @@ import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
 import 'package:gp_screen/Pages/groups/MaterialsSearch/ProviderMaterial.dart';
 import 'package:gp_screen/Pages/groups/Groupsnewwfinal/GroupsAPIfinal.dart';
 import 'package:gp_screen/Pages/groups/Groupsnewwfinal/bgddfinalgroupinside.dart';
+import 'package:gp_screen/Pages/groups/Materialsscreen/apiOfMaterials.dart';
 import 'package:gp_screen/Pages/groups/myGroups/GroupListProvider.dart';
 import 'package:gp_screen/Pages/groups/myGroups/UserGroupsScreen.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/commentsnewwwwww/CommentsProvider.dart';
@@ -366,6 +367,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GroupProvider()),
         ChangeNotifierProvider(create: (_) => MaterialProvider()),
         ChangeNotifierProvider(create: (_) => MyGroupProvider()),
+        ChangeNotifierProvider(
+      create: (context) => MaterialsProvider(),
+      // child: MyApp(),
+    ),
       ],
       child: MaterialApp(
         home: GroupsScreen(
