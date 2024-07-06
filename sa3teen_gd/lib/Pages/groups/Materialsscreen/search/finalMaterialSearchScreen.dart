@@ -1,16 +1,10 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
-// import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
-import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
-// import 'material_provider.dart';
-// import 'material_model.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/APIsSalma/ProviderMaterial.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MaterialSearchScreen extends StatefulWidget {
@@ -54,7 +48,7 @@ class _MaterialSearchScreenState extends State<MaterialSearchScreen> {
                 if (provider.errorMessage != null) {
                   return Center(child: Text('Error: ${provider.errorMessage}'));
                 } else if (provider.materials.isEmpty) {
-                  return Center(child: Text('No materials found'));
+                  return const Center(child: Text('No materials found'));
                 } else {
                   return ListView.builder(
                     itemCount: provider.materials.length,
@@ -134,136 +128,3 @@ class _MaterialSearchScreenState extends State<MaterialSearchScreen> {
     );
   }
 }
-
-
-// class MaterialSearchScreen extends StatefulWidget {
-//   @override
-//   _MaterialSearchScreenState createState() => _MaterialSearchScreenState();
-// }
-
-// class _MaterialSearchScreenState extends State<MaterialSearchScreen> {
-//   final TextEditingController _searchController = TextEditingController();
-//   int _groupId =6; // Replace with actual groupId as needed
-// String token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU';
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Search Materials'),
-//       ),
-//       body: Column(
-//         children: [
-//           Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child:TextField(
-//               controller: _searchController,
-//               decoration: InputDecoration(
-//                 labelText: 'Search',
-//               ),
-//               onChanged: (value) {
-//                 Provider.of<MaterialProvider>(context, listen: false)
-//                     .fetchMaterials(_groupId, value,token);
-//               },
-//             ),
-//           ),
-         
-//           Expanded(
-//             child: Consumer<MaterialProvider>(
-//               builder: (context, provider, child) {
-//                 if (provider.errorMessage != null) {
-//                   return Center(child: Text('Error: ${provider.errorMessage}'));
-//                 } else if (provider.materials.isEmpty) {
-//                   return Center(child: Text('No materials found'));
-//                 } else {
-//                   return ListView.builder(
-//                     itemCount: provider.materials.length,
-//                     itemBuilder: (context, index) {
-//                       final material = provider.materials[index];
-//                       return ListTile(
-//                         title: Text(material.title),
-//                         subtitle: Text('Uploaded by ${material.user.username}'),
-//                         trailing: Image.network(material.user.image),
-//                         onTap: () {
-//                           // Handle tap, e.g., open material
-//                         },
-//                       );
-//                     },
-//                   );
-//                 }
-//               },
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// // import 'package:flutter/material.dart';
-// // import 'package:gp_screen/Pages/groups/MaterialsSearch/new/MaterialProvider.dart';
-// // import 'package:provider/provider.dart';
-
-
-// // class MaterialSearchScreen extends StatefulWidget {
-// //   @override
-// //   _MaterialSearchScreenState createState() => _MaterialSearchScreenState();
-// // }
-
-// // class _MaterialSearchScreenState extends State<MaterialSearchScreen> {
-// //   final TextEditingController _searchController = TextEditingController();
-// //   int _groupId = 6; // Replace with actual groupId as needed
-// // String token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU';
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Scaffold(
-// //       appBar: AppBar(
-// //         title: Text('Search Materials'),
-// //       ),
-// //       body: Column(
-// //         children: [
-// //           Padding(
-// //             padding: const EdgeInsets.all(8.0),
-// //             child: TextField(
-// //               controller: _searchController,
-// //               decoration: InputDecoration(
-// //                 labelText: 'Search',
-// //                 suffixIcon: IconButton(
-// //                   icon: Icon(Icons.search),
-// //                   onPressed: () {
-// //                     final title = _searchController.text;
-// //                     Provider.of<MaterialProvider>(context, listen: false)
-// //                         .fetchMaterials(_groupId, title, token);
-// //                   },
-// //                 ),
-// //               ),
-// //             ),
-// //           ),
-// //           Expanded(
-// //             child: Consumer<MaterialProvider>(
-// //               builder: (context, provider, child) {
-// //                 if (provider.materials.isEmpty) {
-// //                   return Center(child: Text('No materials found'));
-// //                 } else {
-// //                   return ListView.builder(
-// //                     itemCount: provider.materials.length,
-// //                     itemBuilder: (context, index) {
-// //                       final material = provider.materials[index];
-// //                       return ListTile(
-// //                         title: Text(material.title),
-// //                         subtitle: Text('Uploaded by ${material.user.username}'),
-// //                         trailing: Image.network(material.user.image),
-// //                         onTap: () {
-// //                           // Handle tap, e.g., open material
-// //                         },
-// //                       );
-// //                     },
-// //                   );
-// //                 }
-// //               },
-// //             ),
-// //           ),
-// //         ],
-// //       ),
-// //     );
-// //   }
-// // }

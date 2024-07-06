@@ -1,10 +1,11 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/APIsSalma/MyGroups/GroupListProvider.dart';
 import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/bgddfinalgroupinside.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
-// import 'group_provider.dart';
 
 class UserGroupsScreen extends StatelessWidget {
   @override
@@ -115,17 +116,11 @@ class UserGroupsScreen extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    // Text(userGroup.group.title),
                                   ],
                                 ),
                               ),
                             ),
                           );
-                          // return ListTile(
-                          //   leading: Image.network(userGroup.group.image),
-                          //   title: Text(userGroup.group.title),
-                          //   subtitle: Text(userGroup.group.description),
-                          // );
                         },
                       ),
                     ),

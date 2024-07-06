@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, deprecated_member_use, avoid_print, sized_box_for_whitespace, use_build_context_synchronously
+
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,6 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/search/finalMaterialSearchScreen.dart';
 import 'package:gp_screen/Pages/APIsSalma/apiOfMaterials.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
-// import 'package:gp_screen/Pages/groups/Materialsscreen/materials_provider.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -42,32 +43,6 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
     }
   }
 
-  // Future<void> _uploadMaterial() async {
-  //   if (_titleController.text.isNotEmpty && _pickedFile != null) {
-  //     await Provider.of<MaterialsProvider>(context, listen: false).uploadMat(
-  //       _titleController.text,
-  //       _pickedFile,
-  //       widget.groupId,
-  //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
-  //     );
-  //     _titleController.clear();
-  //     Provider.of<MaterialsProvider>(context, listen: false).fetchMaterials(
-  //         widget.groupId,
-  //         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'
-
-  //         // widget.token
-  //         );
-  //     _titleController.clear();
-  //     setState(() {
-  //       _pickedFile = null;
-  //     });
-  //   } else {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Please enter a title and pick a file')),
-  //     );
-  //   }
-  // }
-
   Future<void> _uploadMaterial() async {
     if (_titleController.text.isNotEmpty && _pickedFile != null) {
       await Provider.of<MaterialsProvider>(context, listen: false).uploadMat(
@@ -101,7 +76,6 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -147,21 +121,31 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                       ),
                     )
                   : Container(),
-             
-               Row(
+
+              Row(
                 children: [
-                  ElevatedButton(style: ElevatedButton.styleFrom(
-                                          backgroundColor: kprimaryColourcream,
-                                        ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kprimaryColourcream,
+                    ),
                     onPressed: _pickFile,
-                    child: const Text('Pick File',style: TextStyle(color: Colors.white),),
+                    child: const Text(
+                      'Pick File',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
-                  const SizedBox(width: 8,),
-                  ElevatedButton(style: ElevatedButton.styleFrom(
-                                          backgroundColor: kprimaryColourcream,
-                                        ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kprimaryColourcream,
+                    ),
                     onPressed: _uploadMaterial,
-                    child: const Text('Upload Material',style: TextStyle(color: Colors.white),),
+                    child: const Text(
+                      'Upload Material',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ],
               ),
@@ -172,93 +156,14 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
     );
   }
 
-  void _sshowUploadDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Upload Material'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: _titleController,
-                  decoration: const InputDecoration(labelText: 'Title'),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: _pickFile,
-                child: const Text('Pick File'),
-              ),
-              ElevatedButton(
-                onPressed: _uploadMaterial,
-                child: const Text('Upload Material'),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  // void _showUploadDialog() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('Upload Material'),
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             Padding(
-  //               padding: const EdgeInsets.all(8.0),
-  //               child: TextField(
-  //                 controller: _titleController,
-  //                 decoration: InputDecoration(labelText: 'Title'),
-  //               ),
-  //             ),
-  //             ElevatedButton(
-  //               onPressed: _pickFile,
-  //               child: Text('Pick File'),
-  //             ),
-  //             _pickedFile != null
-  //                 ? Padding(
-  //                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-  //                     child: Row(
-  //                       children: [
-  //                         Text(
-  //                           'Selected File: ${_pickedFile!.path.split('/').last}',
-  //                           style: TextStyle(fontWeight: FontWeight.bold),
-  //                         ),
-  //                       ],
-  //                     ),
-  //                   )
-  //                 : Container(),
-
-  //             ElevatedButton(
-  //               onPressed: _uploadMaterial,
-  //               child: Text('Upload Material'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     final materialsProvider = Provider.of<MaterialsProvider>(context);
 
     return Scaffold(
       appBar: tabbar(),
-     
       body: Column(
         children: [
-        
           Expanded(
             child: materialsProvider.isLoading
                 ? const Center(child: CircularProgressIndicator())
@@ -329,26 +234,34 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
                                                   material.title,
                                                   style: const TextStyle(
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold),
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
-                                                const Spacer(flex: 1,),
-                                                 IconButton(
-                                            icon: const Icon(Icons.delete, color: kprimaryColourcream),
-                                            onPressed: () async {
-                                              await Provider.of<MaterialsProvider>(context, listen: false)
-                                                  .deleteMaterial(context,widget.groupId, material.id, widget.token);
-                                            },
-                                          ),
+                                                const Spacer(
+                                                  flex: 1,
+                                                ),
+                                                IconButton(
+                                                  icon: const Icon(Icons.delete,
+                                                      color:
+                                                          kprimaryColourcream),
+                                                  onPressed: () async {
+                                                    await Provider.of<
+                                                                MaterialsProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .deleteMaterial(
+                                                            context,
+                                                            widget.groupId,
+                                                            material.id,
+                                                            widget.token);
+                                                  },
+                                                ),
                                               ],
                                             ),
                                             const SizedBox(height: 5),
                                             Row(
                                               children: [
                                                 const Text('Uploaded by: '),
-                                                // CircleAvatar(
-                                                //   radius: 7,
-                                                //   backgroundImage: NetworkImage(material.user.image!),
-                                                // ),
                                                 material.user.image != null
                                                     ? CircleAvatar(
                                                         radius: 7,
