@@ -135,6 +135,44 @@ class GroupsProvider with ChangeNotifier {
     }
     return response.statusCode;
   }
+  Future<bool> deleteGroup(context,int groupId, String token) async {
+  final response = await http.delete(
+    Uri.parse('http://10.0.2.2:8000/groups/delete_patch/$groupId/'),
+    headers: {
+      'Authorization': 'Bearer $token',
+    },
+  );
+
+  if (response.statusCode == 204) {
+    _groups.removeWhere((group) => group.id == groupId);
+    notifyListeners();
+    return true;
+  } else {
+           _showErrorDialog(context, response.statusCode, response.body);
+
+    return false;
+  }
+}
+
+  //  Future<void> ddeleteGroup(context,int groupId, String token) async {
+  //   final response = await http.delete(
+  //     Uri.parse('http://10.0.2.2:8000/groups/delete_patch/$groupId/'),
+  //     headers: {
+  //       'Authorization': 'Bearer $token',
+  //     },
+  //   );
+
+  //   if (response.statusCode == 204) {
+  //     _groups.removeWhere((group) => group.id == groupId);
+  //     // getGroupById(groupId);
+  //     notifyListeners();
+  //           // _showErrorDialog(context, response.statusCode, response.body);
+
+  //   } else {
+  //      _showErrorDialog(context, response.statusCode, response.body);
+  //     // throw Exception('Failed to delete group');
+  //   }
+  // }
 }
 
 void _showErrorDialog(
@@ -142,7 +180,7 @@ void _showErrorDialog(
   showDialog(
     context: context,
     builder: (ctx) => AlertDialog(
-      title: Text('u can not edit this info'),
+      title: Text('Error'),
       content: Text(responseBody),
       actions: <Widget>[
         TextButton(

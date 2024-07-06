@@ -67,7 +67,18 @@ class _GroupsScreenState extends State<GroupsScreen> {
                       ),
                       const Spacer(
                         flex: 1,
-                      ),
+                      ),IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SearchScreen(
+                                    accessToken:
+                                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.search,color: kprimaryColourcream,)),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: kprimaryColourcream,
@@ -95,18 +106,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
                               ),
                             ],
                           )),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SearchScreen(
-                                    accessToken:
-                                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.search))
+                      
                     ],
                   ),
                 ),

@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -28,9 +29,11 @@ class CreateGroupPage extends StatefulWidget {
 class _CreateGroupPageState extends State<CreateGroupPage> {
   final _groupNameController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _subjectController = TextEditingController();
   File? _groupImage;
   final ImagePicker _picker = ImagePicker();
   String _privacy = 'public';
+  String? _password;
 
   Future<void> _pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -41,57 +44,69 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
     }
   }
 
-Future<dynamic?> _sendMessageToBackend(String title, String description,
-    String privacy, File? image, String password, String subject, String accessToken) async {
-  var uri = Uri.parse('http://10.0.2.2:8000/groups/');
-  
-  var request = http.MultipartRequest('POST', uri)
-    ..fields['title'] = title
-    ..fields['description'] = description
-    ..fields['type'] = privacy
-    ..fields['password'] = password
-    ..fields['subject'] = subject;
+  Future<bool> _sendMessageToBackend(
+      String title,
+      String description,
+      String privacy,
+      File? image,
+      String password,
+      String subject,
+      String accessToken) async {
+    var uri = Uri.parse('http://10.0.2.2:8000/groups/');
 
-  // If you need to send an image file
-  if (image != null) {
-    request.files.add(await http.MultipartFile.fromPath('image', image.path));
-  }
+    var request = http.MultipartRequest('POST', uri)
+      ..fields['title'] = title
+      ..fields['description'] = description
+      ..fields['type'] = privacy
+      ..fields['password'] = password
+      ..fields['subject'] = subject;
 
-  // Add the access token to the headers
-  request.headers['Authorization'] = 'Bearer $accessToken';
-
-  try {
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
-
-    print('Response status: ${response.statusCode}'); // Log status code
-    print('Response body: ${response.body}'); // Log response body
-
-    if (response.statusCode == 200) {
-      var jsonResponse = jsonDecode(response.body);
-      print('Request success with status: ${response.statusCode}');
-    } else {
-      print('Request failed with status: ${response.statusCode}');
-      print('Response body: ${response.body}');
+    // If you need to send an image file
+    if (image != null) {
+      request.files.add(await http.MultipartFile.fromPath('image', image.path));
     }
-  } catch (e) {
-    print('Error sending message: $e');
+
+    // Add the access token to the headers
+    request.headers['Authorization'] = 'Bearer $accessToken';
+
+    try {
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      print('Response status: ${response.statusCode}'); // Log status code
+      print('Response body: ${response.body}'); // Log response body
+
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        print('Request success with status: ${response.statusCode}');
+        return true;
+      } else {
+        print('Request failed with status: ${response.statusCode}');
+        print('Response body: ${response.body}');
+        return false;
+      }
+    } catch (e) {
+      print('Error sending message: $e');
+    }
+    return true;
   }
-  return null;
-}
 
   void _createGroup() {
-    String accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjE1ODc5LCJpYXQiOjE3MTkzMTk4NzksImp0aSI6IjBlYTlhMWQ1NTVjNDQzNmZiZDYzN2ExZWY5NDU0ZDQ5IiwidXNlcl9pZCI6NX0.j06_cCptq8jr7D9cbiUoVLJWB_OLzD-4ZASLMDJmtdwn';
+    String accessToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU';
+    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNjE1ODc5LCJpYXQiOjE3MTkzMTk4NzksImp0aSI6IjBlYTlhMWQ1NTVjNDQzNmZiZDYzN2ExZWY5NDU0ZDQ5IiwidXNlcl9pZCI6NX0.j06_cCptq8jr7D9cbiUoVLJWB_OLzD-4ZASLMDJmtdwn';
 
     final groupName = _groupNameController.text;
     final description = _descriptionController.text;
+    final subject = _subjectController.text;
     final groupImage = _groupImage;
     final privacy = _privacy;
-    File? image =groupImage;
+    final String? password = _password;
+    File? image = groupImage;
     // Handle group creation logic here
-    _sendMessageToBackend( groupName, description,
-       privacy,  image, '2000', groupName,accessToken) ;
-    
+
+    _sendMessageToBackend(groupName, description, privacy, image, '2000',
+        subject, accessToken);
 
     // For demonstration purposes, we'll just print the values
     print('Group Name: $groupName');
@@ -110,20 +125,18 @@ Future<dynamic?> _sendMessageToBackend(String title, String description,
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:const Text('Create Group'),
-      ),
+      appBar: tabbar(),
       body: Padding(
-        padding:const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             const Text(
+              const Text(
                 'Create a New Group',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-             const SizedBox(height: 16),
+              const SizedBox(height: 16),
               GestureDetector(
                 onTap: _pickImage,
                 child: _groupImage == null
@@ -144,53 +157,128 @@ Future<dynamic?> _sendMessageToBackend(String title, String description,
                         fit: BoxFit.cover,
                       ),
               ),
-             const SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextField(
                 controller: _groupNameController,
-                decoration:const InputDecoration(
-                  labelText: 'Group Name',
-                  border: OutlineInputBorder(),
+                decoration:  InputDecoration(
+                  labelText: 'Group Name',  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  // border: OutlineInputBorder(),
                 ),
               ),
-           const   SizedBox(height: 16),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _subjectController,
+                decoration:  InputDecoration(
+                  labelText: 'Subject',  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  // border: OutlineInputBorder(),
+                ),
+                // maxLines: 3,
+              ),
+              const SizedBox(height: 16),
               TextField(
                 controller: _descriptionController,
-                decoration:const InputDecoration(
+                decoration:  InputDecoration(  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                   labelText: 'Description',
-                  border: OutlineInputBorder(),
+                  // border: OutlineInputBorder(),
                 ),
-                maxLines: 3,
+                maxLines: 2,
               ),
-             const SizedBox(height: 16),
-             const Text(
+
+              const SizedBox(height: 16),
+              if (_privacy == 'private')
+                TextFormField(
+                  initialValue: _password,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a password';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _password = value!;
+                  },
+                ),
+              const SizedBox(height: 10),
+              const Text(
                 'Privacy',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              RadioListTile(
-                title: const Text('Public'),
-                value: 'public',
-                groupValue: _privacy,
-                onChanged: (value) {
-                  setState(() {
-                    _privacy = value.toString();
-                  });
-                },
-              ),
-              RadioListTile(
-                title: const Text('Private'),
-                value: 'private',
-                groupValue: _privacy,
-                onChanged: (value) {
-                  setState(() {
-                    _privacy = value.toString();
-                  });
-                },
-              ),
-             const SizedBox(height: 16),
+              // RadioListTile(
+              //   title: const Text('Public'),
+              //   value: 'public',
+              //   groupValue: _privacy,
+              //   onChanged: (value) {
+              //     setState(() {
+              //       _privacy = value.toString();
+              //     });
+              //   },
+              // ),
+              // RadioListTile(
+              //   title: const Text('Private'),
+              //   value: 'private',
+              //   groupValue: _privacy,
+              //   onChanged: (value) {
+              //     setState(() {
+              //       _privacy = value.toString();
+              //     });
+              //   },
+              // ),
+
+              Row(children: [
+                Expanded(
+                  child: ListTile(
+                    title: const Text('Public'),
+                    leading: Radio<String>(
+                      value: 'public',
+                      groupValue: _privacy,
+                      onChanged: (value) {
+                        setState(() {
+                          _privacy = value!;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ListTile(
+                    title: const Text('Private'),
+                    leading: Radio<String>(
+                      value: 'private',
+                      groupValue: _privacy,
+                      onChanged: (value) {
+                        setState(() {
+                          _privacy = value!;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ]),
+              const SizedBox(height: 10),
               Center(
-                child: ElevatedButton(
+                child: ElevatedButton( style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(320, 48),
+                        backgroundColor: const Color(
+                            0xFF3C8243), // Hex color code for the button
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              100.0), // Adjust the border radius as needed
+                        ),
+                      ),
                   onPressed: _createGroup,
-                  child:const Text('Create Group'),
+                  child: const Text('Create Group',style: TextStyle(color: Colors.white),),
                 ),
               ),
             ],

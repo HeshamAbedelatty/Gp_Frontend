@@ -70,7 +70,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
             padding: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('lib/assets/icons/back1.jpeg'),
+                image: AssetImage('lib/assets/back1.jpeg'),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.circular(10.0),

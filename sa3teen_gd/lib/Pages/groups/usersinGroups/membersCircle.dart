@@ -24,11 +24,11 @@ class GroupUsersOverviewPage extends StatelessWidget {
           } else {
             List<GroupUsers> users = snapshot.data!;
 
-            if (users.length == 1) {
-              return const Center(
-                child: Text('Only one user found.'),
-              );
-            } else {
+            // if (users.length == 1) {
+            //   return const Center(
+            //     child: Text('Only one user found.'),
+            //   );
+            // } else {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -65,7 +65,7 @@ class GroupUsersOverviewPage extends StatelessWidget {
               );
             }
           }
-        },
+        // },
       ),
     );
   }
