@@ -29,21 +29,59 @@ class GroupUsersOverviewPage extends StatelessWidget {
             //     child: Text('Only one user found.'),
             //   );
             // } else {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ...users.take(4).map((user) {
-                    return CircleAvatar(
-                      backgroundColor: kprimaryColourcream,
-                      backgroundImage:
-                          user.image != null ? NetworkImage(user.image!) : null,
-                      child: user.image == null ? Text(user.username[0]) : null,
-                    );
-                  }).toList(),
-                  if (users.length > 1)
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: GestureDetector(
+//               return Stack(
+//   children: [
+//     ...List.generate(users.take(4).length, (index) {
+//       var user = users[index];
+//       return Positioned(
+//         left: index * 20.0, // Adjust the spacing as needed
+//         child: CircleAvatar(
+//           backgroundColor: kprimaryColourcream,
+//           backgroundImage: user.image != null ? NetworkImage(user.image!) : null,
+//           child: user.image == null ? Text(user.username[0]) : null,
+//         ),
+//       );
+//     }),
+//     if (users.length > 1)
+//       Positioned(
+//         left: users.take(4).length * 20.0, // Adjust the position as needed
+//         child: GestureDetector(
+//           onTap: () {
+//             Navigator.push(
+//               context,
+//               MaterialPageRoute(
+//                 builder: (context) => GroupUsersPage(
+//                   id: id,
+//                   token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU',
+//                 ),
+//               ),
+//             );
+//           },
+//           child: const CircleAvatar(
+//             backgroundColor: kprimaryColourcream,
+//             child: Icon(Icons.more_horiz, size: 28,),
+//           ),
+//         ),
+//       ),
+//   ],
+// );   
+              
+            return  Stack(
+                children: [Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ...users.take(4).map((user) {
+                      return Positioned(left: 100 * 20.0,
+                        child: CircleAvatar(
+                          backgroundColor: kprimaryColourcream,
+                          backgroundImage:
+                              user.image != null ? NetworkImage(user.image!) : null,
+                          child: user.image == null ? Text(user.username[0]) : null,
+                        ),
+                      );
+                    }).toList(),
+                    if (users.length > 1)
+                      GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
@@ -57,11 +95,11 @@ class GroupUsersOverviewPage extends StatelessWidget {
                         },
                         child: const CircleAvatar(
                           backgroundColor: kprimaryColourcream,
-                          child: Icon(Icons.add),
+                          child: Icon(Icons.more_horiz,size: 28,),
                         ),
                       ),
-                    ),
-                ],
+                  ],
+                ),]
               );
             }
           }

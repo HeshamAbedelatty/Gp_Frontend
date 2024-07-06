@@ -138,6 +138,75 @@ class PostProvider with ChangeNotifier {
       _showErrorDialog(context, 'Failed to edit post');
     }
   }
+
+  Future<void> likePost(context, int postid, int groupId) async {
+    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postid/like/';
+    const accessToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.body);
+        await ApiService().getPosts(groupId,
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
+        notifyListeners();
+      } else {
+        print(response.statusCode);
+        print(response.body);
+        _showErrorDialog(context, 'Failed to LIKE post');
+        print('Failed to like post');
+      }
+    } catch (e) {
+      print('Error liking post: ${e.toString()} ');
+    }
+  }
+
+  Future<void> unlikePost(context, int postid, int groupId) async {
+    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/${postid}/unlike/';
+    const accessToken =
+        // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      // print(response.body);
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.body);
+        print('UNLIKE BUTTON');
+
+        // await ApiService().getPosts(groupId,
+        //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
+        notifyListeners();
+        // setState(() {
+        //   post.userHasLiked = false;
+        //   post.likes -= 1;
+        // });
+      } else {
+        print('Failed to unlike post');
+        print(response.statusCode);
+        print(response.body);
+      }
+    } catch (e) {
+      print('Error unliking post: $e');
+    }
+  }
 }
 
 void _showErrorDialog(BuildContext context, String message) {

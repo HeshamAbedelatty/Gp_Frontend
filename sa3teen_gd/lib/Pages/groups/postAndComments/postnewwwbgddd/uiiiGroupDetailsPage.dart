@@ -51,35 +51,35 @@ class _PostListState extends State<PostList> {
         .fetchPosts(widget.groupId));
   }
 
-  Future<void> likePost(int postid, int groupId) async {
-    final url = 'http://10.0.2.1:8000/groups/$groupId/posts/${postid}/like/';
-    const accessToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
+  // Future<void> likePost(int postid, int groupId) async {
+  //   final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postid/like/';
+  //   const accessToken =
+  //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
 
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: {
-          'Authorization': 'Bearer $accessToken',
-          'Content-Type': 'application/json',
-        },
-      );
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(url),
+  //       headers: {
+  //         'Authorization': 'Bearer $accessToken',
+  //         'Content-Type': 'application/json',
+  //       },
+  //     );
 
-      if (response.statusCode == 200) {
-        print(response.statusCode);
-        print(response.body);
-      } else {
-        print(response.statusCode);
-        print(response.body);
-        print('Failed to like post');
-      }
-    } catch (e) {
-      print('Error liking post: $e');
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       print(response.statusCode);
+  //       print(response.body);
+  //     } else {
+  //       print(response.statusCode);
+  //       print(response.body);
+  //       print('Failed to like post');
+  //     }
+  //   } catch (e) {
+  //     print('Error liking post: ${e.toString()} ');
+  //   }
+  // }
 
   // Future<void> unlikePost(int postid, int groupId) async {
-  //   final url = 'http://10.0.2.1:8000/groups/$groupId/posts/${postid}/unlike/';
+  //   final url = 'http://10.0.2.2:8000/groups/$groupId/posts/${postid}/unlike/';
   //   const accessToken =
   //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
   //   // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
@@ -238,8 +238,15 @@ class _PostListState extends State<PostList> {
                                       kprimaryColourcream, // Use your preferred color
                                   icon: const Icon(
                                       Icons.thumb_up_off_alt_outlined,color: kprimaryColourcream,),
-                                  onPressed: () {
-                                    likePost(post.id, widget.groupId);
+                                  onPressed: ()async {
+
+                                    await Provider.of<PostProvider>(context,
+                                          listen: false)
+                                      .likePost(
+                                          context, post.id,widget.groupId);
+                                           Provider.of<PostProvider>(context, listen: false)
+                      .fetchPosts(widget.groupId);
+                                    // likePost(post.id, widget.groupId);
                                   },
                                 ),
                               if (post.userHasLiked)
@@ -248,8 +255,16 @@ class _PostListState extends State<PostList> {
                                   color:
                                       Colors.green, // Use your preferred color
                                   icon: const Icon(Icons.thumb_up),
-                                  onPressed: () {
-                                    likePost(post.id, widget.groupId);
+                                    onPressed: ()async {
+
+                                    await Provider.of<PostProvider>(context,
+                                          listen: false)
+                                      .unlikePost(
+                                          context, post.id,widget.groupId);
+
+                                           Provider.of<PostProvider>(context, listen: false)
+                      .fetchPosts(widget.groupId);
+                                    // likePost(post.id, widget.groupId);
                                   },
                                 ),
                               Text('${post.likes} likes'),
@@ -347,6 +362,20 @@ class _PostListState extends State<PostList> {
       ),
     );
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // void s_showEditDialog(BuildContext context, Post post) {
   //   final TextEditingController descriptionController =
@@ -382,4 +411,4 @@ class _PostListState extends State<PostList> {
   //     ),
   //   );
   // }
-}
+

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -143,10 +144,10 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                     ? Container(
                         width: double.infinity,
                         height: 150,
-                        color: Colors.grey[300],
+                        color: Colors.grey[200],
                         child: Icon(
                           Icons.add_a_photo,
-                          color: Colors.grey[800],
+                          color: kprimaryColourcream,
                           size: 50,
                         ),
                       )
