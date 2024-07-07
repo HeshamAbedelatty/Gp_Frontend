@@ -165,10 +165,13 @@ class _CommentItemState extends State<CommentItem> {
                           children: [
                             Text(
                               '     ${widget.comment.user.username}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.bold),
                             ),
-                            Spacer(flex: 1,), IconButton(
+                            const Spacer(
+                              flex: 1,
+                            ),
+                            IconButton(
                               icon: Icon(
                                 _showReplies
                                     ? Icons.expand_less
@@ -181,7 +184,7 @@ class _CommentItemState extends State<CommentItem> {
                                 });
                               },
                             ),
-                              CommentActions(
+                            CommentActions(
                               groupId: widget.groupId,
                               postId: widget.postId,
                               commentId: widget.comment.id,
@@ -197,7 +200,6 @@ class _CommentItemState extends State<CommentItem> {
                                 _showEditDialog(context, widget.comment);
                               },
                             ),
-                            
                           ],
                         ),
                         const SizedBox(
@@ -207,12 +209,14 @@ class _CommentItemState extends State<CommentItem> {
                           children: [
                             Text(
                               '     ${widget.comment.description}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 17,
                               ),
-                            ), 
-                            Spacer(flex: 1,),
-                              if (!widget.comment.userHasLiked)
+                            ),
+                            const Spacer(
+                              flex: 1,
+                            ),
+                            if (!widget.comment.userHasLiked)
                               IconButton(
                                 padding: EdgeInsets.zero,
                                 color:
@@ -255,47 +259,12 @@ class _CommentItemState extends State<CommentItem> {
                                   // likePost(post.id, widget.groupId);
                                 },
                               ),
-                              Text('${widget.comment.likes} Likes'),
+                            Text('${widget.comment.likes} Likes'),
                           ],
                         ),
-                        // const Spacer(
-                        //   flex: 1,
-                        // ),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                           
-                            //     IconButton(
-                            //   icon: const Icon(size: 20,
-                            //     Icons.delete,
-                            //     color: kprimaryColourcream,
-                            //   ),
-                            //   onPressed: () async {
-                            //     await Provider.of<CommentsProvider>(context,
-                            //             listen: false)
-                            //         .deleteComment(context, widget.groupId,
-                            //             widget.postId, widget.comment.id);
-                            //   },
-                            // ),
-                            // IconButton(
-                            //   icon: const Icon(size: 20,
-                            //     Icons.edit,
-                            //     color: kprimaryColourcream,
-                            //   ),
-                            //   onPressed: () {
-                            //     _showEditDialog(context, widget.comment);
-                            //   },
-                            // ),
-//                         CommentActions(
-//   groupId: widget.groupId,
-//   postId: widget.postId,
-//   comment: widget.comment,
-// ),
-
-                          
-
-                         
-                          ],
+                          children: [],
                         ),
                       ],
                     ),
@@ -338,8 +307,10 @@ class _CommentItemState extends State<CommentItem> {
                                 Row(
                                   children: [
                                     Text('  ${reply.user.username}'),
-                                    Spacer(flex: 1,),
-                                  CommentActions(
+                                    const Spacer(
+                                      flex: 1,
+                                    ),
+                                    CommentActions(
                                       groupId: widget.groupId,
                                       postId: widget.postId,
                                       commentId: widget.comment.id,
@@ -357,7 +328,8 @@ class _CommentItemState extends State<CommentItem> {
                                         _showEditReplyDialog(
                                             context, widget.comment, reply);
                                       },
-                                    ),],
+                                    ),
+                                  ],
                                 ),
                                 Row(
                                   children: [
@@ -365,42 +337,13 @@ class _CommentItemState extends State<CommentItem> {
                                     const Spacer(
                                       flex: 1,
                                     ),
-
-                                    
-
-                                    // IconButton(
-                                    //   icon: const Icon(
-                                    //     Icons.delete,
-                                    //     color: kprimaryColourcream,
-                                    //   ),
-                                    //   onPressed: () async {
-                                    //     await Provider.of<CommentsProvider>(
-                                    //             context,
-                                    //             listen: false)
-                                    //         .deleteReply(
-                                    //             context,
-                                    //             widget.groupId,
-                                    //             widget.postId,
-                                    //             widget.comment.id,
-                                    //             reply.id);
-                                    //   },
-                                    // ),
-                                    // IconButton(
-                                    //   icon: const Icon(
-                                    //     Icons.edit,
-                                    //     color: kprimaryColourcream,
-                                    //   ),
-                                    //   onPressed: () {
-                                    //     _showEditReplyDialog(
-                                    //         context, widget.comment, reply);
-                                    //   },
-                                    // ),
                                     if (!reply.userHasLiked)
                                       IconButton(
                                         padding: EdgeInsets.zero,
                                         color:
                                             kprimaryColourcream, // Use your preferred color
-                                        icon: const Icon(size: 20,
+                                        icon: const Icon(
+                                          size: 20,
                                           Icons.thumb_up_off_alt_outlined,
                                           color: kprimaryColourcream,
                                         ),
@@ -423,7 +366,10 @@ class _CommentItemState extends State<CommentItem> {
                                         padding: EdgeInsets.zero,
                                         color: Colors
                                             .green, // Use your preferred color
-                                        icon: const Icon(Icons.thumb_up,size: 20,),
+                                        icon: const Icon(
+                                          Icons.thumb_up,
+                                          size: 20,
+                                        ),
                                         onPressed: () async {
                                           await Provider.of<PostProvider>(
                                                   context,
@@ -439,7 +385,7 @@ class _CommentItemState extends State<CommentItem> {
                                           // likePost(post.id, widget.groupId);
                                         },
                                       ),
-                                      Text('${reply.likes} Likes')
+                                    Text('${reply.likes} Likes')
                                   ],
                                 ),
                               ],
