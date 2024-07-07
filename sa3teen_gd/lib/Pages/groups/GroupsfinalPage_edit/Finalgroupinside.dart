@@ -218,7 +218,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                               
                                   RoundedButton(
                                     height: 40,
-                                    width: 75,
+                                    width: 110,
                                     colory: kprimaryColourGreen,
                                     buttonText: 'delete',
                                     onPressed: () async {
@@ -242,23 +242,23 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                       print('Event button clicked!');
                                     },
                                   ),
-                                  const SizedBox(width: 16),
-                                  RoundedButton(
-                                    height: 40,
-                                    width: 110,
-                                    colory: kprimaryColourcream,
-                                    buttonText: 'Posts',
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => PostList(
+                                  // const SizedBox(width: 16),
+                                  // RoundedButton(
+                                  //   height: 40,
+                                  //   width: 110,
+                                  //   colory: kprimaryColourcream,
+                                  //   buttonText: 'Posts',
+                                  //   onPressed: () {
+                                  //     Navigator.push(
+                                  //         context,
+                                  //         MaterialPageRoute(
+                                  //           builder: (context) => PostList(
                                              
-                                              groupId: widget.groupId,
-                                            ),
-                                          ));
-                                    },
-                                  ),
+                                  //             groupId: widget.groupId,
+                                  //           ),
+                                  //         ));
+                                  //   },
+                                  // ),
                                 ],
                               ),
                             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/APIsSalma/posts/PostProviderrrrr.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -83,12 +84,33 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           : Image.file(_image!, height: 150),
                       const SizedBox(height: 16),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(190, 48),
+                          backgroundColor:
+                              kprimaryColourGreen, // Hex color code for the button
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                100.0), // Adjust the border radius as needed
+                          ),
+                        ),
                         onPressed: _pickImage,
-                        child: const Text('Pick Image if u want'),
+                        child: const Text(
+                          'Pick Image if u want',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                       const SizedBox(height: 16),
                       ElevatedButton(
-                        style: const ButtonStyle(),
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(190, 48),
+                          backgroundColor:
+                              kprimaryColourGreen, // Hex color code for the button
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                100.0), // Adjust the border radius as needed
+                          ),
+                        ),
+                        // style: const ButtonStyle(),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
@@ -98,16 +120,18 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                               widget.accessToken,
                               _description,
                               _image,
-                            );  Provider.of<PostProvider>(context, listen: false)
-                      .fetchPosts(widget.groupId)
+                            );
+                            Provider.of<PostProvider>(context, listen: false)
+                                .fetchPosts(widget.groupId)
                                 .then((_) {
                               Navigator.of(context).pop();
                             });
                           }
-
-                          
                         },
-                        child: const Text('Create Post'),
+                        child: const Text(
+                          'Create Post',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ],
                   ),

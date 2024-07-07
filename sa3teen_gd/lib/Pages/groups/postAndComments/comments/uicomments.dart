@@ -306,7 +306,8 @@ class _CommentItemState extends State<CommentItem> {
                               children: [
                                 Row(
                                   children: [
-                                    Text('  ${reply.user.username}'),
+                                    Text('  ${reply.user.username}', style: const TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),),
                                     const Spacer(
                                       flex: 1,
                                     ),
@@ -333,7 +334,8 @@ class _CommentItemState extends State<CommentItem> {
                                 ),
                                 Row(
                                   children: [
-                                    Text("  ${reply.description}"),
+                                    Text("  ${reply.description}", style: const TextStyle(
+                                  fontSize: 17, )),
                                     const Spacer(
                                       flex: 1,
                                     ),
