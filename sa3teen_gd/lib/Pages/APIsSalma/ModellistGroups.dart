@@ -43,13 +43,13 @@ class listGroupsModel {
 }
 
 class getAllGroups {
-  Future<List<listGroupsModel>> getAllGroupsList(String accessToken) async {
+  Future<List<listGroupsModel>> getAllGroupsList_recommendation(String url,String accessToken) async {
     Map<String, String> headers = {
       'Authorization': 'Bearer $accessToken',
     };
 
     List<dynamic> data = await Api().get(
-      url: 'http://10.0.2.2:8000/groups/list_groups/',
+      url: 'http://10.0.2.2:8000/$url',
       headers: headers,
     );
 

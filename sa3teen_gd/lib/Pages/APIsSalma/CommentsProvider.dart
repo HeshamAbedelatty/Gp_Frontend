@@ -11,13 +11,15 @@ class CommentsProvider with ChangeNotifier {
   CommentsProvider(this.token);
 
   List<Comment> get comments => _comments;
-
+///////////////////token2
   Future<void> fetchComments(int groupId, int postId) async {
+  String  token2=        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
+
     final url =
         'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments_replies/';
     final response = await http.get(
       Uri.parse(url),
-      headers: {'Authorization': 'Bearer $token'},
+      headers: {'Authorization': 'Bearer $token2'},
     );
 
     if (response.statusCode == 200) {

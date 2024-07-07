@@ -6,7 +6,7 @@ import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
 import 'package:gp_screen/Pages/APIsSalma/ProviderMaterial.dart';
 import 'package:gp_screen/Pages/APIsSalma/GroupsAPIfinal.dart';
-import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/bgddfinalgroupinside.dart';
+import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/Finalgroupinside.dart';
 import 'package:gp_screen/Pages/APIsSalma/apiOfMaterials.dart';
 import 'package:gp_screen/Pages/groups/myGroupsPage/UserGroupsScreen.dart';
 import 'package:gp_screen/Pages/APIsSalma/posts/PostProviderrrrr.dart';
@@ -18,9 +18,13 @@ import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 
 class GroupsScreen extends StatefulWidget {
+  final String url;
+  final String pageName;
+
   final String accessToken;
 
-  GroupsScreen({required this.accessToken});
+  GroupsScreen(
+      {required this.url, required this.pageName, required this.accessToken});
 
   @override
   _GroupsScreenState createState() => _GroupsScreenState();
@@ -29,11 +33,14 @@ class GroupsScreen extends StatefulWidget {
 class _GroupsScreenState extends State<GroupsScreen> {
   late Future<List<listGroupsModel>> futureGroups;
   final TextEditingController _passwordController = TextEditingController();
+  late final String pageNamee;
 
   @override
   void initState() {
     super.initState();
-    futureGroups = getAllGroups().getAllGroupsList(widget.accessToken);
+    pageNamee = widget.pageName;
+    futureGroups = getAllGroups()
+        .getAllGroupsList_recommendation(widget.url, widget.accessToken);
   }
 
   @override
@@ -58,8 +65,8 @@ class _GroupsScreenState extends State<GroupsScreen> {
                   padding: const EdgeInsets.only(left: 8.0, right: 8),
                   child: Row(
                     children: [
-                      const Text(
-                        'Groups',
+                      Text(
+                        widget.pageName,
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),
@@ -68,6 +75,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
                       ),
                       IconButton(
                           onPressed: () {
+                            print(widget.pageName);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -81,30 +89,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
                             Icons.search,
                             color: kprimaryColourcream,
                           )),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: kprimaryColourcream,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => UserGroupsScreen(),
-                              ),
-                            );
-                          },
-                          child: const Row(
-                            children: [
-                              Text(
-                                'My Groups ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Icon(
-                                Icons.group,
-                                color: Colors.white,
-                              ),
-                            ],
-                          )),
+                    
                     ],
                   ),
                 ),
@@ -340,41 +325,41 @@ class _GroupsScreenState extends State<GroupsScreen> {
   }
 }
 
-void main() {
-  runApp(MyApp());
-}
+// void main() {
+//   runApp(MyApp());
+// }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => CommentsProvider(
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'
-              //rightup khalil
-              // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
-              ),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => GroupsProvider(
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
-        ),
-        ChangeNotifierProvider(create: (_) => PostProvider()),
-        ChangeNotifierProvider(create: (_) => GroupProvider()),
-        ChangeNotifierProvider(create: (_) => MaterialProvider()),
-        ChangeNotifierProvider(create: (_) => MyGroupProvider()),
-        ChangeNotifierProvider(
-          create: (context) => MaterialsProvider(),
-          // child: MyApp(),
-        ),
-      ],
-      child: MaterialApp(
-        home: GroupsScreen(
-          accessToken:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
-        ),
-      ),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider(
+//           create: (context) => CommentsProvider(
+//               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'
+//               //rightup khalil
+//               // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
+//               ),
+//         ),
+//         ChangeNotifierProvider(
+//           create: (context) => GroupsProvider(
+//               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+//         ),
+//         ChangeNotifierProvider(create: (_) => PostProvider()),
+//         ChangeNotifierProvider(create: (_) => GroupProvider()),
+//         ChangeNotifierProvider(create: (_) => MaterialProvider()),
+//         ChangeNotifierProvider(create: (_) => MyGroupProvider()),
+//         ChangeNotifierProvider(
+//           create: (context) => MaterialsProvider(),
+//           // child: MyApp(),
+//         ),
+//       ],
+//       child: MaterialApp(
+//         home: GroupsScreen(url: 'groups/list_groups/',
+//           accessToken:
+//               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
+//         ),
+//       ),
+//     );
+//   }
+// }

@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/APIsSalma/CommentsProvider.dart';
+import 'package:gp_screen/Pages/APIsSalma/posts/PostProviderrrrr.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/comments/Commentmodel.dart';
+import 'package:gp_screen/Pages/groups/Widgets/CommentActionsMenu.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -149,7 +151,7 @@ class _CommentItemState extends State<CommentItem> {
               Expanded(
                 child: Card(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40)),
+                      borderRadius: BorderRadius.circular(30)),
                   color: kprimaryColourWhite,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -157,16 +159,16 @@ class _CommentItemState extends State<CommentItem> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
-                          height: 2,
+                          height: 8,
                         ),
-                        Text('     ${widget.comment.user.username}'),
                         Row(
                           children: [
-                            Text('     ${widget.comment.description}'),
-                            const Spacer(
-                              flex: 1,
+                            Text(
+                              '     ${widget.comment.user.username}',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
                             ),
-                            IconButton(
+                            Spacer(flex: 1,), IconButton(
                               icon: Icon(
                                 _showReplies
                                     ? Icons.expand_less
@@ -179,27 +181,120 @@ class _CommentItemState extends State<CommentItem> {
                                 });
                               },
                             ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.delete,
-                                color: kprimaryColourcream,
-                              ),
-                              onPressed: () async {
+                              CommentActions(
+                              groupId: widget.groupId,
+                              postId: widget.postId,
+                              commentId: widget.comment.id,
+                              deleteCallback:
+                                  (context, groupId, postId, commentId) async {
                                 await Provider.of<CommentsProvider>(context,
                                         listen: false)
-                                    .deleteComment(context, widget.groupId,
-                                        widget.postId, widget.comment.id);
+                                    .deleteComment(
+                                        context, groupId, postId, commentId);
                               },
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.edit,
-                                color: kprimaryColourcream,
-                              ),
-                              onPressed: () {
+                              editCallback: (context, groupId, postId,
+                                  commentId, replyId) {
                                 _showEditDialog(context, widget.comment);
                               },
                             ),
+                            
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              '     ${widget.comment.description}',
+                              style: TextStyle(
+                                fontSize: 17,
+                              ),
+                            ), 
+                            Spacer(flex: 1,),
+                              if (!widget.comment.userHasLiked)
+                              IconButton(
+                                padding: EdgeInsets.zero,
+                                color:
+                                    kprimaryColourcream, // Use your preferred color
+                                icon: const Icon(
+                                  size: 20,
+                                  Icons.thumb_up_off_alt_outlined,
+                                  color: kprimaryColourcream,
+                                ),
+                                onPressed: () async {
+                                  await Provider.of<PostProvider>(context,
+                                          listen: false)
+                                      .likePost(context, 'comments',
+                                          widget.comment.id, widget.groupId);
+                                  await Provider.of<CommentsProvider>(context,
+                                          listen: false)
+                                      .fetchComments(
+                                          widget.groupId, widget.postId);
+                                  // likePost(post.id, widget.groupId);
+                                },
+                              ),
+                            if (widget.comment.userHasLiked)
+                              IconButton(
+                                padding: EdgeInsets.zero,
+                                color: Colors.green, // Use your preferred color
+                                icon: const Icon(
+                                  Icons.thumb_up,
+                                  size: 20,
+                                ),
+                                onPressed: () async {
+                                  await Provider.of<PostProvider>(context,
+                                          listen: false)
+                                      .unlikePost(context, 'comments',
+                                          widget.comment.id, widget.groupId);
+
+                                  await Provider.of<CommentsProvider>(context,
+                                          listen: false)
+                                      .fetchComments(
+                                          widget.groupId, widget.postId);
+                                  // likePost(post.id, widget.groupId);
+                                },
+                              ),
+                              Text('${widget.comment.likes} Likes'),
+                          ],
+                        ),
+                        // const Spacer(
+                        //   flex: 1,
+                        // ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                           
+                            //     IconButton(
+                            //   icon: const Icon(size: 20,
+                            //     Icons.delete,
+                            //     color: kprimaryColourcream,
+                            //   ),
+                            //   onPressed: () async {
+                            //     await Provider.of<CommentsProvider>(context,
+                            //             listen: false)
+                            //         .deleteComment(context, widget.groupId,
+                            //             widget.postId, widget.comment.id);
+                            //   },
+                            // ),
+                            // IconButton(
+                            //   icon: const Icon(size: 20,
+                            //     Icons.edit,
+                            //     color: kprimaryColourcream,
+                            //   ),
+                            //   onPressed: () {
+                            //     _showEditDialog(context, widget.comment);
+                            //   },
+                            // ),
+//                         CommentActions(
+//   groupId: widget.groupId,
+//   postId: widget.postId,
+//   comment: widget.comment,
+// ),
+
+                          
+
+                         
                           ],
                         ),
                       ],
@@ -234,7 +329,7 @@ class _CommentItemState extends State<CommentItem> {
                       Expanded(
                         child: Card(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
+                              borderRadius: BorderRadius.circular(30)),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -243,7 +338,26 @@ class _CommentItemState extends State<CommentItem> {
                                 Row(
                                   children: [
                                     Text('  ${reply.user.username}'),
-                                  ],
+                                    Spacer(flex: 1,),
+                                  CommentActions(
+                                      groupId: widget.groupId,
+                                      postId: widget.postId,
+                                      commentId: widget.comment.id,
+                                      replyId: reply.id,
+                                      deleteCallback: (context, groupId, postId,
+                                          commentId) async {
+                                        await Provider.of<CommentsProvider>(
+                                                context,
+                                                listen: false)
+                                            .deleteReply(context, groupId,
+                                                postId, commentId, reply.id!);
+                                      },
+                                      editCallback: (context, groupId, postId,
+                                          commentId, replyId) {
+                                        _showEditReplyDialog(
+                                            context, widget.comment, reply);
+                                      },
+                                    ),],
                                 ),
                                 Row(
                                   children: [
@@ -251,33 +365,81 @@ class _CommentItemState extends State<CommentItem> {
                                     const Spacer(
                                       flex: 1,
                                     ),
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.delete,
-                                        color: kprimaryColourcream,
+
+                                    
+
+                                    // IconButton(
+                                    //   icon: const Icon(
+                                    //     Icons.delete,
+                                    //     color: kprimaryColourcream,
+                                    //   ),
+                                    //   onPressed: () async {
+                                    //     await Provider.of<CommentsProvider>(
+                                    //             context,
+                                    //             listen: false)
+                                    //         .deleteReply(
+                                    //             context,
+                                    //             widget.groupId,
+                                    //             widget.postId,
+                                    //             widget.comment.id,
+                                    //             reply.id);
+                                    //   },
+                                    // ),
+                                    // IconButton(
+                                    //   icon: const Icon(
+                                    //     Icons.edit,
+                                    //     color: kprimaryColourcream,
+                                    //   ),
+                                    //   onPressed: () {
+                                    //     _showEditReplyDialog(
+                                    //         context, widget.comment, reply);
+                                    //   },
+                                    // ),
+                                    if (!reply.userHasLiked)
+                                      IconButton(
+                                        padding: EdgeInsets.zero,
+                                        color:
+                                            kprimaryColourcream, // Use your preferred color
+                                        icon: const Icon(size: 20,
+                                          Icons.thumb_up_off_alt_outlined,
+                                          color: kprimaryColourcream,
+                                        ),
+                                        onPressed: () async {
+                                          await Provider.of<PostProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .likePost(context, 'replies',
+                                                  reply.id, widget.groupId);
+                                          await Provider.of<CommentsProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .fetchComments(widget.groupId,
+                                                  widget.postId);
+                                          // likePost(post.id, widget.groupId);
+                                        },
                                       ),
-                                      onPressed: () async {
-                                        await Provider.of<CommentsProvider>(
-                                                context,
-                                                listen: false)
-                                            .deleteReply(
-                                                context,
-                                                widget.groupId,
-                                                widget.postId,
-                                                widget.comment.id,
-                                                reply.id);
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.edit,
-                                        color: kprimaryColourcream,
+                                    if (reply.userHasLiked)
+                                      IconButton(
+                                        padding: EdgeInsets.zero,
+                                        color: Colors
+                                            .green, // Use your preferred color
+                                        icon: const Icon(Icons.thumb_up,size: 20,),
+                                        onPressed: () async {
+                                          await Provider.of<PostProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .unlikePost(context, 'replies',
+                                                  reply.id, widget.groupId);
+
+                                          await Provider.of<CommentsProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .fetchComments(widget.groupId,
+                                                  widget.postId);
+                                          // likePost(post.id, widget.groupId);
+                                        },
                                       ),
-                                      onPressed: () {
-                                        _showEditReplyDialog(
-                                            context, widget.comment, reply);
-                                      },
-                                    ),
+                                      Text('${reply.likes} Likes')
                                   ],
                                 ),
                               ],

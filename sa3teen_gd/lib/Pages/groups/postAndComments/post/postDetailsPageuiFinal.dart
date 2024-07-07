@@ -195,7 +195,7 @@ class _PostListState extends State<PostList> {
                                     await Provider.of<PostProvider>(context,
                                             listen: false)
                                         .likePost(
-                                            context, post.id, widget.groupId);
+                                            context,'posts', post.id, widget.groupId);
                                     Provider.of<PostProvider>(context,
                                             listen: false)
                                         .fetchPosts(widget.groupId);
@@ -212,7 +212,7 @@ class _PostListState extends State<PostList> {
                                     await Provider.of<PostProvider>(context,
                                             listen: false)
                                         .unlikePost(
-                                            context, post.id, widget.groupId);
+                                            context,'posts', post.id, widget.groupId);
 
                                     Provider.of<PostProvider>(context,
                                             listen: false)
