@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:gp_screen/Pages/schedeulePage/ThePage/EditTaskScreen.dart';
 import 'package:gp_screen/Pages/schedeulePage/ThePage/addScheduleTask.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
+import 'package:provider/provider.dart';
 
 import '../../../Services/API_services.dart';
 
@@ -17,7 +18,7 @@ class Task {
   final Color color;
 
   Task({
-     this.id,
+    this.id,
     required this.title,
     required this.description,
     required this.day,
@@ -37,51 +38,13 @@ class _SchedulePageState extends State<SchedulePage> {
   DateTime _currentDate = DateTime.now();
   DateTime _selectedDate = DateTime.now();
 
-  late String _taskTitle;
-  TimeOfDay _startTime = const TimeOfDay(hour: 9, minute: 0);
-  TimeOfDay _endTime = const TimeOfDay(hour: 10, minute: 0);
-  int _remindInterval = 15; // Default reminder interval in minutes
-  Color _taskColor = Colors.yellow;
   Api_services api_services = Api_services();
-  List<Map<String, dynamic>> listSchedule = [];
+
   List<Task> _tasks = [];
-
-
-
-  List<Color> _colors = [
-    const Color.fromARGB(218, 255, 219, 88),
-    const Color.fromARGB(255, 232, 109, 101),
-    const Color.fromARGB(255, 130, 174, 250),
-    const Color.fromARGB(255, 148, 244, 150),
-    const Color.fromARGB(255, 202, 130, 250)
-  ];
-
-  int _selectedColorIndex = 0;
-
-
-
-  late TextEditingController _titleController;
-  late TextEditingController _descriptionController;
-  late TextEditingController _startTimeController;
-  late TextEditingController _endTimeController;
-  late String _taskTitleedit;
-  late String _description;
-  late String _selectedDay;
-  late TimeOfDay _startTimeedit;
-  late TimeOfDay _endTimeedit;
-
 
   int selecteditem = 0;
 
 
-
-
-
-
-  void initState() {
-    super.initState();
-    _fetchToDoList();
-  }
 
   String colorToHex(Color color) {
     return '#${color.alpha.toRadixString(16).padLeft(2, '0')}${color.red.toRadixString(16).padLeft(2, '0')}${color.green.toRadixString(16).padLeft(2, '0')}${color.blue.toRadixString(16).padLeft(2, '0')}'
@@ -100,80 +63,80 @@ class _SchedulePageState extends State<SchedulePage> {
     return DateFormat.EEEE().format(dateTime);
   }
 
-  Future<void> _fetchToDoList() async {
-    List<Map<String, dynamic>> _tasks =
-        await api_services.listSchedule(accessToken);
-    setState(() {
-      listSchedule = _tasks;
-      print(
-          'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
-      print(listSchedule[selecteditem]['day']);
+initState(){
 
-      print(
-          'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
-    });
+    super.initState();
+     _fetchToDoList();
+}
+
+  _fetchToDoList(){
+    Provider.of<Api_services>(context,listen: false).listSchedule(accessToken);
   }
-
   @override
   Widget build(BuildContext context) {
+   // final providerprocess = Provider.of<Api_services>(context);
     // Calculate the starting date to be the previous Saturday
     DateTime startingDate =
-        _currentDate.subtract(Duration(days: _currentDate.weekday - 6));
+    _currentDate.subtract(Duration(days: _currentDate.weekday - 6));
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+      body: Consumer<Api_services> (
+        builder: (context, Api_services providerprocess, child) {
+          return Stack(
             children: [
-              const CustomAppBar(
-                title: 'Schedule',
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const CustomAppBar(
+                    title: 'Schedule',
+                  ),
+                  const SizedBox(
+                    height: 9,
+                  ),
+                  SizedBox(
+                    height: 70, // Adjusted height for the row of day cards
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: List.generate(
+                        7,
+                            (index) =>
+                            _buildDayCard(startingDate.add(Duration(days: index))),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: providerprocess.listScheduledetails .length,
+                      itemBuilder: (context, index) {
+                        selecteditem = index;
+                        return _buildTaskCard(providerprocess.listScheduledetails[index],providerprocess);
+                      },
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(
-                height: 9,
-              ),
-              SizedBox(
-                height: 70, // Adjusted height for the row of day cards
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(
-                    7,
-                    (index) =>
-                        _buildDayCard(startingDate.add(Duration(days: index))),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF3C8243),
+                    ),
+                    onPressed: () {
+                      _showAddTaskScreen(context, null);
+                    },
+                    child: const Text(
+                      'Add lecture time',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: listSchedule.length,
-                  itemBuilder: (context, index) {
-                    selecteditem = index;
-                    return _buildTaskCard(listSchedule[index]);
-                  },
-                ),
-              ),
             ],
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF3C8243),
-                ),
-                onPressed: () {
-                  _showAddTaskScreen(context);
-                },
-                child: const Text(
-                  'Add lecture time',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-          ),
-        ],
+          );
+        }
       ),
     );
   }
@@ -210,16 +173,9 @@ class _SchedulePageState extends State<SchedulePage> {
     );
   }
 
-  Widget _buildTaskCard(listSchedule) {
+  Widget _buildTaskCard(listSchedule,providerprocess) {
     // Check if the task's date matches the day name of the selected date
     if ((listSchedule['day']) == getDayName(_selectedDate)) {
-      print('888888888888888888888888888888888888888888888888888888888');
-      print(listSchedule['day']);
-      print('888888888888888888888888888888888888888888888888888888888');
-      print(listSchedule['day']);
-
-      print('888888888888888888888888888888888888888888888888888888888');
-
       return Padding(
         padding: const EdgeInsets.only(left: 8, right: 10),
         child: Row(
@@ -242,8 +198,6 @@ class _SchedulePageState extends State<SchedulePage> {
                     ),
                   ),
                 ),
-                // const SizedBox(height: 5),
-                // End Time Card
                 Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
@@ -294,266 +248,44 @@ class _SchedulePageState extends State<SchedulePage> {
                           ],
                         ),
                       ),
-                      const Spacer(
-                        flex: 1,
-                      ),
+                      const Spacer(flex: 1),
                       IconButton(
                         icon: const Icon(Icons.edit, color: Colors.white),
                         onPressed: () async {
-                          print(listSchedule['id']);
-                          print(listSchedule['title']);
-                          print(listSchedule['day']);
-                          print(listSchedule['start_time']);
-                          print(listSchedule['end_time']);
-                          print(listSchedule['description']);
-                          print(listSchedule['reminder_time']);
-                          print(listSchedule['color']);
-
-
-
-                          // await api_services.UpdateSlot(
-                          //   listSchedule[selecteditem]['id'] as int, // Assuming Task has an id field
-                          //   _titleController.text,
-                          //   _selectedDay,
-                          //   _formatTimeOfDay(_startTime),
-                          //   _formatTimeOfDay(_endTime),
-                          //   _descriptionController.text,
-                          //   _remindInterval,
-                          //   colorToHex(_taskColor), // Convert color to string
-                          //   accessToken, // Pass the accessToken
-                          // );
-
-
-
-
-                          // AlertDialog(
-                          //   title: const Text('Edit Slot'),
-                          //   content: SingleChildScrollView(
-                          //     child: Column(
-                          //       crossAxisAlignment: CrossAxisAlignment.start,
-                          //       children: [
-                          //         Container(
-                          //           child: TextFormField(
-                          //             controller: _titleController,
-                          //             decoration: InputDecoration(
-                          //               labelText: 'Title',
-                          //               border: OutlineInputBorder(
-                          //                   borderRadius: BorderRadius.circular(10)),
-                          //               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                          //             ),
-                          //             onChanged: (value) {
-                          //               setState(() {
-                          //                 _taskTitle = value;
-                          //               });
-                          //             },
-                          //           ),
-                          //         ),
-                          //         const SizedBox(height: 10),
-                          //         Container(
-                          //           child: TextFormField(
-                          //             controller: _descriptionController,
-                          //             decoration: InputDecoration(
-                          //               labelText: 'Description',
-                          //               border: OutlineInputBorder(
-                          //                   borderRadius: BorderRadius.circular(10)),
-                          //               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                          //             ),
-                          //             onChanged: (value) {
-                          //               setState(() {
-                          //                 _description = value;
-                          //               });
-                          //             },
-                          //           ),
-                          //         ),
-                          //         const SizedBox(height: 10),
-                          //         TextFormField(
-                          //           controller: _startTimeController,
-                          //           readOnly: true,
-                          //           onTap: () => _selectTime(context, true),
-                          //           decoration: InputDecoration(
-                          //             labelText: 'Start Time',
-                          //             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                          //             suffixIcon: const Icon(Icons.access_time),
-                          //           ),
-                          //         ),
-                          //         const SizedBox(height: 10),
-                          //         TextFormField(
-                          //           controller: _endTimeController,
-                          //           readOnly: true,
-                          //           onTap: () => _selectTime(context, false),
-                          //           decoration: InputDecoration(
-                          //             labelText: 'End Time',
-                          //             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                          //             suffixIcon: const Icon(Icons.access_time),
-                          //           ),
-                          //         ),
-                          //         const SizedBox(height: 10),
-                          //         DropdownButtonFormField<String>(
-                          //           value: _selectedDay,
-                          //           items: [
-                          //             'Sunday',
-                          //             'Monday',
-                          //             'Tuesday',
-                          //             'Wednesday',
-                          //             'Thursday',
-                          //             'Friday',
-                          //             'Saturday',
-                          //           ].map((day) {
-                          //             return DropdownMenuItem<String>(
-                          //               value: day,
-                          //               child: Text(day),
-                          //             );
-                          //           }).toList(),
-                          //           onChanged: (value) {
-                          //             setState(() {
-                          //               _selectedDay = value!;
-                          //             });
-                          //           },
-                          //           decoration: const InputDecoration(labelText: 'Day'),
-                          //         ),
-                          //         const SizedBox(height: 10),
-                          //         DropdownButtonFormField<int>(
-                          //           value: _remindInterval,
-                          //           items: [5, 10, 15, 30, 60].map((interval) {
-                          //             return DropdownMenuItem<int>(
-                          //               value: interval,
-                          //               child: Text('$interval minutes'),
-                          //             );
-                          //           }).toList(),
-                          //           onChanged: (value) {
-                          //             setState(() {
-                          //               _remindInterval = value!;
-                          //             });
-                          //           },
-                          //           decoration: const InputDecoration(labelText: 'Reminder Interval'),
-                          //         ),
-                          //         const SizedBox(height: 10),
-                          //         Row(
-                          //           children: _colors
-                          //               .asMap()
-                          //               .entries
-                          //               .map(
-                          //                 (entry) => GestureDetector(
-                          //               onTap: () {
-                          //                 setState(() {
-                          //                   _selectedColorIndex = entry.key;
-                          //                   _taskColor = entry.value;
-                          //                 });
-                          //               },
-                          //               child: Container(
-                          //                 width: 40,
-                          //                 height: 40,
-                          //                 margin: const EdgeInsets.symmetric(horizontal: 5),
-                          //                 decoration: BoxDecoration(
-                          //                   shape: BoxShape.circle,
-                          //                   color: entry.value,
-                          //                   border: Border.all(
-                          //                       color: _selectedColorIndex == entry.key
-                          //                           ? Colors.black
-                          //                           : Colors.transparent),
-                          //                 ),
-                          //                 child: _selectedColorIndex == entry.key
-                          //                     ? const Icon(Icons.check, color: Colors.white)
-                          //                     : null,
-                          //               ),
-                          //             ),
-                          //           )
-                          //               .toList(),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          //   actions: <Widget>[
-                          //     TextButton(
-                          //       onPressed: () {
-                          //         Navigator.of(context).pop();
-                          //       },
-                          //       child: const Text(
-                          //         'Cancel',
-                          //         style: TextStyle(color: Color(0xFF3C8243)),
-                          //       ),
-                          //     ),
-                          //     ElevatedButton(
-                          //       style: ElevatedButton.styleFrom(
-                          //         backgroundColor: const Color(0xFF3C8243),
-                          //       ),
-                          //       onPressed: () async {
-                          //         final selectedDate = _getDateFromDay(_selectedDay);
-                          //         if (selectedDate != null && _titleController.text.isNotEmpty) {
-                          //           print('Selected Date: $selectedDate');
-                          //           print('Title: ${_titleController.text}');
-                          //           print('Description: ${_descriptionController.text}');
-                          //           print('Day: $_selectedDay');
-                          //           print('Start Time: ${_formatTimeOfDay(_startTime)}');
-                          //           print('End Time: ${_formatTimeOfDay(_endTime)}');
-                          //           print('Remind Interval: $_remindInterval');
-                          //           print('Color: ${colorToHex(_taskColor)}');
-                          //           print('Access Token: $accessToken');
-                          //
-                          //           try {
-                          //             await api_services.UpdateSlot(
-                          //               listSchedule[selecteditem]['id'] as int, // Assuming Task has an id field
-                          //               _titleController.text,
-                          //               _selectedDay,
-                          //               _formatTimeOfDay(_startTime),
-                          //               _formatTimeOfDay(_endTime),
-                          //               _descriptionController.text,
-                          //               _remindInterval,
-                          //               colorToHex(_taskColor), // Convert color to string
-                          //               accessToken, // Pass the accessToken
-                          //             );
-                          //
-                          //             // Print to verify the updated state before navigation
-                          //             print('Task updated successfully');
-                          //             Navigator.of(context).pop();
-                          //           } catch (e) {
-                          //             print('Error updating task: $e');
-                          //           }
-                          //         } else {
-                          //           print('Please select a day and enter a title');
-                          //         }
-                          //       },
-                          //       child: const Text(
-                          //         'Save',
-                          //         style: TextStyle(color: Colors.white),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // );
-
-
-
-
-                           _showEditTaskScreen(context, listSchedule);
-                          // Api_services.UpdateSlot(
-                          //     listSchedule['id'],
-                          //     ,
-                          //     listSchedule['day'],
-                          //     listSchedule['start_time'],
-                          //     listSchedule['end_time'],
-                          //     listSchedule['description'],
-                          //     listSchedule['reminder_time'],
-                          //     listSchedule['color'],
-                          //     accessToken);
+                          _showAddTaskScreen(context, listSchedule);
                         },
                       ),
                       IconButton(
                         icon: const Icon(Icons.delete, color: Colors.white),
-                        onPressed: () {
-                          //
-                          // print('111111111111111111111111111111111111111111111');
-                          // api_services.DeleteSlot(listSchedule['id'], accessToken);
-                          // print(listSchedule['id']);
-
-                          setState(() {
-                            api_services.DeleteSlot(
-                                listSchedule['id'], accessToken);
-                            print(
-                                '2222222222222222222222222222222222222222222');
-                            print(listSchedule['id']);
-                            print(
-                                '2222222222222222222222222222222222222222222');
-                          });
+                        onPressed: () async {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Confirm Delete'),
+                                content: Text('Are you sure you want to delete this slot?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // Close the dialog
+                                    },
+                                    child: Text('Cancel'),
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFF3C8243),
+                                    ),
+                                    onPressed: () async {
+                                      providerprocess.DeleteSlot(listSchedule['id'], accessToken);
+                                      // await api_services.deleteSlot(listSchedule['id'], accessToken);
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Delete'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                       ),
                     ],
@@ -561,271 +293,52 @@ class _SchedulePageState extends State<SchedulePage> {
                 ),
               ),
             ),
-            // const SizedBox(height: 8),
-            // Start Time Card
           ],
         ),
       );
-    } else {
-      // Return an empty container if the task's date does not match the selected day name
-      return Container();
     }
+    return Container(); // Return an empty container if the task's date doesn't match the selected date
   }
-
-  void _showAddTaskScreen(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AddTaskScreen(
-          onAddTask: _addTask,
-        );
-      },
-    );
-  }
-  Future<void> _selectTime(BuildContext context, bool isStartTime) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: isStartTime ? _startTime : _endTime,
-    );
-    if (picked != null) {
-      setState(() {
-        if (isStartTime) {
-          _startTime = picked;
-          _startTimeController.text = _formatTimeOfDay(_startTime);
-        } else {
-          _endTime = picked;
-          _endTimeController.text = _formatTimeOfDay(_endTime);
-        }
-      });
-    }
-  }
-  void _addTask(String title, String description, DateTime date,
-      TimeOfDay startTime, TimeOfDay endTime, int remindInterval, Color color) {
-    setState(() {
-      // Find the index of the task to be edited
-      int index = _tasks.indexWhere((task) =>
-          task.day == date &&
-          task.startTime == startTime &&
-          task.endTime == endTime);
-
-      if (index != -1) {
-        // Update the task at the found index with the new values
-        _tasks[index] = Task(
-          title: title,
-          description: description,
-          day: date,
-          startTime: startTime,
-          endTime: endTime,
-          remindInterval: remindInterval,
-          color: color,
-        );
-      } else {
-        // Add a new task if not found
-        _tasks.add(Task(
-          title: title,
-          description: description,
-          day: date,
-          startTime: startTime,
-          endTime: endTime,
-          remindInterval: remindInterval,
-          color: color,
-        ));
-      }
-    });
-  }
-
-  String _formatTime(TimeOfDay timeOfDay) {
-    final time = DateTime(1, 1, 1, timeOfDay.hour, timeOfDay.minute);
-    return DateFormat.jm().format(time);
-  }
-
-  void _showEditTaskScreen(
-      BuildContext context, Map<String, dynamic> listSchedule) {
-    // Create a new Task object from the listSchedule data
-    final task = Task(
-      id: listSchedule['id'] as int,
-      title: listSchedule['title'] as String,
-      description: listSchedule['description'] as String,
-      day: _parseDayOfWeek(
-          listSchedule['day'] ), // Parse the day of the week
-      startTime: TimeOfDay(
-        hour: int.parse(listSchedule['start_time'].split(':')[0]),
-        minute: int.parse(listSchedule['start_time'].split(':')[1]),
-      ),
-      endTime: TimeOfDay(
-        hour: int.parse(listSchedule['end_time'].split(':')[0]),
-        minute: int.parse(listSchedule['end_time'].split(':')[1]),
-      ),
-      remindInterval: listSchedule['reminder_time'] as int,
-      color: Color(
-          int.parse(listSchedule['color'].replaceAll('#', ''), radix: 16)),
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return EditTaskScreen(
-          task: task,
-          onUpdateTask: _updateTask,
-          onSaveTask: _saveTask,
-        );
-      },
-    );
-  }
-
-  DateTime _parseDayOfWeek(String dayOfWeek) {
-    final now = DateTime.now();
-    final weekdays = [
-      'Saturday',
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday'
-    ];
-    final index = weekdays.indexOf(dayOfWeek);
-    if (index == -1) {
-      throw ArgumentError('Invalid day of the week: ${dayOfWeek}');
-    }
-    return DateTime(now.year, now.month, now.day + (index - now.weekday));
-  }
-
-  // void _updateTask(Task updatedTask) {
-  //   setState(() {
-  //     Api_services.UpdateSlot(
-  //         _tasks.indexOf(updatedTask),
-  //         updatedTask.title,
-  //         getDayName(updatedTask.day),
-  //         updatedTask.startTime as String,
-  //         updatedTask.endTime as String,
-  //         updatedTask.description,
-  //         updatedTask.remindInterval,
   //
+  // void _showAddTaskScreen(BuildContext context,providerprocess) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => AddTaskScreen()),
+  //   );// Refresh the task list after adding a new task
   //
-  //         updatedTask.color as String,
-  //         accessToken);
-  //     // Find the index of the task to be updated
-  //     final index = _tasks.indexWhere((task) =>
-  //         task.day == updatedTask.day &&
-  //         task.startTime == updatedTask.startTime);
-  //
-  //     // Replace the old task with the updated one
-  //     if (index != -1) {
-  //       _tasks[index] = updatedTask;
-  //     }
-  //   });
   // }
 
-  void _updateTask(Task updatedTask) {
-    setState(() {
-      // Find the index of the task to be updated
-      final index = _tasks.indexWhere((task) =>
-          task.day == updatedTask.day &&
-          task.startTime == updatedTask.startTime);
+  void _showAddTaskScreen(BuildContext context,dynamic listSchedule) {
 
-      // Replace the old task with the updated one
-      if (index != -1) {
-        _tasks[index] = updatedTask;
-      }
-      print(
-          '88888888888888888888888888888888888888888888888888888888777777777777777777776666666666666');
+   showDialog(context: context, builder: (context)=> EditTaskScreen(
+     // onSaveTask: (String title , String day, TimeOfDay start, TimeOfDay end , int remain, Color  color)  {
+     // Add the task to the list of tasks
+     // setState(() {
+     //   _tasks.add(task);
+     //   // });
+     //   return _tasks;
+     // },
+     task: EditTask(
 
-      print(listSchedule[selecteditem]['id']);
+       id: listSchedule == null ? null :
 
-      print(_tasks.indexOf(updatedTask));
-      print(updatedTask.title);
-      print(getDayName(updatedTask.day));
-      print(_formatTimeOfDay(updatedTask.startTime));
-      print(_formatTimeOfDay(updatedTask.endTime));
-      print(updatedTask.description);
-      print(updatedTask.remindInterval);
-      print(colorToHex(updatedTask.color));
-      print(accessToken);
-      print(
-          '888888888888888888888888888888888888888888888887777777777777777777776666666666666666666  ');
-      // Update the task in the API
-      // the time didnot change
-      // the day shown in the list didnot change
-      // Api_services.UpdateSlot(
-      //   listSchedule[selecteditem]['id'],
-      //   updatedTask.title,
-      //   getDayName(_parseDayOfWeek(updatedTask.day.toString())),
-      //   _formatTimeOfDay(updatedTask.startTime),
-      //   _formatTimeOfDay(updatedTask.endTime),
-      //   updatedTask.description,
-      //   updatedTask.remindInterval,
-      //   colorToHex(updatedTask.color),
-      //   accessToken,
-      // );
-    });
-  }
+       listSchedule!['id'],
 
-  String _formatTimeOfDay(TimeOfDay timeOfDay) {
-    return '${timeOfDay.hour.toString().padLeft(2, '0')}:${timeOfDay.minute.toString().padLeft(2, '0')}';
-  }
-  DateTime? _getDateFromDay(String day) {
-    final now = DateTime.now();
-    final weekday = now.weekday;
-    final daysToAdd = _getDaysToAdd(day);
-    final selectedDate = now.add(Duration(days: daysToAdd - weekday));
-    return selectedDate;
-  }
-
-
-
-  int _getDaysToAdd(String day) {
-    switch (day) {
-      case 'Monday':
-        return DateTime.monday;
-      case 'Tuesday':
-        return DateTime.tuesday;
-      case 'Wednesday':
-        return DateTime.wednesday;
-      case 'Thursday':
-        return DateTime.thursday;
-      case 'Friday':
-        return DateTime.friday;
-      case 'Saturday':
-        return DateTime.saturday;
-      case 'Sunday':
-        return DateTime.sunday;
-      default:
-        return 0;
-    }
-  }
-  void _saveTask(String title, String description, DateTime date,
-      TimeOfDay startTime, TimeOfDay endTime, int remindInterval, Color color) {
-    setState(() {
-      // Find the index of the task to be edited
-      int index = _tasks.indexWhere((task) =>
-          task.day == date &&
-          task.startTime == startTime &&
-          task.endTime == endTime);
-
-      if (index != -1) {
-        // Update the task at the found index with the new values
-        _tasks[index] = Task(
-          title: title,
-          description: description,
-          day: date,
-          startTime: startTime,
-          endTime: endTime,
-          remindInterval: remindInterval,
-          color: color,
-        );
-      } else {
-        // Add a new task if not found
-        _tasks.add(Task(
-          title: title,
-          description: description,
-          day: date,
-          startTime: startTime,
-          endTime: endTime,
-          remindInterval: remindInterval,
-          color: color,
-        ));
-      }
-    });
+       title: listSchedule == null ? "" :
+       listSchedule['title'],
+       description:listSchedule == null ? "" : listSchedule['description'],
+       day: _selectedDate,
+       startTime: listSchedule == null ? null : TimeOfDay(
+         hour: int.parse(listSchedule['start_time'].split(':')[0]),
+         minute: int.parse(listSchedule['start_time'].split(':')[1]),
+       ),
+       endTime:listSchedule == null ? null : TimeOfDay(
+         hour: int.parse(listSchedule['end_time'].split(':')[0]),
+         minute: int.parse(listSchedule['end_time'].split(':')[1]),
+       ),
+       remindInterval: 5, // Set the remindInterval appropriately
+       color: listSchedule == null ? null : hexToColor(listSchedule['color']),
+     ),
+   ));
   }
 }

@@ -1,19 +1,35 @@
 import 'package:flutter/material.dart';
+
+
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
 
 import '../../../Services/API_services.dart';
 
-class AddTaskScreen extends StatefulWidget {
-  final Function(String, String, DateTime, TimeOfDay, TimeOfDay, int, Color)
-      onAddTask;
+class AddTaskScreen extends StatelessWidget {
 
-  const AddTaskScreen({Key? key, required this.onAddTask}) : super(key: key);
+
+  const AddTaskScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _AddTaskScreen();
+  }
+}
+
+class _AddTaskScreen extends StatefulWidget {
+
+
+  const _AddTaskScreen({Key? key}) : super(key: key);
 
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
 }
 
-class _AddTaskScreenState extends State<AddTaskScreen> {
+class _AddTaskScreenState extends State<_AddTaskScreen> {
+
+  // Function(String, String, DateTime, TimeOfDay, TimeOfDay, int, Color) onAddTask;
   late String _taskTitle;
   late String _description;
   late String _selectedDay;
@@ -39,6 +55,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return '#${color.alpha.toRadixString(16).padLeft(2, '0')}${color.red.toRadixString(16).padLeft(2, '0')}${color.green.toRadixString(16).padLeft(2, '0')}${color.blue.toRadixString(16).padLeft(2, '0')}'
         .toUpperCase();
   }
+
   Color hexToColor(String hexString) {
     hexString = hexString.replaceFirst('#', '');
     if (hexString.length == 6) {
@@ -46,7 +63,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     }
     return Color(int.parse(hexString, radix: 16));
   }
+
   int _selectedColorIndex = 0;
+  List<Map<String, dynamic>> listSchedule = [];
+  int selecteditem = 0;
 
   @override
   void initState() {
@@ -58,46 +78,45 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     _selectedDay = DateFormat('EEEE').format(DateTime.now());
   }
 
+
+
   @override
   Widget build(BuildContext context) {
+  final  providerprocess= Provider.of<Api_services>(context);
     return AlertDialog(
       title: const Text('Add Slot'),
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: TextFormField(
-                controller: _titleController,
-                decoration: InputDecoration(
-                  labelText: 'Title',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    _taskTitle = value;
-                  });
-                },
+            TextFormField(
+              controller: _titleController,
+              decoration: InputDecoration(
+                labelText: 'Title',
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
               ),
+              onChanged: (value) {
+                setState(() {
+                  _taskTitle = value;
+                });
+              },
             ),
             const SizedBox(height: 10),
-            Container(
-              child: TextFormField(
-                controller: _descriptionController,
-                decoration: InputDecoration(
-                  labelText: 'description',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    _description = value;
-                  });
-                },
+            TextFormField(
+              controller: _descriptionController,
+              decoration: InputDecoration(
+                labelText: 'Description',
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
               ),
+              onChanged: (value) {
+                setState(() {
+                  _description = value;
+                });
+              },
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -107,7 +126,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               decoration: InputDecoration(
                 labelText: 'Start Time',
                 border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                 suffixIcon: const Icon(Icons.access_time),
               ),
             ),
@@ -119,7 +138,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               decoration: InputDecoration(
                 labelText: 'End Time',
                 border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                 suffixIcon: const Icon(Icons.access_time),
               ),
             ),
@@ -170,30 +189,30 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   .entries
                   .map(
                     (entry) => GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedColorIndex = entry.key;
-                          _taskColor = entry.value;
-                        });
-                      },
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: entry.value,
-                          border: Border.all(
-                              color: _selectedColorIndex == entry.key
-                                  ? Colors.black
-                                  : Colors.transparent),
-                        ),
-                        child: _selectedColorIndex == entry.key
-                            ? const Icon(Icons.check, color: Colors.white)
-                            : null,
-                      ),
+                  onTap: () {
+                    setState(() {
+                      _selectedColorIndex = entry.key;
+                      _taskColor = entry.value;
+                    });
+                  },
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: entry.value,
+                      border: Border.all(
+                          color: _selectedColorIndex == entry.key
+                              ? Colors.black
+                              : Colors.transparent),
                     ),
-                  )
+                    child: _selectedColorIndex == entry.key
+                        ? const Icon(Icons.check, color: Colors.white)
+                        : null,
+                  ),
+                ),
+              )
                   .toList(),
             ),
           ],
@@ -209,34 +228,27 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             style: TextStyle(color: Color(0xFF3C8243)),
           ),
         ),
-        ElevatedButton(
+        TextButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF3C8243),
           ),
-          onPressed: () {
-            // Perform add task operation
+          onPressed: () async {
             final selectedDate = _getDateFromDay(_selectedDay);
-            if (selectedDate != null && _taskTitle != null) {
-              widget.onAddTask(
+            if (selectedDate != null && _taskTitle.isNotEmpty) {
+
+              providerprocess.addSchedule(
                 _taskTitle,
-                _description,
-                selectedDate,
+                _selectedDay,
                 _startTime,
                 _endTime,
+                _description,
                 _remindInterval,
-                _taskColor,
+                colorToHex(_taskColor),
+                accessToken,
               );
-              Api_services.addSchedule(
-                  _taskTitle,
-                  _selectedDay,
-                  _startTime,
-                  _endTime,
-                  _description,
-                  _remindInterval,
-                  // _taskColor as String,
-                  colorToHex(_taskColor),
-                  accessToken);
               Navigator.of(context).pop();
+              // Fetch updated todo list after adding task
+
             } else {
               print('Please select a day and enter a title');
             }
@@ -244,39 +256,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           child: const Text(
             'Add',
             style: TextStyle(color: Colors.white),
+
           ),
         ),
       ],
     );
-  }
-
-  DateTime? _getDateFromDay(String day) {
-    final now = DateTime.now();
-    final weekday = now.weekday;
-    final daysToAdd = _getDaysToAdd(day);
-    final selectedDate = now.add(Duration(days: daysToAdd - weekday));
-    return selectedDate;
-  }
-
-  int _getDaysToAdd(String day) {
-    switch (day) {
-      case 'Monday':
-        return DateTime.monday;
-      case 'Tuesday':
-        return DateTime.tuesday;
-      case 'Wednesday':
-        return DateTime.wednesday;
-      case 'Thursday':
-        return DateTime.thursday;
-      case 'Friday':
-        return DateTime.friday;
-      case 'Saturday':
-        return DateTime.saturday;
-      case 'Sunday':
-        return DateTime.sunday;
-      default:
-        return 0;
-    }
   }
 
   Future<void> _selectTime(BuildContext context, bool isStartTime) async {
@@ -284,23 +268,24 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       context: context,
       initialTime: isStartTime ? _startTime : _endTime,
     );
-    if (picked != null) {
+    if (picked != null && picked != (isStartTime ? _startTime : _endTime)) {
       setState(() {
         if (isStartTime) {
           _startTime = picked;
-          _startTimeController.text = _formatTimeOfDay(_startTime);
+          _startTimeController.text = picked.format(context);
         } else {
           _endTime = picked;
-          _endTimeController.text = _formatTimeOfDay(_endTime);
+          _endTimeController.text = picked.format(context);
         }
       });
     }
   }
 
-  String _formatTimeOfDay(TimeOfDay timeOfDay) {
+  DateTime? _getDateFromDay(String day) {
     final now = DateTime.now();
-    final dateTime = DateTime(
-        now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute);
-    return DateFormat.Hm().format(dateTime);
+    final weekday = now
+        .subtract(Duration(days: now.weekday - 1))
+        .add(Duration(days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].indexOf(day)));
+    return weekday;
   }
 }

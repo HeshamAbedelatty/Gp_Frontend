@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:gp_screen/Pages/loginPage/ThePage/LoginPage.dart';
+import 'package:gp_screen/Services/API_services.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   // Initialize any necessary setup here
@@ -21,21 +23,27 @@ class Sa3teenGd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      /*routes: {
-        LoginPage.id: (context) => LoginPage(),
-        SignUpPage.id: (context) => SignUpPage(),
-      },
-      initialRoute: LoginPage.id,*/
-      onGenerateRoute: (settings) {
-        if (settings.name == '/') {
-          return MaterialPageRoute(builder: (_) => LoginPage());
-        }
-      },
-      debugShowCheckedModeBanner: false,
-      builder: (context, child) {
-        return FlutterEasyLoading(child: child!);
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Api_services>(
+            create: (context) => Api_services())
+      ],
+      child: MaterialApp(
+        /*routes: {
+          LoginPage.id: (context) => LoginPage(),
+          SignUpPage.id: (context) => SignUpPage(),
+        },
+        initialRoute: LoginPage.id,*/
+        onGenerateRoute: (settings) {
+          if (settings.name == '/') {
+            return MaterialPageRoute(builder: (_) => LoginPage());
+          }
+        },
+        debugShowCheckedModeBanner: false,
+        builder: (context, child) {
+          return FlutterEasyLoading(child: child!);
+        },
+      ),
     );
   }
 }

@@ -1,131 +1,155 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/schedeulePage/ThePage/FinalSchedulePage.dart';
 import 'package:gp_screen/Services/API_services.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+class EditTask {
+  final int? id;
+  final String title;
+  final String description;
+  final DateTime day;
+  TimeOfDay? startTime;
+  TimeOfDay? endTime;
+  final int remindInterval;
+  Color? color;
+
+  EditTask({
+    this.id,
+    required this.title,
+    required this.description,
+    required this.day,
+    required this.startTime,
+    required this.endTime,
+    required this.remindInterval,
+    required this.color,
+  });
+}
 
 class EditTaskScreen extends StatefulWidget {
-  final Task task;
-  final Function(Task) onUpdateTask;
-  final Function(String, String, DateTime, TimeOfDay, TimeOfDay, int, Color)
-      onSaveTask;
-  const EditTaskScreen(
-      {Key? key,
-      required this.task,
-      required this.onUpdateTask,
-      required this.onSaveTask})
-      : super(key: key);
+  final EditTask task;
+
+  EditTaskScreen({
+    Key? key,
+    required this.task,
+  }) : super(key: key);
 
   @override
-  _EditTaskScreenState createState() => _EditTaskScreenState();
+  State<EditTaskScreen> createState() => _EditTaskScreenState();
 }
 
 class _EditTaskScreenState extends State<EditTaskScreen> {
-  List<Map<String, dynamic>> listSchedule = [];
-  late String _taskTitle;
-  late String _description;
-  late String _selectedDay;
-  late TimeOfDay _startTime;
-  late TimeOfDay _endTime;
-  int _remindInterval = 15; // Default reminder interval in minutes
-  late Color _taskColor;
-  Api_services api_services = Api_services();
+  final Api_services api_services = Api_services();
 
-  late TextEditingController _titleController;
-  late TextEditingController _descriptionController;
-  late TextEditingController _startTimeController;
-  late TextEditingController _endTimeController;
-
-  List<Color> _colors = [
+  final List<Color> _colors = [
     Color.fromARGB(218, 255, 219, 88),
-    const Color.fromARGB(255, 232, 109, 101),
-    const Color.fromARGB(255, 130, 174, 250),
+    Color.fromARGB(255, 232, 109, 101),
+    Color.fromARGB(255, 130, 174, 250),
     Color.fromARGB(255, 148, 244, 150),
     Color.fromARGB(255, 202, 130, 250)
   ];
-  int _selectedColorIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _titleController = TextEditingController(text: widget.task.title);
-    _descriptionController =
-        TextEditingController(text: widget.task.description);
-    _startTime = widget.task.startTime;
-    _endTime = widget.task.endTime;
-    _startTimeController =
-        TextEditingController(text: _formatTimeOfDay(_startTime));
-    _endTimeController =
-        TextEditingController(text: _formatTimeOfDay(_endTime));
-    _selectedDay = DateFormat('EEEE').format(widget.task.day);
-    _taskColor = widget.task.color;
-
-    _fetchToDoList();
-  }
-
-  Future<void> _fetchToDoList() async {
-    List<Map<String, dynamic>> _tasks =
-        await api_services.listSchedule(accessToken);
-    setState(() {
-      listSchedule = _tasks;
-      print(
-          'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
-
-      print(
-          'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
-    });
-  }
 
   String colorToHex(Color color) {
     return '#${color.alpha.toRadixString(16).padLeft(2, '0')}${color.red.toRadixString(16).padLeft(2, '0')}${color.green.toRadixString(16).padLeft(2, '0')}${color.blue.toRadixString(16).padLeft(2, '0')}'
         .toUpperCase();
   }
 
+  String _formatTimeOfDay(TimeOfDay timeOfDay) {
+    final now = DateTime.now();
+    final dateTime = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      timeOfDay.hour,
+      timeOfDay.minute,
+    );
+    return DateFormat.Hm().format(dateTime);
+  }
+
+  Future<void> _selectTime(
+      BuildContext context,
+      bool isStartTime,
+      TextEditingController timeController,
+      TimeOfDay initialTime,
+      void Function(TimeOfDay) onTimeSelected) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+    );
+    if (picked != null) {
+      onTimeSelected(picked);
+      timeController.text = _formatTimeOfDay(picked);
+    }
+  }
+
+  late TextEditingController _titleController;
+ late TextEditingController _descriptionController;
+ late TextEditingController _startTimeController;
+
+ late TextEditingController _endTimeController;
+
+  initState() {
+    super.initState();
+    _titleController = TextEditingController(text: widget.task.title);
+    _descriptionController =
+        TextEditingController(text: widget.task.description);
+
+    _startTimeController = TextEditingController(
+        text: widget.task.startTime == null
+            ? ""
+            : _formatTimeOfDay(widget.task.startTime!));
+
+    _endTimeController = TextEditingController(
+        text: widget.task.endTime == null
+            ? ""
+            : _formatTimeOfDay(widget.task.endTime!));
+    _selectedDay=DateFormat('EEEE').format(widget.task.day);
+    _remindInterval = widget.task.remindInterval;
+    _taskColor = widget.task.color;
+    _selectedColorIndex  =widget.task.color == null ? 0 : _colors.indexOf(widget.task.color!);
+
+  }
+  late String _selectedDay;
+  late int _remindInterval;
+  late Color? _taskColor;
+  late  int _selectedColorIndex;
   @override
   Widget build(BuildContext context) {
+
     return AlertDialog(
-      title: Text('Edit Slot'),
+      title: Text(widget.task.id != null ? 'Edit Slot' : 'Add Slot'),
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: TextFormField(
-                controller: _titleController,
-                decoration: InputDecoration(
-                  labelText: 'Title',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    _taskTitle = value;
-                  });
-                },
+            TextFormField(
+              controller: _titleController,
+              decoration: InputDecoration(
+                labelText: 'Title',
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                contentPadding: EdgeInsets.symmetric(horizontal: 10),
               ),
             ),
             const SizedBox(height: 10),
-            Container(
-              child: TextFormField(
-                controller: _descriptionController,
-                decoration: InputDecoration(
-                  labelText: 'Description',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    _description = value;
-                  });
-                },
+            TextFormField(
+              controller: _descriptionController,
+              decoration: InputDecoration(
+                labelText: 'Description',
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                contentPadding: EdgeInsets.symmetric(horizontal: 10),
               ),
             ),
             const SizedBox(height: 10),
             TextFormField(
               controller: _startTimeController,
               readOnly: true,
-              onTap: () => _selectTime(context, true),
+              onTap: () => _selectTime(context, true, _startTimeController,
+                  widget.task.startTime ?? TimeOfDay.now(), (picked) {
+                setState(() {
+                  widget.task.startTime = picked;
+                });
+              }),
               decoration: InputDecoration(
                 labelText: 'Start Time',
                 border:
@@ -137,7 +161,12 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
             TextFormField(
               controller: _endTimeController,
               readOnly: true,
-              onTap: () => _selectTime(context, false),
+              onTap: () => _selectTime(context, false, _endTimeController,
+                  widget.task.endTime ?? TimeOfDay.now(), (picked) {
+                setState(() {
+                  widget.task.endTime = picked;
+                });
+              }),
               decoration: InputDecoration(
                 labelText: 'End Time',
                 border:
@@ -155,35 +184,39 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                 'Wednesday',
                 'Thursday',
                 'Friday',
-                'Saturday',
-              ].map((day) {
-                return DropdownMenuItem<String>(
-                  value: day,
-                  child: Text(day),
-                );
-              }).toList(),
-              onChanged: (value) {
+                'Saturday'
+              ]
+                  .map((day) =>
+                      DropdownMenuItem<String>(value: day, child: Text(day)))
+                  .toList(),
+              onChanged: (valueDay) {
                 setState(() {
-                  _selectedDay = value!;
+                  _selectedDay = valueDay!;
                 });
               },
               decoration: InputDecoration(labelText: 'Day'),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10,),
             DropdownButtonFormField<int>(
               value: _remindInterval,
-              items: [5, 10, 15, 30, 60].map((interval) {
-                return DropdownMenuItem<int>(
-                  value: interval,
-                  child: Text('$interval minutes'),
-                );
-              }).toList(),
+              items: [5, 10, 15, 30, 60].map((interval) =>
+                  DropdownMenuItem<int>(value: interval, child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
+                child: Text('$interval minutes', style: TextStyle(fontSize: 16.0)),
+              ))).toList(),
               onChanged: (value) {
                 setState(() {
                   _remindInterval = value!;
                 });
               },
-              decoration: const InputDecoration(labelText: 'Reminder Interval'),
+              decoration: InputDecoration(
+                labelText: 'Reminder Interval',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              ),
+              style: TextStyle(fontSize: 16.0),
             ),
             const SizedBox(height: 10),
             Row(
@@ -196,6 +229,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                         setState(() {
                           _selectedColorIndex = entry.key;
                           _taskColor = entry.value;
+                          widget.task.color = entry.value;
                         });
                       },
                       child: Container(
@@ -237,68 +271,38 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
           ),
           onPressed: () async {
             final selectedDate = _getDateFromDay(_selectedDay);
+            print(selectedDate);
+            print(_titleController.text);
             if (selectedDate != null && _titleController.text.isNotEmpty) {
-              print(
-                  'mooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-              print('Selected Date: $selectedDate');
-              print('Title: ${_titleController.text}');
-              print('Description: ${_descriptionController.text}');
-              print('Day: $_selectedDay');
-              print('Start Time: ${_formatTimeOfDay(_startTime)}');
-              print('End Time: ${_formatTimeOfDay(_endTime)}');
-              print('Remind Interval: $_remindInterval');
-              print('Color: ${colorToHex(_taskColor)}');
-              print('Access Token: $accessToken');
-              print(
-                  'mooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-              print(listSchedule[0]['id'] as int);
-              print(
-                  'mooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-              await Api_services.UpdateSlot(
-                widget.task.id as int  , // Assuming Task has an id field
-                _titleController.text,
-                _selectedDay,
-                _formatTimeOfDay(_startTime),
-                _formatTimeOfDay(_endTime),
-                _descriptionController.text,
-                _remindInterval,
-                colorToHex(_taskColor), // Convert color to string
-                accessToken, // Pass the accessToken
-              );
-              // api_services.DeleteSlot(
-              //     listSchedule[0]['id'] , accessToken);
-              // print(
-              //     'mooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-              // Api_services.addSchedule(
-              //   _titleController.text,
-              //   _selectedDay,
-              //   _startTime,
-              //   _endTime,
-              //   _descriptionController.text,
-              //   _remindInterval,
-              //   colorToHex(_taskColor), // Convert color to string
-              //   accessToken, // Pass the accessToken
-              // );
-              print(
-                  'mooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-              print(listSchedule[0]['id']);
-              print(listSchedule[0]['title']);
-              print(listSchedule[0]['day']);
-              print(listSchedule[0]['start_time']);
-              print(listSchedule[0]['end_time']);
-              print(listSchedule[0]['description']);
-              print(listSchedule[0]['remind_interval']);
-              print(listSchedule[0]['color']);
-              print('Access Token: $accessToken');
-              print(
-                  'mooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-              print(listSchedule[0]['id'] as int);
-              print(
-                  'mooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-              // Print to verify the updated state before navigation
-              print('Task updated successfully');
-
-              Navigator.of(context).pop();
+              if (widget.task.id != null) {
+                await Provider.of<Api_services>(context, listen: false)
+                    .UpdateSlot(
+                  widget.task.id as int,
+                  _titleController.text,
+                  _selectedDay,
+                  _formatTimeOfDay(widget.task.startTime!),
+                  _formatTimeOfDay(widget.task.endTime!),
+                  _descriptionController.text,
+                  _remindInterval,
+                  colorToHex(_taskColor!),
+                  accessToken,
+                ).then((value) => Navigator.of(context).pop());
+              } else if (widget.task.id == null &&
+                  widget.task.startTime != null &&
+                  widget.task.endTime != null &&
+                  _taskColor != null) {
+                await Provider.of<Api_services>(context, listen: false)
+                    .addSchedule(
+                  _titleController.text,
+                  _selectedDay,
+                  widget.task.startTime!,
+                  widget.task.endTime!,
+                  _descriptionController.text,
+                  _remindInterval,
+                  colorToHex(_taskColor!),
+                  accessToken,
+                ).then((value) => Navigator.of(context).pop());
+              }
             } else {
               print('Please select a day and enter a title');
             }
@@ -337,37 +341,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
       case 'Sunday':
         return DateTime.sunday;
       default:
-        return 0;
+        throw ArgumentError('Invalid day: $day');
     }
-  }
-
-  Future<void> _selectTime(BuildContext context, bool isStartTime) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: isStartTime ? _startTime : _endTime,
-    );
-    if (picked != null) {
-      setState(() {
-        if (isStartTime) {
-          _startTime = picked;
-          _startTimeController.text = _formatTimeOfDay(_startTime);
-        } else {
-          _endTime = picked;
-          _endTimeController.text = _formatTimeOfDay(_endTime);
-        }
-      });
-    }
-  }
-
-  String _formatTimeOfDay(TimeOfDay timeOfDay) {
-    final now = DateTime.now();
-    final dateTime = DateTime(
-      now.year,
-      now.month,
-      now.day,
-      timeOfDay.hour,
-      timeOfDay.minute,
-    );
-    return DateFormat.Hm().format(dateTime);
   }
 }
