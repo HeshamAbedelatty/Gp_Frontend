@@ -14,6 +14,9 @@ class Api {
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
+          print(response.statusCode);
+      print(response.body);
+      // 
       throw Exception('Failed to load data');
     }
   }

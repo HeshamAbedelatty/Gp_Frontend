@@ -76,7 +76,8 @@ class CommentsProvider with ChangeNotifier {
       }),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200) {print(response.statusCode);
+print(response.body);
       final newComment = Comment.fromJson(json.decode(response.body));
       _comments.add(newComment);
       notifyListeners();
@@ -84,6 +85,8 @@ class CommentsProvider with ChangeNotifier {
           postId); // Notify listeners to update the UI with the new comment
       print('New comment added: $newComment');
     } else {
+      print(response.statusCode);
+print(response.body);
       print('Failed to post comment');
       throw Exception('Failed to post comment');
     }
@@ -106,10 +109,14 @@ class CommentsProvider with ChangeNotifier {
     );
 
     if (response.statusCode == 201) {
+      print(response.statusCode);
+print(response.body);
       await fetchComments(
           groupId, postId); // Fetch comments to ensure the list is up-to-date
     } else {
-      throw Exception('Failed to post reply');
+print(response.statusCode);
+print(response.body);
+      // throw Exception('Failed to post reply');
     }
   }
 

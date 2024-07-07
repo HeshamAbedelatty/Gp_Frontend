@@ -23,8 +23,9 @@ class Api_services extends ChangeNotifier {
   };
 
   static final String baseUrl = 'http://$serverIP/';
-  static const localIp = 'localhost:8000';
-
+  // static const localIp = 'localhost:8000';
+  static const localIp = 'sa3teengd.azurewebsites.net';
+// https:///
   //ToDo Change the IP before going LIVE
   static const serverIP = localIp;
 
