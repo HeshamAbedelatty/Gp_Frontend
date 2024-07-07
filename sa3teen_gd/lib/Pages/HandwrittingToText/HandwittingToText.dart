@@ -11,9 +11,6 @@ import 'package:pdf/widgets.dart' as pw;
 import 'dart:convert';
 import 'package:share/share.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
 class MyApp extends StatelessWidget {
   @override

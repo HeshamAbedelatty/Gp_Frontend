@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/More_page/profile_screen.dart';
-import'package:gp_screen/pages/chatBotIntegrated/Chat Bot copy 2.dart';
-
-
+import 'package:gp_screen/pages/chatBotIntegrated/Chat Bot copy 2.dart';
 
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({Key? key});
+  const BottomNavBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +20,7 @@ class BottomNavBar extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding:
-            const EdgeInsets.symmetric(vertical: 10), // Adjust vertical padding
+        padding: const EdgeInsets.symmetric(vertical: 10), // Adjust vertical padding
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -66,39 +63,36 @@ class BottomNavBar extends StatelessWidget {
                 // Text under the chat icon
               ],
             ),
-
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
                   onPressed: () {},
                   icon: Image.asset(
-                    'lib/assets/icons/group (1).png', // Replace with your chat icon asset
+                    'lib/assets/icons/group (1).png', // Replace with your group icon asset
                     width: 30,
                     height: 30,
                     fit: BoxFit.contain,
                   ),
                 ),
-                // Text under the chat icon
+                // Text under the group icon
               ],
             ),
-
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
                   onPressed: () {},
                   icon: Image.asset(
-                    'lib/assets/icons/notification (1).png', // Replace with your chat icon asset
+                    'lib/assets/icons/notification (1).png', // Replace with your notification icon asset
                     width: 30,
                     height: 30,
                     fit: BoxFit.contain,
                   ),
                 ),
-                // Text under the chat icon
+                // Text under the notification icon
               ],
             ),
-
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -113,27 +107,18 @@ class BottomNavBar extends StatelessWidget {
                     );
                   },
                   icon: Image.asset(
-                    'lib/assets/icons/application.png', // Replace with your chat icon asset
+                    'lib/assets/icons/application.png', // Replace with your profile icon asset
                     width: 30,
                     height: 30,
                     fit: BoxFit.contain,
                   ),
                 ),
-                // Text under the chat icon
+                // Text under the profile icon
               ],
             ),
-            // Repeat the same for other icons...
           ],
         ),
       ),
     );
   }
 }
-
-/* Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return const ProfileScreen();
-                        },
-                      ),
-                    ); icons/**/ */
