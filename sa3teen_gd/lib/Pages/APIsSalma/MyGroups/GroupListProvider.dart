@@ -11,7 +11,7 @@ class MyGroupProvider with ChangeNotifier {
   List<UserGroup> get userGroups => _userGroups;
 
   Future<void> fetchUserGroups(String accessToken) async {
-    final url = Uri.parse('http://10.0.2.2:8000/groups/user_joined_groups/');
+    final url = Uri.parse('$finalurlforall/groups/user_joined_groups/');
     final response = await http.get(url, headers: {
       'Authorization': 'Bearer $accesstokenfinal',
     });

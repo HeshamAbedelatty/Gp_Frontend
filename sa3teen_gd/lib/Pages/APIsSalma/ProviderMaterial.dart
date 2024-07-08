@@ -17,7 +17,7 @@ class MaterialProvider with ChangeNotifier {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () async {
       final url = Uri.parse(
-          'http://10.0.2.2:8000/groups/$groupId/materials/search/$title/');
+          '$finalurlforall/groups/$groupId/materials/search/$title/');
       final response = await http.get(url, headers: {
         'Authorization': 'Bearer $accesstokenfinal',
       });

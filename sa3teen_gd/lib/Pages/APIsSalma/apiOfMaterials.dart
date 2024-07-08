@@ -57,7 +57,7 @@ class MaterialsProvider with ChangeNotifier {
     notifyListeners();
 
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:8000/groups/$id/materials/'),
+      Uri.parse('$finalurlforall/groups/$id/materials/'),
       headers: {
         'Authorization': 'Bearer $accesstokenfinal',
       },
@@ -81,7 +81,7 @@ class MaterialsProvider with ChangeNotifier {
 
 Future<dynamic?> uploadMat(String title,
      File? image,int groupid,  String accessToken) async {
-  var uri = Uri.parse('http://10.0.2.2:8000/groups/$groupid/materials/upload/');
+  var uri = Uri.parse('$finalurlforall/groups/$groupid/materials/upload/');
   
   var request = http.MultipartRequest('POST', uri)
     ..fields['title'] = title;
@@ -103,7 +103,7 @@ Future<dynamic?> uploadMat(String title,
 
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      fetchMaterials(groupid,  accessToken);
+      fetchMaterials(groupid,  accesstokenfinal);
       notifyListeners();
       print('Request success with status: ${response.statusCode}');
     } else {
@@ -117,7 +117,7 @@ Future<dynamic?> uploadMat(String title,
 }
  Future<void> deleteMaterial(context,int groupId, int materialId, String token) async {
     final response = await http.delete(
-      Uri.parse('http://10.0.2.2:8000/groups/$groupId/materials/delete/$materialId/'),
+      Uri.parse('$finalurlforall/groups/$groupId/materials/delete/$materialId/'),
       headers: {
         'Authorization': 'Bearer $accesstokenfinal',
       },

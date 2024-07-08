@@ -14,7 +14,7 @@ class ApiService {
       'Authorization': 'Bearer $accesstokenfinal',
     };
 
-    final response = await http.get(Uri.parse('$baseUrl$groupId/list_posts/'),headers: headers);
+    final response = await http.get(Uri.parse('$finalurlforall/groups/$groupId/list_posts/'),headers: headers);
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);print(response.body);

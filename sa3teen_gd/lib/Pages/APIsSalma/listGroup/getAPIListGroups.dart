@@ -89,7 +89,7 @@ Future<Map<String, dynamic>> post({
 }
 
 Future<void> unjoinGroup(int groupId, String token) async {
-  final url = Uri.parse('http://10.0.2.2:8000/groups/$groupId/unjoin/');
+  final url = Uri.parse('$finalurlforall/groups/$groupId/unjoin/');
 
   final response = await http.post(
     url,

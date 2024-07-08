@@ -50,7 +50,7 @@ class getAllGroups {
     };
 
     List<dynamic> data = await Api().get(
-      url: 'http://10.0.2.2:8000/$url',
+      url: '$finalurlforall/$url',
       headers: headers,
     );
 
@@ -74,7 +74,7 @@ class getAllGroups {
     };
 
     List<dynamic> data = await Api().get(
-      url: 'http://10.0.2.2:8000/groups/search/${title}/',
+      url: '$finalurlforall/groups/search/${title}/',
       headers: headers,
     );
 
