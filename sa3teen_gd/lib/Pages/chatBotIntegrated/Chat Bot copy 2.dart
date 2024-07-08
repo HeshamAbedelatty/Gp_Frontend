@@ -41,7 +41,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<dynamic?> _sendMessageToBackend(String message) async {
     http.Response response = await http.post(
-      Uri.parse('http://127.0.0.1:9090/tg/'),
+      Uri.parse('https://aisa3teengd.azurewebsites.net//tg/'),
       body: {
         'user_text': message,
       },

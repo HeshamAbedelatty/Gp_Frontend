@@ -275,7 +275,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
             print(_titleController.text);
             if (selectedDate != null && _titleController.text.isNotEmpty) {
               if (widget.task.id != null) {
-                await Api_services
+                await Provider.of<Api_services>(context, listen: false)
                     .UpdateSlot(
                   widget.task.id as int,
                   _titleController.text,
@@ -285,13 +285,13 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                   _descriptionController.text,
                   _remindInterval,
                   colorToHex(_taskColor!),
-                  accessToken,
+                  accesstokenfinal,
                 ).then((value) => Navigator.of(context).pop());
               } else if (widget.task.id == null &&
                   widget.task.startTime != null &&
                   widget.task.endTime != null &&
                   _taskColor != null) {
-                await Api_services
+                await Provider.of<Api_services>(context, listen: false)
                     .addSchedule(
                   _titleController.text,
                   _selectedDay,
@@ -300,7 +300,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                   _descriptionController.text,
                   _remindInterval,
                   colorToHex(_taskColor!),
-                  accessToken,
+                  accesstokenfinal,
                 ).then((value) => Navigator.of(context).pop());
               }
             } else {

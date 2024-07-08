@@ -13,7 +13,7 @@ class CommentsProvider with ChangeNotifier {
   List<Comment> get comments => _comments;
 ///////////////////token2
   Future<void> fetchComments(int groupId, int postId) async {
-  // String  token2=        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
+  String  token2=        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
 
     final url =
         '$finalurlforall/groups/$groupId/posts/$postId/comments_replies/';
@@ -76,8 +76,7 @@ class CommentsProvider with ChangeNotifier {
       }),
     );
 
-    if (response.statusCode == 200) {print(response.statusCode);
-print(response.body);
+    if (response.statusCode == 200) {
       final newComment = Comment.fromJson(json.decode(response.body));
       _comments.add(newComment);
       notifyListeners();
@@ -85,8 +84,6 @@ print(response.body);
           postId); // Notify listeners to update the UI with the new comment
       print('New comment added: $newComment');
     } else {
-      print(response.statusCode);
-print(response.body);
       print('Failed to post comment');
       throw Exception('Failed to post comment');
     }
@@ -109,14 +106,10 @@ print(response.body);
     );
 
     if (response.statusCode == 201) {
-      print(response.statusCode);
-print(response.body);
       await fetchComments(
           groupId, postId); // Fetch comments to ensure the list is up-to-date
     } else {
-print(response.statusCode);
-print(response.body);
-      // throw Exception('Failed to post reply');
+      throw Exception('Failed to post reply');
     }
   }
 

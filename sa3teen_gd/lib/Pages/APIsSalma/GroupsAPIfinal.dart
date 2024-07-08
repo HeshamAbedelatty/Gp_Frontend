@@ -77,7 +77,7 @@ class GroupsProvider with ChangeNotifier {
 
   Future<void> getAllGroups() async {
     Map<String, String> headers = {
-      'Authorization': 'Bearer $accesstokenfinal',
+      'Authorization': 'Bearer $token',
     };
 
     List<dynamic> data = await Api().get(

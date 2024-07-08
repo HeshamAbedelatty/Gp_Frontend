@@ -39,7 +39,9 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   late Future<ProfileModel> _futureProfile;
   final ProfileService _profileService = ProfileService();
-
+  String getimageUrl(profile) {
+    return profile.imageUrl;
+  }
   @override
   void initState() {
     super.initState();

@@ -103,7 +103,7 @@ Future<dynamic?> uploadMat(String title,
 
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      fetchMaterials(groupid,  accesstokenfinal);
+      fetchMaterials(groupid,  accessToken);
       notifyListeners();
       print('Request success with status: ${response.statusCode}');
     } else {

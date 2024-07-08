@@ -50,7 +50,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
   Future<void> _fetchToDoList() async {
     List<Map<String, dynamic>> toDoList =
-        await api_services.listAllToDoList(accessToken);
+        await api_services.listAllToDoList(accesstokenfinal);
     listNameControllers = toDoList;
     setState(() {
       toDoList = toDoList;
@@ -101,7 +101,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: const Text('Add List'),
+                            title: const Text('Add List', ),
+
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
@@ -128,7 +129,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                 onPressed: () async {
                                   // Call the createToDoList method from api_services
                                   bool success = await Api_services.createToDoList(
-                                      listNameController.text, accessToken);
+                                      listNameController.text, accesstokenfinal);
 
                                   // Check if the operation was successful
                                   if (success) {
@@ -156,8 +157,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                         },
                       );
                     },
-                    icon: const Icon(Icons.add),
-                    label: const Text('Add List'),
+                    icon: const Icon(Icons.add, color: Colors.white),
+                    label: const Text('Add List',style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),
@@ -242,7 +243,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                           TextButton(
                                             onPressed: () {
                                               // Perform the deletion
-                                              api_services.deleteToDoList(listItem['id'] as int, accessToken)
+                                              api_services.deleteToDoList(listItem['id'] as int, accesstokenfinal)
                                                   .then((_) {
                                                 // After deletion, fetch updated todo list
                                                 _fetchToDoList();
@@ -293,7 +294,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                             taskItem['id'],
                                             taskItem['status'],
 
-                                            accessToken);
+                                            accesstokenfinal);
                                       });
                                       // Navigator.pop(context);
                                       // _fetchToDoList();
@@ -414,7 +415,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                           dateController.text.isEmpty
                                                               ? listNameControllers[listIndex]['tasks'][taskIndex]['due_date']
                                                               : dateController.text,
-                                                          accessToken
+                                                          accesstokenfinal
                                                       );
                                                       Navigator.pop(context);
                                                       _fetchToDoList();
@@ -458,7 +459,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                       api_services.deleteTask(
                                                           listItem['id'].toString(),
                                                           taskItem['id'].toString(),
-                                                          accessToken
+                                                          accesstokenfinal
                                                       );
 
                                                       Navigator.pop(context);
@@ -576,7 +577,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                     'Medium',
                                                     false,
                                                     dateController.text,
-                                                    accessToken,
+                                                    accesstokenfinal,
                                                   );
                                                   _fetchToDoList();
                                                   Navigator.pop(context);

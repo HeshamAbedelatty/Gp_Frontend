@@ -31,7 +31,7 @@ class GroupUsers {
 
 Future<List<GroupUsers>> fetchGroupUsers(int id, String token) async {
   final response = await http.get(
-    Uri.parse('http://10.0.2.2:8000/groups/${id}/users/'),
+    Uri.parse('$finalurlforall/groups/${id}/users/'),
     headers: {
       'Authorization': 'Bearer $accesstokenfinal',
     },
@@ -39,13 +39,9 @@ Future<List<GroupUsers>> fetchGroupUsers(int id, String token) async {
 
   if (response.statusCode == 200) {
     List<dynamic> data = json.decode(response.body);
-    print(response.statusCode);
-    print(response.body);
 
     return data.map((json) => GroupUsers.fromJson(json)).toList();
   } else {
-       print(response.statusCode);
-    print(response.body);
     throw Exception('Failed to load users');
   }
 }
@@ -85,7 +81,7 @@ class HomePage extends StatelessWidget {
               MaterialPageRoute(
                   builder: (context) => GroupUsersPage(
                         id: id,
-                        token: accesstokenfinal,
+                        token: token,
                       )
                   // GetMaterials(id:id, token: token),
                   ),
@@ -109,7 +105,7 @@ class GroupUsersPage extends StatelessWidget {
     return Scaffold(
       appBar: tabbar(),
       body: FutureBuilder<List<GroupUsers>>(
-        future: fetchGroupUsers(id, accesstokenfinal),
+        future: fetchGroupUsers(id, token),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
