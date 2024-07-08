@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -53,7 +54,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
       String password,
       String subject,
       String accessToken) async {
-    var uri = Uri.parse('http://10.0.2.2:8000/groups/');
+    var uri = Uri.parse('$finalurlforall/groups/');
 
     var request = http.MultipartRequest('POST', uri)
       ..fields['title'] = title
@@ -68,7 +69,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
     }
 
     // Add the access token to the headers
-    request.headers['Authorization'] = 'Bearer $accessToken';
+    request.headers['Authorization'] = 'Bearer $accesstokenfinal';
 
     try {
       var streamedResponse = await request.send();

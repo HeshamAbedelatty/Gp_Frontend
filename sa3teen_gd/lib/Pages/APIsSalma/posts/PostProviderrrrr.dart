@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_declarations, unused_element
 
 import 'dart:io';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -31,14 +32,14 @@ class PostProvider with ChangeNotifier {
 
   Future<void> createPost(
       int groupId, String accessToken, String description, File? image) async {
-    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/';
+    final url = '$finalurlforall/groups/$groupId/posts/';
     var request = http.MultipartRequest('POST', Uri.parse(url))
       ..fields['description'] = description;
 
     if (image != null) {
       request.files.add(await http.MultipartFile.fromPath('image', image.path));
     }
-    request.headers['Authorization'] = 'Bearer $accessToken';
+    request.headers['Authorization'] = 'Bearer $accesstokenfinal';
 
     try {
       final streamedResponse = await request.send();
@@ -64,11 +65,11 @@ class PostProvider with ChangeNotifier {
 
         // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
         ;
-    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postId/';
+    final url = 'h$finalurlforall/groups/$groupId/posts/$postId/';
     final response = await http.delete(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer $accessToken',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
     );
 
@@ -84,14 +85,14 @@ class PostProvider with ChangeNotifier {
 
   Future<void> editPost(
       BuildContext context, int groupId, int postId, String description) async {
-    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postId/';
+    final url = '$finalurlforall/groups/$groupId/posts/$postId/';
     final accessToken =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
     final response = await http.patch(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,
@@ -114,7 +115,7 @@ class PostProvider with ChangeNotifier {
   }
 
   Future<void> likePost(context, String ur,int id, int groupId) async {
-    final url = 'http://10.0.2.2:8000/groups/$groupId/$ur/$id/like/';
+    final url = '$finalurlforall/groups/$groupId/$ur/$id/like/';
     const accessToken =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
 
@@ -122,7 +123,7 @@ class PostProvider with ChangeNotifier {
       final response = await http.post(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $accessToken',
+          'Authorization': 'Bearer $accesstokenfinal',
           'Content-Type': 'application/json',
         },
       );
@@ -145,7 +146,7 @@ class PostProvider with ChangeNotifier {
   }
 
   Future<void> unlikePost(context,String ur, int id, int groupId) async {
-    final url = 'http://10.0.2.2:8000/groups/$groupId/$ur/$id/unlike/';
+    final url = '$finalurlforall/groups/$groupId/$ur/$id/unlike/';
     const accessToken =
         // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
@@ -154,7 +155,7 @@ class PostProvider with ChangeNotifier {
       final response = await http.post(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $accessToken',
+          'Authorization': 'Bearer $accesstokenfinal',
           'Content-Type': 'application/json',
         },
       );
@@ -209,7 +210,7 @@ Future<dynamic?> _sendMessageToBackend(
     String password,
     String subject,
     String accessToken) async {
-  var uri = Uri.parse('http://10.0.2.2:8000/groups/');
+  var uri = Uri.parse('$finalurlforall/groups/');
 
   var request = http.MultipartRequest('POST', uri)
     ..fields['title'] = title
@@ -224,7 +225,7 @@ Future<dynamic?> _sendMessageToBackend(
   }
 
   // Add the access token to the headers
-  request.headers['Authorization'] = 'Bearer $accessToken';
+  request.headers['Authorization'] = 'Bearer $accesstokenfinal';
 
   try {
     var streamedResponse = await request.send();

@@ -1,4 +1,6 @@
-import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
+// import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
+import 'package:gp_screen/Pages/APIsSalma/listGroup/getAPIListGroups.dart';
+import 'package:gp_screen/Services/API_services.dart';
 
 class ListGroupsModel {
   final dynamic id;
@@ -43,11 +45,11 @@ class ListGroupsModel {
 class GroupService {
   Future<List<ListGroupsModel>> getAllGroups(String accessToken) async {
     Map<String, String> headers = {
-      'Authorization': 'Bearer $accessToken',
+      'Authorization': 'Bearer $accesstokenfinal',
     };
 
     List<dynamic> data = await Api().get(
-      url: 'http://10.0.2.2:8000/groups/',
+      url: '$finalurlforall/groups/',
       headers: headers,
     );
 
@@ -85,11 +87,11 @@ class GroupService {
   // }
   Future<ListGroupsModel> getGroupById(String accessToken, int id) async {
     Map<String, String> headers = {
-      'Authorization': 'Bearer $accessToken',
+      'Authorization': 'Bearer $accesstokenfinal',
     };
 
     dynamic data = await Api().anotherget(
-      url: 'http://10.0.2.2:8000/groups/$id/',
+      url: '$finalurlforall/groups/$id/',
       headers: headers,
     );
 

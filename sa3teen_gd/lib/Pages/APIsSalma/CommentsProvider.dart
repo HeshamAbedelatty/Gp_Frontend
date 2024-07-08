@@ -16,10 +16,10 @@ class CommentsProvider with ChangeNotifier {
   String  token2=        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
 
     final url =
-        'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments_replies/';
+        '$finalurlforall/groups/$groupId/posts/$postId/comments_replies/';
     final response = await http.get(
       Uri.parse(url),
-      headers: {'Authorization': 'Bearer $token2'},
+      headers: {'Authorization': 'Bearer $accesstokenfinal'},
     );
 
     if (response.statusCode == 200) {
@@ -32,12 +32,12 @@ class CommentsProvider with ChangeNotifier {
   }
 
   Future<void> postComment(int groupId, int postId, String description) async {
-    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments/';
+    final url = '$finalurlforall/groups/$groupId/posts/$postId/comments/';
     final response = await http.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,
@@ -63,12 +63,12 @@ class CommentsProvider with ChangeNotifier {
   }
 
   Future<void> posttComment(int groupId, int postId, String description) async {
-    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments/';
+    final url = '$finalurlforall/groups/$groupId/posts/$postId/comments/';
     final response = await http.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,
@@ -92,12 +92,12 @@ class CommentsProvider with ChangeNotifier {
   Future<void> postReply(
       int groupId, int postId, int commentId, String description) async {
     final url =
-        'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments/$commentId/replies/';
+        '$finalurlforall/groups/$groupId/posts/$postId/comments/$commentId/replies/';
     final response = await http.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,
@@ -116,11 +116,11 @@ class CommentsProvider with ChangeNotifier {
   Future<void> deleteComment(
       BuildContext context, int groupId, int postId, int commentId) async {
     final url =
-        'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments/$commentId/';
+        '$finalurlforall/groups/$groupId/posts/$postId/comments/$commentId/';
     final response = await http.delete(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
     );
     print(response.statusCode);
@@ -151,11 +151,11 @@ class CommentsProvider with ChangeNotifier {
   Future<void> deleteReply(BuildContext context, int groupId, int postId,
       int commentId, int replyId) async {
     final url =
-        'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments/$commentId/replies/$replyId/';
+        '$finalurlforall/groups/$groupId/posts/$postId/comments/$commentId/replies/$replyId/';
     final response = await http.delete(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
     );
 
@@ -175,12 +175,12 @@ class CommentsProvider with ChangeNotifier {
   Future<void> editComment(BuildContext context, int groupId, int postId,
       int commentId, String description) async {
     final url =
-        'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments/$commentId/';
+        '$finalurlforall/groups/$groupId/posts/$postId/comments/$commentId/';
     final response = await http.patch(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,
@@ -236,7 +236,7 @@ class CommentsProvider with ChangeNotifier {
   Future<void> editReply(BuildContext context, int groupId, int postId,
       int commentId, int replyId, String description) async {
     final url =
-        'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments/$commentId/replies/$replyId/';
+        '$finalurlforall/groups/$groupId/posts/$postId/comments/$commentId/replies/$replyId/';
     final response = await http.patch(
       Uri.parse(url),
       // headers: {
@@ -245,7 +245,7 @@ class CommentsProvider with ChangeNotifier {
       // },
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,

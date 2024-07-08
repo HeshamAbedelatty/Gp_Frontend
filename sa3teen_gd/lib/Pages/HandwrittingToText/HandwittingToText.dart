@@ -68,7 +68,7 @@ class _HandwrittenToTextWidgetState extends State<HandwrittenToTextWidget> {
     try {
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://127.0.0.1:9090/extract/'),
+        Uri.parse('https://aisa3teengd.azurewebsites.net/extract/'),
       );
 
       request.files.add(await http.MultipartFile.fromPath(
