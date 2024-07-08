@@ -158,7 +158,7 @@ Future<bool> _sendMessageToBackend(
   String subject,
   String accessToken) async {
   
-  var uri = Uri.parse('http://10.0.2.2:8000/groups/');
+  var uri = Uri.parse('$finalurlforall/groups/');
 
   var request = http.MultipartRequest('POST', uri)
     ..fields['title'] = title

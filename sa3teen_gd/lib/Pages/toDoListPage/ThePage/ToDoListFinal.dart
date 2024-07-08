@@ -156,8 +156,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                         },
                       );
                     },
-                    icon: const Icon(Icons.add),
-                    label: const Text('Add List'),
+                    icon: const Icon(Icons.add,color: Colors.white),
+                    label: const Text('Add List',style: TextStyle(color: Colors.white),),
                   ),
                 ],
               ),

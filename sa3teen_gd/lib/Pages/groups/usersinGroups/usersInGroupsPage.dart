@@ -31,7 +31,7 @@ class GroupUsers {
 
 Future<List<GroupUsers>> fetchGroupUsers(int id, String token) async {
   final response = await http.get(
-    Uri.parse('http://10.0.2.2:8000/groups/${id}/users/'),
+    Uri.parse('$finalurlforall/groups/${id}/users/'),
     headers: {
       'Authorization': 'Bearer $accesstokenfinal',
     },

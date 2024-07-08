@@ -168,7 +168,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                 children: [
                                   RoundedButton(
                                     height: 40,
-                                    width: 110,
+                                    width: 115,
                                     colory: kprimaryColourGreen,
                                     buttonText: 'Description',
                                     onPressed: () {

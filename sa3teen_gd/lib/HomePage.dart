@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:gp_screen/Pages/groups/listofMyGroupsPage_recommendation/bgddfinalListGroups_recommendation.dart';
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 import 'Pages/BottomAppBar/BottomBar.dart';
 import 'Pages/HandwrittingToText/HandwittingToText.dart';
@@ -31,8 +33,9 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
+       
         decoration: BoxDecoration(
-          color: Colors.grey[300],
+          color:   kprimaryColourWhite,
           borderRadius: BorderRadius.circular(16),
         ),
         child: SingleChildScrollView(
@@ -179,11 +182,15 @@ class _HomePageState extends State<HomePage> {
                                 //   members: ['Member 1', 'Member 2'],
                                 //   groupState: 'Active',
                                 // );
-                               return GroupsScreen(
-                                  url: 'groups/list_groups/',pageName: 'Groups',
-                                  accessToken:
-                                  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNjU0MDA0LCJpYXQiOjE3MjAzNTgwMDQsImp0aSI6Ijg4ZTY5OTBlM2VhOTQ4NGU5ZGZjYzhhNTkzYjIyY2U1IiwidXNlcl9pZCI6NX0.WRNsW-YpHTPqUcYaUjicWi0IQ3GzAkL5ZrhPEXFnbWg',
-                                );
+                               return  listallgroups(
+                              url: 'groups/list_groups/',
+                              pageName: 'Groups',
+                              accessToken: accesstokenfinal);
+                                // GroupsScreen(
+                                //   url: 'groups/list_groups/',pageName: 'Groups',
+                                //   accessToken:
+                                //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNjU0MDA0LCJpYXQiOjE3MjAzNTgwMDQsImp0aSI6Ijg4ZTY5OTBlM2VhOTQ4NGU5ZGZjYzhhNTkzYjIyY2U1IiwidXNlcl9pZCI6NX0.WRNsW-YpHTPqUcYaUjicWi0IQ3GzAkL5ZrhPEXFnbWg',
+                                // );
                                 // Return the GroupPage widget here
                               },
                             ),
@@ -193,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'ChatBot',
-                        const AssetImage('lib/assets/icons/chat-bot.png'),
+                        const AssetImage('lib/assets/icons/chatbot.png'),
                         70,
                             () {
                           Navigator.of(context).push(
@@ -229,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'Pomodoro',
-                        const AssetImage('lib/assets/icons/iStock-1302208532.jpg'),
+                        const AssetImage('lib/assets/icons/pomo.png'),
                         70,
                             () {
                           Navigator.of(context).push(
@@ -244,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'Schedules',
-                        const AssetImage('lib/assets/icons/study-4k-with-coffee-no6c7yawny43am8k.jpg'),
+                        const AssetImage('lib/assets/icons/schudule.png'),
                         70,
                             () {
                           Navigator.of(context).push(
@@ -259,7 +266,7 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'Library',
-                        const AssetImage('lib/assets/icons/table-work-computer-study-reading.jpg'),
+                        const AssetImage('lib/assets/icons/library.png'),
                         70,
                             () {
                           Navigator.of(context).push(
@@ -280,7 +287,8 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'Handwriting',
-                        const AssetImage('lib/assets/icons/text-to-handwriting-converter.png'),
+                        // const AssetImage('lib/assets/icons/text-to-handwriting-converter.png'),
+                        const AssetImage('lib/assets/icons/handwrite.png'),
                         70,
                             () {
                           Navigator.of(context).push(
@@ -310,7 +318,7 @@ class _HomePageState extends State<HomePage> {
                       buildCustomContainerGroups(
                         context,
                         'Music BG',
-                        const AssetImage('lib/assets/icons/FreeVector-Music-Icon-1.jpg'),
+                        const AssetImage('lib/assets/icons/music.png'),
                         70,
                             () {
                           Navigator.of(context).push(

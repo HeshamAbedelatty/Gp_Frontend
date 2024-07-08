@@ -13,11 +13,11 @@ import 'package:http/http.dart' as http;
 // "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY5NDY5LCJpYXQiOjE3MTkxNzM0NjksImp0aSI6ImIwZWVjYWYzOWU1ZTQ5ZDg5NzdkZWI4YTc3ZmJhZGQ1IiwidXNlcl9pZCI6NX0.cW0i3nHgTjknJgXPr8UIgxNd1DKkLWkipJlDgPWRkNo",
 // "is_active": true
 // }
-// String finalurlforall='https://sa3teengd.azurewebsites.net';
-String finalurlforall='http://10.0.2.2:8000';
+String finalurlforall='https://sa3teengd.azurewebsites.net';
+// String finalurlforall='http://10.0.2.2:8000';
 String accessToken = '';
-String accesstokenfinal=
-   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNjg0MDk2LCJpYXQiOjE3MjAzODgwOTYsImp0aSI6IjIyMTE2MWZjZGI0ODQwZmU5YTE2NTEyMTI4ZWQ2YTZiIiwidXNlcl9pZCI6MjJ9.inlHVejYMF8YE-_TZYOJtOTiKYwpgq5uP-xhqPub1ws";
+String accesstokenfinal= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNzAwOTk2LCJpYXQiOjE3MjA0MDQ5OTYsImp0aSI6ImQ2MGU1NzZlYTI1MzQzNGI5MDBlMGFjMmFiNjU4ZjRiIiwidXNlcl9pZCI6MjJ9.tc4TdwRy5ldAubxW-b5ntBium7Tw_7Tn5F_MMM01Mh0";
+  //  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNjg0MDk2LCJpYXQiOjE3MjAzODgwOTYsImp0aSI6IjIyMTE2MWZjZGI0ODQwZmU5YTE2NTEyMTI4ZWQ2YTZiIiwidXNlcl9pZCI6MjJ9.inlHVejYMF8YE-_TZYOJtOTiKYwpgq5uP-xhqPub1ws";
 
 // class Api_services {
 class Api_services extends ChangeNotifier {
