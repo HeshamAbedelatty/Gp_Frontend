@@ -1,15 +1,16 @@
 import 'dart:convert';
 
 import 'package:gp_screen/Pages/groups/Materials/Materials.dart';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 
 
 class ApiService {
   Future<List<Materials>> getMaterials(int id, String token) async {
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:8000/groups/$id/materials/'),
+      Uri.parse('$finalurlforall/groups/$id/materials/'),
       headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
     );
 

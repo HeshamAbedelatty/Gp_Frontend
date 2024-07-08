@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/MaterialsSearch/ModelMaterial.dart';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
@@ -16,9 +17,9 @@ class MaterialProvider with ChangeNotifier {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () async {
       final url = Uri.parse(
-          'http://10.0.2.2:8000/groups/$groupId/materials/search/$title/');
+          '$finalurlforall/groups/$groupId/materials/search/$title/');
       final response = await http.get(url, headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       });
 
       print('Response status: ${response.statusCode}');

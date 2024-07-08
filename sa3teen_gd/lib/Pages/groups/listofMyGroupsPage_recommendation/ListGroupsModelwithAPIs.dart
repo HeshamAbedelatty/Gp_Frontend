@@ -57,11 +57,11 @@ class ListGroupsProvider with ChangeNotifier {
 
 Future<void> joinGroup(String urll,
     int groupId, String accessToken, String? password) async {
-  final url = Uri.parse('http://10.0.2.2:8000/groups/$groupId/join/');
+  final url = Uri.parse('$finalurlforall/groups/$groupId/join/');
 
   final headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer $accessToken',
+    'Authorization': 'Bearer $accesstokenfinal',
   };
 
   Map<String, dynamic> body = {};
@@ -89,13 +89,13 @@ fetchAllGroups(urll, accessToken);
 }
 
 Future<void> unjoinGroup(String urll,int groupId, String token) async {
-  final url = Uri.parse('http://10.0.2.2:8000/groups/$groupId/unjoin/');
+  final url = Uri.parse('$finalurlforall/groups/$groupId/unjoin/');
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer $accesstokenfinal',
     },
   );
 
@@ -110,11 +110,11 @@ Future<void> unjoinGroup(String urll,int groupId, String token) async {
 
   Future<void> fetchAllGroups(String url, String accessToken) async {
     Map<String, String> headers = {
-      'Authorization': 'Bearer $accessToken',
+      'Authorization': 'Bearer $accesstokenfinal',
     };
 
     List<dynamic> data = await Api().get(
-      url: 'http://10.0.2.2:8000/$url',
+      url: '$finalurlforall/$url',
       headers: headers,
     );
 
@@ -124,11 +124,11 @@ Future<void> unjoinGroup(String urll,int groupId, String token) async {
 
   Future<void> searchGroupsByTitle(String title, String accessToken) async {
     Map<String, String> headers = {
-      'Authorization': 'Bearer $accessToken',
+      'Authorization': 'Bearer $accesstokenfinal',
     };
 
     List<dynamic> data = await Api().get(
-      url: 'http://10.0.2.2:8000/groups/search/$title/',
+      url: '$finalurlforall/groups/search/$title/',
       headers: headers,
     );
 

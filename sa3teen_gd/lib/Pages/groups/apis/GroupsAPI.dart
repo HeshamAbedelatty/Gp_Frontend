@@ -48,7 +48,7 @@ class GroupService {
     };
 
     List<dynamic> data = await Api().get(
-      url: 'http://10.0.2.2:8000/groups/',
+      url: '$finalurlforall/groups/',
       headers: headers,
     );
 
