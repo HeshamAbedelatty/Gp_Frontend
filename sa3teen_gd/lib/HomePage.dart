@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'Musicplayer.dart';
+import 'package:provider/provider.dart';
 import 'Pages/BottomAppBar/BottomBar.dart';
-import 'Pages/GroupPostAndCommentPage/Pages/FinalGroupPostsPage.dart';
 import 'Pages/HandwrittingToText/HandwittingToText.dart';
 import 'Pages/groups/listofMyGroupsPage_recommendation/finalListGroups_recommendation.dart';
 import 'Pages/pomodoroPage/ThePage/newpomo.dart';
@@ -11,6 +10,8 @@ import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 import 'Pages/schedeulePage/ThePage/FinalSchedulePage.dart';
 import 'Pages/toDoListPage/ThePage/ToDoListFinal.dart';
 import 'package:gp_screen/TtoAudio.dart';
+
+import 'Services/API_services.dart';
 
 // el video w el appbar
 class HomePage extends StatefulWidget {
@@ -21,7 +22,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+@override
+  initState(){
+  Provider.of<Api_services>(context,listen: false).listSchedule(accessToken);
+}
   Widget buildCustomContainerGroups(BuildContext context, String text,
       AssetImage imageProvider, double iconSize, VoidCallback onPressed) {
     return GestureDetector(
@@ -107,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: CarouselSlider(
                       options: CarouselOptions(
-                        height: 200,
+                        height: 300,
                         autoPlay: true,
                         enlargeCenterPage: true,
                         aspectRatio: 16 / 9,
@@ -312,7 +316,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.of(context).push(
                             MaterialPageRoute<void>(
                               builder: (BuildContext context) {
-                                return AudioPlayerApp(); // Return the AudioPlayerApp widget here
+                                return TextToSpeechApp(); // Return the AudioPlayerApp widget here
                               },
                             ),
                           );

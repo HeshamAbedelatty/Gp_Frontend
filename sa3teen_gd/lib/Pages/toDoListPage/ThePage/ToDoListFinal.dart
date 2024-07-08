@@ -52,12 +52,13 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     List<Map<String, dynamic>> toDoList =
         await api_services.listAllToDoList(accessToken);
     listNameControllers = toDoList;
-    // print('ToDo List: $toDoList');
     setState(() {
       toDoList = toDoList;
     });
   }
+  void _showDeleteConfirmationDialog(BuildContext context, int id, String accessToken) {
 
+  }
   // List of controllers for list names
 
   TextEditingController listNameController = TextEditingController();
@@ -104,24 +105,11 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                // controller: listNameControllers.isNotEmpty
-                                //     ? listNameControllers[
-                                //         toDoLists.length - 1]
-                                //     : TextEditingController(),
-
-                                // onChanged: (value) {
-                                //   setState(() {
-                                //     toDoLists[toDoLists.length - 1].listName =
-                                //         value;
-                                //   });
-                                // },
 
                                 TextField(
                                   controller: listNameController,
 
-                                  // decoration: const InputDecoration(
-                                  //   labelText: 'List Name',
-                                  // ),
+
                                 ),
                               ],
                             ),
@@ -134,22 +122,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                     style:
                                         TextStyle(color: kprimaryColourGreen)),
                               ),
-                              // TextButton(
-                              //   onPressed: (
-                              //       api_services.createToDoList(listNameController.text,accessToken)
-                              //       ) {
-                              //     ///////////
-                              //     print("TextButton add:");
-                              //     print(
-                              //         "List name controller text: ${listNameController.text}");
-                              //
-                              //
-                              //     Navigator.pop(context);
-                              //   },
-                              //   child: const Text('hhhhhhhhhhhhhh',
-                              //       style:
-                              //           TextStyle(color: kprimaryColourGreen)),
-                              // ),
+
 
                               TextButton(
                                 onPressed: () async {
@@ -159,7 +132,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
                                   // Check if the operation was successful
                                   if (success) {
-                                    // Perform any additional actions if needed upon success
+                                    // Update the list of to-do lists
+                                    _fetchToDoList();
                                   } else {
                                     // Handle failure scenario if needed
                                   }
@@ -211,13 +185,84 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                           children: [
                             ListTile(
                               title: Text(listItem['title'] ?? ''),
-                              trailing: IconButton(
+                              trailing:
+                              // IconButton(
+                              //   icon: const Icon(Icons.delete),
+                              //   onPressed: () {
+                              //     showDialog(
+                              //       context: context,
+                              //       builder: (BuildContext context) {
+                              //         return AlertDialog(
+                              //           title: Text('Delete To-Do List'),
+                              //           content: Text('Do you want to delete this to-do list?'),
+                              //           actions: <Widget>[
+                              //             TextButton(
+                              //               onPressed: () {
+                              //                 Navigator.of(context).pop();
+                              //               },
+                              //               child: Text('No'),
+                              //             ),
+                              //             TextButton(
+                              //               onPressed: () {
+                              //                 api_services.deleteToDoList(listItem['id']as int, accessToken);
+                              //                 _fetchToDoList();
+                              //                 Navigator.pop(context);
+                              //
+                              //               },
+                              //               child: Text('Yes'),
+                              //             ),
+                              //           ],
+                              //         );
+                              //       },
+                              //     );
+                              //
+                              //   },
+                              // ),
+
+
+
+
+
+
+                              IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () {
-                                  api_services.deleteToDoList(
-                                      listItem['id'], accessToken);
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: const Text('Do you want to delete this item?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context); // Close the dialog
+                                            },
+                                            child: const Text('Cancel', style: TextStyle(color: kprimaryColourGreen)),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              // Perform the deletion
+                                              api_services.deleteToDoList(listItem['id'] as int, accessToken)
+                                                  .then((_) {
+                                                // After deletion, fetch updated todo list
+                                                _fetchToDoList();
+                                                Navigator.pop(context); // Close the dialog
+                                              })
+                                                  .catchError((error) {
+                                                // Handle error if necessary
+                                                print('Error deleting item: $error');
+                                              });
+                                            },
+                                            child: const Text('Delete', style: TextStyle(color: kprimaryColourGreen)),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 },
                               ),
+
+
                             ),
                             ListView.builder(
                               shrinkWrap: true,
@@ -250,6 +295,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
                                             accessToken);
                                       });
+                                      // Navigator.pop(context);
+                                      // _fetchToDoList();
                                     },
                                     activeColor: kprimaryColourGreen,
                                   ),
@@ -357,11 +404,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                   ),
                                                   TextButton(
                                                     onPressed: () {
-                                                      // print('5555555555555555555555555555555555555555555555555555555555555555555555555');
-                                                      // print(listItem['id']);
-                                                      // print('5555555555555555555555555555555555555555555555555555555555555555555555555');
-                                                      // print(taskItem['id']);
-                                                      // print('5555555555555555555555555555555555555555555555555555555555555555555555555');
+
                                                       Api_services.updateTask(
                                                           listItem['id'],
                                                           taskItem['id'],
@@ -373,9 +416,11 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                               : dateController.text,
                                                           accessToken
                                                       );
-
-
                                                       Navigator.pop(context);
+                                                      _fetchToDoList();
+
+
+
                                                     },
                                                     child: const Text('edit',
                                                         style: TextStyle(
@@ -415,7 +460,9 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                           taskItem['id'].toString(),
                                                           accessToken
                                                       );
+
                                                       Navigator.pop(context);
+                                                      _fetchToDoList();
                                                     },
                                                     child: const Text('delete',
                                                         style: TextStyle(
@@ -526,12 +573,14 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                                   Api_services.createTask(
                                                     listItem['id'],
                                                     taskNameController.text,
-                                                    'normal',
+                                                    'Medium',
                                                     false,
                                                     dateController.text,
                                                     accessToken,
                                                   );
+                                                  _fetchToDoList();
                                                   Navigator.pop(context);
+
                                                 },
                                                 child: const Text('add',
                                                     style: TextStyle(
