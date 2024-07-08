@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 import 'package:gp_screen/Pages/APIsSalma/listGroup/getAPIListGroups.dart';
 
@@ -77,11 +76,11 @@ class GroupsProvider with ChangeNotifier {
 
   Future<void> getAllGroups() async {
     Map<String, String> headers = {
-      'Authorization': 'Bearer $accesstokenfinal',
+      'Authorization': 'Bearer $token',
     };
 
     List<dynamic> data = await Api().get(
-      url: '$finalurlforall/groups/',
+      url: 'http://10.0.2.2:8000/groups/',
       headers: headers,
     );
 
@@ -93,11 +92,11 @@ class GroupsProvider with ChangeNotifier {
     int id,
   ) async {
     Map<String, String> headers = {
-      'Authorization': 'Bearer $accesstokenfinal',
+      'Authorization': 'Bearer $token',
     };
 
     dynamic data = await Api().anotherget(
-      url: '$finalurlforall/groups/$id/',
+      url: 'http://10.0.2.2:8000/groups/$id/',
       headers: headers,
     );
 
@@ -110,12 +109,12 @@ class GroupsProvider with ChangeNotifier {
     var token2 =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
     Map<String, String> headers = {
-      'Authorization': 'Bearer $accesstokenfinal',
+      'Authorization': 'Bearer $token2',
       'Content-Type': 'application/json',
     };
 
     final response = await http.patch(
-      Uri.parse('$finalurlforall/groups/patch_update/$groupId/'),
+      Uri.parse('http://10.0.2.2:8000/groups/patch_update/$groupId/'),
       headers: headers,
       body: json.encode(updatedData),
     );
@@ -138,9 +137,9 @@ class GroupsProvider with ChangeNotifier {
   }
   Future<bool> deleteGroup(context,int groupId, String token) async {
   final response = await http.delete(
-    Uri.parse('$finalurlforall/groups/delete_patch/$groupId/'),
+    Uri.parse('http://10.0.2.2:8000/groups/delete_patch/$groupId/'),
     headers: {
-      'Authorization': 'Bearer $accesstokenfinal',
+      'Authorization': 'Bearer $token',
     },
   );
 

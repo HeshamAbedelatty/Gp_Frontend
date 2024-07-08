@@ -1,10 +1,9 @@
 //last working
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/apiOfMaterials.dart';
 import 'package:gp_screen/Pages/groups/MaterialsSearch/finalMaterialSearchScreen.dart';
-import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
-import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -52,9 +51,9 @@ class Materials {
 
 Future<List<Materials>> getMaterials(int id, String token) async {
   final response = await http.get(
-    Uri.parse('$finalurlforall/groups/$id/materials/'),
+    Uri.parse('http://10.0.2.2:8000/groups/$id/materials/'),
     headers: {
-      'Authorization': 'Bearer $accesstokenfinal',
+      'Authorization': 'Bearer $token',
     },
   );
 

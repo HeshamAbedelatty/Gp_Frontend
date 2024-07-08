@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:path_provider/path_provider.dart';
 import "package:syncfusion_flutter_pdf/pdf.dart";
+import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
 class TextToSpeechApp extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class _TextToSpeechAppState extends State<TextToSpeechApp> {
   String audioName = '';
   Duration audioDuration = Duration.zero;
   bool audioDownloaded = false;
-
+   Color kPrimaryColourCream = const Color.fromARGB(255, 248, 247, 242);
   @override
   void initState() {
     super.initState();
@@ -28,6 +29,7 @@ class _TextToSpeechAppState extends State<TextToSpeechApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kPrimaryColourCream,
       appBar: AppBar(
         title: const Text('Text to Speech'),
       ),

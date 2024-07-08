@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 
 //get function from tharwat samy
@@ -15,9 +14,6 @@ class Api {
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
-          print(response.statusCode);
-      print(response.body);
-      // 
       throw Exception('Failed to load data');
     }
   }
@@ -38,11 +34,11 @@ class Api {
 
 Future<void> joinGroup(
     int groupId, String accessToken, String? password) async {
-  final url = Uri.parse('$finalurlforall/groups/$groupId/join/');
+  final url = Uri.parse('http://10.0.2.2:8000/groups/$groupId/join/');
 
   final headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer $accesstokenfinal',
+    'Authorization': 'Bearer $accessToken',
   };
 
   Map<String, dynamic> body = {};
@@ -89,13 +85,13 @@ Future<Map<String, dynamic>> post({
 }
 
 Future<void> unjoinGroup(int groupId, String token) async {
-  final url = Uri.parse('$finalurlforall/groups/$groupId/unjoin/');
+  final url = Uri.parse('http://10.0.2.2:8000/groups/$groupId/unjoin/');
 
   final response = await http.post(
     url,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $accesstokenfinal',
+      'Authorization': 'Bearer $token',
     },
   );
 

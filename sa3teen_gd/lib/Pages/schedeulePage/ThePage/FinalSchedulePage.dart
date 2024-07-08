@@ -70,7 +70,7 @@ initState(){
 }
 
   _fetchToDoList(){
-    Provider.of<Api_services>(context,listen: false).listSchedule(accessToken);
+    Provider.of<Api_services>(context,listen: false).listSchedule(accesstokenfinal);
   }
   @override
   Widget build(BuildContext context) {
@@ -276,7 +276,7 @@ initState(){
                                       backgroundColor: const Color(0xFF3C8243),
                                     ),
                                     onPressed: () async {
-                                      providerprocess.DeleteSlot(listSchedule['id'], accessToken);
+                                      providerprocess.DeleteSlot(listSchedule['id'], accesstokenfinal);
                                       // await api_services.deleteSlot(listSchedule['id'], accessToken);
                                       Navigator.of(context).pop();
                                     },

@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-// import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
+import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/groups/Materials/Materials.dart';
-import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
-import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,7 +30,7 @@ class GroupUsers {
 
 Future<List<GroupUsers>> fetchGroupUsers(int id, String token) async {
   final response = await http.get(
-    Uri.parse('$finalurlforall/groups/${id}/users/'),
+    Uri.parse('http://10.0.2.2:8000/groups/${id}/users/'),
     headers: {
       'Authorization': 'Bearer $token',
     },

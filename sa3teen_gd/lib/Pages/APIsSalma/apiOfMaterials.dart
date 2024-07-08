@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/ui/Materials.dart';
-import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -57,9 +56,9 @@ class MaterialsProvider with ChangeNotifier {
     notifyListeners();
 
     final response = await http.get(
-      Uri.parse('$finalurlforall/groups/$id/materials/'),
+      Uri.parse('http://10.0.2.2:8000/groups/$id/materials/'),
       headers: {
-        'Authorization': 'Bearer $accesstokenfinal',
+        'Authorization': 'Bearer $token',
       },
     );
 
@@ -81,7 +80,7 @@ class MaterialsProvider with ChangeNotifier {
 
 Future<dynamic?> uploadMat(String title,
      File? image,int groupid,  String accessToken) async {
-  var uri = Uri.parse('$finalurlforall/groups/$groupid/materials/upload/');
+  var uri = Uri.parse('http://10.0.2.2:8000/groups/$groupid/materials/upload/');
   
   var request = http.MultipartRequest('POST', uri)
     ..fields['title'] = title;
@@ -92,7 +91,7 @@ Future<dynamic?> uploadMat(String title,
   }
 
   // Add the access token to the headers
-  request.headers['Authorization'] = 'Bearer $accesstokenfinal';
+  request.headers['Authorization'] = 'Bearer $accessToken';
 
   try {
     var streamedResponse = await request.send();
@@ -103,7 +102,7 @@ Future<dynamic?> uploadMat(String title,
 
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
-      fetchMaterials(groupid,  accesstokenfinal);
+      fetchMaterials(groupid,  accessToken);
       notifyListeners();
       print('Request success with status: ${response.statusCode}');
     } else {
@@ -117,9 +116,9 @@ Future<dynamic?> uploadMat(String title,
 }
  Future<void> deleteMaterial(context,int groupId, int materialId, String token) async {
     final response = await http.delete(
-      Uri.parse('$finalurlforall/groups/$groupId/materials/delete/$materialId/'),
+      Uri.parse('http://10.0.2.2:8000/groups/$groupId/materials/delete/$materialId/'),
       headers: {
-        'Authorization': 'Bearer $accesstokenfinal',
+        'Authorization': 'Bearer $token',
       },
     );
 

@@ -231,7 +231,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         borderRadius: BorderRadius.circular(100.0),
                       ),
                     ),
-                    child: const Text('Sign Up',style: TextStyle(color: Colors.white)),
+                    child: const Text('Sign Up'),
                   );
                 }),
               ],

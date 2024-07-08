@@ -1,20 +1,30 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:gp_screen/HomePage.dart';
-import 'package:gp_screen/Pages/APIsSalma/CommentsProvider.dart';
-import 'package:gp_screen/Pages/APIsSalma/GroupsAPIfinal.dart';
-import 'package:gp_screen/Pages/APIsSalma/MyGroups/GroupListProvider.dart';
-import 'package:gp_screen/Pages/APIsSalma/ProviderMaterial.dart';
-import 'package:gp_screen/Pages/APIsSalma/apiOfMaterials.dart';
-import 'package:gp_screen/Pages/APIsSalma/posts/PostProviderrrrr.dart';
-import 'package:gp_screen/Pages/APIsSalma/searchGroupProvider.dart';
-import 'package:gp_screen/Pages/groups/listofMyGroupsPage_recommendation/ListGroupsModelwithAPIs.dart';
+import 'package:gp_screen/Pages/audio2%20copy/audioplayerstate.dart';
 import 'package:gp_screen/Pages/loginPage/ThePage/LoginPage.dart';
 import 'package:gp_screen/Services/API_services.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+
+import 'Pages/APIsSalma/CommentsProvider.dart';
+import 'Pages/APIsSalma/GroupsAPIfinal.dart';
+import 'Pages/APIsSalma/MyGroups/GroupListProvider.dart';
+import 'Pages/APIsSalma/ProviderMaterial.dart';
+import 'Pages/APIsSalma/apiOfMaterials.dart';
+import 'Pages/APIsSalma/posts/PostProviderrrrr.dart';
+import 'Pages/APIsSalma/searchGroupProvider.dart';
+import 'Pages/audio2 copy/audio.dart';
+import 'Pages/groups/listofMyGroupsPage_recommendation/ListGroupsModelwithAPIs.dart';
+
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(AudioAdapter());
+  await Hive.openBox<Audio>('audios');
   // Initialize any necessary setup here
   runApp(const Sa3teenGd());
 }
@@ -33,7 +43,8 @@ class Sa3teenGd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [        ChangeNotifierProvider(
+      providers: [
+        ChangeNotifierProvider(
           create: (context) => CommentsProvider(accesstokenfinal),
         ),
         ChangeNotifierProvider(
@@ -46,8 +57,14 @@ class Sa3teenGd extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => MaterialsProvider()),
         ChangeNotifierProvider(create: (_) => ListGroupsProvider()),
         ChangeNotifierProvider<Api_services>(
-            create: (context) => Api_services())
+          create: (context) => Api_services(),
+        ),
+        ChangeNotifierProvider<AudioPlayerState>(
+          create: (context) => AudioPlayerState(),
+        ),
       ],
+
+
       child: MaterialApp(
         /*routes: {
           LoginPage.id: (context) => LoginPage(),

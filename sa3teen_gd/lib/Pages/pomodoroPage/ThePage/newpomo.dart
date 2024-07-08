@@ -88,7 +88,7 @@ Widget _buildResetButton() {
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                       ),
-          child: Text('Restore Defualt',style: TextStyle(color: Colors.white),),
+          child: Text('Restore Defualt'),
         ),
       );
     } else {
@@ -321,7 +321,7 @@ Widget _buildResetButton() {
                         startTimer(_currentTimer == 0 ? _studyTime : (_currentTimer == 1 ? _breakTime : _longBreakTime));
                       }
                     },
-                    child: Text('Start Timer',style: TextStyle(color: Colors.white)),
+                    child: Text('Start Timer'),
                   ),
                 if (_showPauseButton)
                   Padding(
@@ -335,7 +335,7 @@ Widget _buildResetButton() {
                             ),
                           ),
                       onPressed: pauseTimer,
-                      child: Text('Pause Timer',style: TextStyle(color: Colors.white)),
+                      child: Text('Pause Timer'),
                     ),
                   ),
                 if (_showContinueButton)
@@ -350,7 +350,7 @@ Widget _buildResetButton() {
                             ),
                           ),
                       onPressed: continueTimer,
-                      child: Text('Continue Timer',style: TextStyle(color: Colors.white)),
+                      child: Text('Continue Timer'),
                     ),
                   ),
                 if (_isRunning || _showPauseButton || _showContinueButton)
@@ -365,7 +365,7 @@ Widget _buildResetButton() {
                             ),
                           ),
                       onPressed: restartTimer,
-                      child: Text('Restart Timer',style: TextStyle(color: Colors.white)),
+                      child: Text('Restart Timer'),
                     ),
                   ),
               SizedBox(height: 20),

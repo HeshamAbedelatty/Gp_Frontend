@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_declarations, unused_element
 
 import 'dart:io';
-import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class PostProvider with ChangeNotifier {
 
     try {
       _posts = await ApiService().getPosts(groupId,
-accesstokenfinal          );
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU');
     } catch (e) {
       print(e);
     } finally {
@@ -32,14 +31,14 @@ accesstokenfinal          );
 
   Future<void> createPost(
       int groupId, String accessToken, String description, File? image) async {
-    final url = '$finalurlforall/groups/$groupId/posts/';
+    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/';
     var request = http.MultipartRequest('POST', Uri.parse(url))
       ..fields['description'] = description;
 
     if (image != null) {
       request.files.add(await http.MultipartFile.fromPath('image', image.path));
     }
-    request.headers['Authorization'] = 'Bearer $accesstokenfinal';
+    request.headers['Authorization'] = 'Bearer $accessToken';
 
     try {
       final streamedResponse = await request.send();
@@ -49,7 +48,7 @@ accesstokenfinal          );
         final newPost = Post.fromJson(jsonDecode(response.body));
         _posts.add(newPost);
         await ApiService().getPosts(groupId,
-accesstokenfinal            );
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
         notifyListeners();
       } else {
         print('Failed to create post');
@@ -60,16 +59,16 @@ accesstokenfinal            );
   }
 
   Future<void> deletePost(BuildContext context, int groupId, int postId) async {
-    // final accessToken =
-    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'
+    final accessToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'
 
         // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'
         ;
-    final url = '$finalurlforall/groups/$groupId/posts/$postId/';
+    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postId/';
     final response = await http.delete(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer $accesstokenfinal',
+        'Authorization': 'Bearer $accessToken',
       },
     );
 
@@ -85,14 +84,14 @@ accesstokenfinal            );
 
   Future<void> editPost(
       BuildContext context, int groupId, int postId, String description) async {
-    final url = '$finalurlforall/groups/$groupId/posts/$postId/';
+    final url = 'http://10.0.2.2:8000/groups/$groupId/posts/$postId/';
     final accessToken =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
     final response = await http.patch(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accesstokenfinal',
+        'Authorization': 'Bearer $accessToken',
       },
       body: json.encode({
         'description': description,
@@ -105,7 +104,7 @@ accesstokenfinal            );
       if (postIndex != -1) {
         _posts[postIndex] = updatedPost;
         await ApiService().getPosts(groupId,
-            accesstokenfinal);
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
         notifyListeners();
         // notifyListeners();
       }
@@ -115,15 +114,15 @@ accesstokenfinal            );
   }
 
   Future<void> likePost(context, String ur,int id, int groupId) async {
-    final url = '$finalurlforall/groups/$groupId/$ur/$id/like/';
-    // const accessToken =
-    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
+    final url = 'http://10.0.2.2:8000/groups/$groupId/$ur/$id/like/';
+    const accessToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
 
     try {
       final response = await http.post(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $accesstokenfinal',
+          'Authorization': 'Bearer $accessToken',
           'Content-Type': 'application/json',
         },
       );
@@ -132,7 +131,7 @@ accesstokenfinal            );
         print(response.statusCode);
         print(response.body);
         await ApiService().getPosts(groupId,
-           accesstokenfinal);
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
         notifyListeners();
       } else {
         print(response.statusCode);
@@ -146,7 +145,7 @@ accesstokenfinal            );
   }
 
   Future<void> unlikePost(context,String ur, int id, int groupId) async {
-    final url = '$finalurlforall/groups/$groupId/$ur/$id/unlike/';
+    final url = 'http://10.0.2.2:8000/groups/$groupId/$ur/$id/unlike/';
     const accessToken =
         // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
@@ -155,7 +154,7 @@ accesstokenfinal            );
       final response = await http.post(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $accesstokenfinal',
+          'Authorization': 'Bearer $accessToken',
           'Content-Type': 'application/json',
         },
       );
@@ -210,7 +209,7 @@ Future<dynamic?> _sendMessageToBackend(
     String password,
     String subject,
     String accessToken) async {
-  var uri = Uri.parse('$finalurlforall/groups/');
+  var uri = Uri.parse('http://10.0.2.2:8000/groups/');
 
   var request = http.MultipartRequest('POST', uri)
     ..fields['title'] = title
@@ -225,7 +224,7 @@ Future<dynamic?> _sendMessageToBackend(
   }
 
   // Add the access token to the headers
-  request.headers['Authorization'] = 'Bearer $accesstokenfinal';
+  request.headers['Authorization'] = 'Bearer $accessToken';
 
   try {
     var streamedResponse = await request.send();
