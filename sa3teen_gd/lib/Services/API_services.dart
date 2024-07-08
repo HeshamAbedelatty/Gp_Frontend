@@ -13,6 +13,8 @@ import 'package:http/http.dart' as http;
 // "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY5NDY5LCJpYXQiOjE3MTkxNzM0NjksImp0aSI6ImIwZWVjYWYzOWU1ZTQ5ZDg5NzdkZWI4YTc3ZmJhZGQ1IiwidXNlcl9pZCI6NX0.cW0i3nHgTjknJgXPr8UIgxNd1DKkLWkipJlDgPWRkNo",
 // "is_active": true
 // }
+// String finalurlforall='https://sa3teengd.azurewebsites.net';
+String finalurlforall='http://10.0.2.2:8000';
 String accessToken = '';
 String accesstokenfinal=
    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNjg0MDk2LCJpYXQiOjE3MjAzODgwOTYsImp0aSI6IjIyMTE2MWZjZGI0ODQwZmU5YTE2NTEyMTI4ZWQ2YTZiIiwidXNlcl9pZCI6MjJ9.inlHVejYMF8YE-_TZYOJtOTiKYwpgq5uP-xhqPub1ws";

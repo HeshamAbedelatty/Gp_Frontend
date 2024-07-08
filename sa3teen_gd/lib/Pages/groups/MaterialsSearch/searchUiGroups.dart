@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Pages/APIsSalma/listGroup/ModellistGroups.dart';
+import 'package:gp_screen/Pages/APIsSalma/listGroup/getAPIListGroups.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/groups/finalpage/finalgroupinside.dart';
 import 'package:gp_screen/Pages/groups/search/searchGroupProvider.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
-import 'package:gp_screen/Pages/listofMyGroupsPage/listGroupsModel.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';

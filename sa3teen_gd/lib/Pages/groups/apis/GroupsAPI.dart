@@ -1,4 +1,4 @@
-import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
+import 'package:gp_screen/Pages/APIsSalma/listGroup/getAPIListGroups.dart';
 import 'package:gp_screen/Services/API_services.dart';
 
 class ListGroupsModel {

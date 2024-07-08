@@ -38,7 +38,7 @@ class Api {
 
 Future<void> joinGroup(
     int groupId, String accessToken, String? password) async {
-  final url = Uri.parse('http://10.0.2.2:8000/groups/$groupId/join/');
+  final url = Uri.parse('$finalurlforall/groups/$groupId/join/');
 
   final headers = {
     'Content-Type': 'application/json',
