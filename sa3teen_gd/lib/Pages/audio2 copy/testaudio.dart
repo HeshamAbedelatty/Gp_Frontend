@@ -7,12 +7,15 @@ import 'audioplayerscreen.dart';
 import 'audioplayerstate.dart';
 
 void main() async {
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(AudioAdapter());
+  await Hive.openBox<Audio>('audios');
 
   runApp(
     MultiProvider(
       providers: [
-
+        ChangeNotifierProvider(create: (_) => AudioPlayerState()),
       ],
       child: MyApp(),
     ),
@@ -24,6 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Audio Player App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),

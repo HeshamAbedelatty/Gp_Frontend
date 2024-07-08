@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/More_page/profile_screen.dart';
 import 'package:gp_screen/pages/chatBotIntegrated/Chat Bot copy 2.dart';
 
+import '../../HomePage.dart';
+import '../../Services/API_services.dart';
+import '../groups/listofMyGroupsPage_recommendation/bgddfinalListGroups_recommendation.dart';
+import '../toDoListPage/ThePage/ToDoListFinal.dart';
+
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({Key? key}) : super(key: key);
 
@@ -20,7 +25,8 @@ class BottomNavBar extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10), // Adjust vertical padding
+        padding:
+            const EdgeInsets.symmetric(vertical: 10), // Adjust vertical padding
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -29,6 +35,13 @@ class BottomNavBar extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                          return const HomePage(); // Return the ChatScreen widget here
+                        },
+                      ),
+                    );
                     // Handle home icon press
                   },
                   icon: Image.asset(
@@ -48,7 +61,7 @@ class BottomNavBar extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (BuildContext context) {
-                          return const ChatScreen();
+                          return const ChatScreen(); // Return the ChatScreen widget here
                         },
                       ),
                     );
@@ -67,7 +80,31 @@ class BottomNavBar extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                          // return GroupPage(
+                          //   id: 1,
+                          //   groupName: 'Example Group',
+                          //   groupImageUrl: 'url_to_image',
+                          //   members: ['Member 1', 'Member 2'],
+                          //   groupState: 'Active',
+                          // );
+                          return listallgroups(
+                              url: 'groups/list_groups/',
+                              pageName: 'Groups',
+                              accessToken: accesstokenfinal);
+                          // GroupsScreen(
+                          //   url: 'groups/list_groups/',pageName: 'Groups',
+                          //   accessToken:
+                          //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNjU0MDA0LCJpYXQiOjE3MjAzNTgwMDQsImp0aSI6Ijg4ZTY5OTBlM2VhOTQ4NGU5ZGZjYzhhNTkzYjIyY2U1IiwidXNlcl9pZCI6NX0.WRNsW-YpHTPqUcYaUjicWi0IQ3GzAkL5ZrhPEXFnbWg',
+                          // );
+                          // Return the GroupPage widget here
+                        },
+                      ),
+                    );
+                  },
                   icon: Image.asset(
                     'lib/assets/icons/group (1).png', // Replace with your group icon asset
                     width: 30,
@@ -82,7 +119,15 @@ class BottomNavBar extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                          return const ToDoListScreen(); // Return the ChatScreen widget here
+                        },
+                      ),
+                    );
+                  },
                   icon: Image.asset(
                     'lib/assets/icons/notification (1).png', // Replace with your notification icon asset
                     width: 30,
@@ -101,7 +146,7 @@ class BottomNavBar extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (BuildContext context) {
-                          return ProfileScreen();
+                          return  ProfileScreen(); // Return the ChatScreen widget here
                         },
                       ),
                     );

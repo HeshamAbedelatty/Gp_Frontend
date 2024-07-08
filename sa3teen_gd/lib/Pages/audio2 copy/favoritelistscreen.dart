@@ -16,15 +16,21 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
   Widget build(BuildContext context) {
     final playerState = Provider.of<AudioPlayerState>(context);
 
+    const Color kprimaryColourWhite = const Color.fromARGB(255, 248, 247, 242);
+    const Color kprimaryColourGreen = const Color(0xff1DAA61);
+// const Color kprimaryColourGreen = const Color(0xFF3C8243);
+    const Color kprimaryColourcream = Color.fromARGB(255, 207, 185, 157);
+
     final filteredFavorites = playerState.favorites
         .where((audio) =>
             audio.fileName.toLowerCase().contains(_searchQuery.toLowerCase()))
         .toList();
 
     return Scaffold(
+      backgroundColor: kprimaryColourWhite,
       appBar: AppBar(
         title: Text('Favorite Audios', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.green,
+        backgroundColor: kprimaryColourGreen,
       ),
       body: Column(
         children: [
@@ -57,6 +63,7 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
               itemBuilder: (context, index) {
                 final audio = filteredFavorites[index];
                 return Card(
+                  color: kprimaryColourcream,
                   elevation: 3,
                   margin: EdgeInsets.all(8.0),
                   child: ListTile(

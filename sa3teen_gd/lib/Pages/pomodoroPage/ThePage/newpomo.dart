@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 
+import '../../BottomAppBar/BottomBar.dart';
+
 
 
 // void main() {
@@ -379,6 +381,8 @@ Widget _buildResetButton() {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavBar(),
+
     );
   }
 

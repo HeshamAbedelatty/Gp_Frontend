@@ -5,6 +5,8 @@ import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../BottomAppBar/BottomBar.dart';
+
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -151,6 +153,7 @@ class _ChatScreenState extends State<ChatScreen> {
           _buildTextComposer(),
         ],
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

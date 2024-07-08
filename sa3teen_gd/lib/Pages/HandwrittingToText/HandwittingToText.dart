@@ -11,6 +11,8 @@ import 'package:pdf/widgets.dart' as pw;
 import 'dart:convert';
 import 'package:share/share.dart';
 
+import '../BottomAppBar/BottomBar.dart';
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -309,7 +311,10 @@ class _HandwrittenToTextWidgetState extends State<HandwrittenToTextWidget> {
             ),
           ),
         ),
+
       ),
+      bottomNavigationBar: BottomNavBar(),
+
     );
   }
 }

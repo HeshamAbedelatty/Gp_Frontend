@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:gp_screen/Pages/audio2%20copy/audioplayerstate.dart';
 import 'package:gp_screen/Pages/loginPage/ThePage/LoginPage.dart';
 import 'package:gp_screen/Services/API_services.dart';
+import 'package:gp_screen/library.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -25,7 +26,6 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(AudioAdapter());
   await Hive.openBox<Audio>('audios');
-  // Initialize any necessary setup here
   runApp(const Sa3teenGd());
 }
 
@@ -62,7 +62,12 @@ class Sa3teenGd extends StatelessWidget {
         ChangeNotifierProvider<AudioPlayerState>(
           create: (context) => AudioPlayerState(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => LibraryModel(),
+        ),
+
       ],
+
 
 
       child: MaterialApp(

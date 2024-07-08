@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
+import '../BottomAppBar/BottomBar.dart';
 import 'audio.dart';
 import 'audioplayerstate.dart';
 import 'favoritelistscreen.dart';
@@ -20,14 +21,21 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   Widget build(BuildContext context) {
     final playerState = Provider.of<AudioPlayerState>(context);
 
+    const Color kprimaryColourWhite = const Color.fromARGB(255, 248, 247, 242);
+    const Color kprimaryColourGreen = const Color(0xff1DAA61);
+// const Color kprimaryColourGreen = const Color(0xFF3C8243);
+    const Color kprimaryColourcream = Color.fromARGB(255, 207, 185, 157);
+
     final filteredAudioList = playerState.audioList
         .where((audio) =>
             audio.fileName.toLowerCase().contains(_searchQuery.toLowerCase()))
         .toList();
 
     return Scaffold(
+      backgroundColor: kprimaryColourWhite,
       appBar: AppBar(
-        title: Text('Audio Player'),
+        title: Text('Audio Player', style: TextStyle(color: Colors.white)),
+        backgroundColor: kprimaryColourGreen,
         actions: [
           IconButton(
             icon: Icon(Icons.favorite),
@@ -84,7 +92,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                         playerState
                             .audioList[playerState.currentIndex].fileName,
                         style: TextStyle(
-                            color: Colors.white,
+                            color: const Color.fromARGB(255, 0, 0, 0),
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
@@ -97,7 +105,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                           return Column(
                             children: [
                               Slider(
-                                activeColor: Colors.white,
+                                activeColor: const Color.fromARGB(255, 0, 0, 0),
                                 value: position.inSeconds.toDouble(),
                                 max: audio.duration.inSeconds.toDouble(),
                                 onChanged: (value) {
@@ -107,7 +115,8 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                               ),
                               Text(
                                 '${_formatDuration(position)} / ${_formatDuration(audio.duration)}',
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                    color: const Color.fromARGB(255, 0, 0, 0)),
                               ),
                             ],
                           );
@@ -149,6 +158,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
               itemBuilder: (context, index) {
                 final audio = filteredAudioList[index];
                 return Card(
+                  color: kprimaryColourcream,
                   margin: EdgeInsets.all(8.0),
                   child: ListTile(
                     leading: Text('${index + 1}'), // Numbering the audios
@@ -185,6 +195,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: kprimaryColourGreen,
         onPressed: () async {
           FilePickerResult? result = await FilePicker.platform.pickFiles(
             type: FileType.audio,
@@ -207,12 +218,14 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
         },
         child: Icon(Icons.add),
       ),
+      bottomNavigationBar: BottomNavBar(),
+
     );
   }
-
+//********************************
   IconButton _buildControlButton(IconData icon, VoidCallback onPressed) {
     return IconButton(
-      icon: Icon(icon, color: Colors.white),
+      icon: Icon(icon, color: const Color.fromARGB(255, 0, 0, 0)),
       iconSize: 40.0,
       onPressed: onPressed,
     );

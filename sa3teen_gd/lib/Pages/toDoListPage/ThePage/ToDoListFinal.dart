@@ -3,6 +3,8 @@ import 'package:gp_screen/Pages/toDoListPage/Widgets/Priority.dart';
 import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
+import '../../BottomAppBar/BottomBar.dart';
+
 
 // class ToDoListClass {
 //   String listName;
@@ -609,7 +611,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
             ),
           ),
         ],
+
       ),
+      bottomNavigationBar: BottomNavBar(),
+
     );
   }
 }

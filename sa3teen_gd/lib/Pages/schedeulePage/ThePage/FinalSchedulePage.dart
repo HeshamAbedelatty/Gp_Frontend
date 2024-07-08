@@ -6,6 +6,7 @@ import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../Services/API_services.dart';
+import '../../BottomAppBar/BottomBar.dart';
 
 class Task {
   final int? id;
@@ -138,6 +139,8 @@ initState(){
           );
         }
       ),
+      bottomNavigationBar: BottomNavBar(),
+
     );
   }
 

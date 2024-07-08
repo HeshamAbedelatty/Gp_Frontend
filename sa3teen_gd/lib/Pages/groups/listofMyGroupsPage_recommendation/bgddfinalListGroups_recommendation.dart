@@ -10,6 +10,8 @@ import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 
+import '../../BottomAppBar/BottomBar.dart';
+
 class listallgroups extends StatefulWidget {
   final String url;
   final String pageName;
@@ -341,6 +343,8 @@ class _listallgroupsState extends State<listallgroups> {
         backgroundColor: Colors.green,
         child: const Icon(Icons.add, color: Colors.white),
       ),
+      bottomNavigationBar: BottomNavBar(),
+
     );
   }
 }

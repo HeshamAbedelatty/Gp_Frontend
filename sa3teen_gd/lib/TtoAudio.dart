@@ -6,6 +6,8 @@ import 'package:path_provider/path_provider.dart';
 import "package:syncfusion_flutter_pdf/pdf.dart";
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
+import 'Pages/BottomAppBar/BottomBar.dart';
+
 class TextToSpeechApp extends StatefulWidget {
   @override
   _TextToSpeechAppState createState() => _TextToSpeechAppState();
@@ -119,6 +121,8 @@ class _TextToSpeechAppState extends State<TextToSpeechApp> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavBar(),
+
     );
   }
 

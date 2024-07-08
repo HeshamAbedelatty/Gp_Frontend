@@ -17,32 +17,32 @@ class tabbar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
-            onTap: onAvatarTap,
-            child: Row(
-              children: [
-                Image.asset(
-                  'lib/assets/icons/headphone.png',
-                  height: 38,
-                ),
-                const SizedBox(width: 8),
-                CircleAvatar(
-                  radius: 20,
-                  backgroundImage: profileImageUrl != null ? NetworkImage(profileImageUrl!) : null,
-                ),
-              ],
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: onAvatarTap,
+          //   child: Row(
+          //     children: [
+          //       Image.asset(
+          //         'lib/assets/icons/headphone.png',
+          //         height: 38,
+          //       ),
+          //       const SizedBox(width: 8),
+          //       CircleAvatar(
+          //         radius: 20,
+          //         backgroundImage: profileImageUrl != null ? NetworkImage(profileImageUrl!) : null,
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Row(
             children: [
-              Text(
+              const Text(
                 "Sa3teen Gd",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 25,
                 ),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Image.asset(
                 'lib/assets/icons/sa3teenGd.png',
                 height: 70,
