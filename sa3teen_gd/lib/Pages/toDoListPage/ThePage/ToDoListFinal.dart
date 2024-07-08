@@ -6,16 +6,7 @@ import 'package:gp_screen/widgets/constantsAcrossTheApp/customAppBar.dart';
 import '../../BottomAppBar/BottomBar.dart';
 
 
-// class ToDoListClass {
-//   String listName;
-//   List<Task> tasks;
-//
-//   ToDoListClass({
-//     required this.listName,
-//     required this.tasks,
-//   });
-// }
-// flags
+
 class Task {
   String taskName;
   DateTime deadline;
@@ -186,48 +177,72 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
+                            // ListTile(
+                            //   title: Text(listItem['title'] ?? ''),
+                            //   trailing:
+                            //
+                            //
+                            //
+                            //   IconButton(
+                            //     icon: const Icon(Icons.delete),
+                            //     onPressed: () {
+                            //       showDialog(
+                            //         context: context,
+                            //         builder: (context) {
+                            //           return AlertDialog(
+                            //             title: const Text('Do you want to delete this item?'),
+                            //             actions: <Widget>[
+                            //               TextButton(
+                            //                 onPressed: () {
+                            //                   Navigator.pop(context); // Close the dialog
+                            //                 },
+                            //                 child: const Text('Cancel', style: TextStyle(color: kprimaryColourGreen)),
+                            //               ),
+                            //               TextButton(
+                            //                 onPressed: () {
+                            //                   // Perform the deletion
+                            //                   api_services.deleteToDoList(listItem['id'] as int, accesstokenfinal)
+                            //                       .then((_) {
+                            //                     // After deletion, fetch updated todo list
+                            //                     _fetchToDoList();
+                            //                     Navigator.pop(context); // Close the dialog
+                            //                   })
+                            //                       .catchError((error) {
+                            //                     // Handle error if necessary
+                            //                     print('Error deleting item: $error');
+                            //                   });
+                            //                 },
+                            //                 child: const Text('Delete', style: TextStyle(color: kprimaryColourGreen)),
+                            //               ),
+                            //             ],
+                            //           );
+                            //         },
+                            //       );
+                            //     },
+                            //   ),
+                            //
+                            //
+                            // ),
+
                             ListTile(
-                              title: Text(listItem['title'] ?? ''),
-                              trailing:
-                              // IconButton(
-                              //   icon: const Icon(Icons.delete),
-                              //   onPressed: () {
-                              //     showDialog(
-                              //       context: context,
-                              //       builder: (BuildContext context) {
-                              //         return AlertDialog(
-                              //           title: Text('Delete To-Do List'),
-                              //           content: Text('Do you want to delete this to-do list?'),
-                              //           actions: <Widget>[
-                              //             TextButton(
-                              //               onPressed: () {
-                              //                 Navigator.of(context).pop();
-                              //               },
-                              //               child: Text('No'),
-                              //             ),
-                              //             TextButton(
-                              //               onPressed: () {
-                              //                 api_services.deleteToDoList(listItem['id']as int, accessToken);
-                              //                 _fetchToDoList();
-                              //                 Navigator.pop(context);
-                              //
-                              //               },
-                              //               child: Text('Yes'),
-                              //             ),
-                              //           ],
-                              //         );
-                              //       },
-                              //     );
-                              //
-                              //   },
-                              // ),
-
-
-
-
-
-
-                              IconButton(
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    listItem['title'] ?? '',
+                                    style: TextStyle(
+                                      // Add your text style here if needed
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 4.0), // Add some space between text and line
+                                    height: 2.0,
+                                    width: MediaQuery.of(context).size.width * 0.25, // Adjust the width as needed
+                                    color: Colors.green, // Set the color of the line
+                                  ),
+                                ],
+                              ),
+                              trailing: IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () {
                                   showDialog(
@@ -264,9 +279,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                                   );
                                 },
                               ),
-
-
                             ),
+
                             ListView.builder(
                               shrinkWrap: true,
                               itemCount: tasks.length,

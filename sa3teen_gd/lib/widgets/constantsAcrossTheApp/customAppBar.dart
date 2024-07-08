@@ -106,6 +106,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
+import 'package:gp_screen/Pages/More_page/profile_screen.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
@@ -141,33 +142,29 @@ class CustomAppBar extends StatelessWidget {
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
           Spacer(),
-          GestureDetector(
-            onTap: () {
-              // Action when search icon is tapped
-            },
-            child: Container(
-              height: 27,
-              width: 27,
-              color: kprimaryColourGreen,
-              child: const Center(
-                child: Icon(Icons.search, color: Colors.white),
-              ),
-            ),
-          ),
           SizedBox(width: 10), // Spacer equivalent
           GestureDetector(
             onTap: () {
-              // Action when menu icon is tapped
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) {
+                    return ProfileScreen(); // Return the ChatScreen widget here
+                  },
+                ),
+              );
             },
             child: Container(
               height: 27,
               width: 27,
               color: kprimaryColourGreen,
               child: const Center(
-                child: Icon(Icons.menu, color: Colors.white),
+                child: Image(
+                  image: AssetImage('lib/assets/icons/profileicon.png'), // Update the path to your image
+                ),
               ),
             ),
           ),
+
         ],
       ),
     );

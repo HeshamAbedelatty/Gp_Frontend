@@ -67,7 +67,7 @@ class BottomNavBar extends StatelessWidget {
                     );
                   },
                   icon: Image.asset(
-                    'lib/assets/icons/chat-bot.png', // Replace with your chat icon asset
+                    'lib/assets/icons/chatbot.png', // Replace with your chat icon asset
                     width: 30,
                     height: 30,
                     fit: BoxFit.contain,
@@ -106,7 +106,7 @@ class BottomNavBar extends StatelessWidget {
                     );
                   },
                   icon: Image.asset(
-                    'lib/assets/icons/group (1).png', // Replace with your group icon asset
+                    'lib/assets/icons/pngwing.com2.png', // Replace with your group icon asset
                     width: 30,
                     height: 30,
                     fit: BoxFit.contain,
@@ -129,7 +129,7 @@ class BottomNavBar extends StatelessWidget {
                     );
                   },
                   icon: Image.asset(
-                    'lib/assets/icons/notification (1).png', // Replace with your notification icon asset
+                    'lib/assets/icons/pngwing.com (6).png', // Replace with your notification icon asset
                     width: 30,
                     height: 30,
                     fit: BoxFit.contain,
@@ -152,7 +152,7 @@ class BottomNavBar extends StatelessWidget {
                     );
                   },
                   icon: Image.asset(
-                    'lib/assets/icons/application.png', // Replace with your profile icon asset
+                    'lib/assets/icons/profileicon.png', // Replace with your profile icon asset
                     width: 30,
                     height: 30,
                     fit: BoxFit.contain,

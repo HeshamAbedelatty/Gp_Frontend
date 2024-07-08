@@ -20,6 +20,7 @@ class Api_services extends ChangeNotifier {
   List<Map<String, dynamic>> listScheduledetails = [];
 
   List<Map<String, dynamic>> get todoList => _todoList;
+
 // Helper function to convert TimeOfDay to string
 
   static final Map<String, String> headers = {
@@ -55,14 +56,12 @@ class Api_services extends ChangeNotifier {
   }
 
   // dont forget to change the post in line 44 to get and change the provided error cases
-  static Future<http.Response?> getRequest(
-    String apiUrl,
-    Map<String, String> headers,
-  ) async {
+  static Future<http.Response?> getRequest(String apiUrl,
+      Map<String, String> headers,) async {
     final res = await http
         .get(Uri.parse(baseUrl + apiUrl), headers: headers
-            // , body: jsonEncode(body)
-            )
+      // , body: jsonEncode(body)
+    )
         .then((value) {
       print(value.statusCode);
       print(value.body);
@@ -74,8 +73,8 @@ class Api_services extends ChangeNotifier {
     return res;
   }
 
-  static Future<http.Response?> deleteRequest(
-      String apiUrl, Map<String, String> headers) async {
+  static Future<http.Response?> deleteRequest(String apiUrl,
+      Map<String, String> headers) async {
     try {
       final response = await http.delete(
         Uri.parse(baseUrl + apiUrl),
@@ -156,8 +155,7 @@ class Api_services extends ChangeNotifier {
   }
 
   //post methood
-  static sginup(
-      String firstName,
+  static sginup(String firstName,
       String lastName,
       String userName,
       String email,
@@ -221,7 +219,8 @@ class Api_services extends ChangeNotifier {
       } else {
         // Todo list creation failed
         print(
-            'Create To Do List failed with status code: ${response!.statusCode}');
+            'Create To Do List failed with status code: ${response!
+                .statusCode}');
         return false;
       }
     } catch (error) {
@@ -292,8 +291,8 @@ class Api_services extends ChangeNotifier {
     }
   }
 
-  Future<List<Map<String, dynamic>>> deleteToDoList(
-      int id, String accessToken) async {
+  Future<List<Map<String, dynamic>>> deleteToDoList(int id,
+      String accessToken) async {
     try {
       Map<String, String> headers = {
         'Authorization': 'Bearer $accessToken',
@@ -304,7 +303,8 @@ class Api_services extends ChangeNotifier {
       var response = await deleteRequest(api, headers);
 
       if (response != null &&
-          (response.statusCode == 200 || response.statusCode == 201||response.statusCode == 204)) {
+          (response.statusCode == 200 || response.statusCode == 201 ||
+              response.statusCode == 204)) {
         // Successfully deleted, parse JSON response if needed
         List<dynamic> jsonData = jsonDecode(response.body);
         // Handle response as needed
@@ -323,9 +323,8 @@ class Api_services extends ChangeNotifier {
   }
 
 
-
-  Future<List<Map<String, dynamic>>> deleteTask(
-      String listId, String taskId, String accessToken) async {
+  Future<List<Map<String, dynamic>>> deleteTask(String listId, String taskId,
+      String accessToken) async {
     try {
       Map<String, String> headers = {
         'Authorization': 'Bearer $accessToken',
@@ -335,7 +334,8 @@ class Api_services extends ChangeNotifier {
       var response = await deleteRequest(api, headers);
 
       if (response != null &&
-          (response.statusCode == 200 || response.statusCode == 201||response.statusCode == 204)) {
+          (response.statusCode == 200 || response.statusCode == 201 ||
+              response.statusCode == 204)) {
         // Print the response body to understand its structure
         print('Response body: ${response.body}');
 
@@ -366,8 +366,7 @@ class Api_services extends ChangeNotifier {
     }
   }
 
-  static Future<bool> updateTask(
-      int todoListid,
+  static Future<bool> updateTask(int todoListid,
       int taskId,
       String title,
       String? dueDate,
@@ -407,7 +406,6 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
-
 
 
   static Future<bool> createTask(int todoListid, String title, String? priority,
@@ -450,7 +448,8 @@ class Api_services extends ChangeNotifier {
     }
   }
 
-  static Future<bool> updateTaskStatus(int todoListid, int taskId, bool status, String accessToken) async {
+  static Future<bool> updateTaskStatus(int todoListid, int taskId, bool status,
+      String accessToken) async {
     try {
       // Define your headers including the access token
       Map<String, String> headers = {
@@ -468,13 +467,15 @@ class Api_services extends ChangeNotifier {
       var response = await patchRequest(api, headers, body);
 
       // Check the response status code
-      if (response != null && (response.statusCode == 200 || response.statusCode == 204)) {
+      if (response != null &&
+          (response.statusCode == 200 || response.statusCode == 204)) {
         // Status update successful
         print('Update Task Status successful');
         return true;
       } else {
         // Status update failed
-        print('Update Task Status failed with status code: ${response!.statusCode}');
+        print('Update Task Status failed with status code: ${response!
+            .statusCode}');
         return false;
       }
     } catch (error) {
@@ -483,7 +484,9 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
-  static Future<bool> updateTaskPriority(int todoListid, int taskId, String priority, String accessToken) async {
+
+  static Future<bool> updateTaskPriority(int todoListid, int taskId,
+      String priority, String accessToken) async {
     try {
       // Define your headers including the access token
       Map<String, String> headers = {
@@ -501,13 +504,15 @@ class Api_services extends ChangeNotifier {
       var response = await patchRequest(api, headers, body);
 
       // Check the response status code
-      if (response != null && (response.statusCode == 200 || response.statusCode == 204)) {
+      if (response != null &&
+          (response.statusCode == 200 || response.statusCode == 204)) {
         // Status update successful
         print('Update Task Status successful');
         return true;
       } else {
         // Status update failed
-        print('Update Task Status failed with status code: ${response!.statusCode}');
+        print('Update Task Status failed with status code: ${response!
+            .statusCode}');
         return false;
       }
     } catch (error) {
@@ -516,8 +521,8 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
-   Future<bool> addSchedule(
-      String title,
+
+  Future<bool> addSchedule(String title,
       String day,
       TimeOfDay startTime,
       TimeOfDay endTime,
@@ -533,7 +538,8 @@ class Api_services extends ChangeNotifier {
       };
 
       String timeOfDayToString(TimeOfDay time) {
-        return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:00';
+        return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString()
+            .padLeft(2, '0')}:00';
       }
 
       String startTimeStr = timeOfDayToString(startTime);
@@ -543,8 +549,8 @@ class Api_services extends ChangeNotifier {
       Map<String, dynamic> body = {
         'title': title,
         'day': day,
-        'start_time': startTimeStr,  // Use converted string here
-        'end_time': endTimeStr,      // Use converted string here
+        'start_time': startTimeStr, // Use converted string here
+        'end_time': endTimeStr, // Use converted string here
         'description': description,
         'reminder_time': reminderTime,
         'color': color,
@@ -555,16 +561,18 @@ class Api_services extends ChangeNotifier {
       var response = await postRequest(api, headers, body);
 
       // Check the response status code
-      if (response != null && (response.statusCode == 200 || response.statusCode == 201)) {
+      if (response != null &&
+          (response.statusCode == 200 || response.statusCode == 201)) {
         // Status update successful
         print('Add To Schedule successful');
         print(response.body);
-        listScheduledetails.add(jsonDecode( response.body) );
+        listScheduledetails.add(jsonDecode(response.body));
         notifyListeners();
         return true;
       } else {
         // Status update failed
-        print('Add To Schedule failed with status code: ${response!.statusCode}');
+        print(
+            'Add To Schedule failed with status code: ${response!.statusCode}');
 
         return false;
       }
@@ -574,6 +582,7 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
+
   Future<List<Map<String, dynamic>>> listSchedule(String accessToken) async {
     try {
       Map<String, String> headers = {
@@ -584,7 +593,8 @@ class Api_services extends ChangeNotifier {
       var response = await getRequest(api, headers);
       print('Request sent to $api');
 
-      if (response != null && (response.statusCode == 200 || response.statusCode == 201)) {
+      if (response != null &&
+          (response.statusCode == 200 || response.statusCode == 201)) {
         List<dynamic> jsonData = jsonDecode(response.body);
         listScheduledetails.clear();
 
@@ -603,10 +613,9 @@ class Api_services extends ChangeNotifier {
           print('88888888888888888888888888888888888888888');
           print(map);
           print('88888888888888888888888888888888888888888');
-
         }
 
-notifyListeners();
+        notifyListeners();
         print('Schedules returned successfully');
         return listScheduledetails;
       } else {
@@ -620,8 +629,8 @@ notifyListeners();
   }
 
 
-  Future<List<Map<String, dynamic>>> DeleteSlot(
-       int slotid, String accessToken) async {
+  Future<List<Map<String, dynamic>>> DeleteSlot(int slotid,
+      String accessToken) async {
     try {
       Map<String, String> headers = {
         'Authorization': 'Bearer $accessToken',
@@ -629,11 +638,12 @@ notifyListeners();
       };
       String api = 'schedules/$slotid/';
       var response = await deleteRequest(api, headers);
-print('aseeeeebbbbbaaaa333333y')  ;
-print (response!.statusCode);
-print (response.body);
+      print('aseeeeebbbbbaaaa333333y');
+      print(response!.statusCode);
+      print(response.body);
       if (
-          (response.statusCode == 200 || response.statusCode == 201||response.statusCode == 204)) {
+      (response.statusCode == 200 || response.statusCode == 201 ||
+          response.statusCode == 204)) {
         // Print the response body to understand its structure
         print('Response body: ${response.body}');
 
@@ -645,13 +655,15 @@ print (response.body);
 
         print("00000000000000000000000000000");
         print('Schedules Slot removed successfully');
-        print('afteeer if conditionnnnnnnnnnnnnn0000000000000000000011111111111111111')  ;
+        print(
+            'afteeer if conditionnnnnnnnnnnnnn0000000000000000000011111111111111111');
 
         return listScheduledetails;
       }
 
       else {
-        print('elseeee  conditionnnnnnnnnnnnnn0000000000000000000011111111111111111')  ;
+        print(
+            'elseeee  conditionnnnnnnnnnnnnn0000000000000000000011111111111111111');
 
         print('Schedules Slot failed');
         return [];
@@ -663,8 +675,7 @@ print (response.body);
   }
 
 
-   Future<bool> UpdateSlot(
-      int slotid,
+  Future<bool> UpdateSlot(int slotid,
       String title,
       String day,
       String startTime,
@@ -672,8 +683,7 @@ print (response.body);
       String? description,
       int? reminderTime,
       String color,
-      String accessToken,
-      ) async {
+      String accessToken,) async {
     try {
       // Define your headers including the access token
       Map<String, String> headers = {
@@ -721,10 +731,35 @@ print (response.body);
       return false;
     }
   }
+
+  Future<bool> forgetpassword(String email) async {
+    try {
+
+      String api = 'reset/password-reset/';
+
+
+
+
+      final response = await postRequest(api, headers, {
+        'email': email.trim(),
+      });
+
+      if (response != null &&
+          (response.statusCode == 200 || response.statusCode == 201)) {
+        // Login successful
+        print('Forget password successful');
+        return true;
+      } else {
+        // Login failed
+        print('Forget password failed');
+        return false;
+      }
+    } catch (error) {
+      // Exception occurred during login request
+      print('Error during forget password: $error');
+      return false;
+    }
   }
 
 
-
-
-
-
+}
