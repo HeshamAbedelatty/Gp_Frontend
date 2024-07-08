@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_declarations, unused_element
 
 import 'dart:io';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class PostProvider with ChangeNotifier {
     if (image != null) {
       request.files.add(await http.MultipartFile.fromPath('image', image.path));
     }
-    request.headers['Authorization'] = 'Bearer $accessToken';
+    request.headers['Authorization'] = 'Bearer $accesstokenfinal';
 
     try {
       final streamedResponse = await request.send();
@@ -68,7 +69,7 @@ class PostProvider with ChangeNotifier {
     final response = await http.delete(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer $accessToken',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
     );
 
@@ -91,7 +92,7 @@ class PostProvider with ChangeNotifier {
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,
@@ -104,7 +105,7 @@ class PostProvider with ChangeNotifier {
       if (postIndex != -1) {
         _posts[postIndex] = updatedPost;
         await ApiService().getPosts(groupId,
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
+            accesstokenfinal);
         notifyListeners();
         // notifyListeners();
       }
@@ -115,14 +116,14 @@ class PostProvider with ChangeNotifier {
 
   Future<void> likePost(context, String ur,int id, int groupId) async {
     final url = 'http://10.0.2.2:8000/groups/$groupId/$ur/$id/like/';
-    const accessToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
+    // const accessToken =
+    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
 
     try {
       final response = await http.post(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $accessToken',
+          'Authorization': 'Bearer $accesstokenfinal',
           'Content-Type': 'application/json',
         },
       );
@@ -131,7 +132,7 @@ class PostProvider with ChangeNotifier {
         print(response.statusCode);
         print(response.body);
         await ApiService().getPosts(groupId,
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
+           accesstokenfinal);
         notifyListeners();
       } else {
         print(response.statusCode);
@@ -154,7 +155,7 @@ class PostProvider with ChangeNotifier {
       final response = await http.post(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $accessToken',
+          'Authorization': 'Bearer $accesstokenfinal',
           'Content-Type': 'application/json',
         },
       );
@@ -224,7 +225,7 @@ Future<dynamic?> _sendMessageToBackend(
   }
 
   // Add the access token to the headers
-  request.headers['Authorization'] = 'Bearer $accessToken';
+  request.headers['Authorization'] = 'Bearer $accesstokenfinal';
 
   try {
     var streamedResponse = await request.send();

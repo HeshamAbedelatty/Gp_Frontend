@@ -19,7 +19,7 @@ class CommentsProvider with ChangeNotifier {
         'http://10.0.2.2:8000/groups/$groupId/posts/$postId/comments_replies/';
     final response = await http.get(
       Uri.parse(url),
-      headers: {'Authorization': 'Bearer $token2'},
+      headers: {'Authorization': 'Bearer $accesstokenfinal'},
     );
 
     if (response.statusCode == 200) {
@@ -37,7 +37,7 @@ class CommentsProvider with ChangeNotifier {
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,
@@ -68,7 +68,7 @@ class CommentsProvider with ChangeNotifier {
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,
@@ -100,7 +100,7 @@ print(response.body);
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,
@@ -127,7 +127,7 @@ print(response.body);
     final response = await http.delete(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
     );
     print(response.statusCode);
@@ -162,7 +162,7 @@ print(response.body);
     final response = await http.delete(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
     );
 
@@ -187,7 +187,7 @@ print(response.body);
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,
@@ -252,7 +252,7 @@ print(response.body);
       // },
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
       body: json.encode({
         'description': description,

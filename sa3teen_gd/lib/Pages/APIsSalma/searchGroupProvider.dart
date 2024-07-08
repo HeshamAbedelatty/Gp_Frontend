@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/APIsSalma/ModellistGroups.dart';
+import 'package:gp_screen/Services/API_services.dart';
 
 class GroupProvider with ChangeNotifier {
   List<listGroupsModel> _groups = [];
@@ -15,7 +16,7 @@ class GroupProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      _groups = await _apiService.searchGroupsByTitle(title, accessToken);
+      _groups = await _apiService.searchGroupsByTitle(title, accesstokenfinal);
     } catch (error) {
       print(error);
     } finally {

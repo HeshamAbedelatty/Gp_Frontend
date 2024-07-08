@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 
 //get function from tharwat samy
@@ -41,7 +42,7 @@ Future<void> joinGroup(
 
   final headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer $accessToken',
+    'Authorization': 'Bearer $accesstokenfinal',
   };
 
   Map<String, dynamic> body = {};
@@ -94,7 +95,7 @@ Future<void> unjoinGroup(int groupId, String token) async {
     url,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer $accesstokenfinal',
     },
   );
 

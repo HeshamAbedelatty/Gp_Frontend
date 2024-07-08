@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 import 'package:gp_screen/Pages/APIsSalma/listGroup/getAPIListGroups.dart';
 
@@ -76,7 +77,7 @@ class GroupsProvider with ChangeNotifier {
 
   Future<void> getAllGroups() async {
     Map<String, String> headers = {
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer $accesstokenfinal',
     };
 
     List<dynamic> data = await Api().get(
@@ -92,7 +93,7 @@ class GroupsProvider with ChangeNotifier {
     int id,
   ) async {
     Map<String, String> headers = {
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer $accesstokenfinal',
     };
 
     dynamic data = await Api().anotherget(
@@ -109,7 +110,7 @@ class GroupsProvider with ChangeNotifier {
     var token2 =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
     Map<String, String> headers = {
-      'Authorization': 'Bearer $token2',
+      'Authorization': 'Bearer $accesstokenfinal',
       'Content-Type': 'application/json',
     };
 
@@ -139,7 +140,7 @@ class GroupsProvider with ChangeNotifier {
   final response = await http.delete(
     Uri.parse('http://10.0.2.2:8000/groups/delete_patch/$groupId/'),
     headers: {
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer $accesstokenfinal',
     },
   );
 

@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,15 +33,19 @@ Future<List<GroupUsers>> fetchGroupUsers(int id, String token) async {
   final response = await http.get(
     Uri.parse('http://10.0.2.2:8000/groups/${id}/users/'),
     headers: {
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer $accesstokenfinal',
     },
   );
 
   if (response.statusCode == 200) {
     List<dynamic> data = json.decode(response.body);
+    print(response.statusCode);
+    print(response.body);
 
     return data.map((json) => GroupUsers.fromJson(json)).toList();
   } else {
+       print(response.statusCode);
+    print(response.body);
     throw Exception('Failed to load users');
   }
 }

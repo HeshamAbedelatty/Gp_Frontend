@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/ui/Materials.dart';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -58,7 +59,7 @@ class MaterialsProvider with ChangeNotifier {
     final response = await http.get(
       Uri.parse('http://10.0.2.2:8000/groups/$id/materials/'),
       headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
     );
 
@@ -91,7 +92,7 @@ Future<dynamic?> uploadMat(String title,
   }
 
   // Add the access token to the headers
-  request.headers['Authorization'] = 'Bearer $accessToken';
+  request.headers['Authorization'] = 'Bearer $accesstokenfinal';
 
   try {
     var streamedResponse = await request.send();
@@ -118,7 +119,7 @@ Future<dynamic?> uploadMat(String title,
     final response = await http.delete(
       Uri.parse('http://10.0.2.2:8000/groups/$groupId/materials/delete/$materialId/'),
       headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $accesstokenfinal',
       },
     );
 
