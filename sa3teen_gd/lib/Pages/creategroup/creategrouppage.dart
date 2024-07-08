@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
-import 'package:gp_screen/Pages/groups/listofMyGroupsPage_recommendation/modelnewpro.dart';
+import 'package:gp_screen/Pages/groups/listofMyGroupsPage_recommendation/ListGroupsModelwithAPIs.dart';
 import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:http/http.dart' as http;

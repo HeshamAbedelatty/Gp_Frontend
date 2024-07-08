@@ -1,11 +1,12 @@
+// ignore_for_file: camel_case_types, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, avoid_print, non_constant_identifier_names, avoid_types_as_parameter_names
+
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/APIsSalma/MyGroups/GroupListProvider.dart';
-import 'package:gp_screen/Pages/APIsSalma/listGroup/getAPIListGroups.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
 import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/Finalgroupinside.dart';
 import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
-import 'package:gp_screen/Pages/groups/listofMyGroupsPage_recommendation/modelnewpro.dart';
+import 'package:gp_screen/Pages/groups/listofMyGroupsPage_recommendation/ListGroupsModelwithAPIs.dart';
 import 'package:gp_screen/Pages/groups/search/searchUiGroups.dart';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -42,9 +43,9 @@ class _listallgroupsState extends State<listallgroups> {
             .fetchAllGroups(widget.url, widget.accessToken),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Failed to Load Groups!'));
+            return const Center(child: Text('Failed to Load Groups!'));
           } else {
             return Consumer<ListGroupsProvider>(
               builder: (ctx, ListGroupsProvider, _) {
@@ -56,7 +57,7 @@ class _listallgroupsState extends State<listallgroups> {
                         children: [
                           Text(
                             widget.pageName,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           const Spacer(
@@ -69,8 +70,7 @@ class _listallgroupsState extends State<listallgroups> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => SearchScreen(
-                                        accessToken:
-                                            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+                                        accessToken: accesstokenfinal),
                                   ),
                                 );
                               },
@@ -93,8 +93,7 @@ class _listallgroupsState extends State<listallgroups> {
                                 MaterialPageRoute(
                                   builder: (context) => GroupDetailPage(
                                       groupId: group.id,
-                                      accessToken:
-                                          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
+                                      accessToken: accesstokenfinal),
                                 ),
                               );
                             },
@@ -182,9 +181,9 @@ class _listallgroupsState extends State<listallgroups> {
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () {
-                                                            // Navigator.of(
-                                                            //         context)
-                                                            //     .pop();
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
                                                           },
                                                           child: const Text(
                                                               'Cancel'),
@@ -195,27 +194,22 @@ class _listallgroupsState extends State<listallgroups> {
                                                             backgroundColor:
                                                                 kprimaryColourGreen,
                                                           ),
-                                                          onPressed: () async{
-                                                            // Navigator.of(
-                                                            //         context)
-                                                            //     .pop();
-                                                               
-                                                                // Provider.of<ListGroupsProvider>(context, listen: false)
-        // .joinGroup(group.id, widget.accessToken, _passwordController
-                                                                  // .text,);
-                                                            // joinGroup(
-                                                            //   group.id,
-                                                            //   widget
-                                                            //       .accessToken,
-                                                            //   // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
-                                                            //   _passwordController
-                                                            //       .text,
-                                                            // );
-                                                             await ListGroupsProvider.joinGroup(widget.url,
-                                      group.id,widget.accessToken,_passwordController.text);
-                                                             await ListGroupsProvider.fetchAllGroups(
-                                      widget.url,widget.accessToken,);
-                                                            
+                                                          onPressed: () async {
+                                                            await ListGroupsProvider
+                                                                .joinGroup(
+                                                                    widget.url,
+                                                                    group.id,
+                                                                    widget
+                                                                        .accessToken,
+                                                                    _passwordController
+                                                                        .text);
+                                                            await ListGroupsProvider
+                                                                .fetchAllGroups(
+                                                              widget.url,
+                                                              widget
+                                                                  .accessToken,
+                                                            );
+
                                                             //                                                 getAllGroups()
                                                             // .getAllGroupsList_recommendation(widget.url, widget.accessToken);
                                                           },
@@ -231,18 +225,16 @@ class _listallgroupsState extends State<listallgroups> {
                                                   },
                                                 );
                                               } else {
-                                                   ListGroupsProvider.joinGroup(widget.url,
-                                      group.id,widget.accessToken,_passwordController.text);
-                                                              ListGroupsProvider.fetchAllGroups(
-                                      widget.url,widget.accessToken,);
-                                                // joinGroup(
-                                                //   group.id,
-                                                //   widget.accessToken,
-                                                //   // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
-                                                //   null,
-                                                // );
-                                                //                                     getAllGroups()
-                                                // .getAllGroupsList_recommendation(widget.url, widget.accessToken);
+                                                ListGroupsProvider.joinGroup(
+                                                    widget.url,
+                                                    group.id,
+                                                    widget.accessToken,
+                                                    _passwordController.text);
+                                                ListGroupsProvider
+                                                    .fetchAllGroups(
+                                                  widget.url,
+                                                  widget.accessToken,
+                                                );
                                               }
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -288,16 +280,18 @@ class _listallgroupsState extends State<listallgroups> {
                                                         onPressed: () {
                                                           Navigator.of(context)
                                                               .pop();
-                                                              ListGroupsProvider.unjoinGroup(widget.url,
-                                      group.id,widget.accessToken,);
-                                                          // unjoinGroup(group.id,
-                                                          //     widget.accessToken
-                                                          //     // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw',
-                                                          //     );
-                                                               ListGroupsProvider.fetchAllGroups(
-                                      widget.url,widget.accessToken,);
-                                                          //                                               getAllGroups()
-                                                          // .getAllGroupsList_recommendation(widget.url, widget.accessToken);
+                                                          ListGroupsProvider
+                                                              .unjoinGroup(
+                                                            widget.url,
+                                                            group.id,
+                                                            widget.accessToken,
+                                                          );
+
+                                                          ListGroupsProvider
+                                                              .fetchAllGroups(
+                                                            widget.url,
+                                                            widget.accessToken,
+                                                          );
                                                         },
                                                         child: const Text(
                                                           'UnJoin',
@@ -327,12 +321,6 @@ class _listallgroupsState extends State<listallgroups> {
                               ),
                             ),
                           );
-
-                          // return ListTile(
-                          //   // leading: Image.network(groups.image),
-                          //   title: Text(groups.title),
-                          //   subtitle: Text(groups.description),
-                          // );
                         },
                       ),
                     ),
@@ -356,56 +344,3 @@ class _listallgroupsState extends State<listallgroups> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'group_provider.dart';
-
-// class UserGroupsScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('User Joined Groups'),
-//       ),
-//       body: FutureBuilder(
-//         future: Provider.of<MyGroupProvider>(context, listen: false).fetchUserGroups('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'),
-//         builder: (ctx, snapshot) {
-//           if (snapshot.connectionState == ConnectionState.waiting) {
-//             return Center(child: CircularProgressIndicator());
-//           } else if (snapshot.hasError) {
-//             return Center(child: Text('An error occurred!'));
-//           } else {
-//             return Consumer<MyGroupProvider>(
-//               builder: (ctx, groupProvider, _) {
-//                 return ListView.builder(
-//                   itemCount: groupProvider.userGroups.length,
-//                   itemBuilder: (ctx, index) {
-//                     final userGroup = groupProvider.userGroups[index];
-//                     return ListTile(
-//                       leading: Image.network(userGroup.group.image!),
-//                       title: Text(userGroup.group.title),
-//                       subtitle: Text(userGroup.group.description),
-//                     );
-//                   },
-//                 );
-//               },
-//             );
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }

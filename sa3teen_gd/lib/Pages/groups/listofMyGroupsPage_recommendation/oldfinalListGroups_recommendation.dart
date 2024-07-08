@@ -12,7 +12,7 @@ import 'package:gp_screen/Pages/groups/myGroupsPage/UserGroupsScreen.dart';
 import 'package:gp_screen/Pages/APIsSalma/posts/PostProviderrrrr.dart';
 import 'package:gp_screen/Pages/groups/search/searchUiGroups.dart';
 import 'package:gp_screen/Pages/APIsSalma/searchGroupProvider.dart';
-import 'package:gp_screen/Pages/APIsSalma/ModellistGroups.dart';
+import 'package:gp_screen/Pages/APIsSalma/listGroup/ModellistGroups.dart';
 import 'package:gp_screen/Pages/APIsSalma/listGroup/getAPIListGroups.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 import 'package:provider/provider.dart';

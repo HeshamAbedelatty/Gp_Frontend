@@ -4,12 +4,11 @@ import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/RoundedButtonFor
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/GroupPostAndCommentPage/oldVersions/lastSucssesBeforeGroups/Models/PostAndCommentModel.dart';
 import 'package:gp_screen/Pages/groups/Materialsscreen/Materials.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/CreatePostScreen.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/newwwbgddd/uiiiGroupDetailsPage.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/post/CreatePostScreen.dart';
+import 'package:gp_screen/Pages/groups/postAndComments/post/postDetailsPageuiFinal.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/membersCircle.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/usersInGroupsPage.dart';
 import 'package:gp_screen/Pages/groups/apis/GroupsAPI.dart';
-import 'package:gp_screen/Pages/groups/postAndComments/postsComments.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
 
 class GroupDetailPage extends StatefulWidget {

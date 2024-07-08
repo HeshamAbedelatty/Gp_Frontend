@@ -275,7 +275,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
             print(_titleController.text);
             if (selectedDate != null && _titleController.text.isNotEmpty) {
               if (widget.task.id != null) {
-                await Provider.of<Api_services>(context, listen: false)
+                await Api_services
                     .UpdateSlot(
                   widget.task.id as int,
                   _titleController.text,
@@ -291,7 +291,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                   widget.task.startTime != null &&
                   widget.task.endTime != null &&
                   _taskColor != null) {
-                await Provider.of<Api_services>(context, listen: false)
+                await Api_services
                     .addSchedule(
                   _titleController.text,
                   _selectedDay,

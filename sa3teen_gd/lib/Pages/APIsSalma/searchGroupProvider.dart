@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/APIsSalma/ModellistGroups.dart';
+import 'package:gp_screen/Pages/APIsSalma/listGroup/ModellistGroups.dart';
 import 'package:gp_screen/Services/API_services.dart';
 
 class GroupProvider with ChangeNotifier {

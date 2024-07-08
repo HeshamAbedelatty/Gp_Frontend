@@ -236,7 +236,7 @@ class _AddTaskScreenState extends State<_AddTaskScreen> {
             final selectedDate = _getDateFromDay(_selectedDay);
             if (selectedDate != null && _taskTitle.isNotEmpty) {
 
-              providerprocess.addSchedule(
+              Api_services.addSchedule(
                 _taskTitle,
                 _selectedDay,
                 _startTime,

@@ -4,8 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 
+// env\Scripts\activate
+// cd GP_Backend
+// python manage.py runserver
 
-late String accessToken ;
+// {
+// "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0OTkzMTg2OSwiaWF0IjoxNzE5MTczNDY5LCJqdGkiOiJhN2Q3N2JjMmRhODE0ZWZkYTIxYjViYjg2NjI5YzUwMiIsInVzZXJfaWQiOjV9.47XMWred7VuxlzmkUZXGdoJJ0wulVs5lC8UcRcXRusA",
+// "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY5NDY5LCJpYXQiOjE3MTkxNzM0NjksImp0aSI6ImIwZWVjYWYzOWU1ZTQ5ZDg5NzdkZWI4YTc3ZmJhZGQ1IiwidXNlcl9pZCI6NX0.cW0i3nHgTjknJgXPr8UIgxNd1DKkLWkipJlDgPWRkNo",
+// "is_active": true
+// }
+String accessToken = '';
+String accesstokenfinal=
+   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNjg0MDk2LCJpYXQiOjE3MjAzODgwOTYsImp0aSI6IjIyMTE2MWZjZGI0ODQwZmU5YTE2NTEyMTI4ZWQ2YTZiIiwidXNlcl9pZCI6MjJ9.inlHVejYMF8YE-_TZYOJtOTiKYwpgq5uP-xhqPub1ws";
 
 // class Api_services {
 class Api_services extends ChangeNotifier {
@@ -512,7 +522,7 @@ class Api_services extends ChangeNotifier {
       return false;
     }
   }
-   Future<bool> addSchedule(
+  static Future<bool> addSchedule(
       String title,
       String day,
       TimeOfDay startTime,
@@ -554,14 +564,10 @@ class Api_services extends ChangeNotifier {
       if (response != null && (response.statusCode == 200 || response.statusCode == 201)) {
         // Status update successful
         print('Add To Schedule successful');
-        print(response.body);
-        listScheduledetails.add(jsonDecode( response.body) );
-        notifyListeners();
         return true;
       } else {
         // Status update failed
         print('Add To Schedule failed with status code: ${response!.statusCode}');
-
         return false;
       }
     } catch (error) {
@@ -582,7 +588,6 @@ class Api_services extends ChangeNotifier {
 
       if (response != null && (response.statusCode == 200 || response.statusCode == 201)) {
         List<dynamic> jsonData = jsonDecode(response.body);
-        listScheduledetails.clear();
 
         for (dynamic map in jsonData) {
           listScheduledetails.add({
@@ -596,13 +601,8 @@ class Api_services extends ChangeNotifier {
             'color': map['color'],
             'user': map['user'],
           });
-          print('88888888888888888888888888888888888888888');
-          print(map);
-          print('88888888888888888888888888888888888888888');
-
         }
 
-notifyListeners();
         print('Schedules returned successfully');
         return listScheduledetails;
       } else {
@@ -625,30 +625,30 @@ notifyListeners();
       };
       String api = 'schedules/$slotid/';
       var response = await deleteRequest(api, headers);
-print('aseeeeebbbbbaaaa333333y')  ;
-print (response!.statusCode);
-print (response.body);
-      if (
+
+      if (response != null &&
           (response.statusCode == 200 || response.statusCode == 201||response.statusCode == 204)) {
         // Print the response body to understand its structure
         print('Response body: ${response.body}');
 
         // Parse JSON response body
+        List<dynamic> jsonData = jsonDecode(response.body);
+        print('Decoded JSON data: $jsonData');
 
-        listScheduledetails.removeWhere((task) => task['id'] == slotid);
-        notifyListeners();
         // Remove the task from _todoList by matching the task ID
+        jsonData.forEach((map) {
+          if (map is Map<String, dynamic>) {
+            listScheduledetails.removeWhere((task) => task['id'] == map['id']);
+          } else {
+            print('Unexpected item in jsonData: $map');
+          }
+        });
 
+        print(_todoList);
         print("00000000000000000000000000000");
         print('Schedules Slot removed successfully');
-        print('afteeer if conditionnnnnnnnnnnnnn0000000000000000000011111111111111111')  ;
-
         return listScheduledetails;
-      }
-
-      else {
-        print('elseeee  conditionnnnnnnnnnnnnn0000000000000000000011111111111111111')  ;
-
+      } else {
         print('Schedules Slot failed');
         return [];
       }
@@ -659,7 +659,7 @@ print (response.body);
   }
 
 
-   Future<bool> UpdateSlot(
+  static Future<bool> UpdateSlot(
       int slotid,
       String title,
       String day,
@@ -687,15 +687,8 @@ print (response.body);
         'reminder_time': reminderTime,
         'color': color,
       };
-      for (var i = 0; i < listScheduledetails.length; i++) {
-        if (listScheduledetails[i]['id'] == slotid) {
-          listScheduledetails[i] = body;
-          listScheduledetails[i]['id'] = slotid;
-          notifyListeners();
-        }
-      }
 
-      // Make the PUT requestF
+      // Make the PUT request
       String api = 'schedules/$slotid/';
       var response = await putRequest(api, headers, body);
 
@@ -704,7 +697,6 @@ print (response.body);
           (response.statusCode == 200 || response.statusCode == 201)) {
         // Slot update successful
         print('Update Slot successful');
-
         return true;
       } else {
         // Slot update failed
