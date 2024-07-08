@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, avoid_print
 import 'package:flutter/material.dart';
-import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
+import 'package:gp_screen/Pages/tabbars/tabBar.dart';
+// import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
+// import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:provider/provider.dart';
 import 'package:gp_screen/Pages/APIsSalma/GroupsAPIfinal.dart';
 

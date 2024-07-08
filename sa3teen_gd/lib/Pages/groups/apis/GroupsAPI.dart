@@ -1,4 +1,3 @@
-// import 'package:gp_screen/Pages/listofMyGroupsPage/getAPI.dart';
 import 'package:gp_screen/Pages/APIsSalma/listGroup/getAPIListGroups.dart';
 import 'package:gp_screen/Services/API_services.dart';
 
@@ -91,7 +90,7 @@ class GroupService {
     };
 
     dynamic data = await Api().anotherget(
-      url: '$finalurlforall/groups/$id/',
+      url: 'http://10.0.2.2:8000/groups/$id/',
       headers: headers,
     );
 

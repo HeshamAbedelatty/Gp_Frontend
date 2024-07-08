@@ -2,10 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/groups/Widgets/RoundedButtonForGroups.dart';
-import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
+// import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/EditGroupScreenfinal.dart';
+import 'package:gp_screen/Pages/groups/listofMyGroupsPage_recommendation/ListGroupsModelwithAPIs.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/post/postDetailsPageuiFinal.dart';
 import 'package:gp_screen/Pages/groups/usersinGroups/membersCirclesui.dart';
+import 'package:gp_screen/Pages/tabbars/tabBar.dart';
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:provider/provider.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/post/CreatePostScreen.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
@@ -166,7 +169,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                 children: [
                                   RoundedButton(
                                     height: 40,
-                                    width: 110,
+                                    width: 115,
                                     colory: kprimaryColourGreen,
                                     buttonText: 'Description',
                                     onPressed: () {
@@ -227,8 +230,11 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                                               listen: false)
                                           .deleteGroup(context, group.id,
                                               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU');
+                                    
                                       if (isDeleted) {
                                         Navigator.pop(context);
+                                         Provider.of<ListGroupsProvider>(context, listen: false)
+        .fetchAllGroups('groups/list_groups/', accesstokenfinal);
                                       } else {
                                         // Handle failure
                                         ScaffoldMessenger.of(context)

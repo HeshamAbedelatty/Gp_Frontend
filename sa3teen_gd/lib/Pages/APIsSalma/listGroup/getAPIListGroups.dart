@@ -12,9 +12,13 @@ class Api {
       {required String url, Map<String, String>? headers}) async {
     var response = await http.get(Uri.parse(url), headers: headers);
     print(response.statusCode);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200) {  print(response.statusCode);
+      print(response.body);
       return jsonDecode(response.body);
     } else {
+
+      print(response.statusCode);
+      print(response.body);
       throw Exception('Failed to load data');
     }
   }

@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/APIsSalma/CommentsProvider.dart';
 import 'package:gp_screen/Pages/APIsSalma/posts/PostProviderrrrr.dart';
-import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
+// import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
+import 'package:gp_screen/Pages/tabbars/tabBar.dart';
+
 import 'package:gp_screen/Pages/groups/postAndComments/comments/Commentmodel.dart';
 import 'package:gp_screen/Pages/groups/Widgets/CommentActionsMenu.dart';
 import 'package:gp_screen/widgets/constantsAcrossTheApp/constants.dart';
