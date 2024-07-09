@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:gp_screen/Services/API_services.dart';
 import 'package:http/http.dart' as http;
 
 import 'profilemodel.dart';
@@ -12,22 +13,26 @@ class ProfileService {
       'Accept': '*/*',
     };
 
-    try {
+    // try {
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:8000/user/'),
+        Uri.parse('$finalurlforall/user/'),
         headers: headers,
       );
 
       if (response.statusCode == 200) {
-        dynamic data = jsonDecode(response.body);
+        dynamic data = jsonDecode(response.body); print(response.statusCode);
+        print(response.body);
         return ProfileModel.fromJson(data);
       } else {
+        print(response.statusCode);
+        print(response.body);
         throw Exception('Failed to load profile');
       }
-    } catch (e) {
-      print('Error fetching profile: $e');
-      throw e;
-    }
+    // } 
+    // catch (e) {
+    //   print('Error fetching profile: $e');
+    //   throw e;
+    // }
   }
 
   Future<void> updateProfile(String accessToken, ProfileModel profile) async {
@@ -39,7 +44,7 @@ class ProfileService {
 
     // try {
       final response = await http.put(
-        Uri.parse('http://10.0.2.2:8000/user/${profile.id}/'),
+        Uri.parse('$finalurlforall/user/${profile.id}/'),
         headers: headers,
         body: jsonEncode(profile.toJson()), // Use toJson method of ProfileModel
       );

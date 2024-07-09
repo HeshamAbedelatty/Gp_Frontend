@@ -79,7 +79,7 @@ class MaterialsProvider with ChangeNotifier {
 
 
 
-Future<dynamic?> uploadMat(String title,
+Future<dynamic?> uploadMat(context,String title,
      File? image,int groupid,  String accessToken) async {
   var uri = Uri.parse('$finalurlforall/groups/$groupid/materials/upload/');
   
@@ -94,7 +94,7 @@ Future<dynamic?> uploadMat(String title,
   // Add the access token to the headers
   request.headers['Authorization'] = 'Bearer $accesstokenfinal';
 
-  try {
+  // try {
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
 
@@ -107,12 +107,15 @@ Future<dynamic?> uploadMat(String title,
       notifyListeners();
       print('Request success with status: ${response.statusCode}');
     } else {
+      
+            _showErrorDialog(context, response.body);
+
       print('Request failed with status: ${response.statusCode}');
       print('Response body: ${response.body}');
     }
-  } catch (e) {
-    print('Error sending message: $e');
-  }
+  // } catch (e) {
+  //   print('Error sending message: $e');
+  // }
   return null;
 }
  Future<void> deleteMaterial(context,int groupId, int materialId, String token) async {

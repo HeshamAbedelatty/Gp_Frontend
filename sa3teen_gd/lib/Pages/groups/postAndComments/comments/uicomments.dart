@@ -28,7 +28,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
   void initState() {
     super.initState();
     Provider.of<CommentsProvider>(context, listen: false)
-        .fetchComments(widget.groupId, widget.postId);
+        .fetchComments(context,widget.groupId, widget.postId);
   }
 
   @override
@@ -98,10 +98,10 @@ class _CommentsScreenState extends State<CommentsScreen> {
                     if (value.isNotEmpty) {
                       await Provider.of<CommentsProvider>(context,
                               listen: false)
-                          .postComment(widget.groupId, widget.postId, value);
+                          .postComment(context,widget.groupId, widget.postId, value);
                       await Provider.of<CommentsProvider>(context,
                               listen: false)
-                          .fetchComments(widget.groupId, widget.postId);
+                          .fetchComments(context,widget.groupId, widget.postId);
                       _commentController.clear();
                     }
                   },
@@ -235,7 +235,7 @@ class _CommentItemState extends State<CommentItem> {
                                           widget.comment.id, widget.groupId);
                                   await Provider.of<CommentsProvider>(context,
                                           listen: false)
-                                      .fetchComments(
+                                      .fetchComments(context,
                                           widget.groupId, widget.postId);
                                   // likePost(post.id, widget.groupId);
                                 },
@@ -256,7 +256,7 @@ class _CommentItemState extends State<CommentItem> {
 
                                   await Provider.of<CommentsProvider>(context,
                                           listen: false)
-                                      .fetchComments(
+                                      .fetchComments(context,
                                           widget.groupId, widget.postId);
                                   // likePost(post.id, widget.groupId);
                                 },
@@ -360,7 +360,7 @@ class _CommentItemState extends State<CommentItem> {
                                           await Provider.of<CommentsProvider>(
                                                   context,
                                                   listen: false)
-                                              .fetchComments(widget.groupId,
+                                              .fetchComments(context,widget.groupId,
                                                   widget.postId);
                                           // likePost(post.id, widget.groupId);
                                         },
@@ -384,7 +384,7 @@ class _CommentItemState extends State<CommentItem> {
                                           await Provider.of<CommentsProvider>(
                                                   context,
                                                   listen: false)
-                                              .fetchComments(widget.groupId,
+                                              .fetchComments(context,widget.groupId,
                                                   widget.postId);
                                           // likePost(post.id, widget.groupId);
                                         },
@@ -422,7 +422,7 @@ class _CommentItemState extends State<CommentItem> {
                       if (value.isNotEmpty) {
                         await Provider.of<CommentsProvider>(context,
                                 listen: false)
-                            .postReply(widget.groupId, widget.postId,
+                            .postReply(context,widget.groupId, widget.postId,
                                 widget.comment.id, value);
                         _replyController.clear();
                       }

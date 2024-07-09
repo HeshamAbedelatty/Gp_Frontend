@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     _futureProfile = _profileService.getProfile(
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw'); // Make sure to replace with your actual token or get it dynamically
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIxNzc4Mjk1LCJpYXQiOjE3MjA0ODIyOTUsImp0aSI6IjczMDJlZDg3NGVhNTQyOWY4ZTFlNTIzMzE5ZWZiZGQzIiwidXNlcl9pZCI6Mjd9.t2izweROe6r67NLE-MMJTbQTsrLjruJPhLh41Lo3myg'); // Make sure to replace with your actual token or get it dynamically
   }
 
   @override
@@ -201,9 +201,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const FieldName(text: 'Faculty',),
-                              Text(profile.faculty,
-                                  style: const TextStyle(fontSize: 22)),
+
+                              Text(profile.faculty ?? 'N/A', style: const TextStyle(fontSize: 22)),
+
+                              // const FieldName(text: 'Faculty',),
+                              // Text(profile.faculty,
+                              //     style: const TextStyle(fontSize: 22)),
                             ],
                           ),
                         ],
@@ -218,9 +221,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const FieldName(text: 'Birthday',),
-                              Text(profile.dateOfBirth ?? 'Not provided',
-                                  style: const TextStyle(fontSize: 22)),
+                              Text(profile.dateOfBirth ?? 'Not provided', style: const TextStyle(fontSize: 22)),
+                              // const FieldName(text: 'Birthday',),
+                              // Text(profile.dateOfBirth ?? 'Not provided',
+                                  // style: const TextStyle(fontSize: 22)),
                             ],
                           ),
                         ],

@@ -5,9 +5,9 @@ class User {
   final String email;
   final String username;
   final String phoneNumber;
-  final String faculty;
+  final String? faculty;
   final String? dateOfBirth;
-  String? image;
+  late final String? image;
   final double rate;
 
   User({
@@ -17,7 +17,7 @@ class User {
     required this.email,
     required this.username,
     required this.phoneNumber,
-    required this.faculty,
+     this.faculty,
     this.dateOfBirth,
     this.image,
     required this.rate,

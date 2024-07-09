@@ -206,7 +206,7 @@ class _recomState extends State<recom> {
                                                           onPressed: () async {
                                                             await ListGroupsProvider
                                                                 .joinGroup(
-                                                                    widget.url,
+                                                                 'groups/list_groups/',
                                                                     group.id,
                                                                     widget
                                                                         .accessToken,

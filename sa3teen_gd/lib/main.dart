@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:gp_screen/Pages/audio2%20copy/audioplayerstate.dart';
 import 'package:gp_screen/Pages/loginPage/ThePage/LoginPage.dart';
+import 'package:gp_screen/Pages/profile/library/folder.dart';
 import 'package:gp_screen/Services/API_services.dart';
 import 'package:gp_screen/library.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +45,10 @@ class Sa3teenGd extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+      create: (context) => LibraryModel(),
+      // child: MyApp(),
+    ),
         ChangeNotifierProvider(
           create: (context) => CommentsProvider(accesstokenfinal),
         ),
