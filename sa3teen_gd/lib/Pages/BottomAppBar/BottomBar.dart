@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/More_page/profile_screen.dart';
+import 'package:gp_screen/Pages/profile/library/folder.dart';
 import 'package:gp_screen/pages/chatBotIntegrated/Chat Bot copy 2.dart';
 
 import '../../HomePage.dart';
@@ -146,13 +147,13 @@ class BottomNavBar extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (BuildContext context) {
-                          return  ProfileScreen(); // Return the ChatScreen widget here
+                          return  Library(); // Return the ChatScreen widget here
                         },
                       ),
                     );
                   },
                   icon: Image.asset(
-                    'lib/assets/icons/profileicon.png', // Replace with your profile icon asset
+                    'lib/assets/icons/library.png', // Replace with your profile icon asset
                     width: 30,
                     height: 30,
                     fit: BoxFit.contain,

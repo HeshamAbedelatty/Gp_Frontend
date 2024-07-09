@@ -369,7 +369,7 @@ class _listallgroupsState extends State<listallgroups> {
                           MaterialPageRoute(
                             builder: (context) => listallgroups(
                               url: 'recommend/',
-                              pageName: 'Recommended Groups',
+                              pageName: 'Groups',
                               accessToken: accesstokenfinal,
                             ),
                           ),
