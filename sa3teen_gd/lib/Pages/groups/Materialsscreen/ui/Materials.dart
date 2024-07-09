@@ -47,7 +47,7 @@ class _MaterialsScreenState extends State<MaterialsScreen> {
 
   Future<void> _uploadMaterial() async {
     if (_titleController.text.isNotEmpty && _pickedFile != null) {
-      await Provider.of<MaterialsProvider>(context, listen: false).uploadMat(
+      await Provider.of<MaterialsProvider>(context, listen: false).uploadMat(context,
         _titleController.text,
         _pickedFile,
         widget.groupId,

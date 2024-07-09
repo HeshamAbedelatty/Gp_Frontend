@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/creategroup/creategrouppage.dart';
 import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/Finalgroupinside.dart';
+import 'package:gp_screen/Pages/groups/myGroupsPage/UserGroupsScreen.dart';
 // import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/tabbars/tabBar.dart';
 
@@ -75,11 +76,27 @@ class _listallgroupsState extends State<listallgroups> {
                                         accessToken: accesstokenfinal),
                                   ),
                                 );
+
+                                ListGroupsProvider.fetchAllGroups(
+                                  widget.url,
+                                  widget.accessToken,
+                                );
                               },
                               icon: const Icon(
                                 Icons.search,
                                 color: kprimaryColourcream,
                               )),
+                          ElevatedButton(
+                            // style: ,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => UserGroupsScreen(),
+                                  ),
+                                );
+                              },
+                              child: Text('MyGroups'))
                         ],
                       ),
                     ),
@@ -197,14 +214,13 @@ class _listallgroupsState extends State<listallgroups> {
                                                                 kprimaryColourGreen,
                                                           ),
                                                           onPressed: () async {
-                                                            await ListGroupsProvider
-                                                                .joinGroup(
-                                                                    widget.url,
-                                                                    group.id,
-                                                                    widget
-                                                                        .accessToken,
-                                                                    _passwordController
-                                                                        .text);
+                                                            await ListGroupsProvider.joinGroup(
+                                                                'groups/list_groups/',
+                                                                group.id,
+                                                                widget
+                                                                    .accessToken,
+                                                                _passwordController
+                                                                    .text);
                                                             await ListGroupsProvider
                                                                 .fetchAllGroups(
                                                               widget.url,
@@ -228,7 +244,7 @@ class _listallgroupsState extends State<listallgroups> {
                                                 );
                                               } else {
                                                 ListGroupsProvider.joinGroup(
-                                                    widget.url,
+                                                    'groups/list_groups/',
                                                     group.id,
                                                     widget.accessToken,
                                                     _passwordController.text);
@@ -334,18 +350,99 @@ class _listallgroupsState extends State<listallgroups> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.menu_outlined),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CreateGroupPage()),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Choose an action'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      title: Text('Show Recommended Groups'),
+                      onTap: () {
+                        Navigator.pop(context); // Close the dialog
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => listallgroups(
+                              url: 'recommend/',
+                              pageName: 'Recommended Groups',
+                              accessToken: accesstokenfinal,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: Text('Create New Group'),
+                      onTap: () {
+                        Navigator.pop(context); // Close the dialog
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CreateGroupPage()),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
           );
         },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.add, color: Colors.white),
+
+        // floatingActionButton: FloatingActionButton(onPressed: () {
+        //   AlertDialog(
+        //     title: Text('Choose an action'),
+        //     content: Column(
+        //       mainAxisSize: MainAxisSize.min,
+        //       children: <Widget>[
+        //         ListTile(
+        //           title: Text('Show Recommended Groups'),
+        //           onTap: () {
+        //             Navigator.pop(context); // Close the dialog
+        //             Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (context) => listallgroups(
+        //                   url: 'recommend/',
+        //                   pageName: 'Recommended Groups',
+        //                   accessToken: accesstokenfinal,
+        //                 ),
+        //               ),
+        //             );
+        //           },
+        //         ),
+        //         ListTile(
+        //           title: Text('Create New Group'),
+        //           onTap: () {
+        //             Navigator.pop(context); // Close the dialog
+        //             Navigator.push(
+        //               context,
+        //               MaterialPageRoute(builder: (context) => CreateGroupPage()),
+        //             );
+        //           },
+        //         ),
+        //       ],
+        //     ),
+        //   );
+        // }
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => CreateGroupPage()),
+        //   );
+        // },
+        // backgroundColor: Colors.green,
+        // child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
 }
+// import 'package:flutter/material.dart';
+
 
 // // ignore_for_file: camel_case_types, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, avoid_print, non_constant_identifier_names, avoid_types_as_parameter_names
 

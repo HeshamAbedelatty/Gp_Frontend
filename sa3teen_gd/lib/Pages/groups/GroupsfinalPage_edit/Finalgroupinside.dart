@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_print, use_build_context_synchronously, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:gp_screen/Pages/APIsSalma/posts/ApiServicepostsssss.dart';
 import 'package:gp_screen/Pages/groups/Widgets/RoundedButtonForGroups.dart';
 // import 'package:gp_screen/Pages/groups/Widgets/tabBar.dart';
 import 'package:gp_screen/Pages/groups/GroupsfinalPage_edit/EditGroupScreenfinal.dart';
@@ -293,10 +294,11 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
               builder: (context) => CreatePostScreen(
                 groupId: groupIDd, // Replace with your actual group ID !
                 accessToken:
-                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw', // Replace with your actual access token
-              ),
+accesstokenfinal              ),
             ),
           );
+                   ApiService().getPosts(groupIDd, accesstokenfinal);
+
         },
         backgroundColor: Colors.green,
         child: const Icon(Icons.add, color: Colors.white),

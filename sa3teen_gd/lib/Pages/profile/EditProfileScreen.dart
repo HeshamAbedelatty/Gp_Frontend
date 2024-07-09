@@ -36,7 +36,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _emailController.text = widget.user.email;
     _usernameController.text = widget.user.username;
     _phoneNumberController.text = widget.user.phoneNumber;
-    _facultyController.text = widget.user.faculty;
+    _facultyController.text = widget.user.faculty!;///////////
     _dateOfBirthController.text = widget.user.dateOfBirth ?? '';
     if (widget.user.image != null) {
       _image = File(widget.user.image!);
@@ -223,12 +223,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               TextFormField(
                 controller: _dateOfBirthController,
                 decoration: InputDecoration(labelText: 'Date of Birth'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter date of birth';
-                  }
-                  return null;
-                },
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'Please enter date of birth';
+                //   }
+                //   return null;
+                // },
               ),
             ],
           ),

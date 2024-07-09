@@ -182,6 +182,40 @@ class _PostListState extends State<PostList> {
                               const SizedBox(
                                 width: 5,
                               ),
+                              // IconButton(
+                              //   padding: EdgeInsets.zero,
+                              //   color: post.userHasLiked
+                              //       ? Colors.green
+                              //       : kprimaryColourcream,
+                              //   icon: Icon(
+                              //     post.userHasLiked
+                              //         ? Icons.thumb_up
+                              //         : Icons.thumb_up_off_alt_outlined,
+                              //     color: post.userHasLiked
+                              //         ? Colors.green
+                              //         : kprimaryColourcream,
+                              //   ),
+                              //   onPressed: () async {
+                              //     final postProvider =
+                              //         Provider.of<PostProvider>(context,
+                              //             listen: false);
+                              //     if (post.userHasLiked) {
+                              //       await postProvider.unlikePost(context,
+                              //           'posts', post.id, widget.groupId);
+                              //     } else {
+                              //       await postProvider.likePost(context,
+                              //           'posts', post.id, widget.groupId);
+                              //     }
+                              //     await postProvider.fetchPosts(widget.groupId);
+                              //   },
+                              // ),
+
+
+
+
+
+
+
                               if (!post.userHasLiked)
                                 IconButton(
                                   padding: EdgeInsets.zero,
@@ -220,6 +254,42 @@ class _PostListState extends State<PostList> {
                                     // likePost(post.id, widget.groupId);
                                   },
                                 ),
+                              // if (post.userHasLiked)
+                              //   IconButton(
+                              //     padding: EdgeInsets.zero,
+                              //     color:
+                              //         Colors.green, // Use your preferred color
+                              //     icon: const Icon(Icons.thumb_up),
+                              //     onPressed: () async {
+                              //       print(post.userHasLiked);
+                              //       await Provider.of<PostProvider>(context,
+                              //               listen: false)
+                              //           .unlikePost(context, 'posts', post.id,
+                              //               widget.groupId);
+                              //       Provider.of<PostProvider>(context,
+                              //               listen: false)
+                              //           .fetchPosts(widget.groupId);print(post.userHasLiked);
+                              //     },
+                              //   ),
+                              // if (!post.userHasLiked)
+                              //   IconButton(
+                              //     padding: EdgeInsets.zero,
+                              //     color:
+                              //         kprimaryColourcream, // Use your preferred color
+                              //     icon: const Icon(
+                              //       Icons.thumb_up_off_alt_outlined,
+                              //       color: kprimaryColourcream,
+                              //     ),
+                              //     onPressed: () async {print(post.userHasLiked);
+                              //       await Provider.of<PostProvider>(context,
+                              //               listen: false)
+                              //           .likePost(context, 'posts', post.id,
+                              //               widget.groupId);
+                              //       Provider.of<PostProvider>(context,
+                              //               listen: false)
+                              //           .fetchPosts(widget.groupId);print(post.userHasLiked);
+                              //     },
+                              //   ),
                               Text('${post.likes} likes'),
                               const Spacer(
                                 flex: 1,

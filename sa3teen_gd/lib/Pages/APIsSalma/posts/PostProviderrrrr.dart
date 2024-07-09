@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gp_screen/Pages/APIsSalma/posts/ApiServicepostsssss.dart';
 import 'package:gp_screen/Pages/groups/postAndComments/post/PostModel.dart';
+import 'package:provider/provider.dart';
 
 class PostProvider with ChangeNotifier {
   List<Post> _posts = [];
@@ -48,8 +49,11 @@ class PostProvider with ChangeNotifier {
       if (response.statusCode == 201) {
         final newPost = Post.fromJson(jsonDecode(response.body));
         _posts.add(newPost);
-        await ApiService().getPosts(groupId,
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
+        // PostProvider
+        // .fetchPosts(groupId);
+        PostProvider().fetchPosts(groupId);
+        
+        await ApiService().getPosts(groupId, accesstokenfinal);
         notifyListeners();
       } else {
         print('Failed to create post');
@@ -87,7 +91,7 @@ class PostProvider with ChangeNotifier {
       BuildContext context, int groupId, int postId, String description) async {
     final url = '$finalurlforall/groups/$groupId/posts/$postId/';
     final accessToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
+        accesstokenfinal;
     final response = await http.patch(
       Uri.parse(url),
       headers: {
@@ -105,7 +109,7 @@ class PostProvider with ChangeNotifier {
       if (postIndex != -1) {
         _posts[postIndex] = updatedPost;
         await ApiService().getPosts(groupId,
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
+           accesstokenfinal);
         notifyListeners();
         // notifyListeners();
       }
@@ -114,10 +118,10 @@ class PostProvider with ChangeNotifier {
     }
   }
 
-  Future<void> likePost(context, String ur,int id, int groupId) async {
+  Future<void> likePost(context, String ur, int id, int groupId) async {
     final url = '$finalurlforall/groups/$groupId/$ur/$id/like/';
     // const accessToken =
-        // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
+    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU'; // Replace with your actual access token
 
     try {
       final response = await http.post(
@@ -132,7 +136,7 @@ class PostProvider with ChangeNotifier {
         print(response.statusCode);
         print(response.body);
         await ApiService().getPosts(groupId,
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwODIzNjc0LCJpYXQiOjE3MTk1Mjc2NzQsImp0aSI6ImRlODZmMmUwM2RiOTRjOGJiOWQ3ZTVlMTZiYTcwYzY3IiwidXNlcl9pZCI6Mn0.ezPy5Xh-ItL9SH3h9REnioVGgn1WKlDtH-y2un_muGU");
+           accesstokenfinal);
         notifyListeners();
       } else {
         print(response.statusCode);
@@ -145,7 +149,7 @@ class PostProvider with ChangeNotifier {
     }
   }
 
-  Future<void> unlikePost(context,String ur, int id, int groupId) async {
+  Future<void> unlikePost(context, String ur, int id, int groupId) async {
     final url = '$finalurlforall/groups/$groupId/$ur/$id/unlike/';
     const accessToken =
         // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwNDY1MjcyLCJpYXQiOjE3MTkxNjkyNzIsImp0aSI6IjljNGRiYzU3MWE4NjRkMmE4MjcyMGFhZjkwMWM3NTRiIiwidXNlcl9pZCI6NX0.OQJa3dfTJq-qYMJYPDziYBrHHYnBcNs9melKysxWyEw';
